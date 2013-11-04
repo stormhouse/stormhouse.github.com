@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/jquery.taskcreate.wizard.css" />
+  <title></title>
+</head>
+<body>
+
+  <div id="wizard"></div>
+
+<input id="next" type="button" value="Next"/>
+<input id="back" type="button" value="Back"/>
+
+  <input id="to" type="button" value="To"/><input id="to-step" type="text" value="3">
+
+
+<div>d</div>
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="js/wizard.js"></script>
+
+<script>
+  $('#wizard').taskcreatewizard();
+  $('#next').click(function(){
+    $('#wizard').taskcreatewizard('next');
+  });
+  $('#back').click(function(){
+    $('#wizard').taskcreatewizard('back');
+  });
+  $('#to').click(function(){
+    $('#wizard').taskcreatewizard('to', $('#to-step').val());
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+.chronoline-wrapper {
+  position: relative;
+}
+
+.chronoline-wrapper * {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.chronoline-canvas {
+  overflow: hidden;
+  position: relative;
+  width: 760px;
+  left: 100px;
+  height: 180;
+}
+
+.chronoline-canvas > svg {
+  position: relative;
+}
+
+.chronoline-wrapper:hover > .chronoline-left,
+.chronoline-wrapper:hover > .chronoline-right {
+  display: block;
+}
+
+.chronoline-left,
+.chronoline-right {
+  /*display: none;*/
+  *display: block;
+  top: 0;
+  position: absolute;
+  margin-top: 120px;
+  width: 100px;
+  opacity: 0.6;
+  /*filter: alpha(opacity=60);*/
+  /*background-color: #bcbcbc;*/
+  cursor: pointer;
+}
+.chronoline-left .prev,
+.chronoline-right .next{
+  width: 29px;
+  height: 29px;
+  border-radius: 20px;
+  display: inline-block;
+  background: #e4e4e4;
+  vertical-align: top;
+  outline: none;
+  font-size: 26px;
+  line-height: 24px;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 15px;
+}
+.chronoline-left .prev{
+
+  /*float: left;*/
+}
+.chronoline-right .next{
+  /*float: right;*/
+  position: absolute;
+  right: 0;
+}
+.chronoline-left .prev:hover,
+.chronoline-right .next:hover{
+  background-color: #e6f1f6;
+}
+/*.chronoline-left:hover,*/
+/*.chronoline-right:hover {*/
+  /*opacity: 1;*/
+  /*filter: alpha(opacity=100);*/
+  /*background-color: #bcbcbc;*/
+/*}*/
+
+.chronoline-left {
+  left: 0;
+}
+
+.chronoline-right {
+  right: 0;
+}
+
+.tooltip-style {
+  font-size: 12px;
+  background-color: #222222;
+  color: #ffffff;
+  border-radius: 2px;
+  max-width: 300px;
+}
+
+.chronoline-draggable {
+  width: 960px;
+  cursor: hand;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.chronoline-draggable.dragging {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.chronoline-draggable .chronoline-canvas .chronoline-event {
+  cursor: default;
+}
+
+.chronoline-wrapper .path-drop{
+  cursor: pointer;
+}
+.chronoline-wrapper .path-drop:hover{
+  opacity: .6;
+}
+
+/* 图例 */
+.chronoline-wrapper .timeline-extend { width: 400px; height: 24px; float: right; position: absolute; right: 0; top: 0; z-index: 150}
+.chronoline-wrapper .timeline-extend .timeline-search { width: 24px; height: 24px; background: url("timeline_search.png") no-repeat center center; float: right;}
+/*.chronoline-wrapper .timeline-extend .timeline-help { width: 24px; height: 24px; background: url("timeline_help.png") no-repeat center 5px; float: right;}*/
+.chronoline-wrapper .timeline-extend .timeline-help-box { width: 24px; height: 22px; padding-right: 24px; border: solid 1px #ede09c; background: #fffdf3; position: absolute; top: 0; right: 24px; display: none; overflow: hidden; border-radius: 20px}
+.chronoline-wrapper .timeline-extend .timeline-help-doc { width: 256px; height: 22px; line-height: 20px; color: #666666; float: left; padding: 0 10px; overflow: hidden; vertical-align: top }
+.chronoline-wrapper .timeline-extend .timeline-help-close { width: 24px; height: 22px; display: block; background: url("timeline_help_close.png") no-repeat center center #FFFCEF; position: absolute; top: 0; right: 0}
+.chronoline-wrapper .timeline-extend .timeline-help-close:hover {background: url("timeline_help_close_hover.png") no-repeat center center #FFFCEF;}
+.chronoline-wrapper .timeline-extend .timeline-help-doc s { width: 8px; height: 8px; display: inline-block; border-radius: 10px; margin-right: 3px}
+.chronoline-wrapper .timeline-extend .timeline-help-doc span { margin-right: 10px}
+.chronoline-wrapper .timeline-extend .timeline-help-doc s.g { background: #acf4bf}
+.chronoline-wrapper .timeline-extend .timeline-help-doc s.r { background: #ffd2b3}
+.chronoline-wrapper .timeline-extend .timeline-help-doc s.b { background: #b3deff}
+
+
+
+/* 控制点 */
+.chronoline-radio{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.chronoline-wrapper .chronoline-radio {
+  width: auto;
+  height: 20px;
+  font-size: 12px;
+  padding-top: 2px
+}
+
+.chronoline-wrapper .chronoline-radio label {
+  width: auto;
+  height: 100%;
+  display: inline-block;
+  margin-right: 15px;
+  color: #666666;
+  cursor: pointer;
+  /**+display: inline;*/
+  /**+zoom:1;*/
+}
+.chronoline-wrapper .chronoline-radio label {
+  display: inline-block;
+  line-height: 20px;
+}
+
+.chronoline-wrapper .chronoline-radio label s {
+  width: 12px;
+  height: 12px;
+  border: #bebdbd 1px solid;
+  border-radius: 20px;
+  display: block;
+  float: left;
+  margin: 3px 3px 0 0
+}
+
+.chronoline-wrapper .chronoline-radio label s {
+  background: #ebeeef;
+  background: -moz-linear-gradient(top, #f2f3f4, #dde1e3);
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f2f3f4), to(#dde1e3));
+}
+
+.chronoline-wrapper .chronoline-radio label b {
+  width: 12px;
+  height: 12px;
+  display: block;
+  font-size: 0;
+  border-radius: 20px
+}
+
+.chronoline-wrapper .chronoline-radio label.chronoline-radio-selected {
+}
+
+.chronoline-wrapper .chronoline-radio label.chronoline-radio-selected s {
+  border-color: #787980;
+  background: #c3d0dd;
+  background: -moz-linear-gradient(top, #d6dfe8, #97abc0);
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#d6dfe8), to(#97abc0));
+  box-shadow: 0 1px 1px #ffffff inset;
+}
+
+.chronoline-wrapper .chronoline-radio label.chronoline-radio-selected s b {
+  width: 4px;
+  height: 4px;
+  /*background: #050608;*/
+  margin: 4px
+}
+.chronoline-wrapper .move-region{
+  background-color: #fff;
+  display: inline-block;
+  position: absolute;
+  top: -45px;
+  width: 70px;
+  height: 80px;
+  font-size: 26px;
+  padding-top: 60px;
+  color: #fff;
+}
+.chronoline-wrapper .move-region-right{
+  text-align: left;
+}
+.chronoline-wrapper .move-region-left{
+  text-align: right;
+}

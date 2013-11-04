@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+</head>
+<body>
+
+<p>禁止this关键字指向全局对象</p>
+<script>
+  function Bar(){
+    "use strict";
+    (function(){
+      console.log(this)
+      //bar
+    }).call(this);
+
+    (function(){
+      console.log(this)
+      //严格模式下undefined, 非严格模式为window
+    })();
+  }
+  var bar = new Bar();
+
+  var funcA = function funcA() {
+    console.log('funcA');
+    funcA();
+  };
+</script>
+</body>
+</html>

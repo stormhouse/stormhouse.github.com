@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <link type="text/css" rel="stylesheet" href="zxx-common.css"/>
+
+  <style>
+    .zxx_exp{display:block; color:#34538b; margin-top:5px; margin-left:4px;}
+    .input_align_1{vertical-align:text-bottom; margin-bottom:2px; *margin-bottom:-2px;}
+    .input_align_2{height:13px; vertical-align:text-top; margin-top:0;}
+    .input_align_3{height:15px; vertical-align:bottom; margin-bottom:3px; margin-top:-1px;}
+    .input_align_4{height:14px; vertical-align:top;}
+    .input_align_5{vertical-align:middle; margin-top:-2px; margin-bottom:1px;}
+  </style>
+</head>
+<body>
+<p><a href="http://www.zhangxinxu.com/study/200908/radio-chechbox-text-align.html">from zhangxinxu</a></p>
+
+<ul>
+  <li>input.radio{vertical-align: text-bottom; margin-bottom: 1px;}</li>
+</ul>
+
+<div class="zxx_main_con">
+  <div class="zxx_test_list">
+    <input type="radio">单选框 &nbsp;&nbsp;<input type="checkbox">复选框
+    <span class="zxx_exp">当文字14px左右大小时，对齐良好</span>
+  </div>
+  <div class="zxx_test_list" style="font-size:1em;">
+    <input type="radio">单选框 &nbsp;&nbsp;<input type="checkbox">复选框
+    <span class="zxx_exp">当文字12px左右大小时，文字的位置就偏下了，火狐浏览器和谷歌浏览器下尤为明显</span>
+  </div>
+  <div class="zxx_test_list" style="font-size:1em;">
+    <input class="input_align_1" type="radio">单选框 &nbsp;&nbsp;<input class="input_align_1" type="checkbox">复选框
+    <span class="zxx_exp">当文字12px左右大小时，单（复）选框设置vertical-align:text-bottom; margin-bottom:2px; *margin-bottom:-2px;样式后的表现</span>
+  </div>
+  <div class="zxx_test_list" style="font-size:1em;">
+    <input class="input_align_2" type="radio">单选框 &nbsp;&nbsp;<input class="input_align_2" type="checkbox">复选框
+    <span class="zxx_exp">当文字12px左右大小时，单（复）选框设置height:13px; vertical-align:text-top; margin-top:0;样式后的表现</span>
+  </div>
+  <div class="zxx_test_list" style="font-size:1em;">
+    <input class="input_align_3" type="radio">单选框 &nbsp;&nbsp;<input class="input_align_3" type="checkbox">复选框
+    <span class="zxx_exp">当文字12px左右大小时，单（复）选框设置height:15px; vertical-align:bottom; margin-bottom:3px; margin-top:-1px;样式后的表现</span>
+  </div>
+  <div class="zxx_test_list" style="font-size:1em;">
+    <input class="input_align_4" type="radio">单选框 &nbsp;&nbsp;<input class="input_align_4" type="checkbox">复选框
+    <span class="zxx_exp">当文字12px左右大小时，单（复）选框设置height:14px; vertical-align:top;样式后的表现，chrome谷歌浏览器下文字稍微偏上</span>
+  </div>
+  <div class="zxx_test_list" style="font-size:1em;">
+    <input class="input_align_5" type="radio">单选框 &nbsp;&nbsp;<input class="input_align_5" type="checkbox">复选框
+    <span class="zxx_exp">当文字12px左右大小时，单（复）选框设置vertical-align:middle; margin-top:-2px; margin-bottom:1px;样式后的表现</span>
+  </div>
+</div>
+<script>
+
+
+</script>
+</body>
+</html>

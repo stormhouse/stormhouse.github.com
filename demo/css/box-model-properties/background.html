@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <style>
+    p    { margin-left:240px;  margin-top:0px;    margin-bottom:10px; }
+    span { margin-left:-230px; margin-right:30px; padding-left:195px; font-size:19px;
+      background-position:left bottom; background-repeat:no-repeat;
+      background-color:black; background-image:url("star.gif"); }
+
+    *.no-bg       { background-image:none;  background-color:transparent; }
+    *.bg-color    { background-image:none;  background-color:black;       }
+    *.bg-image    { background-repeat:no-repeat;       }
+    *.bg-repeat   { background-repeat:repeat;          }
+    *.bg-rx       { background-repeat:repeat-x;        }
+    *.bg-pos-lt   { background-position:center bottom; }
+    *.bg-pos-rb   { background-position:right  bottom; }
+    *.bg-ry       { background-repeat:repeat-y; background-position:center top;
+      padding-left:22px; float:right; height:263px; margin:0px;
+      position:relative; top:-170px; }
+
+  </style>
+</head>
+<body>
+<h3>为元素设置背景色或图片</h3>
+<ul>
+  <li>background-color: transparent为透明</li>
+  <li>background-image: none为隐藏</li>
+  <li>background-repeat: repeat-x, repeat-y, no-repeat</li>
+  <li>background-position</li>
+  <li>background-attachment: scroll,fixed</li>
+  <li>默认设置 background: none transparent repeat left top scroll</li>
+  <li></li>
+</ul>
+<hr>
+<p><span class="no-bg"    >&nbsp;</span>No background                      </p>
+<p><span class="bg-color" >&nbsp;</span>Background color                   </p>
+<p><span class="bg-image" >&nbsp;</span>Background image not tiled         </p>
+<p><span class="bg-repeat">&nbsp;</span>Background image tiled             </p>
+<p><span class="bg-rx"    >&nbsp;</span>Background image repeat-x          </p>
+<p><span class="bg-ry"    >&nbsp;</span>Background image repeat-y &rarr;   </p>
+<p><span class="bg-pos-lt">&nbsp;</span>Background image center bottom     </p>
+<p><span class="bg-pos-rb">&nbsp;</span>Background image right  bottom     </p>
+
+</body>
+</html>

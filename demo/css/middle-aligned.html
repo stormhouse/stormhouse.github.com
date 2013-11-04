@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>定位：进阶</title>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <style type="text/css">
+    *.gp {
+      position: relative;
+      height: 300px;
+      width: 700px;
+      border: 2px solid black;
+    }
+
+    *.ex1 {
+      width: 120px;
+      padding: 5px;
+      text-align: center;
+      border: 1px dotted black;
+    }
+
+    *.ex2 {
+      position: relative;
+      border: 5px solid black;
+      background-color: gold;
+      left: 0;
+    }
+
+    *.ex1 span {
+      height: 36px;
+      left: 0;
+      width: 130px;
+      position: absolute;
+      top: 0;
+      margin-top: auto;
+      bottom: 0;
+      margin-bottom: auto;
+    }
+
+    #ia {
+      height: 100px;
+      top: 0;
+      margin-top: auto;
+      bottom: 0;
+      margin-bottom: auto;
+      position: absolute;
+      line-height: 100px;
+      margin-left: 40px;
+    }
+
+    #za {
+      height: 100px;
+      top: 0;
+      margin-top: auto;
+      bottom: 0;
+      margin-bottom: auto;
+      position: absolute;
+      margin-left: 200px;
+    }
+
+    #wa {
+      height: auto;
+      top: 0;
+      margin-top: 90px;
+      bottom: 0;
+      margin-bottom: 90px;
+      position: absolute;
+      margin-left: 355px;
+    }
+
+    #sa {
+      height: auto;
+      top: 0;
+      margin-top: 90px;
+      bottom: 0;
+      margin-bottom: 90px;
+      position: absolute;
+      margin-left: 510px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h3>9.12 垂直居中对齐(Middle Aligned)</h3>
+<ul>
+  <li>内联内容垂直居中对齐line-height == height</li>
+  <li>对设定尺寸的绝对定位元素垂直居中对齐{position:absolute;height:xx;margin-top:auto;margin-bottom:auto;top:0;bottom:0;}</li>
+  <li>对拉伸的绝对定位元素垂直居中对齐{position:absolute;height:xx;margin-top:<strong>xx</strong>;margin-bottom:<strong>xx</strong>;top:0;bottom:0;}
+  </li>
+</ul>
+<div class="gp">
+  <div id="ia" class="ex1 ex2">INLINE</div>
+  <div id="za" class="ex1 ex2"><span>Sized Absolute</span></div>
+  <div id="wa" class="ex1">Can't middle-align a static element or a shrinkwrapped element.</div>
+  <div id="sa" class="ex1 ex2"><span>Stretched Absolute</span></div>
+</div>
+
+</body>
+</html>

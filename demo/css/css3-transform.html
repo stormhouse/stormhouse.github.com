@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>css3变形处理transform</title>
+  <link type="text/css" rel="stylesheet" href="common.css"></link>
+  <style type="text/css">
+
+    .trans-0{
+      width: 300px;
+      margin: 150px auto;
+      background-color: yellow;
+      text-align: center;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+    }
+    .trans-1{
+      width: 300px;
+      margin: 150px auto;
+      background-color: yellow;
+      text-align: center;
+      -webkit-transform: scale(.5,2);/*水平，垂直*/
+      -moz-transform: scale(0.5,2);
+      -o-transform: scale(0.5,2);
+    }
+    .trans-2{
+      width: 300px;
+      margin: 150px auto;
+      background-color: yellow;
+      text-align: center;
+      -webkit-transform: skew(30deg,30deg);/*水平，垂直*/
+      -moz-transform: skew(30deg,30deg);
+      -o-transform: skew(30deg,30deg);
+    }
+    .trans-3{
+      width: 300px;
+      margin: 150px auto;
+      background-color: yellow;
+      text-align: center;
+      -webkit-transform: translate(50px,50px);
+      -moz-transform:translate(50px,50px);
+      -o-transform: translate(50px,50px);
+    }
+    .trans-4{
+      width: 300px;
+      background-color: yellow;
+      text-align: center;
+      -webkit-transform:  translate(150px, 200px) rotate(45deg) scale(1.5);
+      -moz-transform: translate(150px, 200px)  rotate(45deg)  scale(1.5) ;
+      -o-transform:  translate(150px, 200px) rotate(45deg)  scale(1.5);
+    }
+    .trans-5{
+      width: 300px;
+      background-color: yellow;
+      text-align: center;
+      -webkit-transform:rotate(45deg) scale(1.5) translate(150px, 200px);
+      -moz-transform:rotate(45deg) scale(1.5) translate(150px, 200px);
+      -o-transform:rotate(45deg) scale(1.5) translate(150px, 200px);
+    }
+
+    div1{
+      width: 200px;
+      height:200px;
+      display:inline-block;
+    }
+    div1#a{
+      background-color: pink;
+    }
+    div1#b{
+      background-color: green;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      /*修改变形基准点*/
+      -webkit-transform-origin: left bottom;
+      -moz-transform-origin: left bottom;
+      -o-transform-origin: left bottom;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="trans-0">示例文字</div>
+<h3>缩放</h3>
+<div class="trans-1">示例文字</div>
+<h3>倾斜</h3>
+<div class="trans-2">示例文字</div>
+<h3>移动</h3>
+<div class="trans-3">示例文字</div>
+<h3>先移动，旋转，缩放(基准点是中心)</h3>
+<div class="trans-4">示例文字</div>
+<h3>先旋转，缩放，移动</h3>
+<div class="trans-5">示例文字</div>
+
+<h3>基准点</h3>
+<div1 id="a"></div1>
+<div1 id="b"></div1>
+
+</body>
+</html>

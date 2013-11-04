@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/eui-panel.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-combo.css" />
+  <title></title>
+</head>
+<body>
+
+<select id="select">
+  <option value="value">text</option>
+</select>
+<input type="text">
+<br>
+<input id="getText" value="getText" type="button">
+<input id="getValue" value="getValue" type="button">
+<script src="../../lib/jquery-1.7.2.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/combo.js"></script>
+
+<script>
+  $('#select').combo();
+//  $('#select').combo('resize', 400);
+
+  $('#getText').click(function(e){
+    alert($('#select').combo('getText'));
+  })
+  $('#getValue').click(function(e){
+    alert($('#select').combo('getValue'));
+  })
+</script>
+</body>
+</html>

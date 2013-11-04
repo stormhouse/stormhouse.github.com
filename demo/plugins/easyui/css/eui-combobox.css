@@ -1,0 +1,36 @@
+
+/*-----------------------eui-combobox begin-----------------------*/
+.eui-combobox-item {
+  text-indent: 5px;
+  font-size: 12px;
+  line-height: 20px;
+  height: 20px;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  /*background:  url(flags-countries.gif) no-repeat;*/
+}
+.eui-combobox-item b {
+  font-weight: normal;
+  font-size: 14px;
+  /*padding: 0px 2px;*/
+  color: #40A0D0;
+}
+.eui-combobox-item-hover {
+  background-color: #eaf2ff;
+  /*color: #000000;*/
+  /*color: #717171;*/
+}
+
+.eui-combobox-item:hover {
+  background-color: #eaf2ff;
+  /*color: #000000;*/
+  /*color: #717171;*/
+}
+
+.eui-combobox-item-selected {
+  background-color: #d5e1f3;
+  /*color: #000000;*/
+  /*color: #717171;*/
+}
+/*-----------------------eui-combobox end-----------------------*/
+

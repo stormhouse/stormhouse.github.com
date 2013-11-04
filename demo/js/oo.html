@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<h3><a href="http://www.cnblogs.com/leadzen/archive/2008/02/25/1073404.html">对象本无类(根)，类型亦无型（形）</a></h3>
+<h3>定义</h3>
+<p><a href="http://www.ecma-international.org/ecma-262/5.1/#sec-4.3.3">ECMA-262定义</a>：unordered collection of properties each of which contains a primitive value, object, or function.</p>
+<p>无序属性的集合，其属性可以包含基本值，对象或者函数。即，对象是一组没有特定顺序的值，对象的每个属性或方法都有一个名字，而且每个名字都映射到一个值。</p>
+
+
+<pre class="brush: js">
+//一般式
+var person = new Object();
+person.name = 'storm';
+person.age = 28;
+person.job = 'coder';
+person.sayName = function(){
+  console.log(this.name)
+}
+//字面量
+var person = {
+  name: 'storm',
+  age: 28,
+  job: 'coder',
+  sayName: function(){
+    console.log(this.name)
+  }
+}
+</pre>
+<hr/>
+
+<h5>数据属性</h5>
+<ul>
+  <li>[Configurable] true -> delete</li>
+  <li>[Enumerable] true -> for-in</li>
+  <li>[Writable] true -> modifiable</li>
+  <li>[Value]</li>
+</ul>
+<pre class="brush: js">
+var person = {};
+Object.defineProperty(person, 'name', {
+  writable: false,
+  value: 'storm'
+});
+console.log(person.name);//outputs:
+person.name = 'Nicholas';
+console.log(person.name);//outputs:
+</pre>
+
+<h5>访问器属性(accesser)</h5>
+<ul>
+  <li>[Configurable] true -> delete</li>
+  <li>[Enumerable] true -> for-in</li>
+  <li>[Set]</li>
+  <li>[Get]</li>
+</ul>
+
+<pre class="brush: js">
+var book = {
+  _year: 2004,
+  edition: 1
+}
+Object.defineProperty(book, 'year', {
+  get: function(){
+    return this._year;
+  },
+  set: function(newYear){
+    if(newYear >2004){
+      this._year = newYear;
+      this.edition++;
+    }
+  }
+});
+book.year = 2005;//2003
+console.log(book.year)
+console.log(book.edition)
+</pre>
+
+<h5>定义多个属性</h5>
+<pre class="brush: js">
+var book = {};
+Object.defineProperties(book, {
+  _year: {
+    value: 2004
+  },
+  edition: {
+    value: 1
+  },
+  year: {
+    get: function(){
+      return this._year;
+    },
+    set: function(newValue){
+      if (newValue > 2004) {
+        this._year = newValue;
+        this.edition += newValue - 2004;
+      }
+    }
+  }
+});
+book.year = 2005;
+console.log(book.edition);   //2
+</pre>
+
+<h5>读取属性的特性</h5>
+<pre class="brush: js">
+var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
+console.log(descriptor.value);          //2004
+console.log(descriptor.configurable);   //false
+console.log(descriptor.enumerable);     //false
+console.log(typeof descriptor.get);     //"undefined"
+</pre>
+
+<h3>创建对象</h3>
+<h5>构造函数式</h5>
+<p>p1和p2的constructor属性</p>
+<pre class="brush: js">
+//构造函数式
+function Person(name, friends){
+  this.name = name;
+  this.friends = [];
+  this.listFriends = function(){
+    console.log(this.friends);
+  };
+}
+var p1 = new Person("Nicholas", []);
+var p2 = new Person("Greg", []);
+console.log(p1.friends === p2.friends)//优点
+console.log(p1.listFriends === p2.listFriends)//缺点
+</pre>
+
+<h5>原型模式</h5>
+<p>每个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。即，prototype就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法，不必在构造函数中定义对象的实例信息，而是将这些信息直接添加到原型对象中。</p>
+<ul>
+  <li>isPrototypeOf:  Person.prototype.isPrototypeOf(p1)</li>
+  <li>getPrototypeOf: Object.getPrototypeOf(p1).name</li>
+  <li>delete:         delete p1.name, 删除实例属性</li>
+  <li>hasOwnProperty: p1.hasOwnProperty('name'), 检测一个属性是存在于实例中</li>
+  <li>in:             'name' in p1, 无论实例还是原型中</li>
+  <li>hasPrototypeProperty:hasPrototypeProperty(person, 'name'), 判断原型中的属性 </li>
+  <li>Object.keys(p1 || Person.prototype): 枚举属性</li>
+</ul>
+<pre class="brush: js">
+//原型式
+function Person(){}
+Person.prototype = {
+  //constructor: Person,//重设构造函数
+  name: 'storm',//缺点
+  friends: [],//缺点
+  listFriends: function(){console.log(this.friends)}//优点
+}
+var p1 = new Person();
+p1.listFriends();
+console.log(p1 instanceof  Person)
+console.log(p1 instanceof  Object)
+
+</pre>
+<p>每创建一个函数，就会同时创建它的prototype对象,这个对象也会自动获得constructor属性。而我们在这里使用的语法，本质上完全上完全重写了默认的prototype对象，因此constructor属性也就变成了新对象的constructor属性（指向Object函数），不再指向Person。尽管instanceof操作符还能返回正确的结果，但通过constructor已经无法确定对象的类型了。</p>
+<pre class="brush: js">
+Object.defineProperty(Person.prototype, 'constructor', {
+  enumerable: false,
+  value: Person
+})
+</pre>
+<h5>组合使用构造函数和原型模式</h5>
+<pre class="brush: js">
+//TODO
+</pre>
+<h5>动态原型模式</h5>
+<h5>寄生式构造函数模式</h5>
+<h5>稳妥的构造函数模式</h5>
+<p>指的是没有公共属性，而且其方法也不引用this对象。最适合在一些安全的环境中（禁止使用this和new），或是防止数据被其它程序（如Mashup）改动。一是新创建对象的实例方法不引用this；二是不使用new操作符调用构造函数。适合于ADsafe和Caja</p>
+<pre class="brush: js">
+//稳妥的构造函数模式
+function Person(name){
+  var o = new Object();
+  //添加私有变量和函数
+  o.sayName = function(){console.log(name)}
+  return o;
+}
+var p1 = Person();
+</pre>
+<hr/>
+
+<h3>继承</h3>
+<h5>原型链</h5>
+<p>构造函数，原型和实例关系：每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。那么，假如我们让原型对象等于另一个类型的实例，此时的原型对象将包含一个指向另一个原型的指针，相应地，另一个原型中也包含着一个指向另一个构造函数的指针。假如另一个原型又是另一个类型的实例，如此层层递进，就构成了实例与原型的链条。</p>
+<pre class="brush: js">
+//原型链
+function SuperType(){
+  this.property = true;
+}
+SuperType.prototype.getSuperValue = function(){
+  return this.property;
+};
+function SubType(){
+  this.subproperty = false;
+}
+//inherit from SuperType
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function (){
+  return this.subproperty;
+};
+var instance = new SubType();
+console.log(instance.getSuperValue()); //true
+</pre>
+<ul>
+  <li>默认原型（顶级原型）: 所有函数的默认原型是Object的实例，即Object.prototype</li>
+  <li>实例与原型的关系(instanceof)：只要在实例的原型链上出现的构造函数，都为true</li>
+  <li>小心添加方法：不能使用字面量为子类添加方法</li>
+  <li>问题：实例共享</li>
+</ul>
+<h5>借用构造函数</h5>
+<pre class="brush: js">
+//借用构造函数
+function SuperType(){
+  this.colors = ["red", "blue", "green"];
+}
+function SubType(){
+  //inherit from SuperType
+  SuperType.call(this);
+}
+var instance1 = new SubType();
+instance1.colors.push("black");
+console.log(instance1.colors);    //"red,blue,green,black"
+var instance2 = new SubType();
+console.log(instance2.colors);    //"red,blue,green"
+</pre>
+<p>问题：</p>
+
+<h5>组合继承</h5>
+<pre class="brush: js">
+//组合继承
+function SuperType(name){
+this.name = name;
+this.colors = ["red", "blue", "green"];
+}
+SuperType.prototype.sayName = function(){
+  console.log(this.name);
+};
+
+function SubType(name, age){
+  SuperType.call(this, name);
+  this.age = age;
+}
+SubType.prototype = new SuperType();
+SubType.prototype.sayAge = function(){
+  console.log(this.age);
+};
+var instance1 = new SubType("Nicholas", 29);
+instance1.colors.push("black");
+console.log(instance1.colors);  //"red,blue,green,black"
+instance1.sayName();      //"Nicholas";
+instance1.sayAge();       //29
+
+var instance2 = new SubType("Greg", 27);
+console.log(instance2.colors);  //"red,blue,green"
+instance2.sayName();      //"Greg";
+instance2.sayAge();       //27
+</pre>
+
+<h5>原型式继承</h5>
+<pre class="brush: js">
+//原型式式继承
+function object(o){
+  function F(){}
+  F.prototype = o;
+  return new F();
+}
+var person = {
+  name: "Nicholas",
+  friends: ["Shelby", "Court", "Van"]
+};
+var anotherPerson = object(person);
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
+var yetAnotherPerson = object(person);
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
+console.log(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
+</pre>
+<p>使用E5的Object.create()</p>
+<pre class="brush: js">
+//Object.create()
+var person = {
+  name: "Nicholas",
+  friends: ["Shelby", "Court", "Van"]
+};
+var anotherPerson = Object.create(person);
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
+
+var yetAnotherPerson = Object.create(person);
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
+
+console.log(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
+</pre>
+
+<h5>寄生式继承</h5>
+TODO
+<h5>寄生组合式继承</h5>
+TODO
+
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+var person = new Object();
+person.name = 'storm';
+person.age = 28;
+person.job = 'coder';
+person.sayName = function(){
+  console.log(this.name)
+}
+
+var person = {
+  name: 'storm',
+  age: 28,
+  job: 'coder',
+  sayName: function(){
+    console.log(this.name)
+  }
+}
+
+var person = {};
+Object.defineProperty(person, 'name', {
+  writable: false,
+  value: 'storm'
+});
+console.log(person.name);
+person.name = 'Nicholas';
+console.log(person.name);
+
+var book = {
+  _year: 2004,
+  edition: 1
+}
+Object.defineProperty(book, 'year', {
+  get: function(){
+    return this._year;
+  },
+  set: function(newYear){
+    if(newYear >2004){
+      this._year = newYear;
+      this.edition++;
+    }
+  }
+});
+book.year = 2005;//2003
+console.log(book.year)
+console.log(book.edition)
+
+var book = {};
+Object.defineProperties(book, {
+  _year: {
+    value: 2004
+  },
+  edition: {
+    value: 1
+  },
+  year: {
+    get: function(){
+      return this._year;
+    },
+    set: function(newValue){
+      if (newValue > 2004) {
+        this._year = newValue;
+        this.edition += newValue - 2004;
+      }
+    }
+  }
+});
+book.year = 2005;
+console.log(book.edition);   //2
+
+//读取属性特性
+var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
+console.log(descriptor.value);          //2004
+console.log(descriptor.configurable);   //false
+console.log(descriptor.enumerable);     //false
+console.log(typeof descriptor.get);     //"undefined"
+
+//构造函数式
+function Person(name, friends){
+  this.name = name;
+  this.friends = [];
+  this.listFriends = function(){
+    console.log(this.friends);
+  };
+}
+var p1 = new Person("Nicholas", []);
+var p2 = new Person("Greg", []);
+console.log(p1.friends === p2.friends)//优点
+console.log(p1.listFriends === p2.listFriends)//缺点
+
+//原型式
+function Person(){}
+Person.prototype = {
+  //constructor: Person,//重设构造函数
+  name: 'storm',//缺点
+  friends: [],//缺点
+  listFriends: function(){console.log(this.friends)}//优点
+}
+var p1 = new Person();
+//p1.listFriends();
+console.log(p1 instanceof  Person)
+console.log(p1 instanceof  Object)
+Object.defineProperty(Person.prototype, 'constructor', {
+  enumerable: false,
+  value: Person
+})
+//组合使用构造函数和原型模式
+
+
+//动态原型模式
+function Person(name, age, job){
+  //properties
+  this.name = name;
+  this.age = age;
+  this.job = job;
+  //methods
+  if (typeof this.sayName != "function"){
+    Person.prototype.sayName = function(){
+      console.log(this.name);
+    };
+  }
+}
+
+//寄生构造函数模式
+function Person(name, age, job){
+  var o = new Object();
+  o.name = name;
+  o.age = age;
+  o.job = job;
+  o.sayName = function(){
+    console.log(this.name);
+  };
+  return o;
+}
+
+//稳妥的构造函数模式
+function Person(name){
+  var o = new Object();
+  //添加私有变量和函数
+  o.sayName = function(){console.log(name)}
+  return o;
+}
+var p1 = Person();
+
+//原型链
+function SuperType(){
+  this.property = true;
+}
+SuperType.prototype.getSuperValue = function(){
+  return this.property;
+};
+function SubType(){
+  this.subproperty = false;
+}
+//inherit from SuperType
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function (){
+  return this.subproperty;
+};
+var instance = new SubType();
+console.log(instance.getSuperValue()); //true
+
+//借用构造函数
+function SuperType(){
+  this.colors = ["red", "blue", "green"];
+}
+function SubType(){
+  //inherit from SuperType
+  SuperType.call(this);
+}
+var instance1 = new SubType();
+instance1.colors.push("black");
+console.log(instance1.colors);    //"red,blue,green,black"
+var instance2 = new SubType();
+console.log(instance2.colors);    //"red,blue,green"
+
+//组合继承
+function SuperType(name){
+this.name = name;
+this.colors = ["red", "blue", "green"];
+}
+SuperType.prototype.sayName = function(){
+  console.log(this.name);
+};
+
+function SubType(name, age){
+  SuperType.call(this, name);
+  this.age = age;
+}
+SubType.prototype = new SuperType();
+SubType.prototype.sayAge = function(){
+  console.log(this.age);
+};
+var instance1 = new SubType("Nicholas", 29);
+instance1.colors.push("black");
+console.log(instance1.colors);  //"red,blue,green,black"
+instance1.sayName();      //"Nicholas";
+instance1.sayAge();       //29
+
+var instance2 = new SubType("Greg", 27);
+console.log(instance2.colors);  //"red,blue,green"
+instance2.sayName();      //"Greg";
+instance2.sayAge();       //27
+
+//原型式式继承
+function object(o){
+  function F(){}
+  F.prototype = o;
+  return new F();
+}
+var person = {
+  name: "Nicholas",
+  friends: ["Shelby", "Court", "Van"]
+};
+var anotherPerson = object(person);
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
+var yetAnotherPerson = object(person);
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
+console.log(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
+
+//Object.create()
+var person = {
+  name: "Nicholas",
+  friends: ["Shelby", "Court", "Van"]
+};
+var anotherPerson = Object.create(person);
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
+
+var yetAnotherPerson = Object.create(person);
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
+
+console.log(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
+
+//添加属性
+var anotherPerson2 = Object.create(person, {
+  name: {
+    value: "Greg"
+  }
+});
+console.log(anotherPerson.name);  //"Greg"
+
+
+
+SyntaxHighlighter.all()
+</script>
+</body>
+</html>

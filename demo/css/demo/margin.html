@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+  <style>
+
+    .zxx_main_con {min-height: 580px;_height: 580px;padding: 0 20px 20px;}
+    .zxx_test_box{background:#09C; margin-top:5px; margin-bottom:20px;}
+    .zxx_margin_double{margin:20px; background:#C33; color:white; float:left;}
+    .zxx_margin_normal{display:inline; margin:20px; background:#C33; color:white; float:left;}
+    .zxx_margin_nofloat{margin:20px; background:#c33; color:white;}
+    .zxx_key_word{font-weight:bold;}
+
+    .zxx_test_box{background:#f3f3f3; border:1px dashed #dddddd; margin-top:10px;}
+    .zxx_margin_out{margin:20px; background:#cacbcc; color:white;}
+    .zxx_margin_top{height:40px; line-height:40px; margin:20px; background:#09C; text-indent:20px;}
+    .zxx_margin_bot{height:40px; line-height:40px; margin:20px; background:#C30; text-indent:20px;}
+    .zxx_test_list p{padding:3px 0; text-indent:30px;}
+  </style>
+</head>
+<body>
+<p><a href="http://www.zhangxinxu.com/wordpress/2009/08/css-margin%E7%9A%84%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7%EF%BC%8C%E9%97%AE%E9%A2%98%E5%8F%8A%E5%BA%94%E7%94%A8/">from zhangxinxu</a></p>
+<h3>ie6双边距问题</h3>
+<div class="zxx_main_con">
+  <b>问题出现</b>
+  <div class="zxx_test_box fix">
+    <div class="zxx_margin_double">
+      margin:20px; background:#cacbcc; color:white; float:left;
+    </div>
+  </div>
+  <b>问题解决</b>(display:inline;)
+  <div class="zxx_test_box fix">
+    <div class="zxx_margin_normal">
+      <span class="zxx_key_word">display:inline;</span> margin:20px; background:#cacbcc; color:white; float:left;
+    </div>
+  </div>
+  <b>问题解决</b>（去掉float）
+  <div class="zxx_test_box fix">
+    <div class="zxx_margin_nofloat">
+      margin:20px; background:#cacbcc; color:white;
+    </div>
+  </div>
+</div>
+
+<h3>margin重叠的问题</h3>
+<div class="zxx_main_con">
+  <div class="zxx_test_box">
+    <div class="zxx_margin_out">
+      <div class="zxx_margin_top">margin:20px;</div>
+      <div class="zxx_margin_bot">margin:20px;</div>
+    </div>
+  </div>
+  <div class="zxx_test_list">
+    <p>重叠：蓝色的上20边距与灰色背景div的20上边距重叠；蓝色方块的下20像素边距与红色方块的上20像素布局重叠；红色方块的20像素的下边距与灰色盒子的20像素下边距重叠。</p>
+    <p>
+      由于IE浏览器和非IE浏览器两大阵营对处理margin重叠问题上有较大差异，所以解决margin重叠问题一般是没有什么兼容性的好方法的。一般而言，想这里同向重叠异向重叠的情况同时出现还是比较少见的。在实际项目中遇到重叠只是一部分的重叠。重叠有利有弊，关键是你要了解什么情况下会发生margin重叠，深刻理解它，这样当你不希望发生重叠的时候可以避免出现重叠，希望利用这种重叠属性的就利用它，正所谓，知己知彼，百战百胜。</p>
+    <p>
+      下面提出了些margin重叠的解决方案，但是这些方案都是有缺陷了，在IE浏览器和非IE浏览器下的表现是不一致的。这里仅供参考，拓展思路和理解，您可以想想更加好的解决方法。我个人观点认为最好的解决margin重叠的方法就是认识它，避免它！</p>
+  </div>
+  <div class="zxx_test_box">
+    <div class="zxx_margin_out">
+      <div class="zxx_margin_top l">margin:20px; float:left;</div>
+      <div class="zxx_margin_bot cl">margin:20px; clear:both;</div>
+    </div>
+  </div>
+  <div class="zxx_test_list">
+    单个方块重叠的解决方法：1.浮动。在IE浏览器下（IE8未测过），浮动可以解决margin-top以及margin-bottom重叠的问题。而在Firefox火狐浏览器或是chrome谷歌浏览器下以及opera浏览器下，浮动只能解决同方向上的margin重叠问题。不同方向上的margin重叠的问题依旧存在。
+  </div>
+  <div class="zxx_test_box">
+    <div class="zxx_margin_out" style="overflow:hidden; zoom:1;">
+      <div class="zxx_margin_top">margin:20px; 父标签overflow:hidden; zoom:1;</div>
+      <div class="zxx_margin_bot">margin:20px; 父标签overflow:hidden; zoom:1;</div>
+    </div>
+  </div>
+  <div class="zxx_test_list">
+    同方向margin重叠的解决方法：1.与清除浮动的方法一致，给外部的box添加清除浮动相同的样式即可。常用的样式代码为：overflow:hidden; zoom:1;但是有问题的是，在IE浏览器下（未测试IE8），应用zoom属性后，似乎发生了水平方向上margin失效的情况。其他表现均一致。
+  </div>
+  <div class="zxx_test_box">
+    <div class="zxx_margin_out" style="padding:1px;">
+      <div class="zxx_margin_top">margin:20px; 父标签padding:1px;</div>
+      <div class="zxx_margin_bot">margin:20px; 父标签padding:1px;</div>
+    </div>
+  </div>
+  <div class="zxx_test_list">
+    同方向margin重叠的解决方法：2.增加些边缘属性。例如padding值，padding:1px;或是border属性，border:1px solid #cacbcc。此方法在非IE浏览器下效果良好，但是在IE浏览器下，表现很糟糕。
+  </div>
+</div>
+
+<script>
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="ccs/eui-panel.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-accordion.css" />
+  <style>
+    .none{
+      display: none;
+    }
+  </style>
+  <title></title>
+</head>
+<body>
+<div id="aa" class="easyui-accordion" style="width:700px;height:300px;">
+  <!--<div data-hide="true" title="Title1" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;display:none;" selected="selected">-->
+    <!--<h3 style="color:#0099FF;">111111</h3>-->
+    <!--<p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>-->
+  <!--</div>-->
+  <div title="Title2">
+    <h3 style="color:#0099FF;">22222</h3>
+
+
+  </div>
+  <div title="Title3" style="padding:10px;">
+    <h3 style="color:#0099FF;">33333</h3>
+    content3
+  </div>
+</div>
+
+
+<hr>
+<input id="checkAll" type="button" value="checkAll" />
+<input id="checkPart" type="button" value="checkPart" />
+<input id="checkNone" type="button" value="checkNone" />
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/accordion.js"></script>
+
+<script>
+$('#aa').accordion({
+  collapseAll: true,
+  width: 300,
+  leftcheckbox: {
+    iconcls:"eui-panel-head-checknone",//eui-panel-head-checkall(全选) eui-panel-head-checkpart（部分选择）  eui-panel-head-checknone（去选）
+    handler: function(e){
+      if($(e.target).hasclass('eui-panel-head-checkall')){
+        $(e.target).removeclass().addclass('eui-panel-head-checknone');
+      }else{
+        $(e.target).removeclass().addclass('eui-panel-head-checkall');
+      }
+    }
+  },
+  onexpand: function(panel){
+    log(panel == this);
+    log(this);
+  }
+});
+
+$('#aa').accordion('activate', 2);
+
+  $('#checkAll').click(function(){
+    $('#aa').accordion('getPanel', 2).panel('changeCheckboxClass', 'all');
+  });
+  $('#checkPart').click(function(){
+    $('#aa').accordion('getPanel', 2).panel('changeCheckboxClass', 'part');
+  });
+  $('#checkNone').click(function(){
+    $('#aa').accordion('getPanel', 2).panel('changeCheckboxClass', 'none');
+  });
+</script>
+</body>
+</html>

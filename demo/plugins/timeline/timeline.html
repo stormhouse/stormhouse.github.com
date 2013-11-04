@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'/>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+  <style>
+    *{
+      font-style: normal;
+      font-variant: normal;
+      font-weight: normal;
+      font-size: 10px;
+      line-height: normal;
+      font-family: Arial;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+  <section id="main_content" class="inner">
+    <div id="target2" class="timeline-tgt"></div>
+  </section>
+</div>
+
+<hr/><br><br>
+Thanks<a href="http://kevinleung.com/about-me/">Kevin</a>
+<p>拿<a href="http://stoicloofah.github.io/chronoline.js/">chronoline.js</a>代码修改的，自己写的一部分是用svg中的path，使用C指令绘制小水滴，及其动画效果；移动区域不同，动画的速度不同</p>
+<p>学习到的东西</p>
+<ul>
+  <li>学习了svg的path（<a href="http://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A">贝塞尔曲线</a>）</li>
+  <li>学习requestAnimateFrame函数，可实现效果平滑，省资源的动画</li>
+  <li><a href="http://raphaeljs.com/">raphaeljs</a>简单的使用</li>
+</ul>
+
+<script type="text/javascript" src="../../lib/jquery-1.7.2.js"></script>
+
+<script type="text/javascript" src="../../lib/raphael-2.1.1.js"></script>
+<script type="text/javascript" src="timeline.js"></script>
+
+<link rel="stylesheet" type="text/css" href="timeline.css"/>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#target2').uicTime2Line({
+      faultCases:'只显示故障测例',
+      method: 'GET',
+      allShow:1,
+      showSize:32,
+      showRadio: true,
+      url:'timeline-data.json',
+//      currentId: '6619',
+      clickFun:function(id){}
+    });
+  });
+</script>
+
+</body>
+</html>

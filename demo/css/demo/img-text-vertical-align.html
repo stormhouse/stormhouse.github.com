@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <link type="text/css" rel="stylesheet" href="zxx-common.css"/>
+
+  <style>
+    p{padding:5px 0;}
+    .zxx_align_box_1{height:3em; line-height:3em; padding:0 1em; border:4px solid #beceeb; color:#069;}
+    .zxx_align_box_2{display:table-cell; width:550px; height:1.14em; padding:0 0.1em; border:4px solid #beceeb; color:#069; font-size:10em; vertical-align:middle;}
+    .zxx_align_box_2 span.zxx_align_word{display:inline-block; font-size:0.1em; vertical-align:middle;}
+    #hidden_three_line{display:none;}
+    #a_add{color:#f30;}
+    .zxx_align_box_3 li{width:1em; height:1em; padding:0.1em; margin:0 0.1em 0 0; font-size:128px; float:left; border:1px solid #beceeb;}
+    .zxx_align_box_3 li img{display:block; width:100%; height:100%; background-repeat:no-repeat; background-position:center;}
+    .zxx_align_box_4 li{float:left; margin-right:13px;}
+    .zxx_align_box_4 li div{display:table-cell; width:144px; height:144px; border:1px solid #beceeb; font-size:118px; text-align:center; vertical-align:middle;}
+    .zxx_align_box_4 li div img{vertical-align:middle;}
+    .zxx_align_box_5 a{display:inline-block; width:1.2em; font-size:128px; text-align:center; vertical-align:middle;}
+    .zxx_align_box_5 a img{vertical-align:middle; padding:2px; border:1px solid #beceeb;}
+    .zxx_align_box_6 li{height:128px; width:150px; padding:13px 0; float:left; margin-right:10px; border:1px solid #beceeb; text-align:center; font-size:0;}
+    .zxx_align_box_6 li .alpha_img{height:100%; width:1px; vertical-align:middle;}
+    .zxx_align_box_6 li .show_img{vertical-align:middle;}
+  </style>
+</head>
+<body>
+<p><a href="http://www.zhangxinxu.com/study/200908/img-text-vertical-align.html">from zhangxinxu</a></p>
+<h3>大小不固定的图片和多行文字的垂直水平居中</h3>
+
+<div class="zxx_main_con">
+  <h3>一、大小不固定，多行文字的垂直居中</h3>
+  <p class="mt5"><b>① 单行文字{height=line-height}</b></p>
+  <div class="mb5">可能很多人都知道如何让单行文字垂直居中显示，就是使用line-height，将line-height值与外部标签盒子的高度值设置成一致就可以了。例如：</div>
+  <div class="zxx_align_box_1">单行文字居中显示测试，css样式为：height:3em; line-height:3em;……</div>
+
+  <p class="mt10"><b>② 多行文字{display: table-cell;vertical-align:middle}</b></p>
+  <div class="mb5">但是对于外框高度固定，文字大小个数不固定的多行文字呢？<br>文字可能一行显示，也有可能多行显示；文字可能是小号字体，也有可能是大号的。这时候如何让其垂直居中显示呢？看下面！
+  </div>
+  <div class="zxx_align_box_2">
+    <span class="zxx_align_word">这里的文字用来做多行文字垂直居中对齐的测试。<br>这是第二行文字，您还可以再<a id="a_add" href="#zhangxinxu" onclick="javascript:document.getElementById('hidden_three_line').style.display='inline';">添加</a>一行文字做测试！<span id="hidden_three_line"><br>这是隐藏的第三行文字，注意到文字的变化没，依旧垂直居中。</span></span>
+  </div>
+  <p>上面所展示的就是多行文字垂直居中的效果！</p>
+  <p><b>HTML结构如下：</b></p>
+  <div class="zxx_code">
+    <xmp><div class="zxx_align_box_2"><span class="zxx_align_word">这里显示多行文字。</span></div></xmp>
+  </div>
+  <p><b>css代码如下：</b></p>
+  <div class="zxx_code">
+    <xmp>.zxx_align_box_2{display:table-cell; width:550px; height:1.14em; padding:0 0.1em; border:4px solid #beceeb; color:#069; font-size:10em; vertical-align:middle;}
+      .zxx_align_box_2 span.zxx_align_word{display:inline-block; font-size:0.1em; vertical-align:middle;}</xmp>
+  </div>
+  <p><b>实现的原理：</b></p>
+  <div>说白了，就是把文字当图片处理。用一个span标签将所有的文字封装起来，设置文字与图片相同的display属性（inline-block属性），然后用处理图片垂直居中的方式处理文字的垂直居中即可。<br>
+    <p>有几点简要说明：1.此例子用em做单位，如果您对em单位了解不够，把握不来的话，可以使用px做单位，值要换；2.外部div不能使用浮动；3.外部div高度和文字大小比例1.14为宜；4.内部标签的vertical-align:middle可以省略，但是外部div高度和文字大小比例要修改，我自己试了一下，高度比字体1.5左右的样子；5.系统原因，我没能够在IE8下测试。</p>
+    对于一些细化的原理，将在图片垂直居中处讲一下。
+  </div>
+
+
+  <h3 class="mt20">二、大小不固定，图片的垂直居中</h3>
+  <p class="mt5"><b>① 透明gif图片+背景定位</b></p>
+  <div class="mb5">这里利用了background-position:center实现图片居中显示。这是个很实用也是很聪明的办法，对于维护控制成本都很不错。微软必应图片搜索的图片排列就是使用的这种方法。</div>
+  <div class="mb10">方法的原理很简单，使用一个透明的gif图片做覆盖层，高宽拉伸至所需要的大小，然后给这个gif图片一个background-position:center center的属性。而background-image建议写在页面上，因为实际项目中，这肯定是个动态的URL地址，css文件似乎不支持动态URL地址。下面就是此方法的实例表现。</div>
+  <ul class="zxx_align_box_3 fix">
+    <li><img src="../image/pixel.gif" style="background-image:url(http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg);"></li>
+    <li><img src="../image/pixel.gif" style="background-image:url(http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg);"></li>
+    <li><img src="../image/pixel.gif" style="background-image:url(http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg);"></li>
+  </ul>
+  <p class="mt5"><b>HTML部分（仅示例一张图片，其他重复，故略）：</b></p>
+  <div class="zxx_code">
+    <xmp><ul class="zxx_align_box_3 fix">
+      <li>
+        <img src="../image/pixel.gif" style="background-image:url(http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg);" />
+      </li>
+    </ul></xmp>
+  </div>
+  <p><b>css部分：</b></p>
+  <div class="zxx_code">
+    <xmp>.zxx_align_box_3 li{width:1em; height:1em; padding:0.1em; margin:0 0.1em 0 0; font-size:128px; float:left; border:1px solid #beceeb;}
+      .zxx_align_box_3 li img{display:block; width:100%; height:100%; background-repeat:no-repeat; background-position:center;}</xmp>
+  </div>
+
+  <p class="mt10"><b>② display:table-cell和文字大小控制居中</b></p>
+  <div class="mb5">据说这个方法是淘宝的工程师想到的，确实是不错的方法！但是下面展示的却不是原版，而是我的修改版，去掉了没有必要的hack。</div>
+  <ul class="zxx_align_box_4 fix">
+    <li>
+      <div><img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg"></div>
+    </li>
+    <li>
+      <div><img src="http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg"></div>
+    </li>
+    <li>
+      <div><img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg"></div>
+    </li>
+    <li>
+      <div><img src="http://image.zhangxinxu.com/image/study/s/s128/mm4.jpg"></div>
+    </li>
+  </ul>
+  <p class="mt5"><b>HTML部分（仅示例一张图片，其他重复，故略）：</b></p>
+  <div class="zxx_code">
+    <xmp><ul class="zxx_align_box_4 fix">
+      <li>
+        <div><img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" /></div>
+      </li>
+    </ul></xmp>
+  </div>
+  <p><b>css部分：</b></p>
+  <div class="zxx_code">
+    <xmp>.zxx_align_box_4 li{float:left; margin-right:13px;}
+      .zxx_align_box_4 li div{display:table-cell; width:144px; height:144px; border:1px solid #beceeb; font-size:118px; text-align:center; vertical-align:middle;}
+      .zxx_align_box_4 li div img{vertical-align:middle;}</xmp>
+  </div>
+  <p><b>需要说明的：</b></p>
+  <div>1.原版的代码中有两个hack，一个是针对文字大小的，另外一个是针对block属性的；后经过我测试推敲后证实这两个hack都是多余的，而*display:block更是多余，因为IE6,IE7根本就不认识display:table-cell是谁！<br>
+    <p>2.这个通过文字大小控制IE下图片垂直居中是个很不错的方法，要比使用position:relative这类高消耗的css方法要好多了。但是这个方法不足之处在于：不支持img外标签的浮动，所以当多图片显示时需要再在外面嵌套一层标签——资源消耗多了！</p>
+    3.高度：文字大小=1.14，这个比例我一直记着，但是后来我将这个比例的概念淡化了，原因在于多次遇到其他比例实现效果的情况。例如上面，就是1:1实现的。
+    <p>4.这个方法巧妙的应用了IE默认文字空间的概念，然而这个默认文字空间是看不见，摸不着的，较抽象，不好理解，使用者多记住用法，深层次原因不太理解，不易上手。但是，这里我要转折一下，我想到了一种方法，将抽象默认文字空间的概念具体出来，实现了更加容易理解，更加方便使用，更加利于维护的新方法，这就是最后一种方法。</p>
+  </div>
+
+  <p class="mt10"><b>③ display:inline-block和文字大小控制居中</b></p>
+  <div class="mb5">这是我自己想到的方法，代码相当简洁，是个成本很低，效果惊人的方法，适用于多图显示的情况。只需要一层必须要的a标签就解决问题了！</div>
+  <div class="zxx_align_box_5 fix">
+    <a href="#zhangxinxu">
+      <img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg">
+    </a>
+    <a href="#zhangxinxu">
+      <img src="http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg">
+    </a>
+    <a href="#zhangxinxu">
+      <img src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg">
+    </a>
+    <a href="#zhangxinxu">
+      <img src="http://image.zhangxinxu.com/image/study/s/s128/mm4.jpg">
+    </a>
+  </div>
+  <p class="mt5"><b>HTML部分（仅示例两张图片，其他重复，故略）：</b></p>
+  <div class="zxx_code">
+    <xmp><div class="zxx_align_box_5 fix">
+      <a href="#zhangxinxu">
+        <img src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" />
+      </a>
+      <a href="#zhangxinxu">
+        <img src="http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg" />
+      </a>
+    </div></xmp>
+  </div>
+  <p><b>css部分：</b></p>
+  <div class="zxx_code">
+    <xmp>.zxx_align_box_5 a{display:inline-block; width:1.2em; font-size:128px; text-align:center; vertical-align:middle;}
+      .zxx_align_box_5 a img{vertical-align:middle; padding:2px; border:1px solid #beceeb;}</xmp>
+  </div>
+  <p><b>需要说明的：</b></p>
+  <div>
+    1.img外的标签需是a标签或span这类inline属性的标签，div标签也可以，但是css代码多些:display:inline; display:inline-block先变成inline属性，再转变成inline-block属性，原因讲起来又是一篇长长的文章，放着。
+    <p>2.此方法只需要两层标签即可，可谓代码超简洁，但是只适用于多图垂直居中对齐的情况。因为其对齐原理是相邻的图片居中对齐，如果只是一个图片，vertical-align:middle就只有与空格对齐了。</p>
+  </div>
+
+  <p class="mt10"><b>④ 使用空白图片实现垂直对齐</b></p>
+  <div class="mb5">好吧，我知道说大话会被人笑的，但是我还是非常自信地推荐下面这种我想出来的图片垂直居中对齐的方法。非常简单，非常易懂，出错率低，上手方便，兼容性上佳！</div>
+  <ul class="zxx_align_box_6 fix">
+    <li>
+      <img class="show_img" src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg">
+      <img class="alpha_img" src="../image/pixel.gif">
+    </li>
+    <li>
+      <img class="show_img" src="http://image.zhangxinxu.com/image/study/s/s128/mm2.jpg">
+      <img class="alpha_img" src="../image/pixel.gif">
+    </li>
+    <li>
+      <img class="show_img" src="http://image.zhangxinxu.com/image/study/s/s128/mm3.jpg">
+      <img class="alpha_img" src="../image/pixel.gif">
+    </li>
+    <li>
+      <img class="show_img" src="http://image.zhangxinxu.com/image/study/s/s128/mm4.jpg">
+      <img class="alpha_img" src="../image/pixel.gif">
+    </li>
+  </ul>
+  <p class="mt5"><b>HTML部分（仅示例一张图片，其他重复，故略）：</b></p>
+  <div class="zxx_code">
+    <xmp><ul class="zxx_align_box_6 fix">
+      <li>
+        <img class="show_img" src="http://image.zhangxinxu.com/image/study/s/s128/mm1.jpg" />
+        <img class="alpha_img" src="../image/pixel.gif" />
+      </li>
+    </ul></xmp>
+  </div>
+  <p><b>css部分：</b></p>
+  <div class="zxx_code">
+    <xmp>.zxx_align_box_6 li{height:128px; width:150px; padding:13px 0; float:left; margin-right:10px; border:1px solid #beceeb; text-align:center; font-size:0;}
+      .zxx_align_box_6 li .alpha_img{height:100%; width:1px; vertical-align:middle;}
+      .zxx_align_box_6 li .show_img{vertical-align:middle;}</xmp>
+  </div>
+  <p><b>原理简述：</b></p>
+  <div>一句话，将要显示的图片与一张透明的高度100%，宽度1像素的透明图片vertical-align:middle对齐。
+    <p>其核心原理其实与第二种利用font-size大小实现IE下图片垂直居中是一致的。将font-size设置得很大，目的是撑开IE下默认文字空间的高度，其性质类似于空格，然后通过vertical-align:middle属性让图片与这个高高的空白空格空间垂直居中对齐；而这里将这个看不见的文字空间实例成一张透明的gif图片，高度可以轻松设置为外部标签的高度，然后通过vertical-align:middle对齐，就实现效果了，在各个浏览器下都是一样的表现，不需要担心什么兼容性的问题。而且代码很简单，很易懂，想出错都难！</p>
+  </div>
+</div>
+<script>
+
+
+</script>
+</body>
+</html>

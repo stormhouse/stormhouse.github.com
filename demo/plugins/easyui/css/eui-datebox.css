@@ -1,0 +1,46 @@
+
+/*-----------------------eui-datebox begin-----------------------*/
+.eui-datebox-calendar-inner {
+  height: 180px;
+  display: inline-block;
+  /*width: 176px;*/
+}
+.eui-datebox-button {
+  height: 18px;
+  padding: 2px 5px;
+  font-size: 12px;
+  text-align: center;
+}
+.eui-datebox-current,
+.eui-datebox-close,
+.eui-datebox-ok {
+  text-decoration: none;
+  font-weight: bold;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.eui-datebox-current,
+.eui-datebox-close {
+  float: left;
+}
+.eui-datebox-close {
+  float: right;
+}
+.eui-datebox-button-hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}
+.eui-datebox .combo-arrow {
+  /*background-image: url('../images/datebox_arrow.png');*/
+  background-position: center center;
+}
+.eui-datebox-button {
+  background-color: #F4F4F4;
+}
+.eui-datebox-current,
+.eui-datebox-close,
+.eui-datebox-ok {
+  color: #444;
+}
+/*-----------------------eui-datebox end-----------------------*/
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<h3>Object</h3>
+<pre class="brush: js">
+var obj = new Object();
+var obj = {};
+obj.name;
+obj['name'];
+</pre>
+<hr/>
+
+<h3>Array</h3>
+<ul>
+  <li>判断数组: instanceof, Array.isArray()(E5)</li>
+  <li>转换方法： toString(), toLocaleString(), valueOf(), join('|')</li>
+  <li>栈方法： push(), pop()</li>
+  <li>队列方法： push(), shift()</li>
+  <li>重排方法： reverse(), sort()</li>
+  <li>concat(), slice(), splice()</li>
+  <li>索引： indexOf(), lastIndexOf()</li>
+  <li>E5-every(), filter(), forEach(), map(), some(), reduce(), reduceRight()</li>
+</ul>
+<pre class="brush: js"></pre>
+<hr/>
+
+<h3>Date</h3>
+<hr/>
+
+<h3>RegExp</h3>
+<hr/>
+<h3>Function</h3>
+<p>每个函数都是Function的实例</p>
+<pre class="brush: js">
+var sum = new Function('a', 'b', 'return a+b');//效率低
+</pre>
+<h5>没有重载</h5>
+<h5>声明式与函数表达式</h5>
+<h5>当做值的函数: 实参与返回值</h5>
+<h5>函数内部属性</h5>
+<ul>
+  <li>arguments: arguments.callee</li>
+  <li>this</li>
+  <li>caller</li>
+</ul>
+<pre class="brush: js">
+function outer(){
+  inner();
+}
+function inner(){
+  console.log(inner.caller);
+  console.log(arguments.callee.caller);
+}
+outer();
+</pre>
+<h5>函数的属性和方法</h5>
+<ul>
+  <li>length</li>
+  <li>prototype</li>
+  <li>apply()与call(): 绑定函数执行的作用域</li>
+  <li>bind</li>
+</ul>
+<hr/>
+
+<h3>基本包装类型</h3>
+<p>Boolean, Number和String</p>
+<hr/>
+
+<h3>内置对象</h3>
+<h5>全局对象：global与window</h5>
+<ul>
+  <li>encodeURI()与encodeURIComponent()</li>
+  <li>decodeURI()与decodeURIComponent()</li>
+</ul>
+<pre class="brush: js">
+var uri = "http://www.wrox.com/illegal value.htm#start";
+//"http://www.wrox.com/illegal%20value.htm#start"
+console.log(encodeURI(uri));
+//"http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start"
+console.log(encodeURIComponent(uri));
+
+var uri = "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start";
+//http%3A%2F%2Fwww.wrox.com%2Fillegal value.htm%23start
+console.log(decodeURI(uri));
+//http://www.wrox.com/illegal value.htm#start
+console.log(decodeURIComponent(uri));
+</pre>
+<textarea id="uri" style="width: 300px;">http://stormhouse.github.io/</textarea><br>
+<select id="encode-method">
+  <option>encodeURI</option>
+  <option selected>encodeURIComponent</option>
+  <option>decodeURI</option>
+  <option>decodeURIComponent</option>
+</select>
+<input id="encode-btn" type="button" value="执行"/>
+<div id="encode-result"></div>
+<h5>eval</h5>
+
+<h5>Math</h5>
+
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+var uri = "http://www.wrox.com/illegal value.htm#start";
+//"http://www.wrox.com/illegal%20value.htm#start"
+console.log(encodeURI(uri));
+//"http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start"
+console.log(encodeURIComponent(uri));
+
+var uri = "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.htm%23start";
+//http%3A%2F%2Fwww.wrox.com%2Fillegal value.htm%23start
+console.log(decodeURI(uri));
+//http://www.wrox.com/illegal value.htm#start
+console.log(decodeURIComponent(uri));
+
+function $$(id){
+  return document.getElementById(id);
+}
+
+$$('encode-btn').onclick = function(){
+  $$('encode-result').innerHTML = window[$$('encode-method').value].call(window, $$('uri').value);
+}
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

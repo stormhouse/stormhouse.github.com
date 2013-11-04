@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link type="text/css" rel="stylesheet" href="common.css"></link>
+  <style type="text/css">
+    div {
+      position: relative;
+      height: 135px;
+      margin: 10px;
+      padding-top: 0;
+      border: 2px solid black;
+    }
+    p {
+      padding: 5px;
+      background-color: gold;
+      text-align: center;
+      border-left: 1px solid gray;
+      border-right: 2px solid black;
+      border-top: 1px solid gray;
+      border-bottom: 2px solid black;
+    }
+    #cm {
+      position: absolute;
+    }
+
+    *.hc {
+      width: 200px;
+      left: 0;
+      margin-left: auto;
+      right: 0;
+      margin-right: auto;
+    }
+
+    *.vc {
+      height: 40px;
+      top: 0;
+      margin-top: auto;
+      bottom: 0;
+      margin-bottom: auto;
+    }
+  </style>
+</head>
+
+<body>
+<h3>8.12 绝对定位元素居中(Aligned-center Absolute)</h3>
+<ul>
+  <li>width或height设置宽，高度</li>
+  <li>left:0&right:0或top:0&bottom:0设置左右对齐或顶底端对齐</li>
+  <li>margin-left&right:auto或margin-top&bottom对元素居中</li>
+</ul>
+<div style="position: relative;">
+  <p id="cm" class="hc vc">Horizontally &amp; Vertically Centered</p>
+</div>
+</body>
+</html>

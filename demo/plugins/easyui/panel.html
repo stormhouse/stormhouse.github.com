@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/eui-panel.css" />
+  <title></title>
+</head>
+<body>
+  <div id="panel" style="width: 400px;height: 200px;">
+    <p>p1</p>
+    <p>p1</p>
+    <p>p1</p>
+  </div>
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="js/panel.js"></script>
+<script>
+
+  $(document).ready(function() {
+    $('#panel').panel({
+      closed: false,
+      border: true,
+      width: 500,
+      title: '哈哈',
+      hide: true,
+      collapsible: true,
+      leftTool: {
+        iconCls: '',
+        handler: function(e){
+          alert($(e.target));
+        }
+      },
+//      iconCls: 'd',
+      onResize: function(w, h){
+        console.log('resized'+w+' : ' + h)
+      }
+    });
+  })
+
+//  $('#panel').panel('resize', {
+//    width: 100,
+//    height: 50
+//  });
+//  $.data($('#panel'), 'panel', 'panel-value');
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+
+/*-----------------------eui-accordion begin-----------------------*/
+.flag-input{
+  text-indent: 6px;
+  display: inline-block;
+  height: 21px;
+  width: 116px;
+  line-height: 22px;
+  border-width: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.triangle-bottom {
+  left: -5px;
+  position: relative;
+  border-color: #919191 transparent transparent transparent;
+  border-style: solid;
+  padding: 0;
+  border-width: 4px 4px 0px 4px;
+  width: 0;
+  height: 0;
+  display: inline-block;
+  margin-top: 0px;
+  padding-top: 3px;
+  cursor: pointer;
+}
+.flag-input:focus{
+  border: 1px solid #D7D7D7;
+}
+.flag-container{
+  display: inline-block;
+  border: 1px solid #D7D7D7;
+  height: 23px;
+  width: 150px;
+  margin: 0;
+}
+.flag-before{
+  display: inline-block;
+  line-height: 25px;
+  cursor: pointer;
+  background: no-repeat url(../images/flags-countries.gif) 0 0;
+  width: 28px;
+  height: 11px;
+  overflow: hidden;
+  margin-left: 4px;
+}
+.flag-panel{
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  border: 1px solid #D7D7D7;
+  background-color: #ffffff;
+  font-size: 12px;
+  display: none;
+}
+
+.flag-span-talk{
+  background: no-repeat url(../images/flags-countries.gif) 0 0;
+  width: 16px;
+  height: 11px;
+  overflow: hidden;
+  margin-left: 4px;
+  padding-left: 20px;
+  line-height: 25px;
+  text-indent: 4px;
+}
+.flag-panel-item{
+  height: 25px;
+}
+.flag-item-selected{
+  background-color: #eee;
+}
+.flag-panel-item:hover{
+  background-color: #eee;
+}
+/*-----------------------eui-accordion end-----------------------*/
+

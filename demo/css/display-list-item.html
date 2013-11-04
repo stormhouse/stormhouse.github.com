@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <title>布局</title>
+  <link type="text/css" rel="stylesheet" href="common.css"></link>
+  <style type="text/css">
+    dfn{
+      display: list-item;
+      list-style-type: square;/*none*/
+    }
+    span{
+      display: block;
+      padding-left: 15px;
+    }
+    .box{
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      margin: 20px;
+      background-color: #bcbcbc;
+      border: solid black 5px;
+      overflow: hidden;/*内容*/
+      /*visibility: hidden;*//*元素本身*/
+    }
+  </style>
+</head>
+
+<body>
+<p>把元素看成列表项(列表包括两个部分外部块ol,ul,dl内部块li,dd,dt)时：</p>
+  <span>
+    <dfn>它的父元素必须是块状元素(span->block)</dfn>
+    <dfn>而且还要为项目标识符设置左内边距和左外边距</dfn>
+    <dfn>可通过list-style-type为列表添加项目标识符</dfn>
+  </span>
+<h3>盒模型</h3>
+<div class="box">11111111111111111111111111111
+</div>
+
+</body>
+</html>

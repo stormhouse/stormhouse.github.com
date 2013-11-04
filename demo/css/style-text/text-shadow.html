@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+
+  <style>
+    *.shadow { text-shadow: #666666 5px 5px 5px; line-height:1.5em; }
+
+    .shadow2{
+      color: white;
+      font-size: 25px;
+      font-weight: bold;
+      font-family: 宋体;
+      background-image: url(sky.jpg);
+      width: 140px;
+      height: 45px;
+      padding: 30px 0;
+      text-align: center;
+      text-shadow: 3px 3px 5px black;
+    }
+    .shadow3{
+      text-shadow: 5px 5px 20px gray;
+      color: navy;
+      font-size: 50px;
+      font-weight: bold;
+      font-family: 宋体;
+    }
+
+  </style>
+  <!--[if lte IE 7]>
+  <style>
+      /* Internet Explorer 6 uses the filter property to create shadows. */
+    *.shadow { filter:shadow(color=#999999, direction=135, strength=4);  zoom:1; }
+  </style>
+  <![endif]-->
+</head>
+<body>
+
+<h1 class="shadow">Text Shadow</h1>
+
+<p class="shadow" >Text Shadow applies to all text in a block.
+  This design pattern does not apply to inline elements in Internet Explorer 6.
+  This design pattern does not work in Opera 9, Firefox 2,
+  and other Mozilla Browsers.</p>
+
+<div class="shadow2">你好</div>
+<h3>阴影的模糊半径</h3>
+<div class="shadow3">你好</div>
+
+</body>
+</html>

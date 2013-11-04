@@ -1,0 +1,26 @@
+{
+  "wiki-url": "http://simile.mit.edu/shelf/",
+  "wiki-section": "Simile JFK Timeline",
+  "dateTimeFormat": "Gregorian",
+  "events": [
+
+    {
+      "start": "1381989152925",
+      "end": "1381996411601",
+      "durationEvent": true,
+      "orizontalIndex": "0"
+    },
+    {
+      "start": "1381989152925",
+      "end": "1381996411601",
+      "durationEvent": true,
+      "orizontalIndex": "1"
+    },
+    {
+      "start": "1381989152925",
+      "end": "1381996411601",
+      "durationEvent": true,
+      "orizontalIndex": "2"
+    }
+  ]
+}

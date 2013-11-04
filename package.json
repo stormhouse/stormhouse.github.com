@@ -1,0 +1,25 @@
+{
+  "name": "webStudy",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "",
+  "keywords": [
+    "module",
+    "loader"
+  ],
+  "author": "",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "node-static": "~0.6.9",
+    "grunt-contrib-concat": "~0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": ""
+}

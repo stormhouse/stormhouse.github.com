@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" type="text/css" href="css/detection.css" />
+
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-panel.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-combo.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-combobox.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-calendar.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-datebox.css" />
+
+
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-validatebox.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-spinner.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/eui-spinner.css" />
+  <link rel="stylesheet" type="text/css" href="../easyui/css/frequency.css" />
+  <!--<link rel="stylesheet" type="text/css" href="../easyui/css/eui-" />-->
+
+  <style>
+    body{
+      font-family: Arial, Verdana, sans-serif
+    }
+    .fontorange {
+      background-color: #f7803d;
+    }
+  </style>
+	<title></title>
+</head>
+<body>
+<!--border: 1px solid #000000-->
+<div id="detection" class="detection" style="height: 250px; width:750px;"></div>
+
+<p><p><p><p><p><p><p><p><p><p><p><br>
+<!-- -->
+<input id="get-date" type="button" value="getDate">
+<input id="get-time" type="button" value="getTime">
+<input id="update-ts" type="button" value="udpateTs">
+<input id="update-sim" type="button" value="udpateSim">
+<input id="updateTimeSegment" type="button" value="updateTimeSegment">
+<input id="updateTaskDuration" type="button" value="updateTaskDuration">
+<input id="get-task-duration" type="button" value="getTaskDuration">
+<input id="validate" type="button" value="validate">
+<input id="get-guid" type="button" value="getGUID">
+<input id="get-task-type" type="button" value="getTaskType">
+<input id="get-frequency" type="button" value="getFrequency">
+<input id="get-exe-dates" type="button" value="getExeDates"><br>
+<input id="generator" type="button" value="generator"><br>
+
+<form style="position: fixed; right: 100px; top: 10px;width: 400px;">
+  <fieldset>
+    <legend>立即任务</legend>
+    <input id="set1" type="button" value="立即">
+  </fieldset>
+  <fieldset>
+    <legend>定时任务</legend>
+    <input id="set2-text" value="Fri May 31 2013 00:00:00 GMT+0800">
+    <input id="set2" type="button" value="定时">
+  </fieldset>
+  <fieldset>timeline-event-icon
+    <legend>循环任务</legend>
+    <input id="start-date1">
+    <input id="end-date1"><br>
+    <input id="set3-1-text" value="hour-1">
+    <input id="set3-1" type="button" value="循环"><br>
+    <input id="set3-2-text" value="day-3">
+    <input id="set3-2" type="button" value="循环"><br>
+    <input id="set3-3-text" value="week:1,0-1">
+    <input id="set3-3" type="button" value="循环"><br>
+    <input id="set3-4-text" value="month:1,30-1">
+    <input id="set3-4" type="button" value="循环"><br>
+  </fieldset>
+</form>
+
+<hr/>
+<!--<div>-->
+  <!--<input type="button" id="get-current-date" value="current-date">-->
+  <!--<input type="text" id="shift-pix">-->
+  <!--<input type="button" id="shift-btn" value="shift">-->
+<!--</div>-->
+<script src="../../lib/jquery-1.7.2.js"></script>
+<!--<script src="../lib/underscore-1.5.1.js"></script>-->
+
+<!--jquery easyui-->
+<script src="../easyui/js/panel.js"></script>
+<script src="../easyui/js/combo.js"></script>
+<script src="../easyui/js/combobox.js"></script>
+<script src="../easyui/js/calendar.js"></script>
+<script src="../easyui/js/datebox.js"></script>
+
+<script src="../easyui/js/validatebox.js"></script>
+<script src="../easyui/js/spinner.js"></script>
+<script src="../easyui/js/timespinner.js"></script>
+<script src="../easyui/js/frequency.js"></script>
+
+<!--公共js-->
+<script src="js/storm.js" type="text/javascript"></script>
+<script src="js/platform.js" type="text/javascript"></script>
+<script src="js/dom.js" type="text/javascript"></script>
+<script src="js/graphics.js" type="text/javascript"></script>
+<script src="js/date-time.js" type="text/javascript"></script>
+<script src="js/sorted-array.js" type="text/javascript"></script>
+<script src="js/event-index.js" type="text/javascript"></script>
+<script src="js/unit.js" type="text/javascript"></script>
+
+
+<!--detection-->
+<script src="storm-detection.js" type="text/javascript"></script>
+<script src="i18n/zh.js" type="text/javascript"></script>
+<script src="i18n/en.js" type="text/javascript"></script>
+
+
+<script src="band.js" type="text/javascript"></script>
+<script src="left-part.js" type="text/javascript"></script>
+<script src="right-part.js" type="text/javascript"></script>
+<script src="themes.js" type="text/javascript"></script>
+<script src="ethers.js" type="text/javascript"></script>
+<script src="ether-painters.js" type="text/javascript"></script>
+<script src="original-painter.js" type="text/javascript"></script>
+<script src="labellers.js" type="text/javascript"></script>
+<script src="sources.js" type="text/javascript"></script>
+<script src="event-utils.js" type="text/javascript"></script>
+<script src="unit.js" type="text/javascript"></script>
+
+<script>
+
+  var info = {
+//    type: 'grq', //grq, 110
+    timezone: '',
+    locale: 'zh_cn',//en_us / zh_cn
+    taskDuration: 3000,
+    countrycodes: {h: '10086', v: '10087', o: '10087'},
+    guid: '',
+    simTs: [
+      {
+        id: '457-1000-1',
+        name: 'China-BeiJing-HaiDing',
+        type: 'ts'
+      },
+      {
+        id: '457-1000-1',
+        name: 'China-BeiJing-ChaoYang',
+        type: 'ts'
+      },
+      {
+        id: '13141485180',
+        name: 'SIM(a1)',
+        type: 'sim'
+      },
+      {
+        id: '13141485180',
+        name: 'SIM(b1)',
+        type: 'sim'
+      },
+      {
+        id: '13141485180',
+        name: 'SIM(b1)',
+        type: 'sim'
+      }
+    ],
+    url: 'eventSource.json'
+  }
+
+//  TODO 更新初始化控件信息
+//  updateTaskDuration
+//  updateSim
+//  updateTs
+
+//  TODO 循环任务相关
+//  getExcuteDate
+//  getValue
+
+//  TODO 移动后重新加载时间片
+//  move update
+
+
+  var timeSegment = [
+      ['2013-03-09 11:22:33,2013-03-09 11:22:33', '1234567890123,1234567890123', ''],
+      [],
+      [],
+      []
+  ];
+
+	var detection = StormDetection.create(document.getElementById('detection'), info);
+
+
+//  $('#task-type-circularly').trigger('click');
+
+  $('#detection').data('detection', detection);
+//  StormDetection.loadJSON(url, params, function(data, url) {
+//    eventSource.loadJSON(data, url);
+//  });
+
+  Date.prototype.current = function() {
+    var x = this;
+    var y = 'MM/dd/yyyy hh:mm:ss';
+    var z = {
+      M : x.getMonth() + 1,
+      d : x.getDate(),
+      h : x.getHours(),
+      m : x.getMinutes(),
+      s : x.getSeconds()
+    };
+    y = y.replace(/(M+|d+|h+|m+|s+)/g, function(v) {
+      return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1)))
+          .slice(-2)
+    });
+    return y.replace(/(y+)/g, function(v) {
+      return x.getFullYear().toString().slice(-v.length)
+    });
+  }
+
+  $('#get-date').click(function(){
+    var cd = detection.getCurrentDate();
+    alert(cd);
+  });
+
+  $('#getValue').click(function(){
+    times: []
+  });
+  $('#update-ts').click(function(){
+    detection.updateTs([{
+      id: '457-1000-1',
+      name: 'China-BeiJing-update',
+      type: 'ts'
+    },{
+      id: '457-1000-1',
+      name: 'China-BeiJing-update',
+      type: 'ts'
+    }])
+  });
+  $('#update-sim').click(function(){
+    detection.updateSim([{
+      id: '457-1000-1',
+      name: '13333333333333',
+      type: 'sim'
+    },{
+      id: '457-1000-1',
+      name: '13333333333333',
+      type: 'sim'
+    }])
+  });
+  $('#updateTimeSegment').click(function(){
+    detection.updateTimeSegment();
+  });
+  $('#updateTaskDuration').click(function(){
+    detection.updateTaskDuration(1800);
+  });
+  $('#validate').click(function(){
+    var v = detection.validate();
+    console.log(v);
+  });
+  $('#get-guid').click(function(){
+    var v = detection.getGUID();
+    console.log(v);
+  });
+  $('#get-frequency').click(function(){
+    var v = detection.getFrequency();
+    console.log(v);
+  });
+  $('#get-exe-dates').click(function(){
+    var v = detection.getExeDates();
+    console.log(v);
+  });
+  $('#get-task-type').click(function(){
+    var v = detection.getTaskType();
+    console.log(v);
+  });
+  $('#get-task-duration').click(function(){
+    var v = detection.getTaskDuration();
+    console.log(v);
+  });
+  $('#set1').click(function(){
+    var v = detection.setTaskType(1);//1 2 3 立即 定时 循环
+  });
+  $('#set2').click(function(){
+    var v = detection.setTaskType(2, new Date($('#set2-text').val()));//1 2 3 立即 定时 循环
+  });
+
+  $('#start-date1').val((new Date()).toString().split('(')[0]);
+  $('#end-date1').val((new Date (new Date().getTime()+1000*3600*24*30* 2)).toString().split('(')[0]);
+  $('#set3-1').click(function(){
+    var d1 = new Date($('#start-date1').val());
+    var d2 = new Date($('#end-date1').val());
+    var f = $('#set3-1-text').val();
+    detection.setTaskType(3, '', d1, d2, f);//1 2 3 立即 定时 循环
+  });
+  $('#set3-2').click(function(){
+    var d1 = new Date($('#start-date1').val());
+    var d2 = new Date($('#end-date1').val());
+    var f = $('#set3-2-text').val();
+    detection.setTaskType(3, '', d1, d2, f);//1 2 3 立即 定时 循环
+  });
+  $('#set3-3').click(function(){
+    var d1 = new Date($('#start-date1').val());
+    var d2 = new Date($('#end-date1').val());
+    var f = $('#set3-3-text').val();
+    detection.setTaskType(3, '', d1, d2, f);//1 2 3 立即 定时 循环
+  });
+  $('#set3-4').click(function(){
+    var d1 = new Date($('#start-date1').val());
+    var d2 = new Date($('#end-date1').val());
+    var f = $('#set3-4-text').val();
+    detection.setTaskType(3, '', d1, d2, f);//1 2 3 立即 定时 循环
+  });
+  $('#generator').click(function(){
+    var info = {
+//    type: 'grq', //grq, 110
+      timezone: '',
+      locale: 'zh_cn',//en_us / zh_cn
+      taskDuration: 3000,
+      guid: '',
+      simTs: [
+        {
+          id: '457-1000-1',
+          name: 'China-BeiJing-HaiDing',
+          type: 'ts'
+        },
+        {
+          id: '457-1000-1',
+          name: 'China-BeiJing-ChaoYang',
+          type: 'ts'
+        },
+        {
+          id: '13141485180',
+          name: 'SIM(a1)',
+          type: 'sim'
+        },
+        {
+          id: '13141485180',
+          name: 'SIM(b1)',
+          type: 'sim'
+        },
+        {
+          id: '13141485180',
+          name: 'SIM(b1)',
+          type: 'sim'
+        }
+      ],
+      url: 'eventSource.json'
+    }
+    var detection = StormDetection.create(document.getElementById('detection'), info);
+  });
+
+
+  function getMS(date){
+    var yy=date.getYear();
+    var MM=date.getMonth() + 1;
+    var dd=date.getDay();
+    var hh=date.getHours();
+    var mm=date.getMinutes();
+    var ss=date.getSeconds();
+    var sss=date.getMilliseconds();
+    var result=Date.UTC(yy,MM,dd,hh,mm,ss,sss);
+    return result;
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <style>
+    span { padding:4px; background-color:white;
+      border-left:1px solid gray; border-right:2px solid black;
+      border-top:1px solid gray; border-bottom:2px solid black; }
+    p    { background-color:gold; padding:10px; line-height:1.5em; }
+
+    *.hidden  { visibility:hidden; }
+    *.visible { visibility:visible; }
+
+    span:hover { visibility:hidden; }
+  </style>
+</head>
+<body>
+<ul>
+  <li>用于隐藏元素，而不删除元素。故不影响其它元素的排列（内联，块状，浮动）顺序中的位置</li>
+  <li>不同于display: none。故绝对定位的元素两者相同效果</li>
+  <li>取值：hidden visible</li>
+</ul>
+<hr>
+<h1>Visibility</h1>
+
+<p>There is hidden content here: <span class="hidden">CAN YOU SEE ME NOW?</span>
+  You can't see it, because it is styled with <code>visibility:hidden</code>,
+  but you can see where it would have been rendered. </p>
+
+<p>There is visible content here: <span class="visible">CAN YOU SEE ME NOW?</span>
+  You can see it, because it is styled with <code>visibility:visible</code>.</p>
+
+
+</body>
+</html>

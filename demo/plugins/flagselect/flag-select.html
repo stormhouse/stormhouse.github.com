@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCoreDefault.css"/>
+  <link rel="stylesheet" type="text/css" href="flag-select.css" />
+  <title></title>
+  <style>
+    /*.div input{*/
+      /*border: 1px solid #ddd;*/
+      /*display: inline-block;*/
+      /*background-color: #fff;*/
+      /*line-height: 25px;*/
+      /*height: 25px;*/
+      /*vertical-align: middle;*/
+      /*padding: 2px 0 0 3px;*/
+    /*}*/
+  </style>
+</head>
+<body>
+<form class="div">
+  <input id="flag" value="10003"/><br><br><br><br><br>
+  <input id="set-default-value" value="10005"/>
+  <input id="set-value" type="button" value="setValue">
+  <input id="get-value" type="button" value="getValue">
+  <div id="on-select-content"></div>
+</form>
+<hr/>
+
+<p>图片是在google网站<a href="https://accounts.google.com/SignUp?continue=http%3A%2F%2Fwww.google.com.hk%2F&hl=zh-CN">注册页面</a>拿过来的，图片的position是用python写的个<a href="https://github.com/stormhouse/pyStudy/blob/master/demo/flag-catcher.py">脚本</a>爬下来的，用了<a href="https://pypi.python.org/pypi/pyquery">pyQuery</a>，选择器风格就像jquery一样</p>
+<h3>示例及功能描述</h3>
+<p>国家选择框（带国旗），点击可选择国家，也可在input输入国家编码进行过滤</p>
+<pre class="brush: js">
+$('#flag').comboflag({
+  url: 'flag-select.json',
+  width:100,
+  height: 25,
+  onSelect: function(countrycode){
+    $('#on-select-content').html('countrycode:'+countrycode);
+  }
+});
+</pre>
+
+<p>强化了对脚本语言python的学习</p>
+  <script src="../../lib/jquery-1.7.2.js"></script>
+  <script src="flag-select.js"></script>
+  <script type="text/javascript" src="../../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+  <script type="text/javascript" src="../../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+
+  <script>
+    $('#flag').comboflag({
+      url: 'flag-select.json',
+      width:100,
+      height: 25,
+      onSelect: function(countrycode){
+        $('#on-select-content').html('countrycode:'+countrycode);
+      }
+    });
+
+    $('#set-value').click(function(){
+      $('#flag').comboflag('setValue', $('#set-default-value').val());
+    });
+    $('#get-value').click(function(){
+      alert($('#flag').comboflag('getValue'))
+    });
+    SyntaxHighlighter.all()
+  </script>
+</body>
+</html>

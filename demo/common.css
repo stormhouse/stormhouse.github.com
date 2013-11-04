@@ -1,0 +1,20 @@
+html{
+    font-family: 'Helvetica Neue',Helvetica,Arial,Sans-serif;
+    line-height: 1.7;
+    font-size: 13px;
+    color: #222;
+}
+hr{
+    height:1px;border:none;border-top:1px dashed #0066CC;
+}
+
+/*清除浮动*/
+.fix{zoom: 1;}
+.fix:after, .fix:before {
+    display: block;
+    content: "clear";
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}

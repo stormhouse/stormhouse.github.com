@@ -1,0 +1,77 @@
+
+/*-----------------------taskcreate.wizard begin-----------------------*/
+.taskcreate-wizard-container {
+  width: 960px;
+  /*margin: 0 auto;*/
+  position: relative;
+  margin-bottom: 30px;
+}
+.wizard-node-container{
+  width: 100%;
+  height: 23px;
+  margin: 0;
+  padding: 0;
+}
+.wizard-background-line{
+  margin:0 3px 0 3px;
+  position: absolute;
+  top: 10px;
+  height: 5px;
+  width: 100%;
+  background-color: #edf7ff;
+}
+.wizard-move-line{
+  margin:0 3px 0 4px;
+  position: absolute;
+  top: 10px;
+  height: 5px;
+  /*width: 100%;*/
+  background-color: #369ed9;
+  z-index: 3;
+}
+.outer-cycle{
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: #edf7ff;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.inner-cycle{
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  background: #369ed9;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  display: none;
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  z-index: 2;
+}
+.node-title{
+  width: auto;
+  line-height: 20px;
+  position: absolute;
+  top: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.node-title-visited{
+  color: #38a3db;
+}
+
+.wizard-step{
+  cursor: pointer;
+  position: absolute;
+  top: 3px;
+}
+/*----------------------taskcreate.wizard end-----------------------*/

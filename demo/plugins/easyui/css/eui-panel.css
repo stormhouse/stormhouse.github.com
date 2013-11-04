@@ -1,0 +1,152 @@
+
+/*-----------------------eui-panel begin-----------------------*/
+.eui-panel {
+  overflow: hidden;
+  font-size: 12px;
+  text-align: left;
+  /*font-family: Arial, Verdana, sans-serif;*/
+}
+.eui-panel-header,
+.eui-panel-body {
+  border-width: 1px;
+  border-style: solid;
+}
+.eui-panel-header {
+  padding: 5px;
+  position: relative;
+}
+.eui-panel-title {
+  /*background: url('images/blank.gif') no-repeat;*/
+}
+.eui-panel-body {
+  overflow: auto;
+  border-top-width: 0px;
+}
+
+.eui-panel-header-noborder {
+  border-width: 0 0 1px 0;
+}
+.eui-panel-body-noheader {
+  border-top-width: 1px;
+}
+.eui-panel-body-noborder {
+  border-width: 0px;
+}
+.eui-panel-with-icon {
+  padding-left: 6px;
+}
+.eui-panel-icon,
+.eui-panel-tool {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  height: 16px;
+  overflow: hidden;
+}
+.eui-panel-icon {
+  left: 5px;
+  width: 16px;
+}
+.eui-panel-tool {
+  right: 5px;
+  width: auto;
+}
+.eui-panel-tool a {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  margin: 0 0 0 2px;
+  vertical-align: top;
+}
+.eui-panel-tool a:hover {
+  /*opacity: 1;*/
+  /*filter: alpha(opacity=100);*/
+  /*background-color: #eaf2ff;*/
+  /*-moz-border-radius: 3px 3px 3px 3px;*/
+  /*-webkit-border-radius: 3px 3px 3px 3px;*/
+  /*border-radius: 3px 3px 3px 3px;*/
+}
+.eui-panel-loading {
+  padding: 11px 0px 10px 30px;
+}
+.eui-panel-noscroll {
+  overflow: hidden;
+}
+.eui-panel-fit,
+.eui-panel-fit body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+/*.eui-panel-loading {*/
+/*background: url('../images/loading.gif') no-repeat 10px 10px;*/
+/*}*/
+/*.eui-panel-tool-close {*/
+/*background: url('../images/panel_tools.png') no-repeat -16px 0px;*/
+/*}*/
+/*.eui-panel-tool-min {*/
+/*background: url('../images/panel_tools.png') no-repeat 0px 0px;*/
+/*}*/
+/*.eui-panel-tool-max {*/
+/*background: url('../images/panel_tools.png') no-repeat 0px -16px;*/
+/*}*/
+/*.eui-panel-tool-restore {*/
+/*background: url('../images/panel_tools.png') no-repeat -16px -16px;*/
+/*}*/
+/*.eui-panel-tool-collapse {*/
+/*background: url('../images/panel_tools.png') no-repeat -32px 0;*/
+/*}*/
+/*.eui-panel-tool-expand {*/
+/*background: url('../images/panel_tools.png') no-repeat -32px -16px;*/
+/*}*/
+.eui-panel-header,
+.eui-panel-body {
+  border-color: #DDDDDD;
+}
+.eui-panel-header {
+  /*background-color: #E0ECFF;*/
+  /*background: -webkit-linear-gradient(top,#eff5ff 0,#E0ECFF 100%);*/
+  /*background: -moz-linear-gradient(top,#eff5ff 0,#E0ECFF 100%);*/
+  /*background: -o-linear-gradient(top,#eff5ff 0,#E0ECFF 100%);*/
+  /*background: linear-gradient(to bottom,#eff5ff 0,#E0ECFF 100%);*/
+  /*background-repeat: repeat-x;*/
+  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#eff5ff,endColorstr=#E0ECFF,GradientType=0);*/
+}
+.eui-panel-body {
+  background-color: #ffffff;
+  color: #000000;
+  overflow: visible;
+}
+.eui-panel-title {
+  font-weight: bold;
+  color: #0E2D5F;
+  height: 16px;
+  line-height: 16px;
+  display: inline-block;
+}
+.eui-panel-head-checkPart{
+  background: url("../images/icon3.png") no-repeat -119px -2px;
+  display: inline-block;
+  height: 15px;
+  vertical-align: top;
+  width: 15px;
+}
+.eui-panel-head-checkAll{
+  background: url("../images/icon3.png") no-repeat -119px -19px;
+  display: inline-block;
+  height: 15px;
+  vertical-align: top;
+  width: 15px;
+}
+.eui-panel-head-checkNone{
+  background: url("../images/icon3.png") no-repeat -119px -37px;
+  display: inline-block;
+  height: 15px;
+  vertical-align: top;
+  width: 15px;
+}
+/*-----------------------eui-panel begin-----------------------*/

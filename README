@@ -1,0 +1,12 @@
+学习Web开发的小例子
+
+
+
+
+
+
+
+--------------------------------------------------------------
+npm install
+npm install -g grunt-cli
+npm install grunt --save-dev

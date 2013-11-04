@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+</head>
+<body>
+
+
+<script>
+  var ep = {
+    fun : function() {
+      console.log('caller:...'+this.fun.caller);
+      return this.test1;
+    },
+    test1 : '111'
+  }
+  console.log(ep.fun());
+  //  console.log(ep.fun.call(a))
+
+  var test = function() {
+    ep.fun();
+  }
+  test();
+
+  // caller demo {
+
+  function callerDemo() {
+    if (callerDemo.caller) {
+      var a = callerDemo.caller.toString();
+      console.log(a);
+    } else {
+      console.log("this is a top function");
+    }
+  }
+  function handleCaller() {
+    callerDemo();
+  }
+  handleCaller();
+
+
+  function demo(i){
+    if(i>0){
+      i--;
+      console.log(i)
+      arguments.callee(i)
+
+    }
+  }
+  demo(10);
+
+  var a = JSON.stringify({id: 123, name: 'n1', friends: ['a', 'b']})
+  console.log(typeof a);
+</script>
+</body>
+</html>

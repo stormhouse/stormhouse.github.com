@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/eui-progressbar.css" />
+  <title></title>
+</head>
+<body>
+
+<input id="test" value="test" type="button">
+<input id="getValue" value="getValue" type="button">
+<div id="pp"></div>
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="js/jquery.eui.progressbar.js"></script>
+
+<script>
+  $('#pp').progressbar({
+    width: 400,
+    height: 20
+  });
+  function test(){
+    var value = $('#pp').progressbar('getValue');
+    if (value < 100){
+      value += Math.floor(Math.random() * 10);
+      $('#pp').progressbar('setValue', value);
+      setTimeout(arguments.callee, 200);
+    }
+  }
+
+  $('#test').click(function(e){
+    test();
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+/*-----------------------eui-combo begin-----------------------*/
+.eui-combo{
+  display: inline-block;
+  /* white-space: nowrap; */
+  margin: 0;
+  padding: 0;
+  /*border: 1px solid #DDDDDD;*/
+  overflow: hidden;
+  vertical-align: middle;
+  background-color: #ffffff;
+  position: relative;
+  line-height: 22px;
+}
+.eui-combo-text {
+  border: 1px solid #DDDDDD;
+  margin: 0;
+  *margin-top: -1px;
+  /*    padding: 0px 2px;*/
+  text-indent: 4px;
+  height: 22px;
+  line-height: 22px;
+  color: #717171;
+}
+.eui-combo-arrow {
+  width: 21px;
+  height: 22px;
+  overflow: hidden;
+  /*display: inline-block;*/
+  display: block;
+  vertical-align: top;
+  cursor: pointer;
+  /*opacity: 0.6;*/
+  filter: alpha(opacity=60);
+  /*background: url('images/combo_arrow.png') no-repeat center center;*/
+  background: url('../images/ms_ico2.png') no-repeat ;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+
+}
+.eui-combo-arrow-hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}
+/*TODO border与datebox边框冲突*/
+.eui-combo-panel {
+  background-color: #ffffff;
+  border: 1px solid #DDDDDD;
+}
+/*-----------------------eui-combo end-----------------------*/

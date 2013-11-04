@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body>
+<a href="">地址</a>
+<script>
+  function f1(){
+    test = 10;
+    var n=999;
+    nAdd=function(){
+      n+=1;
+    }
+    function f2(){
+      console.log(n);
+    }
+    return f2;
+  }
+//  f1();
+//  alert(test);
+//  nAdd();
+
+  var result = f1();
+  result();
+  nAdd();
+  result();
+
+//  访问外部的函数变量
+  var obj = function () {
+    var MyFunc = function () {
+      console.log('hello world');
+    }
+    return function () {
+      return MyFunc;
+    }
+  }()
+  var f3 = obj();
+  var f4 = obj();
+  console.log(f3 === f4);//为啥是TRUE；搞不懂
+
+
+  /**
+   * 闭包是运行时中的概念，不能讲哪个函数是一个闭包！而是哪个函数在运行时存在一个闭包！
+   * 有时候，好几个函数都可以组成一个闭包呢：
+   */
+
+  function ff() {
+    var local = 1;
+    this.add1 = function () {
+      return ++local;
+    };
+    this.add2 = function () {
+      return ++local;
+    }
+  }
+  var f=new ff();
+  console.log(f.add1());//2
+  console.log(f.add2());//3
+</script>
+
+</body>
+</html>

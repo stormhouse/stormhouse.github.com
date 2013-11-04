@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/eui-panel.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-combo.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-calendar.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-datebox.css" />
+  <title></title>
+</head>
+<body>
+
+<select id="select0" required="true">
+  <option value="+1">java</option>
+  <option value="+2">c</option>
+  <option value="+3">python</option>
+</select>
+<input id="select" type="text" url="combobox_data.html"/>
+<input id="select1" type="text" />
+<input id="select2" type="text" /><p>
+
+<input id="_disable" type="button" value="_disabled"/>
+<input id="_enable" type="button" value="_enabled"/>
+<input id="setValue" type="button" value="setValue"/>
+<input id="getValue" type="button" value="getValue"/>
+<input id="getWidth" type="button" value="getWidth"/>
+<input id="getText" type="button" value="getText"/>
+<input id="destroy" type="button" value="destroy"/>
+<input id="generator" type="button" value="generator"/>
+<input id="setDate" type="button" value="setDate"/>
+<input id="getDate" type="button" value="getDate"/>
+
+<div>d</div>
+<div style="float: right;">
+<input id="dd" class="easyui-datebox" required="required" data-rule-date="true"/>
+</div>
+
+<input id="_from" />
+<input id="_to" />
+<script src="../../lib/jquery-1.7.2.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/combo.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/datebox.js"></script>
+
+
+<script>
+  var attrs = $('#dd').get(0).attributes;
+  for(var a in attrs){
+    if(typeof attrs[a] == 'object'){
+      console.log(attrs[a].value)
+      console.log(attrs[a].name)
+    }
+
+  }
+  console.log();
+
+	$('#dd').datebox({
+    zIndex:1010,
+    currentDate: new Date(),
+    range: true,
+    align: 'right',
+    startIndex: '6/18/2013',
+//    onSetValue: function(date){
+//      console.log(date);
+//    }
+  });
+  var d = $('#dd').datebox('getDate');
+
+  $('#_disable').click(function(){
+    $('#dd').datebox('disable');
+  });
+  $('#_enable').click(function(){
+    $('#dd').datebox('enable');
+  });
+  $('#setValue').click(function(){
+    $('#dd').datebox('setValue', '9/9/1986');
+  });
+  $('#setDate').click(function(){
+    $('#dd').datebox('setDate', new Date());
+  });
+  $('#getValue').click(function(){
+    alert($('#dd').datebox('getValue'));
+  });
+  $('#getDate').click(function(){
+    var a= $('#dd').datebox('getDate');
+
+    console.log(typeof a);
+    console.log(a instanceof Date);
+  });
+
+
+//  $('#_from').datebox({
+////    toEl:'_to'
+//  });
+//  $('#_to').datebox({
+////    fromEl: '_from'
+//  });
+
+</script>
+</body>
+</html>

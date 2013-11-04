@@ -1,0 +1,57 @@
+
+/*-----------------------eui-validatebox begin-----------------------*/
+.eui-validatebox-tip {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  display: none;
+  z-index: 9900000;
+}
+.eui-validatebox-tip-content {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  left: 8px;
+  width: 150px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 3px 5px;
+  z-index: 9900001;
+  font-size: 12px;
+}
+.eui-validatebox-tip-pointer {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  position: absolute;
+  left: 1px;
+  top: 0px;
+  z-index: 9900002;
+}
+.eui-validatebox-tip-left .eui-validatebox-tip-content {
+  left: auto;
+  right: 8px;
+}
+.eui-validatebox-tip-left .eui-validatebox-tip-pointer {
+  background-position: -20px center;
+  left: auto;
+  right: 1px;
+}
+.eui-validatebox-invalid {
+  /*background-image: url('../images/validatebox_warning.png');*/
+  background-repeat: no-repeat;
+  background-position: right center;
+  border-color: #ffa8a8;
+  background-color: #fff3f3;
+  color: #000;
+}
+.eui-validatebox-tip-pointer {
+  /*background: url('../images/validatebox_arrows.png') no-repeat -4px center;*/
+}
+.eui-validatebox-tip-content {
+  border-color: #CC9933;
+  background-color: #FFFFCC;
+  color: #000;
+}
+/*-----------------------eui-validatebox end-----------------------*/
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCoreDefault.css"/>
+  <link rel="stylesheet" type="text/css" href="wizard.css" />
+  <title></title>
+</head>
+<body>
+
+  <div id="wizard"></div>
+
+<input id="next" type="button" value="Next"/>
+<input id="back" type="button" value="Back"/>
+
+<!--<input id="to" type="button" value="To"/><input id="to-step" type="text" value="3">-->
+
+
+<hr/><br><br><br>
+<h3>代码示例</h3>
+<pre class="brush: js">
+$('#wizard').taskcreatewizard({
+  stepsNum: 5,    //步数
+  width: 800,     //组件宽度
+  timeDelay: 500 //进度条间隔
+//    nodeTitles: ['step1', 'step2' ... ...]//下方标题，默认为step1,step2
+});
+</pre>
+<script src="../../lib/jquery-1.7.2.js"></script>
+<script src="wizard.js"></script>
+<script type="text/javascript" src="../../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+
+<script>
+$('#wizard').taskcreatewizard({
+  stepsNum: 5,    //步数
+  width: 800,     //组件宽度
+  timeDelay: 500 //进度条间隔
+//    nodeTitles: ['step1', 'step2' ... ...]//下方标题，默认为step1,step2
+});
+  $('#next').click(function(){
+    $('#wizard').taskcreatewizard('next');
+  });
+  $('#back').click(function(){
+    $('#wizard').taskcreatewizard('back');
+  });
+  $('#to').click(function(){
+    $('#wizard').taskcreatewizard('to', $('#to-step').val());
+  });
+
+
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

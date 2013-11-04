@@ -1,0 +1,50 @@
+
+/*-----------------------eui-accordion begin-----------------------*/
+.none{
+  display: none;
+}
+.eui-accordion {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+}
+.eui-accordion .eui-accordion-header {
+  border-width: 0 0 1px;
+  cursor: pointer;
+}
+.eui-accordion .accordion-body {
+  border-width: 0 0 1px;
+}
+.eui-accordion-noborder {
+  border-width: 0;
+}
+.eui-accordion-noborder .eui-accordion-header {
+  /*border-width: 0 0 1px;*/
+  border: 0;
+}
+.eui-accordion-noborder .eui-accordion-body {
+  border-width: 0 0 1px 0;
+  border-color: #ffffff;
+}
+/*.eui-accordion-collapse {*/
+/*background: url('images/accordion_arrows.png') no-repeat 0 0;*/
+/*}*/
+/*.eui-accordion-expand {*/
+/*background: url('images/accordion_arrows.png') no-repeat -16px 0;*/
+/*}*/
+.eui-accordion {
+  /*background: #ffffff;*/
+  border-color: #dddddd;
+}
+.eui-accordion .eui-accordion-header {
+  /*background: #E0ECFF;*/
+  filter: none;
+}
+.eui-accordion .eui-accordion-header-selected {
+  /*background: #FBEC88;*/
+}
+.eui-accordion .eui-accordion-header-selected .eui-panel-title {
+  color: #000000;
+}
+/*-----------------------eui-accordion end-----------------------*/
+

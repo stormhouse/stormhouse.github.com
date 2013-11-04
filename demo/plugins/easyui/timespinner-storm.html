@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>TimeSpinner - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/eui-validatebox.css">
+	<link rel="stylesheet" type="text/css" href="css/eui-spinner.css">
+
+	<script type="text/javascript" src="../lib/jquery-1.7.2.js"></script>
+  <script src="js/validatebox.js"></script>
+  <script src="js/spinner.js"></script>
+  <script src="js/timespinner.js"></script>
+	<script>
+		function enable(){
+			$('#ss').timespinner('enable');
+		}
+		function disable(){
+			$('#ss').timespinner('disable');
+		}
+	</script>
+</head>
+<body>
+	<h1>TimeSpinner</h1>
+	<div class="demo-info" style="margin-bottom:10px">
+		<div class="demo-tip icon-tip"></div>
+		<div>Click spin button to adjust time.</div>
+	</div>
+	
+	<div style="margin:10px 0;">
+		<a href="#" class="easyui-linkbutton" onclick="enable()">Enable</a>
+		<a href="#" class="easyui-linkbutton" onclick="disable()">Disable</a>
+	</div>
+	<span>Begin Time: </span>
+	<input id="ss" class="easyui-timespinner" data-options="min:'08:30',showSeconds:true" style="width:120px;"></input>
+	<span>End Time: </span>
+	<input class="easyui-timespinner" data-options="required:true" style="width:80px;"></input>
+
+<script>
+
+  $('#ss').timespinner();
+</script>
+</body>
+</html>

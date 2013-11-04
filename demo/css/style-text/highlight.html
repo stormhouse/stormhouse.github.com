@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <style>
+    p { margin-top:20px; letter-spacing:0.5px; line-height:1.9em; }
+
+    *.highlight { color:white; background-color:black;
+      padding-left:0.25em; padding-right:0.25em;
+      padding-top:0.05em;  padding-bottom:0.13em;
+      background-image:none; }
+
+    *.black-on-gold          { color:black;     background-color:gold;      }
+    *.white-on-firebrick     { color:white;     background-color:firebrick; }
+    *.cyan-on-royalblue      { color:lightcyan; background-color:royalblue; }
+    *.palegreen-on-darkgreen { color:palegreen; background-color:darkgreen; }
+    *.textured               { color:black;     background-color:white;
+      background-image:url("paper.jpg"); }
+  </style>
+</head>
+<body>
+<h3>用背景色和前景色强调正文。也可为图片</h3>
+<h1>Highlight</h1>
+
+<p>You can insert a
+  <span class="highlight black-on-gold" >highlight</span>
+  in any inline context.
+    <span class="highlight white-on-firebrick" >Highlights can span multiple
+    lines.</span> A highlight is a
+  <span class="highlight" >foreground color</span> and a
+  <span class="highlight cyan-on-royalblue" >background color</span>
+  applied to an inline element.
+  <span class="highlight palegreen-on-darkgreen" >Padding</span>
+  around a highlight can improve its visual appeal. You can increase the
+  <span class="highlight textured" >line height</span>
+  to make room for extra padding.
+</p>
+
+</body>
+</html>

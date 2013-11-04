@@ -1,0 +1,203 @@
+
+/*-----------------------eui-calendar begin-----------------------*/
+.eui-calendar {
+  border-style: solid;
+  padding: 1px;
+  overflow: hidden;
+  font-size: 12px;
+  /*box-shadow: 0 0 6px #c7c8c9;*/
+  padding: 2px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #b4b8bc;
+}
+.eui-calendar table {
+  border-collapse: separate;
+  font-size: 12px;
+  width: 100%;
+  height: 100%;
+}
+.eui-calendar-noborder {
+  border: 0;
+}
+.eui-calendar-header {
+  position: relative;
+  height: 28px;
+  line-height: 28px;
+  margin-bottom: 2px;
+}
+.eui-calendar-title {
+  text-align: center;
+  height: 28px;
+  line-height: 28px;
+}
+.eui-calendar-title span {
+  position: relative;
+  display: inline-block;
+  /*top: 2px;*/
+  padding: 0 5px;
+  height: 22px;
+  line-height: 22px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.eui-calendar-prevmonth,
+.eui-calendar-nextmonth,
+.eui-calendar-prevyear,
+.eui-calendar-nextyear {
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  font-size: 1px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.eui-calendar-prevmonth {
+  left: 10px;
+  background: url('../images/calendar_arrows.png') no-repeat -18px -2px;
+}
+.eui-calendar-nextmonth {
+  right: 10px;
+  background: url('../images/calendar_arrows.png') no-repeat -34px -2px;
+}
+.eui-calendar-prevyear {
+  left: 3px;
+  background: url('../images/calendar_arrows.png') no-repeat -1px -2px;
+}
+.eui-calendar-nextyear {
+  right: 3px;
+  background: url('../images/calendar_arrows.png') no-repeat -49px -2px;
+}
+.eui-calendar-body {
+  position: relative;
+}
+.eui-calendar-body th,
+.eui-calendar-body td {
+  text-align: center;
+}
+.eui-calendar-day {
+  border: 0;
+  padding: 1px;
+  cursor: pointer;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.eui-calendar-day-disable{
+  opacity: 0.3;
+}
+.eui-calendar-other-month {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+.eui-calendar-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 166px;
+  height: 150px;
+  padding: 5px;
+  font-size: 12px;
+  display: none;
+  overflow: hidden;
+}
+.eui-calendar-menu-year-inner {
+  text-align: center;
+  padding-bottom: 5px;
+}
+.eui-calendar-menu-year {
+  width: 40px;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  margin: 0;
+  padding: 2px;
+  font-weight: bold;
+}
+.eui-calendar-menu-prev,
+.eui-calendar-menu-next {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  vertical-align: top;
+  cursor: pointer;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.eui-calendar-menu-prev {
+  margin-right: 10px;
+  background: url('../images/calendar_arrows.png') no-repeat 2px 2px;
+}
+.eui-calendar-menu-next {
+  margin-left: 10px;
+  background: url('../images/calendar_arrows.png') no-repeat -45px 2px;
+}
+.eui-calendar-menu-month {
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.eui-calendar-body th,
+.eui-calendar-menu-month {
+  color: #4d4d4d;
+}
+.eui-calendar-day {
+  color: #000000;
+}
+.eui-calendar-sunday {
+  /*color: #CC2222;*/
+  color: #333;
+}
+.eui-calendar-saturday {
+  /*color: #00ee00;*/
+  color: #333;
+}
+.eui-calendar-today {
+  color: #0000ff;
+}
+.eui-calendar-menu-year {
+  border-color: #95B8E7;
+}
+
+.eui-calendar-header {
+  /*background: #E0ECFF;*/
+}
+.eui-calendar-body,
+.eui-calendar-menu {
+  background: #ffffff;
+}
+.eui-calendar-body th {
+  background: #F4F4F4;
+}
+.eui-calendar-hover,
+.eui-calendar-nav-hover,
+.eui-calendar-menu-hover {
+  background-color: #eeeeee;
+  color: #000000;
+}
+.eui-calendar-hover {
+  /*border: 1px solid #b7d2ff;*/
+  /*border: 1px solid #eeeeee;*/
+  /*padding: 0;*/
+}
+.eui-calendar-selected {
+  background-color: #3598ca;
+  color: #fff;
+  border: 1px solid #3598ca;
+  padding: 0;
+}
+/*-----------------------eui-calendar end-----------------------*/
+

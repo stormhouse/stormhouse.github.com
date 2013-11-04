@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/eui-panel.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-tooltip.css" />
+  <title></title>
+</head>
+<body>
+<div id="dd" style="width: 30px;">dd</div>
+
+
+<hr>
+<input id="checkPart" type="button" value="checkPart" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="checkNone" type="button" value="show" style="display: inline-block; position: fixed; top:500px; left: 400px; " />
+
+
+<div id="content">
+  <a href="#">no alarm</a>
+  <div>
+    <div>
+      <input type="checkbox" ><label>呼叫建立时延</label>
+      <select>
+        <option><</option>
+      </select>
+      <input type="text">
+    </div>
+    <div>
+      <input type="checkbox" ><label>呼叫建立时延</label>
+      <select>
+        <option><</option>
+      </select>
+      <input type="text">
+    </div>
+    <div>
+      <input type="button" value="Cancel">
+      <input type="button" value="OK">
+    </div>
+  </div>
+</div>
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/tooltip.js"></script>
+
+<script>
+  $(function(){
+
+    var content =
+    $('#checkNone').tooltip({
+      content: $('<div>fff</div>'),
+      showEvent: 'click',
+      onUpdate: function(content){
+//        content.panel({
+//          border: false,
+//          content: $('#content').html()
+//        });
+      },
+      onShow: function(){
+//        var t = $(this);
+//        t.tooltip('tip').unbind().bind('mouseenter', function(){
+//          t.tooltip('show');
+//        })
+//            .bind('mouseleave', function(){
+//              t.tooltip('hide');
+//            });
+      }
+    });
+  });
+</script>
+</body>
+</html>

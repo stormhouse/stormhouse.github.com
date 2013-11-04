@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/combo-flag.css" />
+  <title></title>
+  <style>
+    .div input{
+      border: 1px solid #ddd;
+      display: inline-block;
+      background-color: #fff;
+      line-height: 25px;
+      height: 25px;
+      vertical-align: middle;
+      padding: 2px 0 0 3px;
+    }
+  </style>
+</head>
+<body>
+<form class="div">
+  <input id="flag" value="10003"/><br><br><br><br><br>
+  <input id="set-default-value" value="10005"/>
+  <input id="set-value" type="button" value="setValue">
+  <input id="get-value" type="button" value="getValue">
+</form>
+
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q<p>q
+
+  <script src="../lib/jquery-1.7.2.js"></script>
+  <script src="js/comboflag.js"></script>
+
+  <script>
+    $('#flag').comboflag({
+      url: 'flag.json',
+      width:100,
+      height: 25,
+      onSelect: function(countrycode){
+        alert(countrycode);
+      }
+    });
+
+    $('#set-value').click(function(){
+      $('#flag').comboflag('setValue', $('#set-default-value').val());
+    });
+    $('#get-value').click(function(){
+      alert($('#flag').comboflag('getValue'))
+    });
+  </script>
+</body>
+</html>

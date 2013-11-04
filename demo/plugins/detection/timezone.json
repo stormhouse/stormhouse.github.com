@@ -1,0 +1,152 @@
+[
+  {
+    "description": "(UTC-12:00) International Date Line West",
+    "id": 1,
+    "timezoneid": "GMT-12",
+    "timezonename": "UTC-12:00"
+  },
+  {
+    "description": "(UTC-11:00) Coordinated Universal Time-11",
+    "id": 2,
+    "timezoneid": "GMT-11",
+    "timezonename": "UTC-11:00"
+  },
+  {
+    "description": "(UTC-10:00) Hawaii",
+    "id": 3,
+    "timezoneid": "GMT-10",
+    "timezonename": "UTC-10:00"
+  },
+  {
+    "description": "(UTC-09:00) Alaska",
+    "id": 4,
+    "timezoneid": "GMT-9",
+    "timezonename": "UTC-09:00"
+  },
+  {
+    "description": "(UTC-08:00) Baja California，Pacific Time (US & Canada)",
+    "id": 5,
+    "timezoneid": "GMT-8",
+    "timezonename": "UTC-08:00"
+  },
+  {
+    "description": "(UTC-07:00) Arizona, Chihuahua, La Paz, Mazatlan, Mountain Time(US & Canada)",
+    "id": 6,
+    "timezoneid": "GMT-7",
+    "timezonename": "UTC-07:00"
+  },
+  {
+    "description": "(UTC-06:00) Central America, Central Time(US & Canada), Guadalajara, Mexico City, Monterrey, Saskatc",
+    "id": 7,
+    "timezoneid": "GMT-6",
+    "timezonename": "UTC-06:00"
+  },
+  {
+    "description": "(UTC-05:00) Bogota, Lima, Quito, Eastern Time (US & Canada), Indiana (East)",
+    "id": 8,
+    "timezoneid": "GMT-5",
+    "timezonename": "UTC-05:00"
+  },
+  {
+    "description": "(UTC-04:00) Asuncion, Atlantic Time (Canada), Georgetown, La Paz, San Juan, Santiago",
+    "id": 9,
+    "timezoneid": "GMT-4",
+    "timezonename": "UTC-04:00"
+  },
+  {
+    "description": "(UTC-03:00) Brasilia, Buenos Aires, Cayenne, Fortaleza, Greenland, Montevideo, Salvador",
+    "id": 10,
+    "timezoneid": "GMT-3",
+    "timezonename": "UTC-03:00"
+  },
+  {
+    "description": "(UTC-02:00) Mid-Atlantic",
+    "id": 11,
+    "timezoneid": "GMT-2",
+    "timezonename": "UTC-02:00"
+  },
+  {
+    "description": "(UTC-01:00) Azores, Cape Verde Is.",
+    "id": 12,
+    "timezoneid": "GMT-1",
+    "timezonename": "UTC-01:00"
+  },
+  {
+    "description": "(UTC) Casablanca, Dublin, Edinburgh, Lisbon, London, Monrovia, Reykjavik",
+    "id": 13,
+    "timezoneid": "GMT",
+    "timezonename": "UTC"
+  },
+  {
+    "description": "(UTC+01:00) Amsterdam,Berlin,Belgrade，Brussels， Sarajevo，Windhoek",
+    "id": 14,
+    "timezoneid": "GMT+1",
+    "timezonename": "UTC+01:00"
+  },
+  {
+    "description": "UTC+02:00) Athens, Beirut, Cairo, Damascus, Harare, Kyiv, Istanbul, Jerusalem",
+    "id": 15,
+    "timezoneid": "GMT+2",
+    "timezonename": "UTC+02:00"
+  },
+  {
+    "description": "(UTC+03:00) Amman, Baghdad, Minsk, Kuwait, Nairobi",
+    "id": 16,
+    "timezoneid": "GMT+3",
+    "timezonename": "UTC+03:00"
+  },
+  {
+    "description": "(UTC+04:00) Abu Dhabi, Muscat, Baku, Moscow, Port Louis, Tbilisi, Yerevan",
+    "id": 17,
+    "timezoneid": "GMT+4",
+    "timezonename": "UTC+04:00"
+  },
+  {
+    "description": "(UTC+05:00) Islamabad, Karachi, Tashkent",
+    "id": 18,
+    "timezoneid": "GMT+5",
+    "timezonename": "UTC+05:00"
+  },
+  {
+    "description": "(UTC+06:00) Astana, Dhaka, Ekaterinburg",
+    "id": 19,
+    "timezoneid": "GMT+6",
+    "timezonename": "UTC+06:00"
+  },
+  {
+    "description": "(UTC+07:00) Bangkok, Hanoi, Jakarta, Novosibirsk",
+    "id": 20,
+    "timezoneid": "GMT+7",
+    "timezonename": "UTC+07:00"
+  },
+  {
+    "description": "(UTC+08:00) Beijing, Hong Kong, Urumqi, Krasnoyarsk, Singapore, Perth, Taipei, Ulaanbaatar",
+    "id": 21,
+    "timezoneid": "GMT+8",
+    "timezonename": "UTC+08:00"
+  },
+  {
+    "description": "(UTC+09:00) Irkutsk, Osaka, Sapporo, Tokyo, Seoul",
+    "id": 22,
+    "timezoneid": "GMT+9",
+    "timezonename": "UTC+09:00"
+  },
+  {
+    "description": "(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Guam, Hobart, Yakutsk",
+    "id": 23,
+    "timezoneid": "GMT+10",
+    "timezonename": "UTC+10:00"
+  },
+  {
+    "description": "(UTC+11:00) Solomon Is., New Caledonia, Vladivostok",
+    "id": 24,
+    "timezoneid": "GMT+11",
+    "timezonename": "UTC+11:00"
+  },
+  {
+    "description": "(UTC+12:00) Auckland, Wellington, Fiji, Magadan",
+    "id": 25,
+    "timezoneid": "GMT+12",
+    "timezonename": "UTC+12:00"
+  }
+]

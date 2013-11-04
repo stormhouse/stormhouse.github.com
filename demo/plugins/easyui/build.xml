@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="js.build" default="clean" basedir="../">
+    <description>js.build for ANT</description>
+    <property name="src" location="./easyui-storm"/>
+    <property name="css" location="./easyui-storm/css"/>
+    <property name="build" location="./easyui-storm/build"/>
+    <property name="js-module" location="./easyui-storm/js-module"/>
+
+    <property name="js-home" location="E:\work\roamer-space\roamer-parent\roamer-web-customer\src\main\webapp\assets\ra-modules\common"/>
+    <property name="css-home" location="E:\work\roamer-space\roamer-parent\roamer-web-customer\src\main\webapp\style\default\css"/>
+    <!--<property name="target" location="js"/>-->
+    <property name="lib" location="lib"/>
+    <property name="charset" value="utf-8"/>
+
+    <target name="init">
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="concat" depends="init">
+        <echo message="Concat css files begin..." />
+        <!--<concat destfile="${build}/eui-all.css" encoding="${charset}" outputencoding="${charset}">-->
+        <concat destfile="${css-home}/jquery-eui.css" encoding="${charset}" outputencoding="${charset}">
+            <path path="${css}/eui-validatebox.css"/>
+            <path path="${css}/eui-panel.css"/>
+            <path path="${css}/eui-accordion.css"/>
+            <path path="${css}/eui-combo.css"/>
+            <path path="${css}/eui-combobox.css"/>
+            <path path="${css}/eui-calendar.css"/>
+            <path path="${css}/eui-datebox.css"/>
+            <path path="${css}/eui-spinner.css"/>
+            <path path="${css}/eui-tooltip.css"/>
+            <path path="${css}/frequency.css"/>
+            <path path="${css}/jquery.taskcreate.wizard.css"/>
+        </concat>
+        <echo message="Concat css files end!" />
+
+
+        <echo message="Concat panel begin ...!" />
+        <concat destfile="${js-home}/common.eui.panel/src/common.eui.panel.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/head.js"/>
+            <path path="${src}/panel.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat panel end!" />
+
+        <echo message="Concat accordion begin ...!" />
+        <concat destfile="${js-home}/common.eui.accordion/src/common.eui.accordion.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/accordion-h.js"/>
+            <path path="${src}/accordion.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat accordion end!" />
+
+        <echo message="Concat combo begin ...!" />
+        <concat destfile="${js-home}/common.eui.combo/src/common.eui.combo.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/combo-h.js"/>
+            <path path="${src}/combo.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat combo end!" />
+
+
+        <echo message="Concat combobox begin ...!" />
+        <concat destfile="${js-home}/common.eui.combobox/src/common.eui.combobox.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/combobox-h.js"/>
+            <path path="${src}/combobox.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat combobox end!" />
+
+
+        <echo message="Concat calendar begin ...!" />
+        <concat destfile="${js-home}/common.eui.calendar/src/common.eui.calendar.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/calendar-h.js"/>
+            <path path="${src}/calendar.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat calendar end!" />
+
+
+        <echo message="Concat datebox begin ...!" />
+        <concat destfile="${js-home}/common.eui.datebox/src/common.eui.datebox.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/datebox-h.js"/>
+            <path path="${src}/datebox.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat datebox end!" />
+
+
+        <echo message="Concat validatebox begin ...!" />
+        <concat destfile="${js-home}/common.eui.validatebox/src/common.eui.validatebox.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/validatebox-h.js"/>
+            <path path="${src}/validatebox.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat validatebox end!" />
+
+
+        <echo message="Concat spinner begin ...!" />
+        <concat destfile="${js-home}/common.eui.spinner/src/common.eui.spinner.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/spinner-h.js"/>
+            <path path="${src}/spinner.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat spinner end!" />
+
+
+        <echo message="Concat timespinner begin ...!" />
+        <concat destfile="${js-home}/common.eui.timespinner/src/common.eui.timespinner.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/timespinner-h.js"/>
+            <path path="${src}/timespinner.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat timespinner end!" />
+
+        <echo message="Concat tooltip begin ...!" />
+        <concat destfile="${js-home}/common.eui.tooltip/src/common.eui.tooltip.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/tooltip-h.js"/>
+            <path path="${src}/tooltip.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat timespinner end!" />
+
+
+        <echo message="Concat frequency begin ...!" />
+        <concat destfile="${js-home}/common.frequency/src/common.frequency.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/frequency-h.js"/>
+            <path path="${src}/frequency.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat frequency end!" />
+
+        <echo message="Concat taskcreate.wizard begin ...!" />
+        <concat destfile="${js-home}/common.taskcreate.wizard/src/common.taskcreate.wizard.js" encoding="${charset}" outputencoding="${charset}">
+            <path path="${js-module}/head.js"/>
+            <path path="${src}/wizard.js"/>
+            <path path="${js-module}/tail.js"/>
+        </concat>
+        <echo message="Concat taskcreate.wizard end!" />
+
+        <!--<echo message="Concat  begin ...!" />-->
+        <!--<concat destfile="${js-home}/common.eui.panel/src/common.eui.panel.js" encoding="${charset}" outputencoding="${charset}">-->
+            <!--<path path="${js-module}/head.js"/>-->
+            <!--<path path="${src}/panel.js"/>-->
+            <!--<path path="${js-module}/tail.js"/>-->
+        <!--</concat>-->
+        <!--<echo message="Concat  end!" />-->
+
+
+        <echo message="Successed!" />
+
+    </target>
+
+    <target name="compress" depends="concat">
+        <java jar="${lib}/yuicompressor.jar" fork="true">
+            <arg line="--type js --charset utf-8 ${build}/core.js -o ${target}/core.js"/>
+        </java>
+
+    </target>
+
+    <target name="clean" depends="compress">
+        <delete dir="${build}"/>
+    </target>
+
+</project>

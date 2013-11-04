@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="css/eui-panel.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-combo.css" />
+  <link rel="stylesheet" type="text/css" href="css/eui-combobox.css" />
+  <title></title>
+</head>
+<body>
+
+<select id="select" required="true">
+  <option value="1">javasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</option>
+  <option value="2">c</option>
+  <option value="3">python</option>
+</select>
+<!--<input id="select1" type="text" />-->
+<!--<input id="select2" type="text" /><p>-->
+<input id="select3" type="text" /><p>
+
+<input id="_disable" type="button" value="_disabled"/>
+<input id="_enable" type="button" value="_enabled"/>
+<input id="setValue" type="button" value="setValue"/>
+<input id="getValue" type="button" value="getValue"/>
+<input id="getWidth" type="button" value="getWidth"/>
+<input id="getText" type="button" value="getText"/>
+<input id="setText" type="button" value="setText"/>
+<input id="destroy" type="button" value="destroy"/>
+<input id="generator" type="button" value="generator"/><p>
+<input id="reload" type="button" value="reload"/>
+
+<div>d</div>
+<input id="input-text" type="text" /><p>
+<label>url</label><input id="new-url" type="text" value="combobox_data1.json" /><p>
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/combo.js"></script>
+<script src="js/combobox.js"></script>
+
+<script>
+
+
+  $('#select').combobox({
+//    width: '100%',
+//    readOnly: true,
+//		editable: true,
+		blankItem: false,
+//    children: ['select1', 'select2'],
+    zIndex: 300,
+    blankItem: true
+  });
+  var opts = $.data($('#select')[0], 'combobox').options;
+  console.log(opts)
+
+  opts.onSelect = function(v, t){
+    console.log('@@@@@@@@@@@@'+v);
+    console.log(v);
+  }
+
+
+  $('#select3').combobox({
+    width: 600,
+//    readOnly: true,
+//		editable: true,
+    valueField: 'id',
+    textField: 'text',
+    aliasField: 'alias',
+    url: 'combobox_data.json',
+    search: true,
+    searchUrl: 'combobox_data1.json',
+    searchKey: 'sim',
+    searchParentKey: 'operator',
+    searchParentId: 'select',
+    zIndex: 300
+  });
+  $('#select3').combobox('setValue', '3');
+//  $('#select1, #select2').combobox({
+//    width: 200,
+//    shortUrl: 'getSims',
+//    searchKey: 'username'
+//  });
+
+
+  $('#_disable').click(function(e){
+    $('#select').combobox('disable');
+  });
+  $('#_enable').click(function(e){
+    $('#select').combobox('enable');
+  });
+  $('#setValue').click(function(e){
+    $('#select').combobox('setValue', '');
+  });
+  $('#getValue').click(function(e){
+    var v = $('#select').combobox('getValue');
+    alert(v);
+  });
+  $('#getText').click(function(e){
+    var v = $('#select').combobox('getText');
+    alert(v);
+  });
+  $('#setText').click(function(e){
+    var t= $('#input-text').val();
+    var v = $('#select').combobox('setText', t);
+  });
+  $('#destroy').click(function(e){
+    var v = $('#select').combobox('destroy');
+  });
+  $('#generator').click(function(e){
+    $('#select').combobox({
+      width: 200,
+      children: ['select1', 'select2'],
+      zIndex: 300
+    });
+  });
+  $('#reload').click(function(e){
+    var u = $('#new-url').val();
+    $('#select3').combobox('reload', u);
+  });
+
+  $('#getWidth').click(function(e){
+    var a = $('.eui-combo-text').get(0).width();
+    alert(a);
+  });
+
+</script>
+</body>
+</html>

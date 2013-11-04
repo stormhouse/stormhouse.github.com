@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+  <style>
+    .container{
+      max-width: 960px;
+      min-height:300px;
+      position: relative;
+      margin: 0 auto;
+      /*height: auto;*/
+    }
+    #ab-left,#ab-right{position:absolute; top:0; width:200px; height:100%;}
+    #ab-left{left:0; background:#a0b3d6;}
+    #ab-right{right:0; background:#a0b3d6;}
+    #ab-main{margin:0 210px; background:#ffe6b8; height:100%;}
+
+    #mg-main{width:100%; height:100%; float:left;}
+    #mg-main #mg-body{margin:0 210px; background:#ffe6b8; height:100%;}
+    #mg-left,#mg-right{width:200px; height:100%; float:left; background:#a0b3d6;}
+    #mg-left{margin-left:-100%;}
+    #mg-right{margin-left:-200px;}
+
+    #ft-main{height:100%; margin:0 210px; background:#ffe6b8;min-height: 200px;}
+    #ft-left,#ft-right{width:200px; height:100%; background:#a0b3d6;min-height: 200px;}
+    #ft-left{float:left;}
+    #ft-right{float:right;}
+
+    #left { float: left; width: 155px; padding: 5px; position: relative; /*** IE needs this ***/ background-color: #ffe6b8;}
+    #right { float: right; width: 110px; padding: 5px; position: relative; /*** IE needs this ***/ margin-right: -120px; /** This negative margin-right value is the same as the right column width (width + padding). ***/ position: relative; /*** IE needs this ***/ background-color: #ffe6b8;}
+    #main { float: right; margin-right: -165px; /*** Same length as .outer padding-left but with negative value ***/ width: 100%; position: relative; /*** IE needs this ***/ background:#a0b3d6;}
+
+  </style>
+</head>
+<body>
+<h3>no.1 使用对定位法</h3>
+<p>左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局</p>
+<ul>
+  <li><strong>注意</strong>：中间栏含有最小宽度限制</li>
+  <li><strong>缺点</strong>：若中间栏中有固定宽度（大于最小宽度）就会发生重叠</li>
+</ul>
+<div class="container">
+  <div id="ab-left"><br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1</div>
+  <div id="ab-main"><div style="background-color: #bcbcbc; min-width: 200px;">a</div></div>
+  <div id="ab-right"></div>
+</div>
+
+<h3>no.2 margin负值法</h3>
+<p></p>
+<ul>
+  <li><strong>优点</strong>：三栏相互关联，可谓真正意义上的自适应，有一定的抗性——布局不易受内部影响</li>
+  <li><strong>缺点</strong>：相对比较难理解些，上手不容易，代码相对复杂。出现百分比宽度，过多的负值定位，如果出现布局的bug，排查不易</li>
+</ul>
+<div class="container">
+  <div id="mg-main">
+    <div id="mg-body"><div style="background-color: #bcbcbc; min-width: 200px;">a</div></div>
+  </div>
+  <div id="mg-left"></div>
+  <div id="mg-right"></div>
+</div>
+<h3>no.3 浮动定位法</h3>
+<p></p>
+<ul>
+  <li><strong>优点</strong>：代码足够简洁与高效</li>
+  <li><strong>缺点</strong>：中间主体存在克星，clear:both属性。如果要使用此方法，需避免明显的clear样式</li>
+</ul>
+<div class="container">
+  <div id="ft-left">left<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1</div>
+  <div id="ft-right">right</div>
+  <div id="ft-main">main</div>
+</div>
+
+<div class="container">
+  <div id="left">left</div>
+  <div id="right">right</div>
+  <div id="main">main</div>
+</div>
+
+<a href="http://www.zhangxinxu.com/wordpress/2009/11/%e6%88%91%e7%86%9f%e7%9f%a5%e7%9a%84%e4%b8%89%e7%a7%8d%e4%b8%89%e6%a0%8f%e7%bd%91%e9%a1%b5%e5%ae%bd%e5%ba%a6%e8%87%aa%e9%80%82%e5%ba%94%e5%b8%83%e5%b1%80%e6%96%b9%e6%b3%95/">zhangxinxu</a>
+<a href="http://paranimage.com/9-timeless-column-3-of-the-css-layout-skills/">9个永不过时的CSS 3栏布局技巧</a>
+<script>
+
+</script>
+</body>
+</html>

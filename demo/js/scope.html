@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+
+<h3>执行环境与作用域</h3>
+<p>每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境</p>
+<p>当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。用途：是保存对执行环境有权访问的所有变量和函数有序访问。作用域链的前端,始终都是当前执行的代码所在环境的变量对象。如果环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量，即arguments。作用域链中的下一个变量对象来自包含（外部）环境，而再下一个变量对象则来自下一个包含环境。这样，一直延续到全局执行环境：全局执行环境的变量对象始终都是作用域中的最后一个对象</p>
+<p>标识符解析是沿着作用域一级一级地搜索标识符的过程。搜索过程始终从作用域链的前端开始，然后逐级地向后回溯，起到找到标识符为止（如果找不到标识符，发生错误）</p>
+<pre class="brush: js">
+</pre>
+<hr/>
+<h3>延长作用域链</h3>
+<ul>
+  <li>catch</li>
+  <li>with</li>
+</ul>
+<pre class="brush: js">
+</pre>
+<hr/>
+<h3>垃圾收集</h3>
+<ul>
+  <li>标记清除()</li>
+  <li>引用记数</li>
+</ul>
+
+<pre class="brush: js">
+window.CollectGarbage();    //IE
+window.opera.collection();  //opera
+</pre>
+<hr/>
+<h3></h3>
+<pre class="brush: js">
+</pre>
+<hr/>
+
+
+
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+
+
+  var o = Object;
+  var a = {}
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

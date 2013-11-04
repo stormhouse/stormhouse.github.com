@@ -1,0 +1,63 @@
+
+/*-----------------------eui-spinner begin-----------------------*/
+.eui-spinner {
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.eui-spinner .eui-spinner-text {
+  font-size: 12px;
+  border: 0px;
+  line-height: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0 2px;
+  *margin-top: -1px;
+  *height: 18px;
+  *line-height: 18px;
+  _height: 18px;
+  _line-height: 18px;
+  vertical-align: baseline;
+}
+.eui-spinner-arrow {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+.eui-spinner-arrow-up,
+.eui-spinner-arrow-down {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  display: block;
+  font-size: 1px;
+  width: 18px;
+  height: 10px;
+}
+.eui-spinner-arrow-hover {
+  /*opacity: 1.0;*/
+  /*filter: alpha(opacity=100);*/
+}
+.eui-spinner-arrow-up {
+  background: url('../images/spinner_arrows.png') no-repeat 1px center;
+}
+.eui-spinner-arrow-down {
+  background: url('../images/spinner_arrows.png') no-repeat -16px center;
+}
+.eui-spinner {
+  border-color: #bcbcbc;
+}
+.eui-spinner-arrow {
+  background-color: #f5f5f5;
+}
+.eui-spinner-arrow-hover {
+  background-color: #eaf2ff;
+}
+/*-----------------------eui-spinner end-----------------------*/
+
