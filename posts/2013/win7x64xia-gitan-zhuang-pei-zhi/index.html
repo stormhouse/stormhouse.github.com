@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>win7x64下git安装配置</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="win7x64下git安装配置"/>
+            <meta property="og:url" content="/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/"/>
+            <meta property="og:description" content="1. 安装 1.1 cygwin安装 cygwin下载 注意：添加make命令，在Select Packages一步，将Devel@Default改为Devel@Install 1.2 git for windows下载安装 下载 2. github配置 2.1 github.com上注册用户 用户名:stormhouse; 邮箱:stormhouse@yeah.net 2.2 初始配置 打开Git Bash，执行以下命令 git config --global user.name "stormhouse" git config --global user.email stormhouse@yeah ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="/category/python.html">python</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/"
+                       rel="bookmark"
+                       title="Permalink to win7x64下git安装配置">
+                        win7x64下git安装配置
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>周一 14 十月 2013
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/git.html">git</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h3>1. 安装</h3>
+<h6>1.1 cygwin安装</h6>
+<p><a href="http://www.cygwin.com/install.html">cygwin下载</a>
+<br>注意：添加make命令，在Select Packages一步，将Devel@Default改为Devel@Install</p>
+<h6>1.2 git for windows下载安装</h6>
+<p><a href="https://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git">下载</a></p>
+<h3>2. github配置</h3>
+<h6>2.1 github.com上注册用户</h6>
+<p>用户名:stormhouse; 邮箱:stormhouse@yeah.net</p>
+<h6>2.2 初始配置</h6>
+<p>打开Git Bash，执行以下命令</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">name</span> <span class="s">&quot;stormhouse&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">email</span> <span class="n">stormhouse</span><span class="err">@</span><span class="n">yeah</span><span class="p">.</span><span class="n">net</span>
+</pre></div>
+
+
+<p>查看</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">config</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+
+
+<h6>2.3 创建SSH密匙</h6>
+<p>按提示输入文件名及密码</p>
+<div class="highlight"><pre><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">C</span> <span class="err">&#39;</span><span class="n">stormhouse</span><span class="err">@</span><span class="n">yeah</span><span class="p">.</span><span class="n">net</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span>
+</pre></div>
+
+
+<h6>2.4 提交密匙</h6>
+<p>登录github.com，点击Account settings -&gt; SSH Keys -&gt; Add SSH Key,
+把c:\user\${username}.ssh\id_rsa.pub中内容保存到Key中<br />
+打开命令行，测试连接</p>
+<div class="highlight"><pre><span class="n">ssh</span> <span class="o">-</span><span class="n">v</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span>   <span class="o">--</span><span class="err">测试连接</span>
+</pre></div>
+
+
+<p>会提示你输入创建密匙时的密码</p>
+<h3>3. 创建项目，上传</h3>
+<h6>3.1 创建本地仓库</h6>
+<p>Git Bash下，切到项目的根目录下，如test-demo</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">init</span>
+</pre></div>
+
+
+<p>添加一个文件index.html</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+</pre></div>
+
+
+<p>提交到仓库(-m是提交的注释)</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">add</span> <span class="n">index</span><span class="p">.</span><span class="n">html</span><span class="err">&#39;</span>
+</pre></div>
+
+
+<h6>3.2 提交代码到github</h6>
+<p>登录github，单击Create a new repo，名称为test-demo<br />
+添加远程url，打开Git Bash，注意要换为你的用户名和项目名</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="n">stormhouse</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">demo</span><span class="p">.</span><span class="n">git</span>
+</pre></div>
+
+
+<p>提交</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+
+
+<p>刷新你的github.com主页，就可以看到提交的index.html文件了</p>
+<p>（完）</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="#"><i
+                            class="icon-You can add links in your config file-sign icon-large"></i>You can add links in your config file
+                    </a></li>
+                    <li class="list-group-item"><a href="#"><i
+                            class="icon-Another social link-sign icon-large"></i>Another social link
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-1">
+                    <a href="/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="/tag/git.html">
+                        git
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+</body>
+</html>
