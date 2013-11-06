@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+</head>
+<body>
+
+<input id="test" />
+<script src="../lib/jquery-1.7.2.js"></script>
+<script>
+  (function($) {
+
+    $.fn.specialChar = function(options) {
+      var opts = undefined;
+      $.fn.specialChar.defaults = {
+
+      };
+
+      opts = $.extend($.fn.specialChar.defaults, options);
+
+      $(this).keypress(function(event){
+        if(event.keyCode == 37) return;
+        var v = String.fromCharCode(event.keyCode);
+        if(/[!@#$%^&*()+\[\]\\\?]/.test(v)){
+          event.preventDefault();
+          return;
+        }
+      });
+    }
+
+
+  })(jQuery);
+  $('#test').specialChar();
+</script>
+</body>
+</html>

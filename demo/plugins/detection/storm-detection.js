@@ -1074,7 +1074,6 @@
         startIndex: new Date(),//'4/23/2013',
         width: 150,
         onSelect: function(date){
-          console.log(date)
           self._mainBand.fixToDate(date)
 //          self.updateTimeSegment(date)
 

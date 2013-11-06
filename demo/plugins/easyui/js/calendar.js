@@ -259,7 +259,7 @@
     if(startDateIndex)
       var startDay = startDateIndex.getDate()
 
-    if(startDateIndex && startDateIndex.getTime()>beginDate.getTime() && startDateIndex.getTime()<endDate.getTime()){
+    if(startDateIndex && startDateIndex.getTime()>beginDate.getTime() && startDateIndex.getTime()<(endDate.getTime()+24*3600000)){
       var startDateIndexInC = 1;
       for (var i = 1; i <= lastDay; i++){
         if(i<startDay)

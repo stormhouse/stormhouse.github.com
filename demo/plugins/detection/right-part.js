@@ -23,8 +23,8 @@
     var self = this;
     var rightContainer = $('<div class="timeline-rightband-container" style="display: none;"></div>');
     rightContainer.width(de._RightPart.PIECE_WIDTH)
-    rightContainer.height((self._timeline._simTs.length+1)*(de.SIMTS_HEIGHT-1));
-
+    self._mainHeight = (self._timeline._simTs.length+1)*(de.SIMTS_HEIGHT-1)
+    rightContainer.height(this._mainHeight);
     var top = $('<div class="timeline-right-band-top"></div>');
     var bottom = $('<div class="timeline-right-band-bottom"></div>');
 
@@ -75,6 +75,7 @@
   de._RightPart.prototype.moveUp = function(self){
     if(!self)
       self = this;
+    if(self._holeMonth.height()<=self._mainHeight) return;
     var bandHeight = self.getBandHeight();
     var bandTop = self.getBandOffsetTop();
 

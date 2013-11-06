@@ -11,7 +11,7 @@
 
     this._timeline = timeline;
     this._bandInfo = bandInfo;
-
+    this._isDragging = true;
     this._currentDate = bandInfo.currentDate;
     this._index = index;
     this._locale = ("locale" in bandInfo) ? bandInfo.locale : de.getDefaultLocale();
@@ -54,7 +54,7 @@
     Storm.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
     Storm.DOM.registerEventWithObject(this._div, "mousemove", this, "_onMouseMove");
     Storm.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
-    Storm.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseOut");
+    Storm.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseUp");
 
 
     this.addEventBtn();
@@ -158,7 +158,7 @@
     this._dragY = evt.clientY;
   };
   de._Band.prototype._onMouseMove = function(innerFrame, evt, target) {
-    if (this._dragging) {
+    if (this._dragging && this._isDragging) {
       var diffX = evt.clientX - this._dragX;
       var diffY = evt.clientY - this._dragY;
 
@@ -353,10 +353,11 @@
 //    jquery动画
     var _div = this._div;
     if(!opacity){
+      self._isDragging = false;
       $(this._div).stop().animate({
         left: self._viewOffset
       }, 1000, null, function(){
-
+        self._isDragging = true;
         if (self._viewOffset > -self._viewLength * 0.5 ||
             self._viewOffset < -self._viewLength * (de._Band.SCROLL_MULTIPLES - 1.5)) {
 //      重新计算
@@ -372,12 +373,12 @@
 //        }, 1000, null,function(){});
       });
     }else{
-
+      self._isDragging = false;
       $(this._div).stop().animate({
         left: self._viewOffset,
         opacity: 0
       }, 1000, null, function(){
-
+        self._isDragging = true;
         if (self._viewOffset > -self._viewLength * 0.5 ||
             self._viewOffset < -self._viewLength * (de._Band.SCROLL_MULTIPLES - 1.5)) {
 //      重新计算
