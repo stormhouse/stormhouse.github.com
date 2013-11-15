@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>屏蔽特殊字符输入</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<div>!@#$%^&*()+[]\</div>
+<input id="test" />
+<div id="display-content">
+  <label><a href="http://www.asciitable.com/" target="_blank">e.charCode</a>: </label><span></span><br>
+  <label><a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">e.keyCode</a> : </label><span></span>
+</div>
+<hr/>
+
+<h3>keypress: keyCode与charCode</h3>
+<p>当用户按下了键盘上的字符键触发，按住不放不会触发。按esc也会触发</p>
+<p class="err">firefox与其它浏览器不同，输入非字符的也会被触发keypress</p>
+<hr/>
+
+<pre class="brush: js">
+$('#test').keypress(function (event) {
+
+  var v = String.fromCharCode(event.charCode);
+  if (/[!@#$%^&*()+\[\]\\\?]/.test(v)) {
+    event.preventDefault();
+    return;
+  }
+});
+</pre>
+
+
+
+
+<script type="text/javascript" src="../lib/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+
+
+$('#test').keypress(function (event) {
+  $('#display-content').children('span').eq(0).html("keyCode:" + event.keyCode)
+  $('#display-content').children('span').eq(1).html("charCode:" + event.charCode)
+
+  var v = String.fromCharCode(event.charCode);
+  if (/[!@#$%^&*()+\[\]\\\?]/.test(v)) {
+    event.preventDefault();
+    $('#display-content').children('div').remove();
+    $('#display-content').append('<div>不能输入特殊字符：'+v+'</div>')
+    return;
+  }
+});
+
+
+
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

@@ -191,7 +191,10 @@
           eventPainter = new de.OriginalEventPainter(eventPainterParams);
       }
     }
-
+    if(params.TZ_BY_COUNTRYCODE)
+      de.TZ_BY_COUNTRYCODE = params.TZ_BY_COUNTRYCODE;
+    if(params.TZ)
+      de.TZ = params.TZ;
     return {
 //      width:params.width,
       type: params.type? params.type : 111,
@@ -247,7 +250,9 @@
     this._bandInfos = bandInfos;
     this._orientation = 0;
     this._locale = bandInfos[0].locale;
+    //客户浏览器时区
     this._timezone = bandInfos[0].timezone
+    //客户选择的时区
     this._realtimezone = bandInfos[0].realtimezone
     this._countrycodes = bandInfos[0].countrycodes
 
@@ -396,12 +401,10 @@
     this._rightPart.appendChild(div);
   };
 
-  //TODO
+  //更新当前时间的标识
   de._Impl.prototype.updateCurrentDateFlag = function(date){
     if(!date)
       var date = new Date(new Date().getTime()-(this._timezone - this._realtimezone)*3600000);
-
-
     var offset = Math.round(this._mainBand.dateToPixelOffset(date));
     var cf = $('#current-date-flag');
     if(cf.length == 0){
@@ -523,6 +526,10 @@
         }).html(s.attr('data-text'));
         self._realtimezone = s.attr('value').split('UTC')[1];
         panel.hide();
+        if($("input[name='task-type']:checked").val() == 1){
+          $('#task-type-immediately').trigger('click');
+        }
+        self.updateCurrentDateFlag();
       });
       timezonediv.append(panel);
       $(document.body).unbind('click').bind('click', function(){
@@ -549,8 +556,13 @@
             if(data){
               $('.timeline-left-timezone').children('label').attr('value', data.timezoneid).html(data.timezonename);
               var t = data.timezoneid.split('UTC')[1];
-              if(t)
+              if(t){
                 self._realtimezone = t;
+                if($("input[name='task-type']:checked").val() == 1){
+                  $('#task-type-immediately').trigger('click')
+                }
+                self.updateCurrentDateFlag();
+              }
             }
           },
           error: function (data, textStatus) {
@@ -583,8 +595,8 @@
       self._taskType = '';
       typeContent.children().hide();
       $('.timeline-rightband-container').hide();
-      self._bands[0].fixToDate(new Date());
-
+      var dateOfRealtimezone = new Date(new Date().getTime()-(self._timezone - self._realtimezone)*3600000);
+      self._bands[0].fixToDate(dateOfRealtimezone);
     })
     $(r2).click(function(event){
       self._taskType = '';
@@ -607,8 +619,8 @@
         input.datebox({
           zIndex: 400,
           width: 150,
-          currentDate: new Date(),
-          startIndex: new Date(),//'4/23/2013',
+          currentDate: self.getNewCurrentDate(),
+          startIndex: self.getNewCurrentDate(),//'4/23/2013',
           onSelect: function(date){
             date.setHours(self.getCurrentDate().getHours());
             date.setMinutes(self.getCurrentDate().getMinutes());
@@ -1126,6 +1138,11 @@
   de._Impl.prototype.getCurrentDate = function(){
     return new Date(this._mainBand._currentDate);
 //    return new Date(this._mainBand._currentDate.getTime()+(parseInt(this._realtimezone)-parseInt(this._timezone))*3600*1000)
+  }
+
+  //根据时区返回当前时间
+  de._Impl.prototype.getNewCurrentDate = function(){
+    return this.changeDateTimezone(new Date(), this._timezone, this._realtimezone);
   }
   de._Impl.prototype.getExeDate = function(){
 //    return new Date(this._mainBand._currentDate);

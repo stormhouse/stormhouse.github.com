@@ -54,7 +54,7 @@
     Storm.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
     Storm.DOM.registerEventWithObject(this._div, "mousemove", this, "_onMouseMove");
     Storm.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
-    Storm.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseUp");
+    Storm.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseOut");
 
 
     this.addEventBtn();
@@ -260,14 +260,17 @@
   };
 
   de._Band.prototype._onMouseOut = function(innerFrame, evt, target) {
-    this._dragging = false;
+    if($("input[name='task-type']:checked").val() == 1) return ;
+    this._onMouseUp(innerFrame, evt, target);
+
+//    this._dragging = false;
 //    var coords = SimileAjax.DOM.getEventRelativeCoordinates(evt, innerFrame);
 //    coords.x += this._viewOffset;
 //    if (coords.x < 0 || coords.x > innerFrame.offsetWidth ||
 //      coords.y < 0 || coords.y > innerFrame.offsetHeight) {
 //      this._dragging = false;
 //    }
-    this.computeTime();
+//    this.computeTime();
   };
 
   de._Band.prototype._moveEther = function(shift) {
@@ -493,6 +496,9 @@
 
 //    var a = $('<div id="lastes-time" style="color: red">').html(currentTime.toString());
 //    $('.timeline-type-title').append(a);
+    if(this._timeline._type != 'grq' && $("input[name='task-type']:checked").val() == 3)
+      $('#detection-frequency').frequency('reClick')
+
   }
 
   de._Band.prototype.createLayerDiv = function(zIndex, className) {

@@ -1,0 +1,20 @@
+[
+  {
+    "description": "(UTC+08:00) Beijing, Hong Kong, Urumqi, Krasnoyarsk, Singapore, Perth, Taipei, Ulaanbaatar",
+    "id": 21,
+    "timezoneid": "UTC+8",
+    "timezonename": "UTC+08:00"
+  },
+  {
+    "description": "(UTC-05:00) Bogota, Lima, Quito, Eastern Time (US & Canada), Indiana (East)",
+    "id": 8,
+    "timezoneid": "UTC-5",
+    "timezonename": "UTC-05:00"
+  },
+  {
+    "description": "(UTC+00:00) Bogota, Lima, Quito, Eastern Time (US & Canada), Indiana (East)",
+    "id": 0,
+    "timezoneid": "UTC+0",
+    "timezonename": "UTC+00:00"
+  }
+]

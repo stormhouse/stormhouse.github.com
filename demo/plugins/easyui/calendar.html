@@ -17,30 +17,15 @@
 </head>
 <body>
 
-<select id="select0" required="true">
-  <option value="+1">java</option>
-  <option value="+2">c</option>
-  <option value="+3">python</option>
-</select>
-<input id="select" type="text" url="combobox_data.html"/>
-<input id="select1" type="text" />
-<input id="select2" type="text" /><p>
 
-<input id="_disable" type="button" value="_disabled"/>
-<input id="_enable" type="button" value="_enabled"/>
-<input id="setValue" type="button" value="setValue"/>
-<input id="getValue" type="button" value="getValue"/>
-<input id="getWidth" type="button" value="getWidth"/>
-<input id="getText" type="button" value="getText"/>
-<input id="destroy" type="button" value="destroy"/>
-<input id="selectLater" type="button" value="selectLater"/>
+<input id="mt-date" value="09/09/2010"/><input id="movetodate" type="button" value="moveToDate"/>
 <input id="nextMonth" type="button" value="nextMonth"/>
 <input id="prevMonth" type="button" value="prevMonth"/>
 
 <div id="calendar" style="width: 200px;"></div>
 
 <!--<input id="dd" class="easyui-datebox" required="required"/>-->
-<script src="../lib/jquery-1.7.2.js"></script>
+<script src="../../lib/jquery-1.7.2.js"></script>
 <script src="js/panel.js"></script>
 <script src="js/combo.js"></script>
 <script src="js/calendar.js"></script>
@@ -65,6 +50,10 @@
   });
   $('#prevMonth').click(function(){
     $('#calendar').calendar('prevMonth');
+  });
+
+  $('#movetodate').click(function(e){
+    $('#calendar').calendar('moveToDate', $('#mt-date').val())
   });
 </script>
 </body>

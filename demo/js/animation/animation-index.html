@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+
+</head>
+<body>
+<ul>
+  <li><a href="setTimeout-when-execute.html">setTimeout什么时候执行</a></li>
+  <li><a href="requestAnimationFrame-vs-setTimeout-1.html">requestAnimationFrame与setTimeout效果对比1</a></li>
+  <li><a href="requestAnimationFrame-vs-setTimeout-2.html">requestAnimationFrame与setTimeout效果对比2</a></li>
+  <li><a href="requestAnimationFrame-easing.html">requestAnimationFrame使用缓动函数</a></li>
+  <li><a href="st-vs-raf-interval.html">测试requestAnimationFrame和setTimeout间隔对比</a></li>
+</ul>
+<h3>编写平滑的动画</h3>
+<p>看动画就像看电影一样，怎么使得动画变得平滑些。人眼对时间频率的感知。那就是高过人眼的最低频率24Hz，还有就是不要丢帧。</p>
+<p>大多数的电脑显示器是60Hz，大概相当每秒钟重绘60次。大多数浏览器都会对重绘操作加以限制，不超过浏览器的重绘频率，即使超过这个频率，用户体验也不会有提升</p>
+<p>因此，最平滑的动画间隔时间是1000/60毫秒，约17ms。以这个循环间隔重绘的动画是最平滑的，因为这个速度最接近浏览器的最高速度。</p>
+<p>虽然与使用多组setTimeout()循环方式相比，使用setInterval()的动画循环效率高，但后者也不是没有问题。无论是setTimeout还是setInterval都不精准。因为传入的第二参数是指把动画代码添加到浏览器的UI线程队列中以等待执行的时间。即使到了时间，前后加的任务没有执行完（单线程），也不会得到执行</p>
+<p>Mozilla的Robert O'Callahan认识到了这个问题，提出了一个非常独特的方案。他指出，CSS变换和动画的优势在于浏览器知道动画什么时候开始，因些会计算出正确的循环间隔，在恰当的时候刷新UI。而对于javascript动画，浏览器无从知晓什么时候开始。因此他的方案是创造一个新方法mozRequestAnimationFrame()，通过它告诉浏览器某些javascript代码将要执行动画。这样浏览器可以在运行某些代码后进行适当的优化。</p>
+
+</body>
+</html>

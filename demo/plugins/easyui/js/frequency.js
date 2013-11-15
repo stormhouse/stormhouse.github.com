@@ -472,6 +472,11 @@
       second.combo('borderRed');
     }
   }
+  function reClick(target){
+    var self = $(target)
+    setValue(target, getValue(target));
+
+  }
 
   $.fn.frequency = function(options, params){
 
@@ -511,7 +516,11 @@
     },
     borderRed: function(jq){
       return borderRed(jq[0]);
+    },
+    reClick: function(jq){
+      return reClick(jq[0]);
     }
+
 
   }
 

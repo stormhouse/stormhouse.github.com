@@ -342,9 +342,14 @@
   /**
    * show the calendar day.
    */
-  function show(target, nextControl) {
+  function show(target, nextControl, toDate) {
     var opts = $.data(target, 'calendar').options;
 
+    if(toDate){
+      opts.current = new Date(toDate)
+      opts.year = opts.current.getFullYear()
+      opts.month = opts.current.getMonth()+1
+    }
     var start, end;
     if(opts.parentEl){
       start = $.data(opts.parentEl, 'datebox').options.startDate;
@@ -550,6 +555,11 @@
       return jq.each(function () {
         prevMonth(this);
       });
+    },
+    moveToDate: function(jq, toDate){//'09/09/2010'
+      return jq.each(function () {
+        show(this, '', toDate);
+      });
     }
   }
 
@@ -567,8 +577,8 @@
 //		year:new Date().getFullYear(),
 //		month:new Date().getMonth()+1,
     current: new Date(),
-    selectedToday: true,//是否选择中当天
 
+    selectedToday: true,//是否选择中当天
     onSelect: function (date) {
     },
     selectLater: function () {

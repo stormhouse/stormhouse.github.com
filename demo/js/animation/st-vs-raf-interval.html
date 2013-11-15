@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCoreDefault.css"/>
+  <style>
+  </style>
+</head>
+
+<body>
+<h3>测试两种方式，每次迭代间隔</h3>
+<div>
+  <h3>setTimeout测试</h3>
+  <input type="button" id="start-st" value="Start" />
+  <input type="button" id="stop-st" value="Stop" disabled="true" />
+</div>
+<div>
+  <h3>requestAnimationFrame测试</h3>
+  <input type="button" id="start-raf" value="Start" />
+  <input type="button" id="stop-raf" value="Stop" disabled="true" />
+</div>
+<label>被调用函数阻塞时间（毫秒）:</label><input id="block-ms" type="text" value="30">
+<pre class="brush: js">
+</pre>
+
+<script src="easing.js"></script>
+
+<script src="../../lib/jquery-1.7.2.js"></script>
+<script src="../../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script src="../../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+
+<script>
+
+  //阻塞函数，毫秒
+  function sleep(ms){
+    if(ms<0)return;
+    var startDate = new Date()
+    while(new Date().getTime() < startDate.getTime()+parseInt(ms))
+      ;
+  }
+  var requestAnimationFrame = window.requestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.msRequestAnimationFrame;
+  //使用setTimeout
+  var requestAnimationFrame1 = function(fun){
+    setTimeout(fun, 1000/60)
+  }
+
+  var isStop = false;
+  var count =0;
+  var endDate;
+  var blockMs = 30;
+  function draw_st(){
+    count++;
+    endDate = new Date();
+    sleep(blockMs)//阻塞时间
+    if(!isStop)
+      requestAnimationFrame1(draw_st)
+  }
+  var startDate;
+
+  function draw(){
+    count++;
+    endDate = new Date();
+    sleep(blockMs)//阻塞时间
+    if(!isStop)
+      requestAnimationFrame(draw)
+  }
+
+  document.getElementById('start-st').onclick = function(){
+    if(document.getElementById('stop-raf').disabled == false){
+//      alert('stop the other one');
+      return;
+    }
+    document.getElementById('stop-st').disabled = false;
+    document.getElementById('start-st').disabled = true;
+    isStop = false;
+    count = 0;
+    startDate = new Date();
+    requestAnimationFrame1(draw_st)
+  }
+  document.getElementById('stop-st').onclick = function(){
+    document.getElementById('stop-st').disabled = true;
+    document.getElementById('start-st').disabled = false;
+    isStop = true;
+    var divEl = document.createElement('div');
+    divEl.innerHTML = 'setTimeout: '+(endDate.getTime()-startDate.getTime())/count+ '(次/ms)'
+    document.body.appendChild(divEl)
+  }
+  document.getElementById('start-raf').onclick = function(){
+    if(document.getElementById('stop-st').disabled == false){
+//      alert('stop the other one');
+      return;
+    }
+    document.getElementById('stop-raf').disabled = false;
+    document.getElementById('start-raf').disabled = true;
+    isStop = false;
+    count = 0;
+    startDate = new Date();
+    requestAnimationFrame(draw)
+  }
+  document.getElementById('stop-raf').onclick = function(){
+    document.getElementById('stop-raf').disabled = true;
+    document.getElementById('start-raf').disabled = false;
+    isStop = true;
+    var divEl = document.createElement('div');
+    divEl.innerHTML = 'requestAnimationFrame: '+(endDate.getTime()-startDate.getTime())/count+ '(次/ms)'
+    document.body.appendChild(divEl)
+  }
+
+
+
+  document.getElementById('block-ms').onblur = function(){
+    blockMs = document.getElementById('block-ms').value;
+    if(blockMs == '') blockMs = 0;
+  }
+</script>
+
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

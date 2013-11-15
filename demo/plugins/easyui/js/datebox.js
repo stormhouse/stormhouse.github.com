@@ -258,8 +258,13 @@
     var state = $.data(target, 'datebox');
     var opts = state.options;
     opts.date = date;
-    var value = opts.formatter(date);
-    setValue(target, value);
+    var value;
+    try{
+      value = opts.formatter(date);
+      setValue(target, value);
+    }catch(ex){
+      $(target).combo('setText', date);
+    }
     $(target).combo('hidePanel');
     opts.onSelect.call(target, date);
   }
@@ -273,15 +278,26 @@
     var state = $.data(target, 'datebox');
     var opts = state.options;
     opts.date = date;
-    var value = opts.formatter(date);
-    setValue(target, value);
+    var value;
+    try{
+      value = opts.formatter(date);
+      setValue(target, value);
+    }catch(ex){
+      $(target).combo('setText', date);
+    }
     $(target).combo('hidePanel');
 //    opts.onSelect.call(target, date);
   }
 
   function getDate(target) {
     var state = $.data(target, 'datebox');
-    return new Date(state.options.date);
+    var retDate;
+    retDate = new Date(state.options.date);
+    var retVal = retDate.getTime();
+    if(retVal)
+      return retDate;
+    else
+      return  state.options.date;
   }
 
   function borderRed(target){
@@ -330,6 +346,11 @@
       });
     },
     setDate2: function (jq, value) {
+      return jq.each(function () {
+        setDate2(this, value);
+      });
+    },
+    setDateNoCall: function (jq, value) {
       return jq.each(function () {
         setDate2(this, value);
       });

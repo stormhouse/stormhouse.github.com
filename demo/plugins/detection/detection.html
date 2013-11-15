@@ -79,7 +79,7 @@
   <!--<input type="button" id="shift-btn" value="shift">-->
 <!--</div>-->
 <script src="../../lib/jquery-1.7.2.js"></script>
-<!--<script src="../lib/underscore-1.5.1.js"></script>-->
+<script src="../../lib/underscore-1.5.2.js"></script>
 
 <!--jquery easyui-->
 <script src="../easyui/js/panel.js"></script>
@@ -158,7 +158,9 @@
         type: 'sim'
       }
     ],
-    url: 'eventSource.json'
+    url: 'eventSource.json',
+    TZ_BY_COUNTRYCODE: 'timezone.json',
+    TZ: 'timezone-data.json'
   }
 
 //  TODO 更新初始化控件信息

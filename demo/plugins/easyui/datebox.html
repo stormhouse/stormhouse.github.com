@@ -6,38 +6,83 @@
   <link rel="stylesheet" type="text/css" href="css/eui-combo.css" />
   <link rel="stylesheet" type="text/css" href="css/eui-calendar.css" />
   <link rel="stylesheet" type="text/css" href="css/eui-datebox.css" />
+  <link rel="stylesheet" type="text/css" href="../../lib/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="../../lib/syntaxhighlighter/shCoreDefault.css" />
+
   <title></title>
 </head>
 <body>
 
-<select id="select0" required="true">
-  <option value="+1">java</option>
-  <option value="+2">c</option>
-  <option value="+3">python</option>
-</select>
-<input id="select" type="text" url="combobox_data.html"/>
-<input id="select1" type="text" />
-<input id="select2" type="text" /><p>
 
-<input id="_disable" type="button" value="_disabled"/>
-<input id="_enable" type="button" value="_enabled"/>
-<input id="setValue" type="button" value="setValue"/>
-<input id="getValue" type="button" value="getValue"/>
-<input id="getWidth" type="button" value="getWidth"/>
-<input id="getText" type="button" value="getText"/>
-<input id="destroy" type="button" value="destroy"/>
-<input id="generator" type="button" value="generator"/>
-<input id="setDate" type="button" value="setDate"/>
-<input id="getDate" type="button" value="getDate"/>
-
-<div>d</div>
-<div style="float: right;">
-<input id="dd" class="easyui-datebox" required="required" data-rule-date="true"/>
+<div style="position: fixed; top:0px;z-index: 2; opacity: 1;background: #fff; padding-top: 10px; width: 100%;">
+  <input id="select" class="easyui-datebox" required="required" data-rule-date="true"/>
+  <div style="position: fixed;right: 0;">
+    <label>rang-demo</label><input  id="select-right" class="easyui-datebox" required="required" data-rule-date="true"/>
+  </div>
+  <label>setDate</label><input id="set-value" type="text" value="10/28/2013">
+  <p>
+    <input id="_disable" type="button" value="_disabled"/>
+    <input id="_enable" type="button" value="_enabled"/>
+    <input id="setDate" type="button" value="setDate"/>
+    <input id="getDate" type="button" value="getDate"/>
+    <input id="getValue" type="button" value="getValue"/>
+    <input id="getText" type="button" value="getText"/>
+    <input id="setText" type="button" value="setText"/>
+    <input id="destroy" type="button" value="destroy"/>
+    <input id="generator" type="button" value="generator"/>
+  <br>
+  <label>range-setDate</label><input id="range-set-value" type="text" value="10/28/2013-11/11/2013">
+  <input id="range-getDate" type="button" value="range-getDate"/>
+  <input id="range-setDate" type="button" value="range-setDate"/>
+  <input id="range-setDateNoCall" type="button" value="range-setDateNoCall"/>
+  <hr>
 </div>
+<br><br><br><br>
+<h3>代码</h3>
+<p>html:</p>
+<pre class="brush: xml">
+&lt;!--el--&gt;
+&lt;input id="datebox-el"/&gt;
+</pre>
+<p>js:</p>
+<pre class="brush: js">
+$('#select').datebox();
+</pre>
+<h3>描述</h3>
+<p>日期选择框，添加区域选择功能，添加align属性</p>
+<h3>配置</h3>
+<pre class="brush: js">
+//未加注释，为原生配置
+$('date-el').datebox({
+  align: right,                        //下拉面板对齐方式，right
+  currentDate: new Date('11/11/2011'), //初始日期
+  range: true,                         //是否可选时间段
+  startIndex: '09/18/2013',            //最小时间
+  onSetValue: function(date){          //
+    console.log(date);
+  }
+});
+</pre>
+<h3>方法</h3>
+<pre class="brush: js">
+$('#select').datebox('disable');
+$('#select').datebox('enable');
+//默认调用onSelect方法
+$('#select').datebox('setDate', new Date());
+//不会调用onSelect回调
+$('#select').datebox('setDateNoCall', new Date());//or 10/28/2013-11/11/2013
+$('#select').datebox('getDate');
+$('#select').datebox('getText');
+$('#select').datebox('setText', 'text');
+$('#select').datebox('destroy');
+</pre>
+<h3>注意</h3>
 
-<input id="_from" />
-<input id="_to" />
+
 <script src="../../lib/jquery-1.7.2.js"></script>
+<script src="../../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script src="../../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../../lib/syntaxhighlighter/shBrushXml.js"></script>
 <script src="js/panel.js"></script>
 <script src="js/combo.js"></script>
 <script src="js/calendar.js"></script>
@@ -45,68 +90,81 @@
 
 
 <script>
-  var attrs = $('#dd').get(0).attributes;
-  for(var a in attrs){
-    if(typeof attrs[a] == 'object'){
-      console.log(attrs[a].value)
-      console.log(attrs[a].name)
-    }
 
-  }
-  console.log();
 
-	$('#dd').datebox({
+  $('#select').datebox({
+    startIndex: new Date(),
+    zIndex:1010,
+    currentDate: new Date('11/1/2013'),
+//      range: true,
+    startIndex: '11/04/2013',
+//    onSetValue: function(date){
+//      console.log(date);
+//    }
+  });
+  $('#select-right').datebox({
     zIndex:1010,
     currentDate: new Date(),
     range: true,
     align: 'right',
-    startIndex: '10/31/2013',
-//    onSetValue: function(date){
-//      console.log(date);
-//    }
-  });
-	$('#_from').datebox({
-    zIndex:1010,
-    currentDate: new Date(),
-//    range: true,
-//    align: 'right',
-    startIndex: '10/31/2013',
-//    onSetValue: function(date){
-//      console.log(date);
-//    }
-  });
-  var d = $('#dd').datebox('getDate');
-
-  $('#_disable').click(function(){
-    $('#dd').datebox('disable');
-  });
-  $('#_enable').click(function(){
-    $('#dd').datebox('enable');
-  });
-  $('#setValue').click(function(){
-    $('#dd').datebox('setValue', '9/9/1986');
-  });
-  $('#setDate').click(function(){
-    $('#dd').datebox('setDate', new Date());
-  });
-  $('#getValue').click(function(){
-    alert($('#dd').datebox('getValue'));
-  });
-  $('#getDate').click(function(){
-    var a= $('#dd').datebox('getDate');
-
-    console.log(typeof a);
-    console.log(a instanceof Date);
+    startIndex: '6/18/2013',
+    onSetValue: function(date){
+      console.log('calllllllll'+date);
+    },
+    onSelect: function(date){
+      console.log('calllllllll'+date);
+    }
   });
 
+  $('#_disable').click(function(e){
+    $('#select').datebox('disable');
+  });
+  $('#_enable').click(function(e){
+    $('#select').datebox('enable');
+  });
+  $('#setDate').click(function(e){
+    $('#select').datebox('setDate', new Date($('#set-value').val()));
+  });
+  $('#range-setDate').click(function(e){
+    $('#select-right').datebox('setDate', $('#range-set-value').val());
+  });
+  $('#range-getDate').click(function(e){
+    alert($('#select-right').datebox('getDate'));
+  });
+  $('#range-setDateNoCall').click(function(e){
+    $('#select-right').datebox('setDateNoCall', $('#range-set-value').val());
+  });
+  $('#getDate').click(function(e){
+    var v = $('#select').datebox('getDate');
+    alert(v);
+    console.log(v)
+  });
+  $('#getValue').click(function(e){
+    var v = $('#select').datebox('getValue');
+    alert(v);
+    console.log(v)
+  });
+  $('#getText').click(function(e){
+    var v = $('#select').datebox('getText');
+    alert(v);
+  });
+  $('#setText').click(function(e){
+    var t= $('#input-text').val();
+    var v = $('#select').datebox('setText', t);
+  });
+  $('#destroy').click(function(e){
+    var v = $('#select').datebox('destroy');
+  });
+  $('#generator').click(function(e){
+    $('#select').datebox({
+      width: 200,
+      zIndex: 300
+    });
+  });
 
-//  $('#_from').datebox({
-////    toEl:'_to'
-//  });
-//  $('#_to').datebox({
-////    fromEl: '_from'
-//  });
-
+</script>
+<script>
+  SyntaxHighlighter.all()
 </script>
 </body>
 </html>
