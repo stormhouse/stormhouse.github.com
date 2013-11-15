@@ -60,6 +60,58 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="/posts/2013/how-javascript-timers-workzhuan/">How JavaScript timers work（转）</a></h2>
+                <div class="summary"><p><a href="http://ejohn.org/blog/how-javascript-timers-work/">原文地址</a><br />
+<a href="http://ejohn.org/blog/how-javascript-timers-work/">翻译原地址</a></p>
+<hr />
+<p>了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器:  </p>
+<ul>
+<li><code>var id = setTimeout(fn, delay);</code> 用于起动一个定时器，经过给定的时间后调用特定的函数。该函数返回一个id，来取消这个定时器</li>
+<li><code>var id = setInterval(fn, delay);</code> 和setTimeout类似，间隔给定的时间来调用函数，直到被取消</li>
+<li><code>clearInterval(id);, clearTimeout(id);</code> 接收一个参数定时器函数id，用于取消定时器</li>
+</ul>
+<p>为理解定时器内部如果工作，需要声明一个很重要的概念：定时器延时，并不可靠的。这是因为js在浏览器执行是单线程的，异步事件（如鼠标事件和定时器）只在当执行过程中有机会执行时（CPU空闲时）才执行。下图给了很好的解释。</p>
+<hr />
+<p><img alt="Alt Timers" src="/img/Timers.png" title="Optional title" /></p>
+<p>（左侧为正常时序，右侧为定时器注册和发生顺序）。该图提供很多信息，帮助你完全理解javascript异步执行工作方式。这是一个一维图，垂直方向为时间轴，单位是毫秒。中间蓝色部分的表示一个个javascript代码执行块 ...</p>
+                    <a class="btn btn-default btn-xs" href="/posts/2013/how-javascript-timers-workzhuan/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="/posts/2013/simplehttpservertian-jia-postfang-fa/">SimpleHTTPServer添加post方法</a></h2>
+                <div class="summary"><p>开发前端demo时需要有后台数据交互，chrome浏览器默认不支持读取本地json数据，也配置启动参数：</p>
+<div class="highlight"><pre><span class="o">--</span><span class="n">allow</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">access</span><span class="o">-</span><span class="n">from</span><span class="o">-</span><span class="n">files</span>
+</pre></div>
+
+
+<p>firefox又用的不太习惯。以前是下载一个tomcat，还要修改tomcat中conf目录下的<code>server.xml</code>文件</p>
+<hr />
+<p>一直以来都学着python，学到网络这块发现很方便的SimpleHTTPServer类:</p>
+<div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span> <span class="mi">9000</span>
+</pre></div>
+
+
+<p>非常欣喜，不过该方法不支持jquery的post请求（我安装的是版本是64位2.7.5），解决方法：
+将<code>SimpleHTTPServer.py</code>复制一份，如<code>StormHTTPServer.py</code>。找到do_GET方法，在下面添加do_POST方法</p>
+<div class="highlight"><pre><span class="n">def</span> <span class="n">do_POST</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">do_GET</span><span class="p">()</span>
+</pre></div>
+
+
+<p>将该文件复制到${py_home}\Lib目录下</p>
+<div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">StormHTTPServer</span> <span class="mi">9000</span>
+</pre></div>
+
+
+<p>这样就可以支持POST请求了，比起用tomcat方便多啦。</p>
+<p>(完)
+<Context path="/${content_name}" docBase="${dir}" workDir="${dir}" debug="0" reloadbale="true"/></p>
+                    <a class="btn btn-default btn-xs" href="/posts/2013/simplehttpservertian-jia-postfang-fa/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="/posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/">win7x64下pelican创建博客</a></h2>
                 <div class="summary"><h3>1 安装</h3>
 <h6>1.1 安装pelican</h6>
@@ -85,10 +137,14 @@
 </pre></div>
 
 
+<p>预览页面</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">output</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span> <span class="mi">9000</span>
+</pre></div>
+
+
 <h6>2.2 设置</h6>
-<p>设置article生成目录，参见<a href="http://docs.getpelican.com/en/3.3.0/settings.html#url-settings">文档</a>，在pelicanconf.py中最后一行添加</p>
-<div class="highlight"><pre><span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">posts</span><span class="o">/</span><span class="p">{</span><span class="n">date</span><span class="o">:%</span><span class="n">Y</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="err">&#39;</span>
-<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">posts ...</span></pre></div>
+<p>设置article生成目录，参见<a href="http://docs.getpelican.com/en/3.3.0/settings.html#url-settings">文档</a>，在pelicanconf.py中最后一行添加 ...</p>
                     <a class="btn btn-default btn-xs" href="/posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/">more ...</a>
                 </div>
             </article>
@@ -139,6 +195,11 @@
                 <li class="list-group-item tag-1">
                     <a href="/tag/python.html">
                         python
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="/tag/http.html">
+                        http
                     </a>
                 </li>
                 <li class="list-group-item tag-4">

@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>stormhouse - git</title>
+    <title>stormhouse - http</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -41,7 +41,7 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="/category/git.html">git</a>
                         </li>
                         <li >
@@ -60,21 +60,35 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/">win7x64下git安装配置</a></h2>
-                <div class="summary"><h3>1. 安装</h3>
-<h6>1.1 cygwin安装</h6>
-<p><a href="http://www.cygwin.com/install.html">cygwin下载</a>
-<br>注意：添加make命令，在Select Packages一步，将Devel@Default改为Devel@Install</p>
-<h6>1.2 git for windows下载安装</h6>
-<p><a href="https://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git">下载</a></p>
-<h3>2. github配置</h3>
-<h6>2.1 github.com上注册用户</h6>
-<p>用户名:stormhouse; 邮箱:stormhouse@yeah.net</p>
-<h6>2.2 初始配置</h6>
-<p>打开Git Bash，执行以下命令</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">name</span> <span class="s">&quot;stormhouse&quot;</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">email</span> <span class="n">stormhouse</span><span class="err">@</span><span class="n">yeah ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/">more ...</a>
+                <h2><a href="/posts/2013/simplehttpservertian-jia-postfang-fa/">SimpleHTTPServer添加post方法</a></h2>
+                <div class="summary"><p>开发前端demo时需要有后台数据交互，chrome浏览器默认不支持读取本地json数据，也配置启动参数：</p>
+<div class="highlight"><pre><span class="o">--</span><span class="n">allow</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">access</span><span class="o">-</span><span class="n">from</span><span class="o">-</span><span class="n">files</span>
+</pre></div>
+
+
+<p>firefox又用的不太习惯。以前是下载一个tomcat，还要修改tomcat中conf目录下的<code>server.xml</code>文件</p>
+<hr />
+<p>一直以来都学着python，学到网络这块发现很方便的SimpleHTTPServer类:</p>
+<div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span> <span class="mi">9000</span>
+</pre></div>
+
+
+<p>非常欣喜，不过该方法不支持jquery的post请求（我安装的是版本是64位2.7.5），解决方法：
+将<code>SimpleHTTPServer.py</code>复制一份，如<code>StormHTTPServer.py</code>。找到do_GET方法，在下面添加do_POST方法</p>
+<div class="highlight"><pre><span class="n">def</span> <span class="n">do_POST</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">do_GET</span><span class="p">()</span>
+</pre></div>
+
+
+<p>将该文件复制到${py_home}\Lib目录下</p>
+<div class="highlight"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">StormHTTPServer</span> <span class="mi">9000</span>
+</pre></div>
+
+
+<p>这样就可以支持POST请求了，比起用tomcat方便多啦。</p>
+<p>(完)
+<Context path="/${content_name}" docBase="${dir}" workDir="${dir}" debug="0" reloadbale="true"/></p>
+                    <a class="btn btn-default btn-xs" href="/posts/2013/simplehttpservertian-jia-postfang-fa/">more ...</a>
                 </div>
             </article>
             <hr/>
