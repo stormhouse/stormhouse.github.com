@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<h3>js函数作用域</h3>
+<p>不像java，c一样，js没有块级作用域。js是有函数作用域，即变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是有定义的</p>
+<h3>变量声明提前</h3>
+<hr/>
+
+<pre class="brush: js">
+var ulEl = document.getElementById('test-ul');
+var liEls = ulEl.children;
+for(var i=0; i&lt;liEls.length; i++){
+  liEls[i].onclick = function(event){
+    console.log(i)
+  }
+};
+</pre>
+
+<ul>
+  <li>var声明放到函数最前面</li>
+</ul>
+<a href="http://www.cnblogs.com/liminjun88/p/3391335.html">JavaScript变量声明提前</a>
+<a href=http://www.cnblogs.com/ArthurPatten/p/3274080.html">javascript函数作用域和提前声明</a>
+<a href="http://www.cnblogs.com/TomXu/archive/2012/02/10/2342098.html">深入理解JavaScript系列（20）：《你真懂JavaScript吗？》答案详解</a>
+<a href="http://www.cnblogs.com/betarabbit/archive/2012/01/28/2330446.html">[翻译]JavaScript Scoping and Hoisting</a>
+
+
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+
+  //题目1- 变量声明提前
+  //函数中var变量定义在语法分析时被扫描，然后在函数开始执行时，首先在执行上下文中将var变量全部定义，而不是执行到var语句的时候才定义。
+  // 举例来说：
+
+  console.log('--------题目0---------')
+  var test=function(){return false;};
+  (function(){
+    if(test()){
+      alert(1)
+      function test(){
+        return true
+      }
+    }else{
+      alert(2)
+    }
+  })()
+
+  console.log('--------题目1---------')
+  var a = 1;
+  var a;
+  console.log(typeof a);
+
+  (function () {
+    b = '-----';//“预编译”的时候会把所有的声明语句先执行，即所谓的hoist
+    var b;
+  })();
+  console.log( typeof b);
+
+  //题目2- 声明式与变量式（赋值）
+  console.log('--------题目2---------')
+  test();
+  function test(){
+    console.log("Hello World!");
+  }
+
+  console.log('--------题目3---------')
+  name="aaa";
+  function test(){
+    console.log(typeof name);
+
+    var name="bbb";
+    console.log(typeof name);
+  }
+  test();
+
+  console.log('--------题目4---------')
+  //题目4- 函数局部作用域与全局作用域的区别
+  console.log(typeof _name);
+  var _name = "hello world";
+  console.log(typeof _name);
+
+
+  console.log('--------题目5---------')
+  //题目4- 没有块级作用域
+  var foo = 1;
+  function bar() {
+    if (!foo) {
+      var foo = 10;
+    }
+    console.log(foo);
+  }
+  bar();
+  //等价于=====
+//  var foo = 1;
+//  function bar() {
+//    var foo;
+//    if (!foo) {
+//      foo = 10;
+//    }
+//    console.log(foo);
+//  }
+//  bar();
+
+  console.log('--------题目6---------')
+  var a = 1;
+  function b() {
+    a = 10;
+    return;
+    function a() {}
+  }
+  b();
+  console.log(a);
+
+  console.log('--------题目7---------')
+  if (!("a" in window)) {
+    var a = 1;
+  }
+  console.log(a);//undefined
+
+  console.log('--------题目8---------')
+  //题目8-- argument与行参共享问题
+  function b(x, y, a) {
+    arguments[2] = 10;
+    console.log(a);
+  }
+  b(1, 2, 3);//10
+  b(1, 2);   //undefined
+
+  console.log('--------题目9---------')
+  //题目9-- 根据ECMAScript262规范规定：
+  // 如果第一个参数传入的对象调用者是null或者undefined的话，
+  // call方法将把全局对象（也就是window）作为this的值
+  function _a() {
+    console.log(this);
+  }
+  _a.call(null);
+
+  console.log('--------题目10---------')
+  //题目10--
+    function add(n){
+    return function(m){
+      return function(j){
+        return n+j+m;
+      }
+    }
+  }
+  var a = add(2)(3)(4);
+  console.log(a);
+
+
+
+
+
+
+
+  (function (_w) {
+    var total;
+    var x = function (moreNum) {
+      total += moreNum;
+      return x;
+    };
+    x.toString = function () { return total; };
+
+    var add = function (num) {
+      total = num;
+      return x;
+    }
+    _w.add = add;
+  })(window);
+  var a = add(3)(4)(5);
+  console.log(a);
+
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

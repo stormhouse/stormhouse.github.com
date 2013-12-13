@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+  <style>
+    #mainContent {
+      background-color: #A2BFCE;
+      border-radius: 4px;
+      padding: 10px;
+      width: 600px;
+      height: 300px;
+      overflow: hidden;
+    }
+    .cloud {
+      position: absolute;
+    }
+    @keyframes bobble {
+      0% {
+        transform: translate3d(50px, 40px, 0px);
+        animation-timing-function: ease-in;
+      }
+      50% {
+        transform: translate3d(60px, 50px, 0px);
+        animation-timing-function: ease-out;
+      }
+      100% {
+        transform: translate3d(50px, 40px, 0px);
+      }
+    }
+
+    #bigcloud {
+      margin-left: 100px;
+      margin-top: 15px;
+      animation-play-state: paused;
+      animation: bobble 2s infinite;
+    }
+
+
+
+
+  </style>
+</head>
+
+<body>
+
+<div id="mainContent">
+  <img id="bigcloud" alt="#" class="cloud" height="154" src="http://www.kirupa.com/images/bigCloud.png" width="238">
+</div>
+
+
+<script src="easing.js"></script>
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="http://www.kirupa.com/js/prefixfree.min.js"></script>
+
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

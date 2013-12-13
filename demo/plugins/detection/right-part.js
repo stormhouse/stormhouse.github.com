@@ -81,7 +81,7 @@
 
     var top;
     if((bandHeight-Math.abs(bandTop)-self._mainHeight)<self._mainHeight){
-      top = self._mainHeight - bandHeight;
+      top = self._mainHeight - bandHeight+1;
     }else{
       top = bandTop-self._mainHeight;
     }
@@ -103,6 +103,7 @@
   }
 
   de._RightPart.prototype.move = function(top){
+    if(this._holeMonth.css('top').split('px')[0] == top) return ;
     this._holeMonth.animate({top: top}, 500);
   }
 
@@ -113,7 +114,6 @@
     this._month = date.getMonth();
     this._day = date.getDate();
 
-    console.log(this._day);
 
     this.setPosition(this._day);
     this.setIndexColor([this._day])

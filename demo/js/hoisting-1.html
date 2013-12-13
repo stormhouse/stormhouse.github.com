@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<input type="button" onclick="test()" value="test"/>
+<h3>?严格模式与非严格模式</h3>
+<h3>?作用域链</h3>
+<hr/>
+
+<pre class="brush: js">
+var ulEl = document.getElementById('test-ul');
+var liEls = ulEl.children;
+for(var i=0; i&lt;liEls.length; i++){
+  liEls[i].onclick = function(event){
+    console.log(i)
+  }
+};
+</pre>
+
+
+
+
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script type="text/javascript">
+  function test(){
+    if (!("a"in window)) {
+      var a =1;
+    }
+    alert(a);
+  }
+</script>
+<script type="text/javascript">
+  if (!("a"in window)) {
+    var a =1;
+  }
+  alert(a);
+</script>
+
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

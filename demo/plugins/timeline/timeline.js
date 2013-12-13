@@ -54,7 +54,13 @@
    */
   function animateWaterdrop(wdEl){
     //不是drop（绘制的水滴）
-    if(wdEl.classList.length== 0 || wdEl.classList[0].indexOf('path-drop')<0) return ;
+    if(wdEl.classList){
+      if(wdEl.className.length== 0 || wdEl.classList[0].indexOf('path-drop')<0) return ;
+    }
+    //fuck ie
+    if(wdEl.className){
+      if(wdEl.className.length== 0  || wdEl.className.baseVal.indexOf('path-drop')<0) return ;
+    }
 
     if(wdEl == currentAnimDrop){
       return ;
@@ -69,7 +75,7 @@
     currentAnimDropD = currentWD;
 
     //"M476,130C376,30,576,30,476,130"
-    //IE
+    //IE hack(狗草的ie)
     //"M 320 130 C 220 50 420 50 320 130"
     if(currentWD.indexOf(',')<0){
       var ieds = currentWD.split(' ');
@@ -562,7 +568,7 @@
         var nextMonth = document.createElement('div');
         nextMonth.className = 'next';
         nextMonth.innerHTML = '›';
-        nextMonth.style.marginTop = prevMonth.style.marginTop;
+//        nextMonth.style.marginTop = prevMonth.style.marginTop;
         $(nextMonth).click(function(){
           if($('.chronoline-radio').hasClass('chronoline-radio-selected')){
             reLoadSubtaskinfo(false, ra_nextMonth, 'next');
@@ -605,7 +611,7 @@
           else{
             var finalLeft = t.continuousScrollSpeed * (timestamp - t.scrollStart) + t.scrollPaperStart;
             var lLeft = (parseInt(finalLeft/DROP_INTERVAL_SIZE)+1)*DROP_INTERVAL_SIZE
-            t.goToPx(lLeft, false, finalLeft > -t.msToPx(t.drawnStartMs));
+            t.goToPx(lLeft, true, finalLeft > -t.msToPx(t.drawnStartMs));
             return ;
           }
           var finalLeft = t.continuousScrollSpeed * (timestamp - t.scrollStart) + t.scrollPaperStart;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+    .red{
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+
+
+<pre class="brush: js">
+
+
+</pre>
+
+
+
+
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+
+  // 元素选择
+  var $ = function (el) {
+    return document.querySelectorAll(el)
+  }
+  var $$ = function (el) {
+    return document.querySelector(el)
+  }
+
+  //创建元素
+  var d = document.createElement('div')
+  d.innerHTML = '<span class="created">创建出来的元素</span>'
+  $$('body').appendChild(d)
+
+  //添加事件
+  lamda:[].forEach.call($('.created'), function (el) {
+    el.addEventListener('click', function(e) {
+      alert(e)
+      console.log(e)
+    }, false);
+  });
+
+  //设置/获取属性
+  $$('.created').setAttribute('data-v', 'vvvv')
+  console.log($$('.created').getAttribute('data-v'))
+
+  //添加/移除/切换类
+  $$('.created').classList.add('red');
+  $$('.created').classList.remove('blue');
+  $$('.created').classList.toggle('blue');
+
+  //克隆
+  $$('body').appendChild($$('.created').cloneNode(true))
+
+  //删除元素
+  remove('.el');
+  function remove(el) {
+    var toRemove = document.querySelector(el);
+    toRemove.parentNode.removeChild(toRemove);
+  }
+
+  //兄弟元素
+  document.querySelector('.el').previousElementSibling;
+  document.querySelector('.el').nextElementSibling;
+
+
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

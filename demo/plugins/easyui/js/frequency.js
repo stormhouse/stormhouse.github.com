@@ -144,7 +144,7 @@
       <li value="4">'+i18nObj.weeks[4]+'</li>\
       <li value="5">'+i18nObj.weeks[5]+'</li>\
       <li value="6">'+i18nObj.weeks[6]+'</li>\
-      <li value="0">'+i18nObj.weeks[7]+'</li>\
+      <li value="0">'+i18nObj.weeks[0]+'</li>\
       </ul>\
       <div style="text-align:center;margin-bottom: 5px;"><button class="frequency-btn">'+i18nObj.ok+'</button></div>\
       </div>\
@@ -418,7 +418,12 @@
       var v1 = value.split('-')[0];
       var v2 = value.split('-')[1];
       self.combo('setValue', v1);
-      self.combo('setText', i18nObj.week+'('+v1.split(':')[1]+')');
+      var ws = v1.split(':')[1].split(',');
+      var texts = [];
+      for(var ii=0; ii<ws.length; ii++){
+        texts.push(i18nObj.weeks[ws[ii]])
+      }
+      self.combo('setText', i18nObj.week+'('+texts.toString()+')');
 
       second.combo('setValue', v2);
       second.combo('setText', v2);
@@ -428,7 +433,7 @@
       var v1 = value.split('-')[0];
       var v2 = value.split('-')[1];
       self.combo('setValue', v1);
-      self.combo('setText', i18nObj.week+'('+v1.split(':')[1]+')');
+      self.combo('setText', i18nObj.month+'('+v1.split(':')[1]+')');
 
       second.combo('setValue', v2);
       second.combo('setText', v2);
@@ -548,7 +553,7 @@
       month: 'Month',
       freq: 'Frequency',
       freqP: 'Every',
-      weeks:['', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+      weeks:['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
       ok: 'Ok'
     },
     zh_cn: {
@@ -558,10 +563,9 @@
       month: '月',
       freq: '频率',
       freqP: '每',
-      weeks:['', '一', '二', '三', '四', '五', '六', '日'],
+      weeks:[ '日', '一', '二', '三', '四', '五', '六'],
       ok: '确定'
     }
   }
 
 })(jQuery);
-
