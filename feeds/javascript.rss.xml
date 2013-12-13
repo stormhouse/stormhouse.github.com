@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/javascript.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 15 Nov 2013 17:41:00 +0800</lastBuildDate><item><title>How JavaScript timers work（转）</title><link>http://stormhouse.github.io/posts/2013/how-javascript-timers-workzhuan/</link><description>&lt;p&gt;&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;原文地址&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;翻译原地址&lt;/a&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;var id = setTimeout(fn, delay);&lt;/code&gt; 用于起动一个定时器，经过给定的时间后调用特定的函数。该函数返回一个id，来取消这个定时器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;var id = setInterval(fn, delay);&lt;/code&gt; 和setTimeout类似，间隔给定的时间来调用函数，直到被取消&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clearInterval(id);, clearTimeout(id);&lt;/code&gt; 接收一个参数定时器函数id，用于取消定时器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为理解定时器内部如果工作，需要声明一个很重要的概念：定时器延时，并不可靠的。这是因为js在浏览器执行是单线程的，异步事件（如鼠标事件和定时器）只在当执行过程中有机会执行时（CPU空闲时）才执行。下图给了很好的解释。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;img alt="Alt Timers" class="align-center" src="/img/Timers.png" title="timers" /&gt;&lt;/p&gt;
+&lt;p&gt;（左侧为正常时序，右侧为定时器注册和发生顺序）。该图提供很多信息，帮助你完全理解javascript异步执行工作方式。这是一个一维图，垂直方向为时间轴，单位是毫秒。中间蓝色部分的表示一个个javascript代码执行块。例如，第一个js块执行了大约19毫秒...。  &lt;/p&gt;
+&lt;p&gt;由于javascript在同一时间只能执行一段代码（原于它是单线程）所以这些代码块会阻塞其它异步事件的执行。意味着一个异步事件（如鼠标事件，定时器触发或ajax回调），它会被插入事件队列中排队等待执行（有一点很重要，在不同的浏览器中，这个队列模型是不同的，所以队列中的事件是如何触发的是不同的）  &lt;/p&gt;
+&lt;p&gt;首先，在第一段js代码块中，两个定时器被初始化，一个10ms的setTimeout 和 一个10ms的setInterval。这个定时器启动实际上实在我们第一个js代码块完成之前，不过请注意，定时器所挂载的处理逻辑并没有立即被执行（由于线程模型是不能这样做的），而实际上，延时调用程序将会被插入队列，等待可调用时序时，被顺序执行。  &lt;/p&gt;
+&lt;p&gt;其次，我们在第一个代码块中，我们触发了一次点击操作。这个异步事件相关的回调函数，和定时器一样，也不会立即被执行，同样进入队列等待执行。  &lt;/p&gt;
+&lt;p&gt;当第一个Javascript代码块执行完成后，浏览器就会去问队列：接下来要执行什么？然而此时此刻，鼠标事件的句柄函数和定时器的延时调用函数都在等待。浏览器会在二者中选择一个（鼠标事件）立即执行。定时器的回调会等待下个时机，被按顺序调用。  &lt;/p&gt;
+&lt;p&gt;注意图中，在鼠标事件的回掉执行时，interval延时回掉被执行了。但是需要注意的时，当interval再次被出发时（当一个定时器的延时处理在执行的时候），这时候程序的处理将会被丢弃。假设当有大块的代码正在执行时，你又有一堆的interval延时调用在排队，你希望结果很可能就是这个大块的js代码执行完毕后，interval的延时调用会一个接一个的被触发，而且在执行时没有延时时间，也就是会被连续的调用。可是相反，浏览器往往只是等待，直到没有更多的interval处理程序进行排队。  &lt;/p&gt;
+&lt;p&gt;事实上，我们也可以看到，第三个interval回掉触发的时候，这个interval本身也在执行中。这就像我们展示了一个很重要的现象就是：interval 并不在乎当前谁正在执行，他们不分青红皂白地将排队，即使这意味着回调之间的时间将被牺牲。  &lt;/p&gt;
+&lt;p&gt;最后，当第二个interval回掉执行完成后，我们能看到，对于js引擎来说，没有需要去执行的东东了。这就意味着，浏览器在等待新的异步事件发生了。到第50秒时，这个interval被再次触发，这时候没有东西在阻塞执行，因此他会被立即调用。  &lt;/p&gt;
+&lt;p&gt;我们来用几行代码来更好的去分辨setInterval和setTimeout之间的区别:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="cm"&gt;/* Some long block of code... */&lt;/span&gt; 
+    &lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;arguments&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;callee&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
+&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;setInterval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="cm"&gt;/* Some long block of code... */&lt;/span&gt; 
+&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这两段代码乍一看似乎差不多，但事实上相差很多。有一点值得注意的是，在这里面的setTimeout，两个回掉执行的时间间隔至少会是10毫秒；而setInterval将尝试每10秒去执行一次，&lt;strong&gt;不去考虑上一次回掉是否已经完成。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There’s a lot that we’ve learned here, let’s recap:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Javascript是一个单线程执行的东东，迫使异步事件排队等待执行。&lt;/li&gt;
+&lt;li&gt;setTimeout 与 setInterval执行代码的原理是完全不同的。&lt;/li&gt;
+&lt;li&gt;当一个定时器执行被阻塞时，他会等待下一个可能执行的时机去执行，所以这个延时可能会比预先设定的时间要长。&lt;/li&gt;
+&lt;li&gt;如果回调函数执行时间过长（长于定时器的延迟时间），“间隔定时器”有可能会一个接一个无间隔的执行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;p&gt;补充的例子&lt;/p&gt;
+&lt;hr /&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;die&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+&lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="nx"&gt;die&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nx"&gt;die&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;done&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果你认为在100毫秒后，会打针done，说明你没有看懂此篇文章。你一定会觉得在100毫秒后，die的值变成true，然后console会被执行，如果你这样想那你就错了。记住setTimeout的准则是&lt;strong&gt;尽快执行&lt;/strong&gt;，而&lt;strong&gt;不是立即执行&lt;/strong&gt;。只有当主事件循环结束是，有时间片供setTimeout去执行时，定时器才会被执行。&lt;br /&gt;
+&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;翻译原地址&lt;/a&gt;&lt;br /&gt;
+（完）&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 15 Nov 2013 17:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-15:posts/2013/how-javascript-timers-workzhuan/</guid><category>javascript</category><category>event</category></item></channel></rss>

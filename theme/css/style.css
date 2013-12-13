@@ -78,3 +78,9 @@ h6{
     font-size: 14px;
     font-weight: bold;
 }
+
+/*----------------------------------------*/
+img.align-center {
+    margin: 15px auto;
+    display: block;
+}

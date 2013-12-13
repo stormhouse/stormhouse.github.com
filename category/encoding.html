@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>stormhouse - Categories</title>
+    <title>stormhouse - encoding</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -52,7 +52,7 @@
                         <li >
                             <a href="http://stormhouse.github.io/category/git.html">git</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
                         </li>
             </ul>
@@ -67,15 +67,22 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-    <section id="categories">
-        <h1>Categories for stormhouse</h1>
-        <ul>
-                <li><a href="category/python.html">python</a></li>
-                <li><a href="category/javascript.html">javascript</a></li>
-                <li><a href="category/git.html">git</a></li>
-                <li><a href="category/encoding.html">encoding</a></li>
-        </ul>
-    </section>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/">字符编码</a></h2>
+                <div class="summary"><p>字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。<br />
+就像别人一样的开场：计算机比较傻，在它的世界里只有 <code>1</code> <code>0</code>，如何才让人类可理解的<strong>字符</strong>(Character,如字母、数字，一些符号，汉字...)打印到显示屏幕上呢。这需要有一个从由<code>1</code> <code>0</code>组合成的序列到可打印字符的一个<strong>映射</strong> (编码Encoding)，可打印的字符是一个<strong>集合</strong>(字符集Charset)。在这里就引出了几个概念:</p>
+<ul>
+<li>字符(Character)：是文字与符号的总称，包括文字、图形符号、数学符号等。</li>
+<li>字符集(Charset)：即字符的集合，规定了在这些集合里面有哪些字符。</li>
+<li>字符编码(Encoding)：就是规定用一个字节还是多个字节来存储一个字符，用固定的二进制码值表示某个字符。</li>
+<li>字节(byte)：计算机中存储数据的单元，一个8位的二进制数，是一个很具体的存储空间。</li>
+</ul>
+<p>一看到这样定义我就头大 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>

@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 20 Nov 2013 21:31:00 +0800</lastBuildDate><item><title>字符编码</title><link>http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/</link><description>&lt;p&gt;字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。&lt;br /&gt;
+就像别人一样的开场：计算机比较傻，在它的世界里只有 &lt;code&gt;1&lt;/code&gt; &lt;code&gt;0&lt;/code&gt;，如何才让人类可理解的&lt;strong&gt;字符&lt;/strong&gt;(Character,如字母、数字，一些符号，汉字...)打印到显示屏幕上呢。这需要有一个从由&lt;code&gt;1&lt;/code&gt; &lt;code&gt;0&lt;/code&gt;组合成的序列到可打印字符的一个&lt;strong&gt;映射&lt;/strong&gt; (编码Encoding)，可打印的字符是一个&lt;strong&gt;集合&lt;/strong&gt;(字符集Charset)。在这里就引出了几个概念:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字符(Character)：是文字与符号的总称，包括文字、图形符号、数学符号等。&lt;/li&gt;
+&lt;li&gt;字符集(Charset)：即字符的集合，规定了在这些集合里面有哪些字符。&lt;/li&gt;
+&lt;li&gt;字符编码(Encoding)：就是规定用一个字节还是多个字节来存储一个字符，用固定的二进制码值表示某个字符。&lt;/li&gt;
+&lt;li&gt;字节(byte)：计算机中存储数据的单元，一个8位的二进制数，是一个很具体的存储空间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一看到这样定义我就头大，还是来具体的例子，故事开始了&lt;/p&gt;
+&lt;h3&gt;美国人发明了计算机&lt;/h3&gt;
+&lt;p&gt;很久很久以前，计算机世界只有美国人。英语语言里字符很少，大小写字母共26*2个，阿拉伯数字10个，其它的一些符号(如 ! " # $ % &amp;amp;等)，这些可打印字符一共95个。计算机的的回车键，删除键等控制符33个。总和只有128个。于是，对于他们来说，很自然，那么计算机中用8位就可以表示他们的所有字符了吧。于是他们将8位称作一个字节，计算机的8位表示的每个数字对应了一个英文字符，画了一张表（&lt;a href="http://www.asciitable.com/"&gt;ASCII码表&lt;/a&gt;），这就是ASCII编码(American Standard Code for Information Interchange，美国信息互换标准代码)。  &lt;br /&gt;
+这里的128个字符集合，就叫&lt;code&gt;字符集&lt;/code&gt;,对应的二进制，就是&lt;code&gt;字符编码&lt;/code&gt;。你可以做个 &lt;strong&gt;测试&lt;/strong&gt; ，新一个文本文件，内容为&lt;code&gt;abcdabcd&lt;/code&gt;,保存为ASCII编码格式，用十六进制编辑器打开，看是否与&lt;a href="http://www.ascii-code.com/"&gt;ASCII码表&lt;/a&gt;中的值对应。
+win7系统中&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-win.png" title="ascii encoding in windows" /&gt;&lt;/p&gt;
+&lt;p&gt;linux系统中&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-linux-hex.png" title="ascii encoding in linux" /&gt;&lt;/p&gt;
+&lt;p&gt;上面除了对应的&lt;code&gt;61 62 63 64&lt;/code&gt;，还有&lt;code&gt;0D 0A&lt;/code&gt;，这是windows系统中断行的标志，linux中是&lt;code&gt;0A&lt;/code&gt;，默认最后一行有添加该标志。详细请参见&lt;a href="http://codingstandards.iteye.com/blog/810900"&gt;将DOS格式文本文件转换成UNIX格式&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;计算机传到了欧洲&lt;/h3&gt;
+&lt;p&gt;欧洲是有好多个国家的，他们的每个国家也都有自己的文字，比如拉丁文，希腊文等。怎么办呢？于是想到，你美国人指定的ASCII码表里面不是只有127个字符吗，后面128-255的字符不是说待定吗，好吧，我们就不客气了。于是欧洲人就将各种奇怪的语言塞入127后面的字符中，形成了一系列的ISO 8859字符集。比如希腊文塞入ASCII，就形成了ISO/IEC 8859-7，西欧语种塞入ASCII就形成了ISO/IEC 8859-1，ISO/IEC 8859-1也叫做latin-1。（对，就是mysql里面经常见到的编码）&lt;/p&gt;
+&lt;p&gt;下面是&lt;a href="http://zh.wikipedia.org/wiki/ISO/IEC_8859"&gt;ISO 8859&lt;/a&gt;现有的15个字符集&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ISO/IEC 8859-1 (Latin-1) - 西欧语言 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-2 (Latin-2) - 中欧语言 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-3 (Latin-3) - 南欧语言。世界语也可用此字符集显示。 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-4 (Latin-4) - 北欧语言 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-5 (Cyrillic) - 斯拉夫语言 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-6 (Arabic) - 阿拉伯语 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-7 (Greek) - 希腊语 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-8 (Hebrew) - 希伯来语（视觉顺序） &lt;/li&gt;
+&lt;li&gt;ISO 8859-8-I - 希伯来语（逻辑顺序） &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-9（Latin-5 或 Turkish）- 它把Latin-1的冰岛语字母换走，加入土耳其语字母。 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-10（Latin-6 或 Nordic）- 北日耳曼语支，用来代替Latin-4。 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-11 (Thai) - 泰语，从泰国的 TIS620 标准字集演化而来。 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-13（Latin-7 或 Baltic Rim）- 波罗的语族 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-14（Latin-8 或 Celtic）- 凯尔特语族 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-15 (Latin-9) - 西欧语言，加入Latin-1欠缺的芬兰语字母和大写法语重音字母，以及欧元（€）符号。 &lt;/li&gt;
+&lt;li&gt;ISO/IEC 8859-16 (Latin-10) - 东南欧语言。主要供罗马尼亚语使用，并加入欧元符号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;该部分内容我们不用太关注，接下来&lt;/p&gt;
+&lt;h3&gt;伟大的中国人终于用上了电脑&lt;/h3&gt;
+&lt;p&gt;中文可不得了，文字博大精深，字符远远超过了256个。所以我们无法使用ASCII的扩展了。怎么办呢？ 1981年的时候，国家派一批人来做了这个事情，他们统计出所有的中文大概有6000多个字符（后来证明这些人的水品也是有限，好多字符都没有搜出来，于是就有了多种的中文编码），用两个字节（16bit）来表示，16bit能表示的是65536个字符，太够了。我们将16bit分为前8bit和后8bit&lt;br /&gt;
+如果前8bit小于127（英文ASCII），那么这个8bit就是表示英文&lt;br /&gt;
+如果前8bit大于127，那么这8bit和后面的8bit合起来表示一个中文 
+这就是&lt;a href="http://ash.jp/code/cn/gb2312tbl.htm"&gt;GB2312&lt;/a&gt;，GB2312 是对 ASCII 的中文扩展&lt;/p&gt;
+&lt;p&gt;好了，后来某些领导发现，他的名字没法编码了，这个问题出来了。6000个汉字还不足以囊括所有中文，国家在1995年又组织了一批人，继续搜罗一些生僻字，一共搜集出了21886个汉字和字符，形成了GBK编码，GBK编码向下兼容GB2312。&lt;/p&gt;
+&lt;p&gt;再后来发现了，一些满文，蒙古文啥的少数名族的语言没有编辑到GBK中，继续编辑收录，形成了GB18030编码。&lt;/p&gt;
+&lt;p&gt;从ASCII、GB2312、GBK到GB18030，这些编码方法是向下兼容的，即同一个字符在这些方案中总是有相同的编码，后面的标准支持更多的字符。在这些编码中，英文和中文可以统一地处理。区分中文编码的方法是高字节的最高位不为0。按照程序员的称呼，GB2312、GBK到GB18030都属于双字节字符集 (DBCS,Double Byte Charecter Set)。&lt;br /&gt;
+在DBCS系列标准里，最大的特点是两字节长的汉字字符和一字节长的英文字符并存于同一套编码方案里，因此他们写的程序为了支持中文处 理，必须要注意字串里的每一个字节的值，如果这个值是大于127的，那么就认为一个双字节字符集里的字符出现了&lt;/p&gt;
+&lt;h3&gt;自由的台湾人民&lt;/h3&gt;
+&lt;p&gt;台湾是汉字是繁体字，当然不能使用大陆编辑使用的GBXX系列编码了，于是他们自己搞了一套&lt;a href="http://ash.jp/code/cn/big5tbl.htm"&gt;BIG5&lt;/a&gt;中文编码，收录了13060个汉字和字符。但是这里要注意，BIG5的编码映射表和GBXX系列的就完全不一样了，比如同一个“中”字，在BIG5和GB2312中就是两个完全不同的字节。这里就会有乱码出现了，比如（"陶喆"和"陶吉吉"），各种简体中文和繁体文的转码工具就出现了。&lt;br /&gt;
+五种中文套装软体：文书处理，资料库，试算表，通讯，绘图。大致的意思是这套编码主要使用于这5个领域&lt;/p&gt;
+&lt;h3&gt;各国人民的的UNICODE&lt;/h3&gt;
+&lt;p&gt;由于每种语言都制定了自己的字符集，导致最后存在的各种字符集实在太多，在国际交流中要经常转换字符集非常不便。因此，产生了Unicode字符集，它固定使用16 bits（两个字节）来表示一个字符，共可以表示65536个字符 &lt;/p&gt;
+&lt;p&gt;对于ascii里的那些“半角”字符，UNICODE 包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于"半角"英文符号只需要用到低8位，所以其高 8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。Unicode使用的通用的字符集叫做UCS。这个字符集就是一个大的字符空间，每个语种都在这个字符空间内划分一段领域。现在应用的UCS是UCS-2，意思就是不管是英文中文，统一使用两个字节（16bit）来进行字符分配。UCS-2字符集可以表示216（即65536）个字符。已经基本满足世界上所有语言了。如果不够怎么办？已经有预定方案UCS-4（用4个字节表示一个字符）。  &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Unicode只是一个字符集，全纳了世界所有的符号，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。&lt;/li&gt;
+&lt;li&gt;UTF-xx是Unicode的具体实现方式。&lt;/li&gt;
+&lt;li&gt;UTF-16是Unicode最基本的实现。Unicode使用16bit表示一个字符，UTF-16就是直接将字符集的映射搬过来而已。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;UTF-8&lt;/h3&gt;
+&lt;p&gt;本来这样就已经很美好了，但是美国人又不干了，毕竟互联网70％以上的信息仍然是英。凭什么每个英语字符要占用2个字节？凭什么占用了我们的带宽和CPU？于是一帮英语体系的外国人讨论出了UTF-8这种字符编码。UTF-8就是这样一个为了提高英文存取效率的字符集转换格式(Unicode Transformation Form 8-bit form)&lt;br /&gt;
+UTF-8这种编码是怎么回事呢？ &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;英文字符，和ASCII码一样，占用一个字节。因此对于英语字母，UTF-8编码和ASCII码是相同的。&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于n字节的符号（n&amp;gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。&lt;/p&gt;
+&lt;p&gt;Unicode符号范围      | UTF-8编码方式
+(十六进制)           | （二进制）
+--------------------+---------------------------------------------
+0000 0000-0000 007F | 0xxxxxxx
+0000 0080-0000 07FF | 110xxxxx 10xxxxxx
+0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx
+0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这里演示一个中文字“汉”，&lt;a href="http://www.chi2ko.com/tool/CJK.htm"&gt;查得&lt;/a&gt;unicode 表式为&lt;code&gt;0x6C49&lt;/code&gt;，二进制为&lt;code&gt;0110 1100 0100 1001&lt;/code&gt;
+根据上表，可以发现&lt;code&gt;0x6C49&lt;/code&gt;处在第三行的范围内（&lt;code&gt;0000 0800-0000 FFFF&lt;/code&gt;），因此"严"的UTF-8编码需要三个字节，即格式是"1110xxxx 10xxxxxx 10xxxxxx"。然后，从"严"的最后一个二进制位开始，依次从后向前填入格式中的x，多出的位补0。这样就得到了，"汉"的UTF-8编码是"&lt;code&gt;11100110 10110001 10001001&lt;/code&gt;"，转换成十六进制就是&lt;code&gt;0xE6B189&lt;/code&gt;。示例如下：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-win-unicode.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;图中十六进制内容是&lt;code&gt;FF FE 49 6C&lt;/code&gt;，肿么回事？这是保存的两种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Little endian: 第二个字节在前&lt;/li&gt;
+&lt;li&gt;Big endian： 第一个字节在前&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如保存为Big endian方式：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-win-unicode-big.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;保存为UTF-8方式&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-win-utf8.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;上图中的十六进制为&lt;code&gt;EF BB BF E6 B1 89&lt;/code&gt;，肿么会多出来&lt;code&gt;EF BB BF&lt;/code&gt;呢，参见&lt;a href="http://www.zhihu.com/question/20167122"&gt;带BOM的UTF-8&lt;/a&gt;&lt;br /&gt;
+如不想带bom，使用editplus编辑器另存为无BOM&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-win-utf8-nobom.png" title="utf8 encoding without bom" /&gt;&lt;/p&gt;
+&lt;h3&gt;总结&lt;/h3&gt;
+&lt;p&gt;主要搞清两个重要概念&lt;code&gt;字符集&lt;/code&gt;和&lt;code&gt;字符编码&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字符集：即字符的集合，规定了在这些集合里面有哪些字符，也规定了二进制表示。Ascii是一个集合，gb2312兼容Ascii。&lt;/li&gt;
+&lt;li&gt;字符编码：简单讲就是规定用一个字节还是多个字节来存储一个字符。编码方式决定了实际存储的二进制。如GB2312中，字母数字一个字节存储，汉字两个字节存储。Unicode中，UTF-16是按Unicode字符集表示的二进制存储，UTF-8是按字符所在Unicode范围进行一个转换。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下编码系列的内容可能会包括&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;URL Encode&lt;/li&gt;
+&lt;li&gt;web方面乱码的处理&lt;/li&gt;
+&lt;li&gt;java python中的编码处理&lt;/li&gt;
+&lt;li&gt;base64编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;码表&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.ascii-code.com/"&gt;Ascii&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ash.jp/code/cn/gb2312tbl.htm"&gt;GB2312&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.khngai.com/chinese/charmap/tblgbk.php"&gt;GBK&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://unicode-table.com/en/"&gt;Unicode&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;参拷&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://smartzxy.iteye.com/blog/692602"&gt;研究了一下字符编码&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.cnblogs.com/yjf512/archive/2012/04/21/2461084.html"&gt;编码史记&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html"&gt;字符编码笔记：ASCII，Unicode和UTF-8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.zhihu.com/question/20167122"&gt;「带 BOM 的 UTF-8」和「无 BOM 的 UTF-8」有什么区别？网页代码一般使用哪个？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.oasisfeng.com/2006/10/19/full-cjk-unicode-range/"&gt;完整的CJK Unicode范围（5.0版）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.chi2ko.com/tool/CJK.htm"&gt;字体编辑用中日韩汉字Unicode编码表&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(完)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Wed, 20 Nov 2013 21:31:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-20:posts/2013/zi-fu-bian-ma/</guid><category>encoding</category></item><item><title>How JavaScript timers work（转）</title><link>http://stormhouse.github.io/posts/2013/how-javascript-timers-workzhuan/</link><description>&lt;p&gt;&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;原文地址&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;翻译原地址&lt;/a&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;var id = setTimeout(fn, delay);&lt;/code&gt; 用于起动一个定时器，经过给定的时间后调用特定的函数。该函数返回一个id，来取消这个定时器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;var id = setInterval(fn, delay);&lt;/code&gt; 和setTimeout类似，间隔给定的时间来调用函数，直到被取消&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clearInterval(id);, clearTimeout(id);&lt;/code&gt; 接收一个参数定时器函数id，用于取消定时器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为理解定时器内部如果工作，需要声明一个很重要的概念：定时器延时，并不可靠的。这是因为js在浏览器执行是单线程的，异步事件（如鼠标事件和定时器）只在当执行过程中有机会执行时（CPU空闲时）才执行。下图给了很好的解释。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;img alt="Alt Timers" class="align-center" src="/img/Timers.png" title="timers" /&gt;&lt;/p&gt;
+&lt;p&gt;（左侧为正常时序，右侧为定时器注册和发生顺序）。该图提供很多信息，帮助你完全理解javascript异步执行工作方式。这是一个一维图，垂直方向为时间轴，单位是毫秒。中间蓝色部分的表示一个个javascript代码执行块。例如，第一个js块执行了大约19毫秒...。  &lt;/p&gt;
+&lt;p&gt;由于javascript在同一时间只能执行一段代码（原于它是单线程）所以这些代码块会阻塞其它异步事件的执行。意味着一个异步事件（如鼠标事件，定时器触发或ajax回调），它会被插入事件队列中排队等待执行（有一点很重要，在不同的浏览器中，这个队列模型是不同的，所以队列中的事件是如何触发的是不同的）  &lt;/p&gt;
+&lt;p&gt;首先，在第一段js代码块中，两个定时器被初始化，一个10ms的setTimeout 和 一个10ms的setInterval。这个定时器启动实际上实在我们第一个js代码块完成之前，不过请注意，定时器所挂载的处理逻辑并没有立即被执行（由于线程模型是不能这样做的），而实际上，延时调用程序将会被插入队列，等待可调用时序时，被顺序执行。  &lt;/p&gt;
+&lt;p&gt;其次，我们在第一个代码块中，我们触发了一次点击操作。这个异步事件相关的回调函数，和定时器一样，也不会立即被执行，同样进入队列等待执行。  &lt;/p&gt;
+&lt;p&gt;当第一个Javascript代码块执行完成后，浏览器就会去问队列：接下来要执行什么？然而此时此刻，鼠标事件的句柄函数和定时器的延时调用函数都在等待。浏览器会在二者中选择一个（鼠标事件）立即执行。定时器的回调会等待下个时机，被按顺序调用。  &lt;/p&gt;
+&lt;p&gt;注意图中，在鼠标事件的回掉执行时，interval延时回掉被执行了。但是需要注意的时，当interval再次被出发时（当一个定时器的延时处理在执行的时候），这时候程序的处理将会被丢弃。假设当有大块的代码正在执行时，你又有一堆的interval延时调用在排队，你希望结果很可能就是这个大块的js代码执行完毕后，interval的延时调用会一个接一个的被触发，而且在执行时没有延时时间，也就是会被连续的调用。可是相反，浏览器往往只是等待，直到没有更多的interval处理程序进行排队。  &lt;/p&gt;
+&lt;p&gt;事实上，我们也可以看到，第三个interval回掉触发的时候，这个interval本身也在执行中。这就像我们展示了一个很重要的现象就是：interval 并不在乎当前谁正在执行，他们不分青红皂白地将排队，即使这意味着回调之间的时间将被牺牲。  &lt;/p&gt;
+&lt;p&gt;最后，当第二个interval回掉执行完成后，我们能看到，对于js引擎来说，没有需要去执行的东东了。这就意味着，浏览器在等待新的异步事件发生了。到第50秒时，这个interval被再次触发，这时候没有东西在阻塞执行，因此他会被立即调用。  &lt;/p&gt;
+&lt;p&gt;我们来用几行代码来更好的去分辨setInterval和setTimeout之间的区别:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="cm"&gt;/* Some long block of code... */&lt;/span&gt; 
+    &lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;arguments&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;callee&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
+&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;setInterval&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="cm"&gt;/* Some long block of code... */&lt;/span&gt; 
+&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这两段代码乍一看似乎差不多，但事实上相差很多。有一点值得注意的是，在这里面的setTimeout，两个回掉执行的时间间隔至少会是10毫秒；而setInterval将尝试每10秒去执行一次，&lt;strong&gt;不去考虑上一次回掉是否已经完成。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There’s a lot that we’ve learned here, let’s recap:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Javascript是一个单线程执行的东东，迫使异步事件排队等待执行。&lt;/li&gt;
+&lt;li&gt;setTimeout 与 setInterval执行代码的原理是完全不同的。&lt;/li&gt;
+&lt;li&gt;当一个定时器执行被阻塞时，他会等待下一个可能执行的时机去执行，所以这个延时可能会比预先设定的时间要长。&lt;/li&gt;
+&lt;li&gt;如果回调函数执行时间过长（长于定时器的延迟时间），“间隔定时器”有可能会一个接一个无间隔的执行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;p&gt;补充的例子&lt;/p&gt;
+&lt;hr /&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;die&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+&lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="nx"&gt;die&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nx"&gt;die&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;done&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果你认为在100毫秒后，会打针done，说明你没有看懂此篇文章。你一定会觉得在100毫秒后，die的值变成true，然后console会被执行，如果你这样想那你就错了。记住setTimeout的准则是&lt;strong&gt;尽快执行&lt;/strong&gt;，而&lt;strong&gt;不是立即执行&lt;/strong&gt;。只有当主事件循环结束是，有时间片供setTimeout去执行时，定时器才会被执行。&lt;br /&gt;
+&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;翻译原地址&lt;/a&gt;&lt;br /&gt;
+（完）&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 15 Nov 2013 17:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-15:posts/2013/how-javascript-timers-workzhuan/</guid><category>javascript</category><category>event</category></item><item><title>SimpleHTTPServer添加post方法</title><link>http://stormhouse.github.io/posts/2013/simplehttpservertian-jia-postfang-fa/</link><description>&lt;p&gt;开发前端demo时需要有后台数据交互，chrome浏览器默认不支持读取本地json数据，也配置启动参数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;access&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;firefox又用的不太习惯。以前是下载一个tomcat，还要修改tomcat中conf目录下的&lt;code&gt;server.xml&lt;/code&gt;文件&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;一直以来都学着python，学到网络这块发现很方便的SimpleHTTPServer类:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;SimpleHTTPServer&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;非常欣喜，不过该方法不支持jquery的post请求（我安装的是版本是64位2.7.5），解决方法：
+将&lt;code&gt;SimpleHTTPServer.py&lt;/code&gt;复制一份，如&lt;code&gt;StormHTTPServer.py&lt;/code&gt;。找到do_GET方法，在下面添加do_POST方法&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;do_POST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;do_GET&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;将该文件复制到${py_home}\Lib目录下&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;StormHTTPServer&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样就可以支持POST请求了，比起用tomcat方便多啦。&lt;/p&gt;
+&lt;p&gt;(完)
+&lt;Context path="/${content_name}" docBase="${dir}" workDir="${dir}" debug="0" reloadbale="true"/&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Wed, 13 Nov 2013 17:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-13:posts/2013/simplehttpservertian-jia-postfang-fa/</guid><category>python</category><category>http</category></item><item><title>win7x64下pelican创建博客</title><link>http://stormhouse.github.io/posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/</link><description>&lt;h3&gt;1 安装&lt;/h3&gt;
+&lt;h6&gt;1.1 安装pelican&lt;/h6&gt;
+&lt;p&gt;&lt;a href="http://stormhouse.github.io/posts/2013/win7x64xia-pythonan-zhuang-pei-zhi/"&gt;参见&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;2 写博客&lt;/h3&gt;
+&lt;h6&gt;2.1 快速入门&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;myblog&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;myblog&lt;/span&gt;
+&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;quickstart&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在content创建一个2013-11-04-test.md文件&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;
+&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;My&lt;/span&gt; &lt;span class="n"&gt;Super&lt;/span&gt; &lt;span class="n"&gt;Beginng&lt;/span&gt;
+&lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Writing&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Life&lt;/span&gt;
+&lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Life&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;生成页面&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;预览页面&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;
+&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;SimpleHTTPServer&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.2 设置&lt;/h6&gt;
+&lt;p&gt;设置article生成目录，参见&lt;a href="http://docs.getpelican.com/en/3.3.0/settings.html#url-settings"&gt;文档&lt;/a&gt;，在pelicanconf.py中最后一行添加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ARTICLE_URL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="o"&gt;:%&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;slug&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;ARTICLE_SAVE_AS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="o"&gt;:%&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;slug&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.3 更改主题&lt;/h6&gt;
+&lt;p&gt;下载安装主题&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;getpelican&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;bootstrap2&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;verbose&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.4 添加评论功能&lt;/h6&gt;
+&lt;p&gt;Pelican 使用Disqus评论, 可以在Disqus上申请一个站点, 然后在pelicanconf.py里添加或修改"DISQUS_SITENAME"项的内容为你的Disqus ID :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;DISQUS_SITENAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;frantic1048&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.5 一些插件&lt;/h6&gt;
+&lt;p&gt;待补充&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 04 Nov 2013 15:22:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-04:posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/</guid><category>python</category></item><item><title>win7x64下python安装配置</title><link>http://stormhouse.github.io/posts/2013/win7x64xia-pythonan-zhuang-pei-zhi/</link><description>&lt;h3&gt;安装1 python&lt;/h3&gt;
+&lt;h6&gt;安装1.1 &lt;a href="http://www.python.org/ftp/python/2.7.5/python-2.7.5.msi"&gt;python2.7.5&lt;/a&gt;，添加环境变量${PY_HOME}\Scripts&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;
+&lt;span class="n"&gt;Python&lt;/span&gt; &lt;span class="mf"&gt;2.7.5&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;#1.2 安装easy_install&lt;/h6&gt;
+&lt;p&gt;安装&lt;a href="https://pypi.python.org/pypi/setuptools#windows"&gt;setuptools&lt;/a&gt;下载&lt;a href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py"&gt;ez_setup.py&lt;/a&gt;，执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;ez_setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;easy_install&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;
+&lt;span class="n"&gt;setuptools&lt;/span&gt; &lt;span class="mf"&gt;1.3&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;1.3 安装pip&lt;/h6&gt;
+&lt;p&gt;安装&lt;a href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py"&gt;pip&lt;/a&gt;，&lt;a href="https://pypi.python.org/packages/source/p/pip/pip-1.4.1.tar.gz"&gt;下载&lt;/a&gt;解压后，到根目录下&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt;
+&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="mf"&gt;1.4.1&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;2. 其它模块安装&lt;/h3&gt;
+&lt;h6&gt;2.1 安装pyquery&lt;/h6&gt;
+&lt;p&gt;&lt;a href="http://blog.csdn.net/dxy_1110/article/details/8568340"&gt;参考这里&lt;/a&gt;的easy_install安装方式：下载&lt;a href="https://pypi.python.org/packages/2.7/l/lxml/lxml-2.3.win-amd64-py2.7.exe#md5=3db458d2127e68c49d6694d409322d96"&gt;lxml-2.3.win-amd64-py2.7.exe&lt;/a&gt;，执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;easy_install&lt;/span&gt; &lt;span class="n"&gt;lxml&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;2.3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;win&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;amd64&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;py2&lt;/span&gt;&lt;span class="mf"&gt;.7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exe&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;easy_install&lt;/span&gt; &lt;span class="n"&gt;pyquery&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.2 安装Markdown&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;Markdown&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.3 安装pelican&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.4 安装gevent&lt;/h6&gt;
+&lt;p&gt;下载&lt;a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#greenlet"&gt;greenlet-0.4.1.win-amd64-py2.7.exe&lt;/a&gt;&lt;br /&gt;
+下载&lt;a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#gevent"&gt;gevent-0.13.8.win-amd64-py2.7.exe&lt;/a&gt;
+安装&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 04 Nov 2013 11:12:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-04:posts/2013/win7x64xia-pythonan-zhuang-pei-zhi/</guid><category>python</category></item><item><title>win7x64下git安装配置</title><link>http://stormhouse.github.io/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/</link><description>&lt;h3&gt;1. 安装&lt;/h3&gt;
+&lt;h6&gt;1.1 cygwin安装&lt;/h6&gt;
+&lt;p&gt;&lt;a href="http://www.cygwin.com/install.html"&gt;cygwin下载&lt;/a&gt;
+&lt;br&gt;注意：添加make命令，在Select Packages一步，将Devel@Default改为Devel@Install&lt;/p&gt;
+&lt;h6&gt;1.2 git for windows下载安装&lt;/h6&gt;
+&lt;p&gt;&lt;a href="https://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git"&gt;下载&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;2. github配置&lt;/h3&gt;
+&lt;h6&gt;2.1 github.com上注册用户&lt;/h6&gt;
+&lt;p&gt;用户名:stormhouse; 邮箱:stormhouse@yeah.net&lt;/p&gt;
+&lt;h6&gt;2.2 初始配置&lt;/h6&gt;
+&lt;p&gt;打开Git Bash，执行以下命令&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;global&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;stormhouse&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;global&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt; &lt;span class="n"&gt;stormhouse&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;yeah&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;查看&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.3 创建SSH密匙&lt;/h6&gt;
+&lt;p&gt;按提示输入文件名及密码&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ssh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;keygen&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;stormhouse&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;yeah&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;rsa&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;2.4 提交密匙&lt;/h6&gt;
+&lt;p&gt;登录github.com，点击Account settings -&amp;gt; SSH Keys -&amp;gt; Add SSH Key,
+把c:\user\${username}.ssh\id_rsa.pub中内容保存到Key中&lt;br /&gt;
+打开命令行，测试连接&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ssh&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;   &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="err"&gt;测试连接&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;会提示你输入创建密匙时的密码&lt;/p&gt;
+&lt;h3&gt;3. 创建项目，上传&lt;/h3&gt;
+&lt;h6&gt;3.1 创建本地仓库&lt;/h6&gt;
+&lt;p&gt;Git Bash下，切到项目的根目录下，如test-demo&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;添加一个文件index.html&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;提交到仓库(-m是提交的注释)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;3.2 提交代码到github&lt;/h6&gt;
+&lt;p&gt;登录github，单击Create a new repo，名称为test-demo&lt;br /&gt;
+添加远程url，打开Git Bash，注意要换为你的用户名和项目名&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;stormhouse&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;demo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;提交&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;刷新你的github.com主页，就可以看到提交的index.html文件了&lt;/p&gt;
+&lt;p&gt;（完）&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 14 Oct 2013 14:20:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-10-14:posts/2013/win7x64xia-gitan-zhuang-pei-zhi/</guid><category>git</category></item></channel></rss>

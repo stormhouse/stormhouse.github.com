@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>stormhouse - Categories</title>
+    <title>stormhouse - javascript</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -46,7 +46,7 @@
                         <li >
                             <a href="http://stormhouse.github.io/category/python.html">python</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
                         </li>
                         <li >
@@ -67,15 +67,26 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-    <section id="categories">
-        <h1>Categories for stormhouse</h1>
-        <ul>
-                <li><a href="category/python.html">python</a></li>
-                <li><a href="category/javascript.html">javascript</a></li>
-                <li><a href="category/git.html">git</a></li>
-                <li><a href="category/encoding.html">encoding</a></li>
-        </ul>
-    </section>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/how-javascript-timers-workzhuan/">How JavaScript timers work（转）</a></h2>
+                <div class="summary"><p><a href="http://ejohn.org/blog/how-javascript-timers-work/">原文地址</a><br />
+<a href="http://ejohn.org/blog/how-javascript-timers-work/">翻译原地址</a></p>
+<hr />
+<p>了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器:  </p>
+<ul>
+<li><code>var id = setTimeout(fn, delay);</code> 用于起动一个定时器，经过给定的时间后调用特定的函数。该函数返回一个id，来取消这个定时器</li>
+<li><code>var id = setInterval(fn, delay);</code> 和setTimeout类似，间隔给定的时间来调用函数，直到被取消</li>
+<li><code>clearInterval(id);, clearTimeout(id);</code> 接收一个参数定时器函数id，用于取消定时器</li>
+</ul>
+<p>为理解定时器内部如果工作，需要声明一个很重要的概念：定时器延时，并不可靠的。这是因为js在浏览器执行是单线程的，异步事件（如鼠标事件和定时器）只在当执行过程中有机会执行时（CPU空闲时）才执行。下图给了很好的解释。</p>
+<hr />
+<p><img alt="Alt Timers" class="align-center" src="/img/Timers.png" title="timers" /></p>
+<p>（左侧为正常时序，右侧为定时器注册和发生顺序）。该图提供很多信息，帮助你完全理解javascript异步执行工作方式。这是一个一维图，垂直方向为时间轴，单位是毫秒。中间蓝色部分的表示一个个javascript代码执行块 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/how-javascript-timers-workzhuan/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>

@@ -13,18 +13,20 @@
 
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="SimpleHTTPServer添加post方法"/>
-            <meta property="og:url" content="/posts/2013/simplehttpservertian-jia-postfang-fa/"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/simplehttpservertian-jia-postfang-fa/"/>
             <meta property="og:description" content="开发前端demo时需要有后台数据交互，chrome浏览器默认不支持读取本地json数据，也配置启动参数： --allow-file-access-from-files firefox又用的不太习惯。以前是下载一个tomcat，还要修改tomcat中conf目录下的server.xml文件 一直以来都学着python，学到网络这块发现很方便的SimpleHTTPServer类: python -m SimpleHTTPServer 9000 非常欣喜，不过该方法不支持jquery的post请求（我安装的是版本是64位2.7.5），解决方法： 将SimpleHTTPServer.py复制一份，如StormHTTPServer.py。找到do_GET方法，在下面添加do_POST方法 def do_POST(self): self.do_GET() 将该文件复制到${py_home}\Lib目录下 python -m StormHTTPServer 9000 这样就可以支持POST请求了，比起用tomcat方便多啦。 (完)"/>
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <link href="/theme/css/pygments.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
     <!-- JavaScript plugins (requires jQuery) -->
     <script src="http://code.jquery.com/jquery.js"></script>
 
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
 
 </head>
 <body>
@@ -37,19 +39,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="" class="navbar-brand">stormhouse</a>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
-                            <a href="/category/git.html">git</a>
-                        </li>
                         <li class="active">
-                            <a href="/category/python.html">python</a>
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -63,7 +71,7 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/posts/2013/simplehttpservertian-jia-postfang-fa/"
+                    <a href="http://stormhouse.github.io/posts/2013/simplehttpservertian-jia-postfang-fa/"
                        rel="bookmark"
                        title="Permalink to SimpleHTTPServer添加post方法">
                         SimpleHTTPServer添加post方法
@@ -76,15 +84,15 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>周三 13 十一月 2013
+        <i class="icon-calendar"></i>Wed 13 November 2013
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="http://stormhouse.github.io/tag/python.html">python</a>
         /
-	<a href="/tag/http.html">http</a>
+	<a href="http://stormhouse.github.io/tag/http.html">http</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>开发前端demo时需要有后台数据交互，chrome浏览器默认不支持读取本地json数据，也配置启动参数：</p>
@@ -116,6 +124,30 @@
 <Context path="/${content_name}" docBase="${dir}" workDir="${dir}" debug="0" reloadbale="true"/></p>
             </div>
             <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'simplehttpservertian-jia-postfang-fa';
+            var disqus_url = 'http://stormhouse.github.io/posts/2013/simplehttpservertian-jia-postfang-fa/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
         </article>
     </section>
 
@@ -125,29 +157,59 @@
     <section>
         <ul class="list-group list-group-flush">
                 <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
-                    <li class="list-group-item"><a href="#"><i
-                            class="icon-You can add links in your config file-sign icon-large"></i>You can add links in your config file
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
                     </a></li>
-                    <li class="list-group-item"><a href="#"><i
-                            class="icon-Another social link-sign icon-large"></i>Another social link
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-rubylouvre-sign icon-large"></i>rubylouvre
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
                     </a></li>
 
 
 
-            <li class="list-group-item"><a href="/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
-                    <a href="/tag/python.html">
+                    <a href="http://stormhouse.github.io/tag/python.html">
                         python
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="/tag/http.html">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/http.html">
                         http
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="/tag/git.html">
-                        git
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
                     </a>
                 </li>
         </ul>
@@ -157,9 +219,22 @@
 </div>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
 </body>
 </html>
