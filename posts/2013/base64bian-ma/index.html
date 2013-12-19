@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>win7x64下pelican创建博客</title>
+    <title>Base64编码</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,9 +12,9 @@
     <!-- Open Graph tags -->
 
             <meta property="og:type" content="article"/>
-            <meta property="og:title" content="win7x64下pelican创建博客"/>
-            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/"/>
-            <meta property="og:description" content="1 安装 1.1 安装pelican 参见 2 写博客 2.1 快速入门 mkdir myblog cd myblog pelican-quickstart 在content创建一个2013-11-04-test.md文件 Date: 2013-06-06 Title: My Super Beginng Tags: Writing, Life Category: Life 生成页面 pelican content 预览页面 cd output python -m SimpleHTTPServer 9000 2.2 设置 设置article生成目录，参见文档，在pelicanconf.py中最后一行添加 ..."/>
+            <meta property="og:title" content="Base64编码"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/base64bian-ma/"/>
+            <meta property="og:description" content="Base64编码是将任意二进制数据转换为可打印的ASCII字符。 从8位到6位 它是将一个8位字节序列拆散为6位，并为每个6位片段分配一个字符（2^6=64，推之Base64字符集为64个以内，实际65个字符）。Base64的码表为： 来个实例，下图以中文编码两个字符（utf-8格式）为例： 可以在Base64 Decode and Encode - Online上验证一下结果。 补码 Base64编码是将二进制截成每6位一个单位，会有二进制序列不能正好平均分成6位块的情况，这时要在序列末尾填充零位，补够总位数是6*8的最小公倍数，任何完全填充的6位组由特殊的第65个符号=表示。比如ASCII码的字符a： 用途 Base64编码是对二进制序列为操作对象，那对于任意的二进制序列都可以编码，如文件。 在网上搜集了一些Base64编码应用： CSS中url属性：适用于小图片，减少HTTP请求数。 早期电子邮件中 简单加密：防君子不防小人的加密方式 HTTP基本认证 文件入库：将文件的二进制流转换成文本存入数据库 实现 JavaScript实现 在线工具 ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
@@ -43,7 +43,7 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li >
                             <a href="http://stormhouse.github.io/category/python.html">python</a>
                         </li>
                         <li >
@@ -52,7 +52,7 @@
                         <li >
                             <a href="http://stormhouse.github.io/category/git.html">git</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
                         </li>
             </ul>
@@ -71,10 +71,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://stormhouse.github.io/posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/"
+                    <a href="http://stormhouse.github.io/posts/2013/base64bian-ma/"
                        rel="bookmark"
-                       title="Permalink to win7x64下pelican创建博客">
-                        win7x64下pelican创建博客
+                       title="Permalink to Base64编码">
+                        Base64编码
                     </a>
                 </h1>
             </header>
@@ -84,73 +84,44 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>Mon 04 November 2013
+        <i class="icon-calendar"></i>Mon 25 November 2013
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://stormhouse.github.io/tag/python.html">python</a>
+	<a href="http://stormhouse.github.io/tag/encoding.html">encoding</a>
+        /
+	<a href="http://stormhouse.github.io/tag/base64.html">base64</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h3>1 安装</h3>
-<h6>1.1 安装pelican</h6>
-<p><a href="http://stormhouse.github.io/posts/2013/win7x64xia-pythonan-zhuang-pei-zhi/">参见</a></p>
-<h3>2 写博客</h3>
-<h6>2.1 快速入门</h6>
-<div class="highlight"><pre><span class="n">mkdir</span> <span class="n">myblog</span>
-<span class="n">cd</span> <span class="n">myblog</span>
-<span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
-</pre></div>
-
-
-<p>在content创建一个2013-11-04-test.md文件</p>
-<div class="highlight"><pre><span class="n">Date</span><span class="o">:</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">06</span>
-<span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="n">Super</span> <span class="n">Beginng</span>
-<span class="n">Tags</span><span class="o">:</span> <span class="n">Writing</span><span class="o">,</span> <span class="n">Life</span>
-<span class="n">Category</span><span class="o">:</span> <span class="n">Life</span>
-</pre></div>
-
-
-<p>生成页面</p>
-<div class="highlight"><pre><span class="n">pelican</span> <span class="n">content</span>
-</pre></div>
-
-
-<p>预览页面</p>
-<div class="highlight"><pre><span class="n">cd</span> <span class="n">output</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span> <span class="mi">9000</span>
-</pre></div>
-
-
-<h6>2.2 设置</h6>
-<p>设置article生成目录，参见<a href="http://docs.getpelican.com/en/3.3.0/settings.html#url-settings">文档</a>，在pelicanconf.py中最后一行添加</p>
-<div class="highlight"><pre><span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">posts</span><span class="o">/</span><span class="p">{</span><span class="n">date</span><span class="o">:%</span><span class="n">Y</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="err">&#39;</span>
-<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">posts</span><span class="o">/</span><span class="p">{</span><span class="n">date</span><span class="o">:%</span><span class="n">Y</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">html</span><span class="err">&#39;</span>
-</pre></div>
-
-
-<h6>2.3 更改主题</h6>
-<p>下载安装主题</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="n">getpelican</span><span class="o">/</span><span class="n">pelican</span><span class="o">-</span><span class="n">themes</span><span class="p">.</span><span class="n">git</span>
-<span class="err">$</span> <span class="n">pelican</span><span class="o">-</span><span class="n">themes</span> <span class="o">-</span><span class="n">i</span> <span class="n">bootstrap2</span>
-<span class="err">$</span> <span class="n">pelican</span><span class="o">-</span><span class="n">themes</span> <span class="o">--</span><span class="n">list</span> <span class="o">--</span><span class="n">verbose</span>
-</pre></div>
-
-
-<h6>2.4 添加评论功能</h6>
-<p>Pelican 使用Disqus评论, 可以在Disqus上申请一个站点, 然后在pelicanconf.py里添加或修改"DISQUS_SITENAME"项的内容为你的Disqus ID :</p>
-<div class="highlight"><pre><span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="n">u</span><span class="s">&quot;frantic1048&quot;</span>
-</pre></div>
-
-
-<p>然后执行</p>
-<div class="highlight"><pre><span class="n">pelican</span> <span class="n">content</span>
-</pre></div>
-
-
-<h6>2.5 一些插件</h6>
-<p>待补充</p>
+                <p>Base64编码是将任意二进制数据转换为可打印的ASCII字符。</p>
+<h3>从8位到6位</h3>
+<p>它是将一个8位字节序列拆散为6位，并为每个6位片段分配一个字符（2^6=64，推之Base64字符集为64个以内，实际65个字符）。Base64的码表为：</p>
+<p><img alt="Encoding Img" class="align-center" src="/img/encoding-base64-table.png" title="" /></p>
+<p>来个实例，下图以中文<code>编码</code>两个字符（utf-8格式）为例：</p>
+<p><img alt="Encoding Img" class="align-center" src="/img/encoding-base64-1.png" title="" /></p>
+<p>可以在<a href="http://www.base64encode.org/">Base64 Decode and Encode - Online</a>上验证一下结果。</p>
+<h3>补码</h3>
+<p>Base64编码是将二进制截成每6位一个单位，会有二进制序列不能正好平均分成6位块的情况，这时要在序列末尾填充零位，补够总位数是6*8的最小公倍数，任何完全填充的6位组由特殊的第65个符号<code>=</code>表示。比如ASCII码的字符<code>a</code>：</p>
+<p><img alt="Encoding Img" class="align-center" src="/img/encoding-base64-2.png" title="" /></p>
+<h3>用途</h3>
+<p>Base64编码是对二进制序列为操作对象，那对于任意的二进制序列都可以编码，如文件。
+在网上搜集了一些Base64编码应用：</p>
+<ul>
+<li><a href="http://www.zhangxinxu.com/wordpress/2012/04/base64-url-image-%E5%9B%BE%E7%89%87-%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">CSS中url属性</a>：适用于小图片，减少HTTP请求数。</li>
+<li>早期电子邮件中</li>
+<li>简单加密：防君子不防小人的加密方式</li>
+<li><a href="http://stackoverflow.com/questions/4070693/what-is-the-purpose-of-base-64-encoding-and-why-it-used-in-http-basic-authentica">HTTP基本认证</a></li>
+<li>文件入库：将文件的二进制流转换成文本存入数据库</li>
+</ul>
+<h3>实现</h3>
+<p><a href="http://stormhouse.github.com/demo/js/base64.html">JavaScript实现</a></p>
+<h3>在线工具</h3>
+<ul>
+<li><a href="http://www.base64encode.org/">Base64 Decode and Encode - Online </a></li>
+<li><a href="http://webcodertools.com/imagetobase64converter">Convert any image into a base64 string</a></li>
+</ul>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -160,8 +131,8 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
-            var disqus_identifier = 'win7x64xia-pelicanchuang-jian-bo-ke';
-            var disqus_url = 'http://stormhouse.github.io/posts/2013/win7x64xia-pelicanchuang-jian-bo-ke/';
+            var disqus_identifier = 'base64bian-ma';
+            var disqus_url = 'http://stormhouse.github.io/posts/2013/base64bian-ma/';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {

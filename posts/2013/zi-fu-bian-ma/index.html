@@ -14,7 +14,7 @@
             <meta property="og:type" content="article"/>
             <meta property="og:title" content="字符编码"/>
             <meta property="og:url" content="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/"/>
-            <meta property="og:description" content="字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。 就像别人一样的开场：计算机比较傻，在它的世界里只有 1 0，如何才让人类可理解的字符(Character,如字母、数字，一些符号，汉字...)打印到显示屏幕上呢。这需要有一个从由1 0组合成的序列到可打印字符的一个映射 (编码Encoding)，可打印的字符是一个集合(字符集Charset)。在这里就引出了几个概念: 字符(Character)：是文字与符号的总称，包括文字、图形符号、数学符号等。 字符集(Charset)：即字符的集合，规定了在这些集合里面有哪些字符。 字符编码(Encoding)：就是规定用一个字节还是多个字节来存储一个字符，用固定的二进制码值表示某个字符。 字节(byte)：计算机中存储数据的单元，一个8位的二进制数，是一个很具体的存储空间。 一看到这样定义我就头大 ..."/>
+            <meta property="og:description" content="每个软件开发人员应该无条件掌握的知识！ 字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。 就像别人一样的开场：计算机比较傻，在它的世界里只有 1 0，如何才让人类可理解的字符(Character,如字母、数字，一些符号，汉字...)打印到显示屏幕上呢。这需要有一个从由1 0组合成的序列到可打印字符的一个映射 (编码Encoding)，可打印的字符是一个集合(字符集Charset)。在这里就引出了几个概念: 字符(Character)：是文字与符号的总称，包括文字、图形符号、数学符号等。 字符集(Charset)：即字符的集合，规定了在这些集合里面有哪些字符。 字符编码(Encoding)：就是规定用一个字节还是多个字节来存储一个字符，用固定的二进制码值表示某个字符。 字节(byte)：计算机中存储数据的单元，一个8位的二进制数，是一个很具体的存储空间 ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
@@ -93,7 +93,10 @@
 	<a href="http://stormhouse.github.io/tag/encoding.html">encoding</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。<br />
+                <hr />
+<p>每个软件开发人员应该无条件掌握的知识！</p>
+<hr />
+<p>字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。<br />
 就像别人一样的开场：计算机比较傻，在它的世界里只有 <code>1</code> <code>0</code>，如何才让人类可理解的<strong>字符</strong>(Character,如字母、数字，一些符号，汉字...)打印到显示屏幕上呢。这需要有一个从由<code>1</code> <code>0</code>组合成的序列到可打印字符的一个<strong>映射</strong> (编码Encoding)，可打印的字符是一个<strong>集合</strong>(字符集Charset)。在这里就引出了几个概念:</p>
 <ul>
 <li>字符(Character)：是文字与符号的总称，包括文字、图形符号、数学符号等。</li>
@@ -161,13 +164,12 @@ UTF-8这种编码是怎么回事呢？ </p>
 <li>英文字符，和ASCII码一样，占用一个字节。因此对于英语字母，UTF-8编码和ASCII码是相同的。</li>
 <li>
 <p>对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。</p>
-<p>Unicode符号范围      | UTF-8编码方式
-(十六进制)           | （二进制）
---------------------+---------------------------------------------
-0000 0000-0000 007F | 0xxxxxxx
-0000 0080-0000 07FF | 110xxxxx 10xxxxxx
-0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx
-0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+<p>Unicode符号范围       UTF-8编码方式<br />
+(十六进制)            （二进制）<br />
+0000 0000-0000 007F | 0xxxxxxx<br />
+0000 0080-0000 07FF | 110xxxxx 10xxxxxx<br />
+0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx<br />
+0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx  </p>
 </li>
 </ul>
 <p>这里演示一个中文字“汉”，<a href="http://www.chi2ko.com/tool/CJK.htm">查得</a>unicode 表式为<code>0x6C49</code>，二进制为<code>0110 1100 0100 1001</code>
@@ -204,6 +206,7 @@ UTF-8这种编码是怎么回事呢？ </p>
 <li><a href="http://ash.jp/code/cn/gb2312tbl.htm">GB2312</a></li>
 <li><a href="http://www.khngai.com/chinese/charmap/tblgbk.php">GBK</a></li>
 <li><a href="http://unicode-table.com/en/">Unicode</a></li>
+<li><a href="http://www.moransoft.com/chinesecode.html">UTF-8</a></li>
 </ul>
 <h3>参拷</h3>
 <ul>
@@ -275,19 +278,24 @@ UTF-8这种编码是怎么回事呢？ </p>
 
 
             <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-                <li class="list-group-item tag-1">
+                <li class="list-group-item tag-0">
                     <a href="http://stormhouse.github.io/tag/python.html">
                         python
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/git.html">
-                        git
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/event.html">
-                        event
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -296,13 +304,23 @@ UTF-8这种编码是怎么回事呢？ </p>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/http.html">
-                        http
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/encoding.html">
-                        encoding
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
                     </a>
                 </li>
         </ul>

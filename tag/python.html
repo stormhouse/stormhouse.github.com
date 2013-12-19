@@ -68,6 +68,66 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/urlbian-ma/">URL编码</a></h2>
+                <div class="summary"><hr />
+<p>URL(统一资源定位符, Uniform Resource Location)是URI(统一资源标识符, Uniform Resource Identifier)的一种，一般来讲，URL是Internet上用来描述信息资源的字符串，用于客户端访问www服务器或其它服务器的方式。来几个URL：</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="n">ftp</span><span class="o">:</span><span class="c1">//host/filepath/</span>
+<span class="o">*</span> <span class="n">http</span><span class="o">:</span><span class="c1">// </span>
+<span class="o">*</span> <span class="n">ftp</span><span class="o">:</span><span class="c1">//表示通过文件传输协议FTP访问FTP服务器。  </span>
+<span class="o">*</span> <span class="n">telnet</span><span class="o">:</span><span class="c1">//表示通过远程登录协议Telnet进行远程登录。  </span>
+<span class="o">*</span> <span class="n">gopher</span><span class="o">:</span><span class="c1">//表示通过gopher协议访问Gopher服务器。</span>
+</pre></div>
+
+
+<p>当然协议也可以自己扩展。</p>
+<p>这个不扯太多，今天只讨论编码。</p>
+<h3>URL中包括中文</h3>
+<p>看代码，文件名<code>编码-test.html</code>放到tomcat（全局web.xml配置listings设置成true）下webapp目录下中的encoding目录下</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meat</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;form&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;q ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/urlbian-ma/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/httpzhong-de-zi-fu-bian-ma/">http中的字符编码</a></h2>
+                <div class="summary"><p><a href="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/">字符编码</a>和<a href="http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/">python中的字符编码</a>两文对字符编码简单的介绍。现在开始讨论http中的编码问题，当完成<code>编码</code>系列的文章后，开始完成一系统http的文章，本文还是需要一些http基本的知识。</p>
+<p>做为java出身的coder，今天还是用python语言来实现http的实例，java实现个东西太麻烦，Simple is better than complex.</p>
+<h3>响应头中的<code>Content-Type</code></h3>
+<p>我们知道http响应报文，包括两部分实体首部（<code>响应头</code>）和实体主体（<code>响应主体</code>），响应头是对主体内容的描述，告知浏览器怎么处理主体内容（文本，图片等等）。上代码：</p>
+<div class="highlight"><pre><span class="cp">#coding=utf-8</span>
+
+<span class="n">from</span> <span class="n">BaseHTTPServer</span> <span class="n">import</span> <span class="n">HTTPServer</span><span class="p">,</span> <span class="n">BaseHTTPRequestHandler</span>
+
+<span class="n">class</span> <span class="n">MyRequestHandler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">def</span> <span class="n">do_GET</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">send_response</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">send_header</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Content</span><span class="o">-</span><span class="n">Type ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/httpzhong-de-zi-fu-bian-ma/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/">python中的字符编码</a></h2>
+                <div class="summary"><p>上篇<a href="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/">字符编码</a>对字符编码做了简单的介绍，除了演示几个简单的例子外，没有将<code>字符编码</code>与<code>编程语言</code>，看本文的标题相信就明白，这是与伟大的python结合一些实例（python版本为2.7.5）。</p>
+<p>准备工作，去码表（<a href="http://ash.jp/code/cn/gb2312tbl.htm">GB2312</a>, <a href="http://www.tamasoft.co.jp/en/general-info/unicode.html">Unicode</a>, <a href="http://www.moransoft.com/chinesecode.html">UTF-8</a>）查取<code>编码</code>的GB2312和Unicode字符集编码及按gb2312和utf-8编码方式保存的二进制。注意，要亲自查一下 哦～～</p>
+<div class="highlight"><pre><span class="err">编码</span>                  <span class="err">对应十六进制</span>
+<span class="n">GB2312</span><span class="err">字符集：</span>        <span class="n">b1e0</span> <span class="n">c2eb</span>
+<span class="n">GB2312</span><span class="err">编码</span><span class="p">(</span><span class="err">同上</span><span class="p">)</span><span class="o">:</span>     <span class="n">b1e0</span> <span class="n">c2eb</span>
+<span class="n">Unicode</span><span class="err">字符集：</span>       <span class="mf">7f</span><span class="mi">16</span> <span class="mi">7801</span>
+<span class="n">UTF</span><span class="o">-</span><span class="mi">16</span><span class="err">编码</span><span class="p">(</span><span class="err">同上</span><span class="p">)</span><span class="o">:</span>     <span class="mf">7f</span><span class="mi">16</span> <span class="mi">7801</span>
+<span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="err">编码 ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://stormhouse.github.io/posts/2013/simplehttpservertian-jia-postfang-fa/">SimpleHTTPServer添加post方法</a></h2>
                 <div class="summary"><p>开发前端demo时需要有后台数据交互，chrome浏览器默认不支持读取本地json数据，也配置启动参数：</p>
 <div class="highlight"><pre><span class="o">--</span><span class="n">allow</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">access</span><span class="o">-</span><span class="n">from</span><span class="o">-</span><span class="n">files</span>
@@ -196,19 +256,24 @@
 
 
             <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-                <li class="list-group-item tag-1">
+                <li class="list-group-item tag-0">
                     <a href="http://stormhouse.github.io/tag/python.html">
                         python
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/git.html">
-                        git
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/event.html">
-                        event
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -217,13 +282,23 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/http.html">
-                        http
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/encoding.html">
-                        encoding
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
                     </a>
                 </li>
         </ul>

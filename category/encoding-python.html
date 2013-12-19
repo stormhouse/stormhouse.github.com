@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>stormhouse - Tags</title>
+    <title>stormhouse - encoding, python</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -52,6 +52,9 @@
                         <li >
                             <a href="http://stormhouse.github.io/category/git.html">git</a>
                         </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/encoding-python.html">encoding, python</a>
+                        </li>
                         <li >
                             <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
                         </li>
@@ -67,19 +70,21 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-9">
-    <section id="tags">
-        <h1>Tags for stormhouse</h1>
-        <ul>                <li><a href="http://stormhouse.github.io/tag/base64.html">base64</a> (1)</li>
-                <li><a href="http://stormhouse.github.io/tag/encoding.html">encoding</a> (5)</li>
-                <li><a href="http://stormhouse.github.io/tag/event.html">event</a> (1)</li>
-                <li><a href="http://stormhouse.github.io/tag/git.html">git</a> (1)</li>
-                <li><a href="http://stormhouse.github.io/tag/http.html">http</a> (3)</li>
-                <li><a href="http://stormhouse.github.io/tag/javascript.html">javascript</a> (1)</li>
-                <li><a href="http://stormhouse.github.io/tag/python.html">python</a> (6)</li>
-                <li><a href="http://stormhouse.github.io/tag/tomcat.html">tomcat</a> (1)</li>
-                <li><a href="http://stormhouse.github.io/tag/url.html">url</a> (1)</li>
-        </ul>
-    </section>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/">python中的字符编码</a></h2>
+                <div class="summary"><p>上篇[字符编码][]对字符编码做了简单的介绍，除了演示几个简单的例子外，没有将<code>字符编码</code>与<code>编程语言</code>，看本文的标题相信就明白，这是与伟大的python结合一些实例（python版本为2.7.5）。</p>
+<p>准备工作，去码表（<a href="http://ash.jp/code/cn/gb2312tbl.htm">GB2312</a>, <a href="http://www.tamasoft.co.jp/en/general-info/unicode.html">Unicode</a>, <a href="http://www.moransoft.com/chinesecode.html">UTF-8</a>）查取<code>编码</code>的GB2312和Unicode字符集编码及按gb2312和utf-8编码方式保存的二进制。注意，要亲自查一下 哦～～</p>
+<div class="highlight"><pre><span class="err">编码</span>                  <span class="err">对应十六进制</span>
+<span class="n">GB2312</span><span class="err">字符集：</span>        <span class="n">b1e0</span> <span class="n">c2eb</span>
+<span class="n">GB2312</span><span class="err">编码</span><span class="p">(</span><span class="err">同上</span><span class="p">)</span><span class="o">:</span>     <span class="n">b1e0</span> <span class="n">c2eb</span>
+<span class="n">Unicode</span><span class="err">字符集：</span>       <span class="mf">7f</span><span class="mi">16</span> <span class="mi">7801</span>
+<span class="n">UTF</span><span class="o">-</span><span class="mi">16</span><span class="err">编码</span><span class="p">(</span><span class="err">同上</span><span class="p">)</span><span class="o">:</span>     <span class="mf">7f</span><span class="mi">16</span> <span class="mi">7801</span>
+<span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="err">编码 ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
         </div>
         <div class="col-lg-3 well well-sm" id="sidebar">
 <aside>
@@ -111,29 +116,19 @@
 
 
             <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
-                <li class="list-group-item tag-0">
+                <li class="list-group-item tag-1">
                     <a href="http://stormhouse.github.io/tag/python.html">
                         python
                     </a>
                 </li>
-                <li class="list-group-item tag-1">
+                <li class="list-group-item tag-2">
                     <a href="http://stormhouse.github.io/tag/encoding.html">
                         encoding
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
+                <li class="list-group-item tag-4">
                     <a href="http://stormhouse.github.io/tag/http.html">
                         http
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/base64.html">
-                        base64
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/javascript.html">
-                        javascript
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -142,18 +137,13 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/url.html">
-                        url
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
                     <a href="http://stormhouse.github.io/tag/git.html">
                         git
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/tomcat.html">
-                        tomcat
                     </a>
                 </li>
         </ul>
