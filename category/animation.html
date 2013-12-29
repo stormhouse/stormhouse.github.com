@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>stormhouse - base64</title>
+    <title>stormhouse - animation</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -55,7 +55,7 @@
                         <li >
                             <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="http://stormhouse.github.io/category/animation.html">animation</a>
                         </li>
             </ul>
@@ -71,31 +71,38 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/base64bian-ma/">Base64编码</a></h2>
-                <div class="summary"><p>Base64编码是将任意二进制数据转换为可打印的ASCII字符。</p>
-<h3>从8位到6位</h3>
-<p>它是将一个8位字节序列拆散为6位，并为每个6位片段分配一个字符（2^6=64，推之Base64字符集为64个以内，实际65个字符）。Base64的码表为：</p>
-<p><img alt="Encoding Img" class="align-center" src="/img/encoding-base64-table.png" title="" /></p>
-<p>来个实例，下图以中文<code>编码</code>两个字符（utf-8格式）为例：</p>
-<p><img alt="Encoding Img" class="align-center" src="/img/encoding-base64-1.png" title="" /></p>
-<p>可以在<a href="http://www.base64encode.org/">Base64 Decode and Encode - Online</a>上验证一下结果。</p>
-<h3>补码</h3>
-<p>Base64编码是将二进制截成每6位一个单位，会有二进制序列不能正好平均分成6位块的情况，这时要在序列末尾填充零位，补够总位数是6*8的最小公倍数，任何完全填充的6位组由特殊的第65个符号<code>=</code>表示。比如ASCII码的字符<code>a</code>：</p>
-<p><img alt="Encoding Img" class="align-center" src="/img/encoding-base64-2.png" title="" /></p>
-<h3>用途</h3>
-<p>Base64编码是对二进制序列为操作对象，那对于任意的二进制序列都可以编码，如文件。
-在网上搜集了一些Base64编码应用：</p>
+                <h2><a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/">Introduction to Animation in HTML（译）</a></h2>
+                <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm">kirupa</a> </p>
+<hr />
+<p>也许你们认为动画是电影和计算机中的近代产物，实际上人类在很久很久以前就开始鼓捣它并作为沟通的方式了：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131129-1.png" title="" /></p>
+<p>[ a sequence of pictures from 3000 BC (wikipedia) ]</p>
+<p>这些动画方式追溯到古代的洞穴壁画，直到现代的精密的机械，正如你现在看到的电视、电脑和手机。今天，生活中几乎在所有的设备屏幕上单击、摇一摇(tap)或按键就可以让它动起来：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131129-2.png" title="" /></p>
+<p>动画已不仅仅是壁画中的事物了，而主要在游戏、intros、卡通，横幅广告领域。 它已经根深蒂固于我们用户体验中，它可让你的应用操作简单；可以使你的内容更加漂亮；可以使你的作品更加生动有趣。谁不希望这样啊？</p>
+<p>至此你有足够的背景认识。不用去关心它的历史或被信服动画为什么这么有用。可能你已经认识到动画的重要性。如果你想知道如何来实现这些动画，那么你来对地方了。本篇入门教程以及后面的文章，你将学习html中的动画。短期内，你将成为动画的高手， 或至少在屏幕上完成一个动画。</p>
+<p>Onwards!</p>
+<h3>What Is An Animation?</h3>
+<p>在我们继续进行之前，确定从哪开始学以及怎样创建动画，退一步讲，就是弄清动画是什么 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/animationzhuan/">Animation（转）</a></h2>
+                <div class="summary"><p>Tutorials, videos, and <a href="http://www.kirupa.com/book/animation_in_html_css_and_javascript.htm">even a book</a> to help you learn how to create great animations in HTML, CSS, and JavaScript.</p>
+<hr />
+<h3>The Basics</h3>
 <ul>
-<li><a href="http://www.zhangxinxu.com/wordpress/2012/04/base64-url-image-%E5%9B%BE%E7%89%87-%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">CSS中url属性</a>：适用于小图片，减少HTTP请求数。</li>
-<li>早期电子邮件中</li>
-<li>简单加密：防君子不防小人的加密方式</li>
-<li><a href="http://stackoverflow.com/questions/4070693/what-is-the-purpose-of-base-64-encoding-and-why-it-used-in-http-basic-authentica">HTTP基本认证</a></li>
-<li>文件入库：将文件的二进制流转换成文本存入数据库</li>
+<li>[Introduction to Animation in HTML][]</li>
+<li><a href="http://www.youtube.com/watch?v=9dwGgUe578k">Dealing with Vendor Prefixes in CSS and JavaScript</a><a href="http://pan.baidu.com/s/1eQqVXoY"> （墙内云盘分享）</a></li>
 </ul>
-<h3>实现</h3>
-<p><a href="http://stormhouse.github.com/demo/js/base64.html">JavaScript实现</a></p>
-<h3>在线工具 ...</h3>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/base64bian-ma/">more ...</a>
+<h3>CSS Animations and Transitions</h3>
+<ul>
+<li>All About CSS Animations</li>
+<li>All About CSS Transitions</li>
+<li>CSS3: Animations ...</li></ul>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/animationzhuan/">more ...</a>
                 </div>
             </article>
             <hr/>
