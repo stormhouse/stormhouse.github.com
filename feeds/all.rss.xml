@@ -1,5 +1,504 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 29 Nov 2013 22:06:00 +0800</lastBuildDate><item><title>Introduction to Animation in HTML（译）</title><link>http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 01 Dec 2014 15:06:00 +0800</lastBuildDate><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2014/all-about-css-animationsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;在HTML中动画实现的三种的方式之一是众所周知&lt;strong&gt;CSS animations&lt;/strong&gt;。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。&lt;/p&gt;
+&lt;p&gt;首先让我们看一个例子，让下面的云彩缓慢的上下飘动：&lt;/p&gt;
+&lt;iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="demo/animation/bouncing_clouds2.html" style="width: 623px; height: 330px;" marginheight="0" marginwidth="0"&gt;Your browser does not support inline frames or is currently configured not to display inline frames.
+&lt;/iframe&gt;
+
+&lt;p&gt;在本篇中，你将学习所有CSS animations，不仅仅是让云朵移动，还有其它更酷更有用的事情。你将会学习通过&lt;code&gt;animation&lt;/code&gt;属性怎样定义一个CSS动画，怎么添加关键帧，以及如果调整各种动画相关的属性，这才是你所想要的。&lt;/p&gt;
+&lt;p&gt;Onwards!&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Creating a Simple Animation&lt;/h3&gt;
+&lt;p&gt;学习动画最简单的的方式，就是亲自动手实验， 然后再学习它的工作机制。那么来创建一个HTML文档，写HTML和CSS代码吧：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;html&lt;/span&gt; &lt;span class="na"&gt;lang=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;en-us&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;charset=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Bouncing Clouds&lt;span class="nt"&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.kirupa.com/js/prefixfree.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+#mainContent {
+    background-color: #A2BFCE;
+    border-radius: 4px;
+    padding: 10px;
+    width: 600px;
+    height: 300px;
+    overflow: hidden;
+}
+.cloud {
+    position: absolute;
+}
+#bigcloud {
+    margin-left: 100px;
+    margin-top: 15px;
+}
+&lt;span class="nt"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mainContent&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bigcloud&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;alt=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;cloud&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;height=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;154&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.kirupa.com/images/bigCloud.png&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;width=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;238&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果预览上面代码，和刚才那个例子对比，这是一个不令人兴奋的版本。你所看到的是单一的、静止不动的云朵：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;让我们来继续添加&lt;code&gt;animation&lt;/code&gt;属性来改变这无趣的状态吧。添加CSS animation只有两步，第一步设置&lt;code&gt;animation&lt;/code&gt;属性，第二步精确的定义动画的关键帧。&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;#bigcloud&lt;/code&gt;上添加以下高亮行的属性：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#bigcloud {&lt;/span&gt;
+    &lt;span class="nl"&gt;animation:&lt;/span&gt; &lt;span class="n"&gt;bobble&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="n"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面高亮的那行的细节是什么现在并不重要，稍后我们再来关注它。让我们先添加关键帧。添加&lt;code&gt;@keyframes&lt;/code&gt;样式属性：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;一旦你添加了这条样式的属性，刷新一下页面看看吧。你应该看到云朵欢快的上下跳动，沉浸在它自己的世界中。瓦哦。&lt;/p&gt;
+&lt;h4&gt;What Just Happened&lt;/h4&gt;
+&lt;p&gt;刚才你添加CSS属性是使云朵上下的跳动。CSS animation是如这么的简单啊。它能让你指定元素想要动画的起止状态，中间任意状态（即关键帧）和终止状态。我们云朵移动是非常简单的，所以学习这个动画实现是个很好的起点。&lt;/p&gt;
+&lt;p&gt;我们将着眼于第一件事就是&lt;code&gt;animation&lt;/code&gt;属性本身：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;bobble&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;animation&lt;/code&gt;属性的职责是设置动画的本身。 你使用它的简写形式，你将声明三件事：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;The name of your animation：动画（帧）的名字&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;The duration：持续时间&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;The number of times your animation will loop：动画迭代的次数&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;animation&lt;/code&gt;声明是不同的。我们这里将名字起为bobble，动画持续时间2秒，这里设置迭代的次数是无数次。&lt;/p&gt;
+&lt;h6&gt;What About the Vendor Prefixes?&lt;/h6&gt;
+&lt;p&gt;&lt;code&gt;animation&lt;/code&gt;属性还是比较新的，所以一些浏览器需要添加私有的前缀才能使之工作。不要将各种浏览器前缀的属性全都堆上去。而是使用类似&lt;a href="http://www.kirupa.com/html5/avoid_using_vendor_prefixes.htm"&gt;-prefix-free库&lt;/a&gt; (未译)，就像这个例子一样，同时能运行在你的旧的浏览器（需要私有前缀版本的浏览器）中。&lt;/p&gt;
+&lt;p&gt;正如你看到的，&lt;code&gt;animation&lt;/code&gt;声明没有包含更多的动画细节。它设置动画的更高面东西，而一个CSS animation的详细内容，是定义在&lt;code&gt;@keyframes&lt;/code&gt;规则里。
+Let's look at our @keyframes rule to learn more:==让我们来看看我们的&lt;code&gt;@keyframes&lt;/code&gt;规则，深入学习：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;首先，看下&lt;code&gt;@keyframes&lt;/code&gt;属性。在外层包含&lt;code&gt;@keyframes&lt;/code&gt;声明的名字：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在内层，它包含样式规则（即实际的关键帧），使用百分比或&lt;code&gt;from&lt;/code&gt;和&lt;code&gt;to&lt;/code&gt;关键字：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;你所期望的几乎就是这些关键帧样式规则。他们只包含CSS属性，如&lt;code&gt;transform&lt;/code&gt;和&lt;code&gt;animation-timing-function&lt;/code&gt;，当动画到该关键帧时，会应用该帧的属性值。我们不久会回到这个问题，因为你需要知道有一个重要的细节-----关键帧样式规则。&lt;/p&gt;
+&lt;h6&gt;The Name&lt;/h6&gt;
+&lt;p&gt;那么，我刚才解释的那部分，是很好理解的。这儿有些事情会变得有点混乱。 尽管，在&lt;code&gt;anaimation&lt;/code&gt;规则中定义动画属性，又另一个样式&lt;code&gt;@keyframes&lt;/code&gt;规则中声明你的关键帧，他们非常绑定十分紧密。如果它不是那么复杂和凌乱，这将是非常优美的。但我们的工作，就是解开这个烂摊子，弄清楚到底是怎么回事，并最终能够以更复杂的方式创建动画。&lt;/p&gt;
+&lt;p&gt;命名为&lt;code&gt;bobble&lt;/code&gt;的关键帧&lt;code&gt;@keyframes&lt;/code&gt;规则来标识关键帧的行为，并用作&lt;code&gt;animation&lt;/code&gt;的属性值：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;bigcloud&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt; &lt;span class="nx"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;left&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;top&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;@keyframes&lt;/code&gt; 规则名字也是&lt;strong&gt;bobble&lt;/strong&gt;，这并不是说&lt;code&gt;animation&lt;/code&gt;属性指向&lt;strong&gt;bobble&lt;/strong&gt;是一个巧合。如果这两个名称不一致，你的动画将无法正常工作。&lt;/p&gt;
+&lt;h6&gt;Duration and the Keyframes&lt;/h6&gt;
+&lt;p&gt;上一节内容你学到了&lt;code&gt;animation&lt;/code&gt;的关键帧属性。解决了这个难题。更大的难题是，动画的持续时间，及某个特定关键帧样式实际触发的时间。&lt;/p&gt;
+&lt;p&gt;你该记得，当你在&lt;code&gt;@keyframes&lt;/code&gt;中定义关键帧样式，你设置的不是一个真实的值。它是一个百分比或是&lt;code&gt;from&lt;/code&gt;/&lt;code&gt;to&lt;/code&gt;关键字：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="cm"&gt;/*highlight line*/&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在我们的例子中，关键帧选择的百分比值是0％，50％和100％。它们表示的是已完成动画的百分比。当你的动画刚刚开始时，你已经完成了动画的0％。 0％关键帧将被触发。当你的动画执行一半了，50％的关键帧得到触发。在动画的最后，100％的关键帧将被触发。&lt;/p&gt;
+&lt;h6&gt;About the &lt;code&gt;from&lt;/code&gt; / &lt;code&gt;to&lt;/code&gt; Selector&lt;/h6&gt;
+&lt;p&gt;在选择器中，你可以使用等效的关键字&lt;code&gt;from&lt;/code&gt;，来代替0％；使用&lt;code&gt;to&lt;/code&gt;关键字代替100％。我不知道为什么有人想到会用它，但它确实存在，在实际编码中最好将它抛开。&lt;/p&gt;
+&lt;p&gt;在此章节中，我不太愿意使用&lt;code&gt;from&lt;/code&gt;/&lt;code&gt;to&lt;/code&gt;关键字。使用该关键字，就被固定死了，对以后的扩展更不通用。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;animation&lt;/code&gt;上的属性持续时间是描述整个动画的时间，除非你设置动画运行的总时间， 该值用来标识随时间进行的精确百分比（关键帧）。那么，动画就正常结束。&lt;/p&gt;
+&lt;p&gt;下图的百分比是映射2秒动画时间单位上的具体时间值：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;这部分对我来说是复杂。一旦你理解&lt;code&gt;duration&lt;/code&gt;是怎样映射的划分的关键帧，你将在理解动画这块儿跨越的一个重要障碍。&lt;/p&gt;
+&lt;p&gt;无论如何，我想我们已经看到一个简单动画原理的足够细节。你学会了怎样使用&lt;code&gt;animation&lt;/code&gt;声明一个动画，和添加&lt;code&gt;@keyframes&lt;/code&gt;规则。 我们也花了一些时间来了解它们组合 一起的产生效果。&lt;/p&gt;
+&lt;p&gt;不过，还没有做完。还有涉及更多更详细，休息一下，然后看看这个&lt;a href="http://theoatmeal.com/quiz/facebook_addict"&gt;How Addicted To Facebook You Are quiz&lt;/a&gt;。在看到你的结果后轻轻地抽泣了几分钟，你会在一个的完美状态，以了解更多关于CSS animation！&lt;/p&gt;
+&lt;h3&gt;Detailed Look at the CSS Animation Property&lt;/h3&gt;
+&lt;p&gt;刚才我们看到，&lt;code&gt;animation&lt;/code&gt;属性包含了更多的属性。现在，你涉足创建一个动画，让我们做一些令人乏味事，学习animation所有的属性。为了更好的学习它，首先扩展它的简写，看看它具体的形式。我们简写形式看起来像下面一样：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;bobble&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;它的全名称是下面这样：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;bobble&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iteration&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面简写的形式扩展为三个属性&lt;code&gt;animation-name&lt;/code&gt;， &lt;code&gt;animation-duration&lt;/code&gt;和&lt;code&gt;animation-iteration-count&lt;/code&gt;。这些属性现在深印到你的脑海中了吧，让我们继续看一下我们没有用过的属性比如：&lt;code&gt;animation-play-state&lt;/code&gt;, &lt;code&gt;animation-delay&lt;/code&gt;, &lt;code&gt;animation-direction&lt;/code&gt;, &lt;code&gt;animation-fill-mode&lt;/code&gt;, 和 &lt;code&gt;animation-timing-function&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;Onwards!&lt;/p&gt;
+&lt;h4&gt;Pausing and Resuming an Animation&lt;/h4&gt;
+&lt;p&gt;默认，你的动画开始第一次时，&lt;code&gt;animation&lt;/code&gt;属性就被激活。在我们简单的例子中，意味着页面被加载时激活。首先，我们简单想象它被设置成2秒无限循环的动画：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-3.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;每个黄色矩形表示动画的一次迭代。如果你把动画并排的每次迭代中，你就会得到看起来像我上面所示的那样。&lt;/p&gt;
+&lt;p&gt;一旦动画开始，在它结束之前永远不会停止。如果你的动画设置为循环，终止状态完成后，它会从起止状态继续执行。它是每次迭代表示为一个单独黄色矩形的循环。我们目前bobble动画是就是这样的。&lt;/p&gt;
+&lt;p&gt;有时候，你可能 不想要上面那种行为。如果你希望你的动画暂停，不让动画初始状态属性被激活，你可以用动画&lt;code&gt;animation-play-state&lt;/code&gt;属性。这个属性允许你在播放运行时的&lt;strong&gt;暂停&lt;/strong&gt;或&lt;strong&gt;播放&lt;/strong&gt;的切换。&lt;/p&gt;
+&lt;p&gt;默认情况下，&lt;code&gt;animation-play-state&lt;/code&gt;属性设置为&lt;strong&gt;running&lt;/strong&gt;。你可以将该值设置为&lt;strong&gt;paused&lt;/strong&gt;，停止在运行的过程中：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;play&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;paused&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;当动画暂停时，它保留动画运行最后时刻的计算值：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-4.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;它停在那儿几乎不动，你可以通过设置它的&lt;code&gt;animation-play-state&lt;/code&gt;属性值为&lt;strong&gt;running&lt;/strong&gt;.来恢复运行。在恢复运行之前，它不会突然从起止状态重新运行：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-5.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;就像你预期的一样，动画从当前状态平滑的运行，就像媒体播放器的播放和暂停功能一样。&lt;/p&gt;
+&lt;h4&gt;Delaying and Offsetting the Animation&lt;/h4&gt;
+&lt;p&gt;如果你希望你的动画不是立即播放，而是经过一段时间后播放，你应当使用&lt;code&gt;animation-delay&lt;/code&gt;属性。此属性允许你经过指定的时间秒数后，动画才开始运行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;延迟不是等5秒之后0%关键帧被触发。它是第一次迭代的0%关键帧被触发：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-6.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;一旦你的动画开始运行时，延迟值就没有用武之地了。以后每一次迭代的动画（如果有的话）一个接一个无间隔的运行。&lt;/p&gt;
+&lt;p&gt;现在你可以给这个属性赋其他的值，你可以给&lt;code&gt;animation-delay&lt;/code&gt;设置负值。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;.25&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;当你设置了一个负值，你的动画会在超前执行你设置的那个值。设置&lt;code&gt;animation-delay&lt;/code&gt;-.25秒就是这样：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-7.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;负值作为一个标识，告诉浏览器这是一个偏移而不是延时。是的，这有点奇怪，因为它给的属性名是&lt;code&gt;animation-delay&lt;/code&gt;，我只是个传教者。还有更奇怪的呢，一旦你设置这个负值大于每一次动画迭代的时延，这是没问题的。只要保证有足够的迭代数，无论落在哪次迭代点动画就开始。如果你没有足够的迭代数来抵消那个负值，你的动画根本无法运行。&lt;/p&gt;
+&lt;h4&gt;Hold My Keyframe Properties, Please!&lt;/h4&gt;
+&lt;p&gt;如果你不设置动画循环，你会发现，一旦动画结束后，关键帧设置任何属性将被清除，元素返回到一个动画起止状态。这是因为&lt;strong&gt;关键帧应用于的属性是瞬时的&lt;/strong&gt;。当关键帧是激活状态时，它们才存在，在以外任何时间，这些属性值都不能存在。如果你不想要这种行为，当它运行完毕，你的动画看起来像突然跳到开始位置或突然复位，让我们来看看这两种情况的区别，然后看看如何更改默认行为。&lt;/p&gt;
+&lt;h6&gt;Waiting to Start&lt;/h6&gt;
+&lt;p&gt;第一个用例是当你设置了&lt;code&gt;animation-delay&lt;/code&gt;属性。例如，设置了5s：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-8.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;动画需等待5秒才开始执行，此时关键帧没有被执行。在等待时间中，第一个关键帧的所有属性都不会生效。&lt;/p&gt;
+&lt;h6&gt;Animation is Done&lt;/h6&gt;
+&lt;p&gt;第二个例子，当你的动画完成后。该例子是你设置循环3次的那个示例：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-9.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;3次迭代完成后，最后关键帧的所有属性都会消失。动画回到原始状态就像什么也没有发生过一样。&lt;/p&gt;
+&lt;h6&gt;Meet animation-fill-mode&lt;/h6&gt;
+&lt;p&gt;如果你想在等待延时过程中，想让第一侦生效，或当动画完成后，保留最后一侦，你可以设置&lt;code&gt;animation-fill-mode&lt;/code&gt;属性。属性值如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;none
+There is no faking the property values here. If you want the a keyframe's property values to apply, your keyframe must be active.默认值，不设置动画之外的状态&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;forwards
+After your animation has run to completion, any property values the animation had at the end will be maintained.当你的动画完成后，保持动画结束时的状态&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;backwards
+The animation will apply the property values from the starting keyframe even if that keyframe is not active yet.动画将保持开始关键帧的属性值，虽然它未处于激活状态&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;both
+This is the ultimate solution. Your animation will apply the property values of the first keyframe at the beginning and maintain the property values of the last keyframe at the end.最后的一个值。你的动画在停在起止状态时，第一帧被应用，终止状态最后一帧被激活。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;刚才我创建的是无限迭代和开始时没有延时的动画。我创建的许多动画的属性在开始帧、结束帧、无动画状态的动画元素之间没有太多的不同。正因为如此，我从不会熬夜担忧，也不会因为不想用&lt;code&gt;animation-fill-mode&lt;/code&gt;的属性而感到担忧。&lt;/p&gt;
+&lt;h4&gt;Reversing an Animation (or Alternating Directions)&lt;/h4&gt;
+&lt;p&gt;现在，让我们看一下这个略微奇幻的属性，动画默认从0%到100%循序播放。你可以通过给&lt;code&gt;animation-direction&lt;/code&gt;&lt;strong&gt;设置normal&lt;/strong&gt;, &lt;strong&gt;reverse&lt;/strong&gt;, &lt;strong&gt;alternate&lt;/strong&gt;,  &lt;strong&gt;alternate-reverse&lt;/strong&gt;来 改变这个行为，  &lt;strong&gt;normal&lt;/strong&gt; 和 &lt;strong&gt;reverse能够直接指出他们做什么&lt;/strong&gt;，让我们来看一些比较有意思的属性值：&lt;strong&gt;alternate&lt;/strong&gt; 和 &lt;strong&gt;alternate-reverse&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;当设置&lt;code&gt;animation-direction&lt;/code&gt; 属性值为&lt;strong&gt;alternate-reverse&lt;/strong&gt;，动画正常开始。在第二次迭代时，它反向运行，以后会正向，反向交替着运行：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-10.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;设置&lt;code&gt;animation-direction&lt;/code&gt;属性值为 &lt;strong&gt;alternate&lt;/strong&gt; 与上面十分相似，但有点细微的不同：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-11.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;动画开始于反向运行，然后正向，反向交替 运行。&lt;/p&gt;
+&lt;h4&gt;At Easing, Soldier!&lt;/h4&gt;
+&lt;p&gt;涉及到的最后一个有关联的动画属性是&lt;code&gt;animation-timing-function&lt;/code&gt;. 它的功能是在开始和结束之间指定如何改变属性值。在 [Easing Functions in CSS3][]（未译） 的教程中有更多缓动函数的细节， 所以去那边详细学习吧。&lt;/p&gt;
+&lt;h4&gt;The Animation Shorthand&lt;/h4&gt;
+&lt;p&gt;我们看下已经学过的animation属性的简写方式：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;somethingSomethingDarkSide&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;deathstar&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;25&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;iteration&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;count&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;play&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;paused&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;delay&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;direction&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;fill&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;both&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;有些人可能更喜欢使用所有的属性简写到&lt;code&gt;animation&lt;/code&gt;属性中。事实上，正如你看到的，bobble动画就是使用的简写：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;bobble&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;你上面看到的所有的全称属性都可表示为简单写的形式---只是好记而已。如果你对此疑惑，下面是他们的映射顺序：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;delay&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;iteration&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;count&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;direction&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;fill&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;尖括号中的部分来代替全称属性名。注意，简写属性中没法表示&lt;code&gt;animation-play-state&lt;/code&gt;。你必须使用全称属性名及值也表示它。&lt;/p&gt;
+&lt;p&gt;无论怎么写，将一般写法写成简写形式，都会像下面一样：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#somethingSomethingDarkSide {&lt;/span&gt;
+    &lt;span class="nl"&gt;animation:&lt;/span&gt; &lt;span class="n"&gt;deathstar&lt;/span&gt; &lt;span class="mi"&gt;25&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;normal&lt;/span&gt; &lt;span class="n"&gt;both&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;play&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;paused&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;简写的形式比全称写法紧凑吧？对的！它更容易理解吗？这是一个很难回答的一个问题，完全基于你(或你的团队)的偏好。&lt;/p&gt;
+&lt;p&gt;我一般比较喜欢使用&lt;code&gt;animation-name&lt;/code&gt;, &lt;code&gt;animation-duration&lt;/code&gt;和&lt;code&gt;animation-timing-function&lt;/code&gt; 的简写版本，是因为很容易记住它。一旦超过这三个属性后，我就不得不去查阅文档添加哪一个了。&lt;/p&gt;
+&lt;p&gt;你们的分歧可能是在全称与简单属性上，所以不管卡怎样选择一个适合你的。呃...以你的聪明头脑，是时候告别&lt;code&gt;animation&lt;/code&gt; 属性的内容了，来关注动画世界中其它的美妙的旅程吧。&lt;/p&gt;
+&lt;h3&gt;Looking at the Keyframes&lt;/h3&gt;
+&lt;p&gt;迄今为止,大部分时间花在动画&lt;code&gt;animation&lt;/code&gt;和它怎样影响你的整体部分…动画。一个CSS动画真正的角色是关键帧，所以让我们更多的关注在这一节。&lt;/p&gt;
+&lt;p&gt;再次看一下bobble关键帧们：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;早先提到的一个关键帧十分像一个属性样式。把CSS属性放进去，当这些关键帧被触发时，这些属性被执行。注意的是，并不是所有的属性都可应用于关键帧中，只有&lt;strong&gt;可动画的CSS 属性&lt;/strong&gt;和&lt;strong&gt;animation-timing-function&lt;/strong&gt;才能被指定。&lt;/p&gt;
+&lt;p&gt;这不一定是个坏消息，我完全确定你所有放到关键帧中属性列表中的属性都是可进行动画化的。你访问这里就能看到所的可动画的属性完整列表，以及这里是一些额外的属性。&lt;/p&gt;
+&lt;p&gt;最后，看一下可以指定到关键帧中的 &lt;code&gt;animation-timing-function&lt;/code&gt; 属性，这个属性影响着从当前帧怎样过滤到下一关键帧。拿我们例子说，在0%关键帧，我们设置&lt;code&gt;animation-timing-function&lt;/code&gt; 属性值为ease-in：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="nx"&gt;keyframes&lt;/span&gt; &lt;span class="nx"&gt;bobble&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;timing&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;transform&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;translate3d&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nx"&gt;px&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;当你的动画从0%关键帧到50%关键帧滚动时缓动函数被激活。同样的，动画从50%关键帧到100%关键帧滚动时50%处的关键帧被激活。从当前帧到下一帧过程中给定的缓动函数被激活，在100%关键帧声明一个调速函数没有太多意义。&lt;/p&gt;
+&lt;h3&gt;Reusing Keyframes&lt;/h3&gt;
+&lt;p&gt;最后要讲的，是另一个动画声明复用同一个关键帧定义。我有点担忧过早将&lt;code&gt;animation&lt;/code&gt;属性和&lt;code&gt;@keyframes&lt;/code&gt;规则分离开，这样做起来有点小笨重。即使再笨重的东西，如果你付出更多努力，这儿会有一些漂亮的事情做。&lt;/p&gt;
+&lt;p&gt;一个是声明另一个&lt;code&gt;animation&lt;/code&gt;属性时可以使用同一个关键帧定义。也许很难明白我的意思，让我们扩展当前的例子来强调我在说什么。&lt;/p&gt;
+&lt;p&gt;在当前的HTML文档中包括一个弹跳云朵，继续添加下面的高亮行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;html&lt;/span&gt; &lt;span class="na"&gt;lang=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;en-us&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;charset=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Bouncing Clouds&lt;span class="nt"&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.kirupa.com/js/prefixfree.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+#mainContent {
+    background-color: #A2BFCE;
+    border-radius: 4px;
+    padding: 10px;
+    width: 600px;
+    height: 300px;
+    overflow: hidden;
+}
+.cloud {
+    position: absolute;
+}
+#bigcloud {
+    animation: bobble 2s infinite;
+    margin-left: 100px;
+    margin-top: 15px;
+}
+#smallcloud {
+    animation: bobble 4s infinite;
+    margin-top: 65px;
+    margin-left: 200px;
+}
+@keyframes bobble {
+    0% {
+    transform: translate3d(50px, 40px, 0px);
+    animation-timing-function: ease-in;
+    }
+    50% {
+    transform: translate3d(50px, 50px, 0px);
+    animation-timing-function: ease-out;
+    }
+    100% {
+    transform: translate3d(50px, 40px, 0px);
+    }
+}
+&lt;span class="nt"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mainContent&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bigcloud&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;alt=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;cloud&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;height=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;154&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.kirupa.com/images/bigCloud.png&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;width=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;238&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;smallcloud&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;alt=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;cloud&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;height=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;103&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.kirupa.com/images/smallCloud.png&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;width=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;158&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;一旦你添加高亮&lt;code&gt;#smallCloud&lt;/code&gt;样式和第二个&lt;code&gt;img&lt;/code&gt;元素后，重新预览一下页面。如果没其它错误的话，你将看到两块云朵愉快的跳动...就是本文最开始的那个例子一样。&lt;/p&gt;
+&lt;p&gt;现在你的例子能运行了，看一下是如何做到的。窍门就是&lt;code&gt;#smallCloud&lt;/code&gt;样式的中&lt;code&gt;animation&lt;/code&gt;声明行。
+    #smallcloud {
+        animation: bobble 4s infinite;
+        margin-top: 65px;
+        margin-left: 200px;
+    }&lt;/p&gt;
+&lt;p&gt;注意这里引用同一个&lt;code&gt;@keyframes&lt;/code&gt;规则名称为bobble。和&lt;code&gt;#bigClound&lt;/code&gt;样式唯一不同的是&lt;code&gt;animation&lt;/code&gt;声明中的时延。小的云朵中&lt;code&gt;animation&lt;/code&gt;时延设置成4秒---比大的云朵设置时延长两倍:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#bigcloud {&lt;/span&gt;
+    &lt;span class="nl"&gt;animation:&lt;/span&gt; &lt;span class="n"&gt;bobble&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;两个云朵中定义的bobble关键帧有什么意思呢。唯一不同是一个动画在2秒中执行完那些关键帧，另一个是4秒：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-12.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;将&lt;code&gt;animation&lt;/code&gt;和&lt;code&gt;keyframes&lt;/code&gt;声明分离开来，可以做这上面的事。&lt;code&gt;animation&lt;/code&gt;中的任何属性的改变都会影响到关键帧这一水平--就像这儿你看到的时延。刚才我解释的每个&lt;code&gt;animation&lt;/code&gt;属性的设置，不用直接涉及关键帧部分，就会改变关键帧的行为。&lt;/p&gt;
+&lt;p&gt;You have to admit, that is pretty cool.&lt;/p&gt;
+&lt;h3&gt;Declaring Multiple Animations&lt;/h3&gt;
+&lt;p&gt;最后要讲的（好吧，真的最后一次），快速看一下怎样在同一个&lt;code&gt;animation&lt;/code&gt; 属性中声明多个动画。简写形式，用逗号隔开每个动画定义，如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#oppaGangnamStyle {&lt;/span&gt;
+    &lt;span class="nl"&gt;animation:&lt;/span&gt; &lt;span class="n"&gt;hey&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sexy&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lady&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;注意上面每一个动画定义指向不同的&lt;code&gt;@keyframes&lt;/code&gt;。不管怎样，如果在同一个&lt;code&gt;animation&lt;/code&gt;属性声明中指向同一个&lt;code&gt;@keyframes&lt;/code&gt;关键帧，根据CSS优先顺序，最后一个将被生效。&lt;/p&gt;
+&lt;p&gt;属性名全称形式，看起来如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#oppaGangnamStyle {&lt;/span&gt;
+    &lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;hey&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sexy&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lady&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iteration&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这次，应该是比较简单的。都是使用逗号隔开的，如果在为一个属性使用多个值有疑惑时，仅仅使用逗号就可解决。&lt;/p&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;我们已经了解到CSS中&lt;code&gt;animation&lt;/code&gt;属性很多的内容---特别是想让你的内容更加活泼。你已经学习了动画的基本内容，继续学习下面教程吧：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/all_about_css_transitions.htm"&gt;All About CSS Transitions&lt;/a&gt; （未译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm"&gt;CSS3: Animations vs. Transitions&lt;/a&gt; （未译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/snippets/getting_jittery_on_hover_using_only_css.htm"&gt;Getting Jittery on Hover&lt;/a&gt; （未译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/snippets/slide_bounce_image_on_hover.htm"&gt;Slide and Bounce an Image on Hover&lt;/a&gt; （未译）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 01 Dec 2014 15:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2014-12-01:posts/2014/all-about-css-animationsyi/</guid><category>animation</category></item><item><title>Introduction to Animation in HTML（译）</title><link>http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;也许你们认为动画是电影和计算机中的近代产物，实际上人类在很久很久以前就开始鼓捣它并作为沟通的方式了：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131129-1.png" title="" /&gt;&lt;/p&gt;
@@ -45,15 +544,20 @@
 &lt;h3&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;好吧，在本篇中，我大致讲到大部分动画的内容。如果你感觉头大，不用怕--一旦我们展开基本概念时，就易于理解了。那么，休息一下，你可以点击下面教程链接进一步学习：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/creating_simple_css_animation.htm"&gt;Creating a Simple CSS Animation&lt;/a&gt; （未翻译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/creating_simple_css_animation.htm"&gt;Creating a Simple CSS Animation&lt;/a&gt; （[译]）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/looking_at_css3_transitions.htm"&gt;Looking at CSS3 Transitions&lt;/a&gt; （未翻译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm"&gt;CSS3: Animations vs. Transitions&lt;/a&gt; （未翻译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/animating_with_requestAnimationFrame.htm"&gt;Animating with requestAnimationFrame&lt;/a&gt; （未翻译）&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 29 Nov 2013 22:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-29:posts/2013/introduction-to-animation-in-htmlyi/</guid><category>animation</category></item><item><title>Animation（转）</title><link>http://stormhouse.github.io/posts/2013/animationzhuan/</link><description>&lt;p&gt;Tutorials, videos, and &lt;a href="http://www.kirupa.com/book/animation_in_html_css_and_javascript.htm"&gt;even a book&lt;/a&gt; to help you learn how to create great animations in HTML, CSS, and JavaScript.&lt;/p&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 29 Nov 2013 22:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-29:posts/2013/introduction-to-animation-in-htmlyi/</guid><category>animation</category></item><item><title>Animation（转）</title><link>http://stormhouse.github.io/posts/2013/animationzhuan/</link><description>&lt;hr /&gt;
+&lt;p&gt;Animation翻译系列文章&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Tutorials, videos, and &lt;a href="http://www.kirupa.com/book/animation_in_html_css_and_javascript.htm"&gt;even a book&lt;/a&gt; to help you learn how to create great animations in HTML, CSS, and JavaScript.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h3&gt;The Basics&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;[Introduction to Animation in HTML][]&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm"&gt;Introduction to Animation in HTML&lt;/a&gt;&lt;a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/"&gt; （译）&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.youtube.com/watch?v=9dwGgUe578k"&gt;Dealing with Vendor Prefixes in CSS and JavaScript&lt;/a&gt;&lt;a href="http://pan.baidu.com/s/1eQqVXoY"&gt; （墙内云盘分享）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;CSS Animations and Transitions&lt;/h3&gt;
