@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>All About CSS Transitions（译）</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="All About CSS Transitions（译）"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"/>
+            <meta property="og:description" content="thanks kirupa CSS中，当你改变一个属性的值，页面立即发生变化。示例，使元素CSS hover状态时，改变transform属性tranlate3d函数一个不同的参数值。 #box img { transform: translate3d(0, -350px, 0); } #box img:hover { transform: translate3d(0, 0px, 0); cursor: pointer; } 该值是将图片垂直向上平移350像素。看看这个实例，在下面例子中将鼠标悬停到HTML标志上： Your browser does not support inline frames or is currently configured not ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"
+                       rel="bookmark"
+                       title="Permalink to All About CSS Transitions（译）">
+                        All About CSS Transitions（译）
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Tue 02 December 2014
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://stormhouse.github.io/tag/animation.html">animation</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>thanks <a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/">kirupa</a> </p>
+<hr />
+<p>CSS中，当你改变一个属性的值，页面立即发生变化。示例，使元素CSS <code>hover</code>状态时，改变<code>transform</code>属性<strong>tranlate3d</strong>函数一个不同的参数值。</p>
+<div class="highlight"><pre><span class="cp">#box img {</span>
+    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">350</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">#box img:hover {</span>
+    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nl">cursor:</span> <span class="n">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>该值是将图片垂直向上平移350像素。看看这个实例，在下面例子中将鼠标悬停到<a href="http://www.w3.org/html/logo/">HTML标志</a>上：</p>
+<iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/animation/no_transition_hover_example.html" style="width: 416px; height: 375px;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not to display inline frames.
+</iframe>
+
+<p>注意当你移到图片上会发生什么。当鼠标悬停上，图片发生了改变。这个变化不是平滑的。它是很突然的。立刻变成黑色背景的HTML标志，鼠标离开立刻变成黄色背景的标志。</p>
+<p>这里transition可以做一些漂亮的事。Transitions可以减慢属性中突然的变化。你可以指定属性改变所发生时间的长短。它可以让你使用不同种类的缓动函数来改变属性值。<strong>Transitions规定了动画属性值的变化方式</strong>。
+设置transition后，鼠标移到下面例子中的logo上：</p>
+<iframe id="I3" border="0" frameborder="0" name="I3" scrolling="no" src="/demo/animation/transition_hover_example.html" style="width: 416px; height: 375px;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not to display inline frames.
+</iframe>
+
+<p>这一次，不是看图片立即的变化，还能看到图片中间位置。会看到图片的平缓的滑动。你看到了一个动画。如果你在logo未到达最后位置打断它，没有任何问题，图片平缓回到初始状态。这是不是很酷？</p>
+<p>在下一节，让我们继续这个令人兴奋的transition！</p>
+<h2>Adding a Transition</h2>
+<p>现在你对transition是什么及它的作用心知肚明，让我们开始使用它吧。接着，将下面的代码复制，粘贴到你新的HTML文档中：</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;en-us&quot;</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Language&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;stuff, to, help, search, engines, not&quot;</span> <span class="na">name=</span><span class="s">&quot;keywords&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;What this page is about.&quot;</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;An Interesting Title Goes Here&quot;</span> <span class="na">name=</span><span class="s">&quot;title&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>An Interesting Title Goes Here<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+body {
+    background-color: #FFF;
+    margin: 30px;
+    margin-top: 10px;
+}
+#box {
+    width: 350px;
+    height: 350px;
+    border: 5px black solid;
+    overflow: hidden;
+    background-color: #F2F2F2;
+}
+#box img {
+    transform: translate3d(0, -350px, 0);
+}
+#box img:hover {
+    transform: translate3d(0, 0px, 0);
+    cursor: pointer;
+}
+
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;box&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;img</span> <span class="na">height=</span><span class="s">&quot;700&quot;</span> <span class="na">src=</span><span class="s">&quot;http://www.kirupa.com/images/html5_slider.png&quot;</span> <span class="na">width=</span><span class="s">&quot;350&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;http://www.kirupa.com/prefixfree.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>预览这个文档，你将看到一个黄色的HTML logo。当你鼠标移上去，图片将立刻变成黑色背景的标志。这应当比较熟悉。与上几段中的没有transition的例子完全一样。</p>
+<p>我们要做的是添加CSS transition让图片改变更加平滑些。看下<code>#bog img</code>的样式规则吧：</p>
+<div class="highlight"><pre><span class="cp">#box img {</span>
+    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">350</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>上面仅有transform属性声明，添加如下高亮行的<code>transition</code>声明：</p>
+<div class="highlight"><pre><span class="cp">#box img {</span>
+    <span class="nl">transition:</span> <span class="n">transform</span> <span class="mf">.5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">350</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>一旦你添加了高亮行，再次在浏览器中预览你的文档。移图片上，会看到图片平缓的从一个位置移到另一位置。好了完事了。再接下来的几节中，我们详细看下添加的那行，学习你需要知道的更多关于transitions的内容。</p>
+<h6>What About the Vendor Prefixes?</h6>
+<p><code>transition</code>属性还是比较新的，所以很多老版本浏览器需要加厂商前缀才能使之工作。不要堆满你的标记。这个例子使用<a href="http://www.kirupa.com/html5/avoid_using_vendor_prefixes.htm">-prefix-free</a> 库保证你精简的标记，能在老版本的浏览器中看到transition效果。</p>
+<h2>Looking at Transitions in Detail</h2>
+<p>现在这个例子是使用transition，让我们了解它的原理。看一下以前 <a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/">Introduction to Animation in HTML</a> 教程中曾用过的图例吧，transition基本原理就是填充起始状态到终止状态过程中的插值：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-1.png" title="" /></p>
+<p>起始状态，你设置想要过渡的CSS属性初始值：</p>
+<div class="highlight"><pre><span class="cp">#box img {</span>
+    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">350</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>终止状态时，是同一属性的最终值为：</p>
+<div class="highlight"><pre><span class="cp">#box img:hover {</span>
+    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nl">cursor:</span> <span class="n">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>前面几次已经看到，一般是从起始状态突然跳动到终止状态。添加CSS transition后，通过你指定在transition中的时延和缓动函数(easing/timing function)，它是平缓的跳动：</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">transform</span> <span class="o">.</span><span class="mi">5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="k">in</span><span class="o">;</span>
+</pre></div>
+
+
+<p>一个典型CSS transistion定义了以下三个属性：</p>
+<ul>
+<li>
+<ol>
+<li>The property to apply the transition to==想让transition生效于哪个的属性</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>How long the transition will last==transition持续多长时间</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>What kind of a timing function (aka easing function) to use==它使用哪种缓动函数</li>
+</ol>
+</li>
+</ul>
+<p>上节中你看到添加的transistion，三个属性与它的完美映射...就像戴套一样：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-2.png" title="" /></p>
+<p>上面你看到的是简写的<code>transition</code>属性。作为简写的属性，它的值会精确映射到CSS 的全名称属性，因此我们来看看更详细的tansition相关属性。</p>
+<h4>Transition Property</h4>
+<p><code>transition</code>的第一个属性值对应着<code>transition-property</code>属性。它监听着你指定的CSS属性发生的变化：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-3.png" title="" /></p>
+<p>对于我们的例子中，<code>transform</code>属性的任何变化都会监听到，并产生适当的动画过渡。根据需要，可指定你想要动画过渡的CSS其它属性。</p>
+<h6>Note: Animatable CSS Properties Only Please</h6>
+<p>一个注意的问题是你不能将所有的CSS属性指定给<code>transition-property</code>。该属性必须可动画化的。听起来有点扫兴，但确实如此。大多数情况下，几乎所有的CSS属性都已是可动画的，并可指定给transition。</p>
+<p>你可访问<a href="http://www.w3.org/TR/2009/WD-css3-transitions-20091201/#animatable-properties-">这里</a>查看可动画的所有属性，以及<a href="http://www.w3.org/TR/SVG/propidx.html">这里</a>额外添加的属性。</p>
+<p>那么，如果不想限制transition监听单一属性的变化，不想单独管理每个属性，可以指定关键字all。</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="o">.</span><span class="mi">5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="k">in</span><span class="o">;</span>
+</pre></div>
+
+
+<p>通过设置all，任何CSS属性的变化都会被transition自动的监听。我一般不推荐使用该关键字，除非真的希望在其它所有属性上进行transition监听。浏览器要轮询所有属性，相比轮询指定的几个属性，会有轻微的性能影响。</p>
+<h6>Transition Duration</h6>
+<p>声明在transition中的第二个属性映射到<code>transition-duration</code>属性。该属性指定了一个数值，transition运行的多长时间：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-4.png" title="" /></p>
+<p>这是相当简单的一个例子。让动画过滤持续更长一段时间，可设置为较大的值。想持续时间短一些，就像这个例子中设置成<strong>.5</strong>秒。</p>
+<h6>Transition Timing Function (Easing Function)</h6>
+<p>第三个属性值映射到 <code>transition-timing-function</code> 属性，该值用于规定属性值从初始值到最终值的变化速率：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-5.png" title="" /></p>
+<p>速率变化一般定义为调速（timing，缓动）函数。默认，会按时间线性变化（平均速率）：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-6.png" title="" /></p>
+<p>这个结果看起来是transition既不加速也不减速。是恒定不变的。你可指定其它值来覆盖它的默认属性，会变得更有趣：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-7.png" title="" /></p>
+<p>你可选择适合你需求的缓动函数来覆盖默认属性。可供选择的缓动函数如下：</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="n">ease</span>
+<span class="o">*</span> <span class="n">linear</span>
+<span class="o">*</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span>
+<span class="o">*</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span>
+<span class="o">*</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span>
+<span class="o">*</span> <span class="n">step</span><span class="o">-</span><span class="n">start</span>
+<span class="o">*</span> <span class="n">step</span><span class="o">-</span><span class="n">end</span>
+<span class="o">*</span> <span class="n">steps</span><span class="p">()</span>
+<span class="o">*</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">()</span>
+</pre></div>
+
+
+<p>根据你选择的函数，transition看起来它在加速、减速或两者的结合。我在<a href="http://www.kirupa.com/html5/easing_functions_css3.htm">Easing Functions in CSS3</a>讨论了它的更多细节，所去那边获取更多的信息吧。</p>
+<h6>One More Thing: Delaying the Transition</h6>
+<p>还没完呢。实际transition中还有很少用的第四个值，该值映射到<code>trasition-delay</code>属性上：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131202-8.png" title="" /></p>
+<p>根据属性名称你能猜想到，时延决定了transition开始执行前需要等待多少时间。如果它干的事只是这个了话，真得是有点无聊...因为它很少用到。它的确还能做其它事情。根据该值的正负号，决定了它不同行为。</p>
+<p>先看一个正值：</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="o">.</span><span class="mi">5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="k">in</span> <span class="o">.</span><span class="mi">1</span><span class="n">s</span><span class="o">;</span>
+</pre></div>
+
+
+<p>正值表示transition执行前等待的时间。这是你预期的。例如，上面的声明中，transition将等待0.1秒才开始执行。</p>
+<p>给一个负值的话，会有一点不同：</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="o">.</span><span class="mi">5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="k">in</span> <span class="o">-.</span><span class="mi">1</span><span class="n">s</span><span class="o">;</span>
+</pre></div>
+
+
+<p>设置一个负值，决定了你在transition过程中的哪个时间点开始执行。如果你的trasition是0.5秒，你的transition延时是-0.1秒，你的trasition将会在过程中间的0.1秒处开始执行。</p>
+<p>在一般情况下，很少看到设置transition延迟属性。考虑到它正负值所做的变化，当我真正确定要用它的情况下才能使用。</p>
+<h2>The Longhand Properties</h2>
+<p>上节中，我们只关注了<code>trasition</code>的简写属性版本，那么看看它们如何映射到全名称CSS属性上吧。将简写声明表示为全名称属性如下：</p>
+<div class="highlight"><pre><span class="nx">transition</span><span class="o">-</span><span class="nx">property</span><span class="o">:</span> <span class="nx">all</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">duration</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="nx">s</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">timing</span><span class="o">-</span><span class="kd">function</span><span class="o">:</span> <span class="nx">ease</span><span class="o">-</span><span class="k">in</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">delay</span><span class="o">:</span> <span class="p">.</span><span class="mi">1</span><span class="nx">s</span><span class="p">;</span>
+</pre></div>
+
+
+<p>具体的它们，这四个transition相关的属性是 <code>transition-property</code>，<code>transition-duration</code>， <code>transition-timing-function</code> 和<code>transition-delay</code>。</p>
+<p>当然，使用简写版本与全名称相比，没有什么不同。产生的结果都是一样的，所以使用哪种取决于你自己。下节是我提供的一些建议。</p>
+<h2>Longhand Properties vs. Shorthand Properties</h2>
+<p>一般，我更喜欢简写的版本因为更紧凑。我唯一不使用简写属性的情况是在JavaScript中改变它的值。让我进一步说明吧。</p>
+<p>在CSS中，trasition声明成这样：</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">width</span> <span class="mi">1</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="o">;</span>
+</pre></div>
+
+
+<p>当动画执行完成，修改transition的属性值。代码如下：</p>
+<div class="highlight"><pre><span class="n">obj</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">transitionDuration</span> <span class="o">=</span> <span class="s">&quot;.2s&quot;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>如让上面代码执行，你认为trasition是什么样的呢。理论上，由于你修改了transition的持续时间为0.2秒，transition属性值实质上是这样：</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">width</span> <span class="o">.</span><span class="mi">2</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="o">;</span>
+</pre></div>
+
+
+<p>实际上是不合逻辑的。整个trasition完成后，设置了trasitionDduration属性。你只看到后来被设置的transitionDuration的值，原来的trasition的属性值已经没有了。完全消失了。     </p>
+<p>正确的处理方法是，重新设置一下<code>trasition</code>的全部值：</p>
+<div class="highlight"><pre><span class="n">obj</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">transition</span> <span class="o">=</span> <span class="s">&quot;transition: all &quot;</span> <span class="o">+</span> <span class="n">myDuration</span> <span class="o">+</span> <span class="s">&quot;s ease-in;&quot;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>最后拼接成的字符串，酷似在CSS中定义的声明值。对我来说，貌似有点尴尬。单独设置一个tansition值会让我将trasition所有值重新设置一遍：</p>
+<div class="highlight"><pre><span class="nx">transition</span><span class="o">-</span><span class="nx">property</span><span class="o">:</span> <span class="nx">width</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">duration</span><span class="o">:</span> <span class="mi">1</span><span class="nx">s</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">timing</span><span class="o">-</span><span class="kd">function</span><span class="o">:</span> <span class="nx">ease</span><span class="o">-</span><span class="nx">out</span><span class="p">;</span>
+</pre></div>
+
+
+<p>如果我想用JavaScript修改时延，只需重写 <code>transition-duration</code> 属性。我不用担心擦除已经存在的其它属性，再重新给它们设值。</p>
+<h2>Working with Multiple Transitions...and So On</h2>
+<p>最后一件事是讨论一下我先前提过的设置多个transitions，监听多个transition属性等等。让我们快速的看一下本节中常见的情况吧。</p>
+<h4>Multiple Transitions</h4>
+<p>声明多个transitions是很简单的。当你使用简写形式，使用逗号分隔它们：</p>
+<div class="highlight"><pre><span class="n">transition</span><span class="o">:</span> <span class="n">width</span> <span class="o">.</span><span class="mi">5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="k">in</span><span class="o">,</span> <span class="n">border</span><span class="o">-</span><span class="n">radius</span> <span class="mi">1</span><span class="n">s</span> <span class="n">linear</span><span class="o">;</span>
+</pre></div>
+
+
+<p>使用全名称形式，需要添加额外的值，只需分别将它们隔开：</p>
+<div class="highlight"><pre><span class="nx">transition</span><span class="o">-</span><span class="nx">property</span><span class="o">:</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">duration</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="nx">s</span><span class="p">,</span> <span class="mi">1</span><span class="nx">s</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">timing</span><span class="o">-</span><span class="kd">function</span><span class="o">:</span> <span class="nx">ease</span><span class="o">-</span><span class="k">in</span><span class="p">,</span> <span class="nx">linear</span><span class="p">;</span>
+</pre></div>
+
+
+<p>如果这些值的数目不匹配，默认标准的CSS属性将会生效。</p>
+<h4>Listening to Multiple Properties</h4>
+<p>如果你想单独分开监听一些属性，就使用全名称版本把所有你想trasition的属性列到<code>transition-property</code>上：</p>
+<div class="highlight"><pre><span class="nx">transition</span><span class="o">-</span><span class="nx">property</span><span class="o">:</span> <span class="nx">width</span><span class="p">,</span> <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="p">,</span> <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">duration</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="nx">s</span><span class="p">;</span>
+<span class="nx">transition</span><span class="o">-</span><span class="nx">timing</span><span class="o">-</span><span class="kd">function</span><span class="o">:</span> <span class="nx">ease</span><span class="o">-</span><span class="nx">out</span><span class="p">;</span>
+</pre></div>
+
+
+<p>你定义了三个分隔开的transitions，每个trasition都是0.5秒的时延和使用ease-out缓动函数。这应该很简单吧。</p>
+<h2>The transitionEnd Event</h2>
+<p>最后一件事（确实是最后了）我们将提到<code>transitionEnd</code>事件。当一个transition 运行完成后，这些元素将会触发<code>transitionEnd</code>事件。在这个事件里可以执行很多酷的事件，但是我不想在这里解释它。反而，在 <a href="http://www.kirupa.com/html5/the_transitionend_event.htm">transitionEnd Event</a> （未译） 的教程中会涉及更多的酷的内容细节。</p>
+<p>是不是所有的这些都有趣？一个是让我们如此简单的使用transitions。为我使用它们你不用改变你现有的行为。大部分时间，你将在动画运行或用户交互时使用代码来控制这些CSS属性。transition简单的在普通的改变中插入让你的动画属性发生改变。难怪外星人感到惊讶。</p>
+<p>不管怎样，这里你仅是看到了关于transitions的浅显的内容。下的一些文章还你挖掘更深的层次：</p>
+<ul>
+<li><a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm">CSS3: Animations vs. Transitions</a> （未译）</li>
+<li><a href="http://www.kirupa.com/html5/the_transitionend_event.htm">The transitionEnd Event</a> （未译）</li>
+<li><a href="http://www.kirupa.com/html5/looping_a_css_transition.htm">Looping a CSS Transition</a> （未译）</li>
+<li><a href="http://www.kirupa.com/html5/animating_movement_smoothly_using_css.htm">Animating Movement Smoothly using CSS</a> （未译）</li>
+<li><a href="http://www.kirupa.com/html5/animating_many_elements_using_transitions.htm">Animating Many Elements Using Transitions</a> （未译）</li>
+</ul>
+<hr />
+<p>翻译水平有限，敬请各位同学批评指正。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'all-about-css-transitionsyi';
+            var disqus_url = 'http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
+                    </a></li>
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-rubylouvre-sign icon-large"></i>rubylouvre
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-0">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>
