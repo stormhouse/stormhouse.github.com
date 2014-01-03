@@ -1,5 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 02 Dec 2014 11:06:00 +0800</lastBuildDate><item><title>All About CSS Transitions（译）</title><link>http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 05 Dec 2013 20:58:00 +0800</lastBuildDate><item><title>CSS3: Animations vs. Transitions（译）</title><link>http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;在CSS中，视觉变化上这里有两种技术竞相你的注意： Animations &amp;amp;Transitions. 在本文中，让我们来了解它们之间的异同点，这样你就能知道在什么时候使用哪一个。&lt;/p&gt;
+&lt;p&gt;本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， &lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/"&gt;Creating a Simple CSS Animation&lt;/a&gt; 和&lt;a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"&gt;Looking at CSS3 Transitions&lt;/a&gt;  这两篇教程帮助你开始。&lt;/p&gt;
+&lt;h2&gt;Similarities&lt;/h2&gt;
+&lt;p&gt;宏观上，animations和transitions极其相似。它们都可以实现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指定要监听CSS属性的变化&lt;/li&gt;
+&lt;li&gt;设置缓动函数改变属性从开始到结束值变化的速率。&lt;/li&gt;
+&lt;li&gt;指定animation或transition所需要运行的多长时间&lt;/li&gt;
+&lt;li&gt;以编程方式监听animation和transition规定事件，可以做自己想做的事。&lt;/li&gt;
+&lt;li&gt;CSS可视化的属性改变&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不过，除了这些，你将看到animations 和 transitions的不同，并将它们的特点展现出来。让我们来更详细的看下各自的特点吧。&lt;/p&gt;
+&lt;h2&gt;Differences&lt;/h2&gt;
+&lt;p&gt;Animations 和 transitions会在以下方面会有不同：当你如何触发它们运行时、它们是否容易循环、定义一个transition是多么复杂、怎么在正确场合的使用它们和与JavaScript友好的结合。来更详细的探讨这些话题吧。&lt;/p&gt;
+&lt;h4&gt;Triggering&lt;/h4&gt;
+&lt;p&gt;正如刚看到的animations和animations最大的一个不同就是你怎样触发它们运行。&lt;/p&gt;
+&lt;p&gt;transition被触发的唯一场景就是CSS属性发生变化。一个简单的场景就是：CSS属性中的 &lt;code&gt;:hover&lt;/code&gt; 伪类发生改变：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131205-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;看这个可视化的例子，假设定义一个transition，当鼠标移上去你将看到圆形会变大。另一个触发transition运行的方式是使用JavaScript &lt;a href="http://www.kirupa.com/html5/setting_css_styles_using_javascript.htm"&gt;programmatically add or remove CSS classes&lt;/a&gt; 模拟CSS属性的变化。除了让属性值发生改变的方式，可以监听使用JavaScript改变inline的样式方式。&lt;/p&gt;
+&lt;p&gt;另一方面，animations，不需要显式的触发。一旦你定义了animation，它将自动运行。&lt;/p&gt;
+&lt;h6&gt;Note&lt;/h6&gt;
+&lt;p&gt;Animations可以把&lt;code&gt;animation-play-state&lt;/code&gt;属性设置为Paused——这将导致动画默认不动，除非将属性更改为运行。W3C正在考虑删除这个属性，所以到目前为止，就当&lt;code&gt;animation-play-state&lt;/code&gt;这个属性不存在吧。&lt;/p&gt;
+&lt;h4&gt;Looping&lt;/h4&gt;
+&lt;p&gt;这个相当简单。在animations中通过设置 &lt;code&gt;animation-iteration-count&lt;/code&gt; 属性来很简单的设置循环。可以设置固定数值来规定动画重复的次数：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iteration&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果你想让动画永远的循环下去，也可以这样设置：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iteration&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;infinite&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;另一方面，transitions没有一个属性可以指定它运行多少次。一旦触发，transition只运行一次。可以在&lt;code&gt;transitionEnd&lt;/code&gt;事件中设置让它循环。与animations相比，这比较复杂。&lt;/p&gt;
+&lt;h4&gt;Defining Intermediate Points / Keyframes&lt;/h4&gt;
+&lt;p&gt;使用animation，可以通过在起始与终止状态之间定义关键帧，更多的控制CSS属性值：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131205-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;你可以设置你所想要的关键帧，当animation运行时，每个关键帧触发时，指定的属性变化都会表现出来。这允许你创建多种类型的动画，就像Flash一样，让HTML5更高效的创建更成熟的动画。&lt;/p&gt;
+&lt;p&gt;使用transition，除了在动画的结束时，你没有太多的动画控制：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131205-3.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;Transition只是简单的从初始状态运行到终止状态。你不能像animation一样指定任意中间状态，所以你如果想创建Teen Girl Squad 或一个复杂的动画，transition不是一个好的选择。&lt;/p&gt;
+&lt;h4&gt;Specifying Properties Up-Front&lt;/h4&gt;
+&lt;p&gt;接下来，定义一个transition，描述animations和transitions的适应场景。&lt;/p&gt;
+&lt;p&gt;在一种场合，需要使用transitions。每个CSS属性都必须通过transition显式的标识。
+For example, let's say you have something like the following:==例如，假设你有类似下面的内容：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#mainContent {&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;CC0000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;transition:&lt;/span&gt;&lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#mainContent:hover {&lt;/span&gt;
+    &lt;span class="nl"&gt;cursor:&lt;/span&gt; &lt;span class="n"&gt;pointer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mo"&gt;000000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;width:&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;鼠标移到上面，对 &lt;code&gt;background-color&lt;/code&gt;和 &lt;code&gt;width&lt;/code&gt;两个属性指定了不同值。transition只规定了&lt;code&gt;background-color&lt;/code&gt; 。意味着，浏览器仅监听&lt;code&gt;background-color&lt;/code&gt; 属性的变化。&lt;/p&gt;
+&lt;p&gt;如果想让 &lt;code&gt;background-color&lt;/code&gt; 和&lt;code&gt;width&lt;/code&gt; 都受transition影响，我应该为&lt;code&gt;width&lt;/code&gt;显式的添加另一个 &lt;code&gt;transition&lt;/code&gt; 的条目：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#mainContent {&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;CC0000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;transition:&lt;/span&gt;&lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;width&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#mainContent:hover {&lt;/span&gt;
+    &lt;span class="nl"&gt;cursor:&lt;/span&gt; &lt;span class="n"&gt;pointer&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mo"&gt;000000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;width:&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h6&gt;What About transition: all?&lt;/h6&gt;
+&lt;p&gt;当使用transition时，不必指定每一个你关注的属性。可以 简单使用&lt;code&gt;all&lt;/code&gt; 属性值来代替： &lt;code&gt;transition: all .5s ease-in&lt;/code&gt;。 我不推荐使用这个，因为一些性能的影响。浏览器会监听所有的属性，而不是你指定的那几个属性。除非你必须需要这样做，我建议为transition指定每个单独CSS属性。&lt;/p&gt;
+&lt;p&gt;使用animations，不必在声明时做任何事，只要在每个关键帧处指定属性值：
+    keyframes imageSlide {
+        0% {
+            left: -150px;
+        }&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nl"&gt;left:&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="nl"&gt;height:&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="mi"&gt;80&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nl"&gt;left:&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="nl"&gt;height:&lt;/span&gt;&lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nl"&gt;left:&lt;/span&gt; &lt;span class="mi"&gt;600&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;FFFFFF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在这个例子中，当关键帧触发时元素的 &lt;code&gt;height&lt;/code&gt; 和&lt;code&gt;background-color&lt;/code&gt; 会平缓的动画--即使在上一个关键帧处没有显式列出。&lt;/p&gt;
+&lt;h2&gt;Interaction with JavaScript&lt;/h2&gt;
+&lt;p&gt;在大多数情况下，使用transition和animation就已经足够了。你可以指定你想的开始值、结束值和任意中间状态值。你的动画只关注读取的这些值。当你想要预定义的效果，使用这些场景最好。有时候，你想通过一些额外的输入--如鼠标单击和一些计算的结果等来改变属性值。&lt;/p&gt;
+&lt;p&gt;像这样的交互，在CSS中预定义的属性值会受一些限制。在这咱情况下，你可以选择使用JavaScript，如果完全使用JavaScript似乎有些极端。你应该使用混合的方式，在CSS声明中使用animation或transition，在其它方面使用JavaScript来操纵。&lt;/p&gt;
+&lt;p&gt;当使用JavaScript来与animation与transition结合时，这没有冲突--你更应该使用transition。也可能使用animation与JavaScript结合...差不多就像挑战cinnamon challenge一样。使它们工作不是不可能，你更可能的是不去用它。出现这种原因的是transitions和animations工作原理的不同。&lt;/p&gt;
+&lt;p&gt;animations它们已经做的很具体了。关键帧&lt;code&gt;@keyframes&lt;/code&gt;规则清晰的阐述了动画运行时的路径。通过JavaScript尝试改变animation动画，需要一系列复杂的步骤，包括修改&lt;code&gt;@keyframes&lt;/code&gt;关键帧。如果操纵过CSS内嵌的样式规则，你知道这是相当不直观的。&lt;/p&gt;
+&lt;p&gt;与预定义好路径的animation形成鲜明对比的是transition。transition看起来并不是预定义这些东西。transition将是在监听一个属性发生变化时触发。完全通过使用CSS来改变这个属性：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#myElement {&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;FFF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;transition:&lt;/span&gt; &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#myElement:hover {&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mo"&gt;000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Transition监听的CSS属性变化，可通过JavaScript的内联样式进行设置：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;myElement&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;querySelectr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#myElement&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;myElement&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;backgroundColor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;333&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Transition不关心监听的属性值改变的方式。只要属性值发生变化，transition将被执行。意思是，对于交互的场合，它不关心预定义的起始点和终止点，通过使用transition声明你可以做许多transition相关的有意思的事。可以使用JavaScript来指定想要transition的属性值。&lt;/p&gt;
+&lt;p&gt;看一个我写的简单例子simple example：&lt;/p&gt;
+&lt;iframe id="I1" scrolling="no" frameborder="0" style="width: 620px; height: 390px;" src="/demo/animation/move_to_click_position.html" name="I1" marginwidth="0" marginheight="0" border="0"&gt;&lt;/iframe&gt;
+
+&lt;p&gt;单击灰色方框中的任意位置，使圆圈移动到该位置。Keep clicking around to see the circle keep moving。&lt;/p&gt;
+&lt;p&gt;十分简单的动画原理。实际移动是transition处理的。元素想要移到的位置是由JavaScript设置的的 &lt;code&gt;top&lt;/code&gt;和&lt;code&gt;left&lt;/code&gt;。 因为transition监听着&lt;code&gt;top&lt;/code&gt; 和&lt;code&gt;left&lt;/code&gt; 两个属性的变化，它们的所有改变都会触发transition。最后的结果完全是你想要的。重要的是，你不必写任何关于移动处理的JavaScript代码。因为transition被声明在CSS中，浏览器进行深度优化，让它运行的更加平滑。&lt;/p&gt;
+&lt;p&gt;Transition和JavaScript之间的友好结合完胜，但在写它们的时候就感觉不那么友好了。&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;情况就是这样--大致上看看transitions和animations很相似，但又十分不同。选择使用其中的哪一个，我给出一般的方法就像这样：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If what I want requires the flexibility provided by having multiple keyframes and easy looping, then I go with an animation.==如果想让动画更多的灵活性，通过使用关键帧和简单的循环，那么我将使用animation。&lt;/li&gt;
+&lt;li&gt;If I am looking for a simple from/to animation, I go with a transition.==如果想要一个简单从起始状态到终止状态的动画，选择transition。&lt;/li&gt;
+&lt;li&gt;If I want to manipulate the property values that I wish to animate using JavaScript, I go with a transition.==如果想使用JavaScript来操纵动画的属性值，我将选择transition。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now, with enough effort and JavaScript tomfoolery, you can neutralize any deficiences I list in deciding whether to use a transition or an animation. My recommendations are based on the common cases where you take a transition or animation mostly at face value. Herculean efforts to change their default behavior is admirable but often unnecessary.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 05 Dec 2013 20:58:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-05:posts/2013/css3-animations-vs-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Transitions（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;CSS中，当你改变一个属性的值，页面立即发生变化。示例，使元素CSS &lt;code&gt;hover&lt;/code&gt;状态时，改变&lt;code&gt;transform&lt;/code&gt;属性&lt;strong&gt;tranlate3d&lt;/strong&gt;函数一个不同的参数值。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#box img {&lt;/span&gt;
@@ -268,7 +405,7 @@ body {
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/animating_many_elements_using_transitions.htm"&gt;Animating Many Elements Using Transitions&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Tue, 02 Dec 2014 11:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2014-12-02:posts/2014/all-about-css-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 02 Dec 2013 11:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-02:posts/2013/all-about-css-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;在HTML中动画实现的三种的方式之一是众所周知&lt;strong&gt;CSS animations&lt;/strong&gt;。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。&lt;/p&gt;
 &lt;p&gt;首先让我们看一个例子，让下面的云彩缓慢的上下飘动：&lt;/p&gt;
@@ -832,8 +969,8 @@ This is the ultimate solution. Your animation will apply the property values of 
 &lt;h3&gt;CSS Animations and Transitions&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/"&gt;All About CSS Animations&lt;/a&gt;（译）&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"&gt;All About CSS Transitions&lt;/a&gt;（译）&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm"&gt;CSS3: Animations vs. Transitions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/"&gt;All About CSS Transitions&lt;/a&gt;（译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/"&gt;CSS3: Animations vs. Transitions&lt;/a&gt; （译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/easing_functions_css3.htm"&gt;Easing Functions in CSS3&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/animating_movement_smoothly_using_css.htm"&gt;Animating Movement Smoothly Using CSS&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/css_animation_events.htm"&gt;The CSS Animation Events&lt;/a&gt;&lt;/li&gt;
