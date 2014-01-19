@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="../common.css"/>
+    <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+</head>
+<body>
+
+<h2>Complaints</h2>
+<h4>The browser programming experience is awful.</h4>
+<p>which is absolutely true. But that's not JavaScript's fault. I contend it's the DOM's fault. The DOM is one of the worst APIs ever imagined and that's what you have to use when you're using the browser.</p>
+<h4>it's not fast enough</h4>
+<p>And in the browser, that's mainly because of the DOM again. If you look at the fraction of time that your program spends running, a tiny fraction of that is actually running in the JavaScript interpreter. Most of the rest of it is wasting time in the DOM interface.</p>
+
+<h2>Influences</h2>
+<ul>
+    <li>
+        <h4>Self</h4>
+        <ul>
+            <li>prototypal inheritance</li>
+            <li>dynamic objects</li>
+        </ul>
+    </li>
+    <li>
+        <h4>Java</h4>
+        <ul>
+            <li>syntax</li>
+            <li>conventions</li>
+        </ul>
+    </li>
+    <li>
+        <h4>Scheme</h4>
+        <ul>
+            <li>lambda</li>
+            <li>loose typing</li>
+        </ul>
+    </li>
+    <li>
+        <h4>Perl</h4>
+        <ul>
+            <li>regular expressions</li>
+        </ul>
+    </li>
+</ul>
+<p>and loose typing, which is pretty controversial. The style of most languages today calls for strict typing. The theory being that strict typing allows for the compiler to check a large class of errors at compilation time avoiding--Catching any error early reduces the cost of the errors. So that's a good thing. And JavaScript doesn't have that. So in JavaScript, any variable or any parameter can contain a value of any type. And that's really frightening to someone who's coming from a strongly-typed tradition. Like, quot;How can I have any confidence that anything's gonna work right? It turns out that strong-typing doesn't absolve you of the need to test. You still have to test everything, 'cause there's an even larger class of mistakes that type checking doesn't find for you. And I found in my own practice that the amount of testing that I have to do, writing in Java or writing in JavaScript, is about the same. That those type errors get found really quickly anyway, so they're not really a problem. The areas that are a problem, the ones that keep me up at night, um, type safety wouldn't have helped me there. The benefit of having loose typing is you don't have to mess with the type system. And so that turns out to be liberating. Your programs tend to be a lot smaller and a lot simpler. So which one do you like? Well, it doesn't matter.</p>
+
+<h2>Bad Parts</h2>
+<ul>
+    <li>Global Variables: cross-site scripting attacks</li>
+    <li>+ adds and concatenates: In Java, it wasn't too bad because it's strongly typed</li>
+    <li>Semicolon insertion</li>
+    <li>typeof: typeof null -> object</li>
+    <li>with and eval</li>
+    <li>phony arrays: which is a linear sequence of memory, address computation and very quickly get to an element. In JavaScript, arrays are essentially hash tables, in which the keys are turned into strings and then hashed to locate the buckets. This has a terrible performance penalty.But it has an advantage in that it makes the programming model quite a bit easier, 'cause you don't ever have to dimension an array. Dimensions don't exist in this language. </li>
+    <li>== and != :  It has a equality operator that does type coercion, which turns out to be problematic. Always use a triple equal operator. Never use the double equal operator.<ul>
+        <li>'' == '0' ----------------> false</li>
+        <li>0 == '' -----------------> true</li>
+        <li>0 == '0' ---------------> true</li>
+        <li>false == 'false' -----> false</li>
+        <li>false == '0' ----------> true</li>
+        <li>false == undefined --> false</li>
+        <li>false == null -----------> false</li>
+        <li>null == undefined ----> true</li>
+        <li>" \t\r\n " == 0 ----------> true</li>
+        <li></li>
+    </ul></li>
+    <li>false, null, undefined, NaN</li>
+</ul>
+<h4>Good features that interact badly</h4>
+<ul>
+    <li>Object can inherit from ohter objects.</li>
+    <li>Functions can be members of objects.</li>
+    <li>for..in statement mixes inherited functions with the desired data members</li>
+</ul>
+<p>Objects can inherit from other objects, which is good. One of the interesting things about this language is you don't have classes inheriting from classes. Objects inherit directly from other objects, which is really powerful, it turns out. Objects can be members-- Functions can be members of objects, which is good. That's how methods are created in this language. And we have a for..in statement that mixes inherited functions with the desired data members, which is not useful at all and is a common source of errors.</p>
+
+<h4>for in is troublesome</h4>
+<ul>
+    <li>Design question: Should for..in do a shallow skim or a deep dredge?</li>
+    <li>Decision: Deep dredge. The programmer must explicitly filter out the deep members</li>
+    <li>Except: They didn't tell anybody</li>
+    <li>Consequence: Lots of confusion about how to use for..in</li>
+    <li>Better Decision: Don't release the language broadly until we have enough experience to have confidence that we made the right choice.</li>
+    <li>Historical Context: Getting it right at Netscape wasn't an option.</li>
+</ul>
+
+<h4>Bad Heritage</h4>
+<ul>
+    <li>Blockless statements（尽量使用花括号）
+        <pre class="brush: js">
+            if(foo)
+                bar();
+        </pre>
+    </li>
+    <li>Expression statements
+        <pre class="brush: js">
+            foo;
+        </pre>
+    </li>
+    <li>Floating point arithmetic: It's a problem with IEEE floating point.
+        <pre class="brush: js">
+            0.1 + 0.2 !== 0.3
+        </pre>
+    </li>
+    <li>++ and --<p>It has the increment and decrement operators, which are very convenient but have been implicated in buffer overruns and other security hazards. I found in my own practice that when I use them, I would tend to write code which was too tricky. And code which is too tricky is too often wrong.So in my own practice, I don't use them anymore at all, ever.Just part of my discipline.</p></li>
+    <li>switch
+        <p>The switch statement was modeled after the FORTRAN computed goto. It has the property that one case can fall through into the next case.</p>
+    </li>
+</ul>
+
+<h2>Good Parts</h2>
+<ul>
+    <li>Lambda
+        <p>At the top of the list is Lambda. This came out of Scheme, which came out of Carl Hewitt's work on the Actor model. I think this is the best thing ever to go into a programming language. It's powerful, it's safe, it's smart, it's good, it's flexible. Great stuff.
+        </p>
+    </li>
+    <li>Dynamic Objects
+        <p>JavaScript has dynamic objects, which means you can take any object and at any time, you can add a new property to it or remove a property from it. You don't have to go to some class and make another derived class in order to have an object which is slightly different than the one you've got. That turns out to be amazingly powerful. Makes this language especially easy to use.</p>
+    </li>
+    <li>Loose Typing
+        <p>I think it's actually an advantage.</p>
+    </li>
+    <li>Object Literals
+        <p>Object literals are a very nice notation for describing objects. JavaScript's object literals were the inspiration for the JSON data interchange format.</p>
+    </li>
+</ul>
+
+<h4>Inheritance</h4>
+<ul>
+    <li>Inheritance is object-oriented code reuse</li>
+    <li>Two Schools:
+        <ul>
+            <li>Classical</li>
+            <li>Prototypal</li>
+        </ul>
+    </li>
+    <p>Inheritance is object-oriented code reuse. And there are two schools of thought for how to do that. There's the classical school, which is represented by almost all present-day languages. And there's the prototypal school, which is represented pretty much just by JavaScript. There are no other languages in broad use which have this property. Turns out the prototypal inheritance is amazingly powerful but it's not well understood. It's so powerful that you can program as though it is classical and it mostly works. You can't do the opposite. You can't go to a classical language and program as though it's prototypal.</p>
+</ul>
+
+<h4>Prototypal Inheritance</h4>
+<ul>
+    <li>Class-free</li>
+    <li>Objects inherit from objects</li>
+    <li>An object contains a link to another object: Delegation.Defferential Inheritance</li>
+</ul>
+<pre class="brush:js">
+    if(typeof Object.create !== 'function'){
+        Object.create = function(o){
+            function F(){}
+            F.prototype = o;
+            return new F();
+        }
+    }
+</pre>
+
+<h4>new</h4>
+<ul>
+    <li>The new operator is required when calling a Constructor function.</li>
+    <li>If new is omitted, the global object is clobbered by the constructor.</li>
+    <li>There is no compile-time or run-time warning.</li>
+    <p>If you call a constructor function without the new operator, instead of creating a new object and initializing it, your constructor will clobber the global object, which is a very, very bad thing. There is no compile-time warning and there's no run-time warning for this. So for this reason, I don't use 'new' anymore.</p>
+</ul>
+
+<h4>示例</h4>
+<ul>
+    <li><h6>Global</h6>
+        <pre class="brush:js">
+            var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+            var digit_name = function(n){
+                return names[n]
+            }
+            alert(digit_name(3));
+        </pre>
+        <p></p>
+    </li>
+    <li><h6>Slow</h6>
+        <pre class="brush:js">
+            var digit_name = function(n){
+                var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+                return names[n]
+            }
+            alert(digit_name(3));
+        </pre>
+        <p></p>
+    </li>
+    <li><h6>Closure</h6>
+        <pre class="brush:js">
+            var digit_name = function(n){
+                var names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+                return function(n){
+                    return names[n];
+                }
+            }
+            alert(digit_name(3));
+        </pre>
+        <p></p>
+    </li>
+</ul>
+
+<h4>A Module Pattern</h4>
+<pre class="brush:js">
+    var singleon = function(){
+        var privateVariable;
+        function privateFunction(x){...privateVariable...}
+        return {
+            firstMethod: function(a, b){
+                ...privateVariable...
+            },
+            firstMethod: function(c){
+                ...privateVariable...
+            }
+        }
+    }
+</pre>
+
+<h4>Power Constructors</h4>
+<ul>
+    <li>Make an object
+        <ul>
+            <li>Object literal, new, Object.create, call another power constructor</li>
+        </ul>
+    </li>
+    <li>Define some variables and functions
+        <ul>
+            <li>These become private members</li>
+        </ul>
+    </li>
+    <li>Augment the object with privileged methods</li>
+    <li>Return the object</li>
+</ul>
+
+<h4>Closure</h4>
+<ul>
+    <li>A function object contains
+        <ul>
+            <li>A function(name, parameters, body)</li>
+            <li>A reference to the environment in which it was created(context)</li>
+        </ul>
+    </li>
+    <li>This is a very good thing</li>
+</ul>
+
+<h4>Style Isn't Subjective</h4>
+<pre class="brush:js">
+    return
+    {   //unreachable statement in JavaScript, semicolon insertion
+        ok: false;
+    }
+</pre>
+
+<h4>Safe Subsets</h4>
+<ul>
+    <li>The most effective way to make this language better is to make it smaller</li>
+    <li>FBJS</li>
+    <LI>Caja & Cajita</LI>
+    <li>ADsafe</li>
+    <li>These subsets will be informing the design of a new secure language to replace JavaScript</li>
+</ul>
+<h4>The Good Parts</h4>
+<ul>
+    <li>Your JavaScript application can reach a potential audience of billions</li>
+    <li>If you avoid the bad parts, JavaScript works really well. There is some brilliance in it</li>
+    <li>It is possible to write good programs with JavaScript</li>
+</ul>
+
+<h2>Q&A</h2>
+<ul>
+    <li>So the first time I was using JSON, the first problem I ran into, like, first object I tried to parse with the JSON parser, it wouldn't parse and it was because I didn't put quotes around my property names. Is there a reason for why that is not allowed?
+        <p>
+            Crockford: Yeah, so why does JSON require quotes around the property names? There are three reasons. One of the reasons is that I wanted to align it with Python. In Python, the quotes are required. Another reason was it makes the grammar of the standard much easier to specify and I like simplicity. But the real reason, the true reason, is that JavaScript has a-- okay, I'll say it-- a stupid reserved word policy. And there are certain words that you cannot use in the key position of an object literal. Many of those names are not even used in the language. They're reserved unnecessarily and there's just no reason for it. And at the time that I put JSON together, it wasn't like I was riding on JavaScript's coattails, because nobody was using JavaScript at that time and everybody hated JavaScript. So it wasn't like I was basking in JavaScript's glow. So in order to not have quotes but still use it in JavaScript, I was going to have to have an appendix of the JSON spec, which was gonna be at least as big as all the rest of the spec describing how the reserve words worked. Basically what it said, quot;This is something that's really stupid in JavaScript.quot; You know, need to point it out. And at that point, I didn't wanna make JavaScript look stupider. So I said, quot;Okay, we'll just quote the keys and then we don't have to tell anybody about this shameful thing.quot; One bit of good news. We fixed that in the next language. Reserved words are now allowed in key position and also in dot position in the language. So that's better. But that took a long time.
+        </p>
+    </li>
+</ul>
+
+
+<pre class="brush:js">
+    var a ;
+</pre>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+    SyntaxHighlighter.all()
+</script>
+</body>
+</html>

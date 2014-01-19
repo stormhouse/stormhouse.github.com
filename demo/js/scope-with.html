@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<p>JavaScript提供了一个with语句，本意是用来快捷访问对象的属性。但它的结果可能有时是不可预料的，避免使用它</p>
+<pre class="brush: js">
+    var a = 'g.a'
+    var b = 'g.b'
+    var obj = {
+        a: 'obj.a',
+        b: 'obj.b'
+    }
+
+    with(obj){
+        a = b
+    }
+    //等价于
+    if(obj.a === undefined){
+        a = obj.b === undefined ? b : obj.b
+    }else{
+        obj.a = obj.b === undefined ? b : obj.b
+    }
+
+    /**
+     * 因些会有四种执行可能
+     * a = b
+     * a = obj.b
+     * obj.a = b
+     * obj.a = obj.b
+     */
+</pre>
+
+<p>通过阅读代码，不可能辨别出会得到4个语句的哪一条。它可能随着程序运行到下步时改变化。甚至可能在程序运行过程中就发生变化了。如果你不能通过阅读程序而了解它将会做什么，你就无法确定它会正确做你想要做的事件。</p>
+<p>with本身严重影响了JavaScript的处理器速度，因为它阻止了变量名的词法作用域绑定。</p>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script>
+
+    var a = 'g.a'
+    var b = 'g.b'
+    var obj = {
+        a: 'obj.a',
+        b: 'obj.b'
+    }
+
+    with(obj){
+        a = b
+    }
+    //等价于
+    if(obj.a === undefined){
+        a = obj.b === undefined ? b : obj.b
+    }else{
+        obj.a = obj.b === undefined ? b : obj.b
+    }
+
+    /**
+     * 因些会有四种执行可能
+     * a = b
+     * a = obj.b
+     * obj.a = b
+     * obj.a = obj.b
+     */
+    console.log(a)
+    console.log(b)
+    console.log(obj.a)
+    console.log(obj.b)
+
+    SyntaxHighlighter.all()
+</script>
+</body>
+</html>

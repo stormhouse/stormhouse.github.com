@@ -49,10 +49,24 @@ window.opera.collection();  //opera
 <script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
 <script>
 
+    //with
+    var _location = {
+        href: 'http://stormhouse.github.io/demo/js/scope.html',
+        qs: '?name=storm'
+    }
+    function buildUrl(){
+        var href = 'http://www.google.com.hk'
+        var qs = '?debug=true'
+        with(_location){
+            var url = href + qs;
+        }
+        return url;
+    }
+    console.log(buildUrl())
 
-  var o = Object;
-  var a = {}
-  SyntaxHighlighter.all()
+
+
+    SyntaxHighlighter.all()
 </script>
 </body>
 </html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>The CSS Animation Events（译）</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="The CSS Animation Events（译）"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/"/>
+            <meta property="og:description" content="thanks kirupa 当你的CSS animations运行时，它不仅是纯粹的视觉变化。在背后，它们在运行过程的某个关键点触发事件。在本节简短的内容中，你将学习这些事件以及如何在JavaScript中监听它们。 Let's get started. Meet the Animation Events 当一个animation运行时，三个被触发的相关动画事件为： animationstart animationend animationiteration 根据这些事件的名称可知它们分别表示的含义！animationstart事件在一个animation起始时触发，animationend事件在animation终止时触发，animationiterration事件在除一第一次迭代外的每一次迭代开始触发。 看下示意图，下图表示一个迭代为3次的简单animation： 值得注意的一件事，不是说所有这三个事件都会被触发。唯一一个总是被触发的事件是animationstart。animationiteration事件会在第二次迭代开始时被触发-animation设置的迭代至少大于一次。如果animation只运行一次，animationiteration事件将永不被触发。animationend事件在动画结束时的某个点触发（仅一次）。如果动画迭代次数无限次，这就没有结束...如果没有结束，animationend事件将不会被触发 ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/"
+                       rel="bookmark"
+                       title="Permalink to The CSS Animation Events（译）">
+                        The CSS Animation Events（译）
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Wed 18 December 2013
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://stormhouse.github.io/tag/animation.html">animation</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>thanks <a href="http://www.kirupa.com/html5/css_animation_events.htm">kirupa</a> </p>
+<hr />
+<p>当你的CSS animations运行时，它不仅是纯粹的视觉变化。在背后，它们在运行过程的某个关键点触发事件。在本节简短的内容中，你将学习这些事件以及如何在JavaScript中监听它们。</p>
+<p>Let's get started.</p>
+<h2>Meet the Animation Events</h2>
+<p>当一个animation运行时，三个被触发的相关动画事件为：</p>
+<ul>
+<li><code>animationstart</code></li>
+<li><code>animationend</code></li>
+<li><code>animationiteration</code></li>
+</ul>
+<p>根据这些事件的名称可知它们分别表示的含义！<code>animationstart</code>事件在一个animation起始时触发，<code>animationend</code>事件在animation终止时触发，<code>animationiterration</code>事件在除一第一次迭代外的每一次迭代开始触发。</p>
+<p>看下示意图，下图表示一个迭代为3次的简单animation：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131218-1.png" title="" /></p>
+<p>值得注意的一件事，不是说所有这三个事件都会被触发。唯一一个总是被触发的事件是<code>animationstart</code>。<code>animationiteration</code>事件会在<strong>第二次迭代</strong>开始时被触发-animation设置的迭代至少大于一次。如果animation只运行一次，<code>animationiteration</code>事件将永不被触发。<code>animationend</code>事件在动画结束时的某个点触发（仅一次）。如果动画迭代次数无限次，这就没有结束...如果没有结束，<code>animationend</code>事件将不会被触发。</p>
+<h2>What the Code Looks Like</h2>
+<p>现在你将学习关于这些事件初始内容，让我们看看在JavaScript中的这些事件：</p>
+<p>看下代码：</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#blah&quot;</span><span class="p">);</span>
+
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">animationstart</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">animationiteration</span><span class="p">,</span> <span class="nx">update</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">animationend</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">start</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">end</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>所有三个事件都被监听，你看到二部分代码。第一部分是给这些事件添加监听：</p>
+<div class="highlight"><pre><span class="n">var</span> <span class="n">element</span> <span class="o">=</span> <span class="n">document</span><span class="p">.</span><span class="n">querySelector</span><span class="p">(</span><span class="s">&quot;#blah&quot;</span><span class="p">);</span>
+
+<span class="n">element</span><span class="p">.</span><span class="n">addEventListener</span><span class="p">(</span><span class="n">animationstart</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<span class="n">element</span><span class="p">.</span><span class="n">addEventListener</span><span class="p">(</span><span class="n">animationiteration</span><span class="p">,</span> <span class="n">update</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<span class="n">element</span><span class="p">.</span><span class="n">addEventListener</span><span class="p">(</span><span class="n">animationend</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</pre></div>
+
+
+<p>第二部分是定义这些事件被触发时，需执行的处理器：</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">start</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">end</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>看到了吧，如此简单！现在代码中丢失一个重要的东西，它就是能确保事件被所有浏览器运行的浏览器厂商前缀：</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#blah&quot;</span><span class="p">);</span>
+
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">animationstart</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">mozAnimationIteration</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">webkitAnimationIteration</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">msAnimationIteration</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">animationiteration</span><span class="p">,</span> <span class="nx">update</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">mozAnimationIteration</span><span class="p">,</span> <span class="nx">update</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">webkitAnimationIteration</span><span class="p">,</span> <span class="nx">update</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">msAnimationIteration</span><span class="p">,</span> <span class="nx">update</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">animationend</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">mozAnimationEnd</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">webkitAnimationEnd</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">msAnimationEnd</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">start</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">end</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>说一下我的代码中保留厂商前缀的部分。有幸的是，最新版本的主流浏览器不用使用前缀都能支持animations，这只针对比较旧的版本。幸运的是，在不久的将来厂商前缀都可被忽略的。</p>
+<h2>The Event Object</h2>
+<p>Animation事件将一些额外的数据当作它们的参数。这些事件参数在事件处理器里被捕获，正是你看到的<code>e</code>变量，例如，在<code>start</code>中：</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">start</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// react to the animationstart event</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>在这个事件参数里可找到两个有趣的属性：</p>
+<ol>
+<li>animationName</li>
+<li>elapsedTime</li>
+</ol>
+<p><code>animationName</code>属性，正像你猜到的，返回这个特殊事件被触发的animation名称。<code>elapsedTime</code>属性是animation动画实际开始运行到该函数（事件处理器）被触发时所经过的时间（秒）。当然，对于<code>animationstart</code>事件，它的值是0，因为动画才刚刚开始。</p>
+<h2>The Usefulness of These Events</h2>
+<p>关于这一点，你已经知道所有的animation事件和怎样使用它们，找出一些在实际中使用它们的理由！这听有点困难。你在什么情况下想在start，iteration和end状态时做出反应呢？示例之外解释了这些事件的工作原理或想对动画做一些人为的控制，我找不到更好的理由，在实际中使用它们。如果你有一些好的使用场景，随意的贴到论坛中让我知道。</p>
+<p>我唯一使用的animation触发事件是在关键帧处触发的事件。使用这个事件，可以在页面中同步不同部分，并作为新的animation关键帧。可以展示动画的进度。可以在有趣的关键帧暂停。这将有一些比较酷或特别的事件去做。唉，此类事件并不怎么存在。你会发现第三种使用它的理由来添充这里的空白，但当我尝试使用它们时，会太复杂和有太多的怪癖。</p>
+<p>总之，三个事件不怎么实用。其中任意一个也不怎么有用。像《黑道家族》中的人物沮丧地说，当面对一些它们不会做任何事情，“你要做吗！”</p>
+<hr />
+<p>翻译水平有限，敬请各位同学批评指正。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'the-css-animation-eventsyi';
+            var disqus_url = 'http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
+                    </a></li>
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-rubylouvre-sign icon-large"></i>rubylouvre
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>

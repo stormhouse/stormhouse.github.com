@@ -96,7 +96,7 @@
 	<a href="http://stormhouse.github.io/tag/animation.html">animation</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>thanks <a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/">kirupa</a> </p>
+                <p>thanks <a href="http://www.kirupa.com/html5/all_about_css_animations.htm">kirupa</a> </p>
 <hr />
 <p>在HTML中动画实现的三种的方式之一是众所周知<strong>CSS animations</strong>。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。</p>
 <p>首先让我们看一个例子，让下面的云彩缓慢的上下飘动：</p>
@@ -146,7 +146,7 @@
 
 
 <p>如果预览上面代码，和刚才那个例子对比，这是一个不令人兴奋的版本。你所看到的是单一的、静止不动的云朵：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-1.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-1.png" title="" /></p>
 <p>让我们来继续添加<code>animation</code>属性来改变这无趣的状态吧。添加CSS animation只有两步，第一步设置<code>animation</code>属性，第二步精确的定义动画的关键帧。</p>
 <p>在<code>#bigcloud</code>上添加以下高亮行的属性：</p>
 <div class="highlight"><pre><span class="cp">#bigcloud {</span>
@@ -310,7 +310,7 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的<co
 <p>在此章节中，我不太愿意使用<code>from</code>/<code>to</code>关键字。使用该关键字，就被固定死了，对以后的扩展更不通用。</p>
 <p><code>animation</code>上的属性持续时间是描述整个动画的时间，除非你设置动画运行的总时间， 该值用来标识随时间进行的精确百分比（关键帧）。那么，动画就正常结束。</p>
 <p>下图的百分比是映射2秒动画时间单位上的具体时间值：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-2.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-2.png" title="" /></p>
 <p>这部分对我来说是复杂。一旦你理解<code>duration</code>是怎样映射的划分的关键帧，你将在理解动画这块儿跨越的一个重要障碍。</p>
 <p>无论如何，我想我们已经看到一个简单动画原理的足够细节。你学会了怎样使用<code>animation</code>声明一个动画，和添加<code>@keyframes</code>规则。 我们也花了一些时间来了解它们组合 一起的产生效果。</p>
 <p>不过，还没有做完。还有涉及更多更详细，休息一下，然后看看这个<a href="http://theoatmeal.com/quiz/facebook_addict">How Addicted To Facebook You Are quiz</a>。在看到你的结果后轻轻地抽泣了几分钟，你会在一个的完美状态，以了解更多关于CSS animation！</p>
@@ -331,7 +331,7 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的<co
 <p>Onwards!</p>
 <h4>Pausing and Resuming an Animation</h4>
 <p>默认，你的动画开始第一次时，<code>animation</code>属性就被激活。在我们简单的例子中，意味着页面被加载时激活。首先，我们简单想象它被设置成2秒无限循环的动画：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-3.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-3.png" title="" /></p>
 <p>每个黄色矩形表示动画的一次迭代。如果你把动画并排的每次迭代中，你就会得到看起来像我上面所示的那样。</p>
 <p>一旦动画开始，在它结束之前永远不会停止。如果你的动画设置为循环，终止状态完成后，它会从起止状态继续执行。它是每次迭代表示为一个单独黄色矩形的循环。我们目前bobble动画是就是这样的。</p>
 <p>有时候，你可能 不想要上面那种行为。如果你希望你的动画暂停，不让动画初始状态属性被激活，你可以用动画<code>animation-play-state</code>属性。这个属性允许你在播放运行时的<strong>暂停</strong>或<strong>播放</strong>的切换。</p>
@@ -341,9 +341,9 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的<co
 
 
 <p>当动画暂停时，它保留动画运行最后时刻的计算值：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-4.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-4.png" title="" /></p>
 <p>它停在那儿几乎不动，你可以通过设置它的<code>animation-play-state</code>属性值为<strong>running</strong>.来恢复运行。在恢复运行之前，它不会突然从起止状态重新运行：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-5.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-5.png" title="" /></p>
 <p>就像你预期的一样，动画从当前状态平滑的运行，就像媒体播放器的播放和暂停功能一样。</p>
 <h4>Delaying and Offsetting the Animation</h4>
 <p>如果你希望你的动画不是立即播放，而是经过一段时间后播放，你应当使用<code>animation-delay</code>属性。此属性允许你经过指定的时间秒数后，动画才开始运行：</p>
@@ -352,7 +352,7 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的<co
 
 
 <p>延迟不是等5秒之后0%关键帧被触发。它是第一次迭代的0%关键帧被触发：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-6.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-6.png" title="" /></p>
 <p>一旦你的动画开始运行时，延迟值就没有用武之地了。以后每一次迭代的动画（如果有的话）一个接一个无间隔的运行。</p>
 <p>现在你可以给这个属性赋其他的值，你可以给<code>animation-delay</code>设置负值。</p>
 <div class="highlight"><pre><span class="n">animation</span><span class="o">-</span><span class="n">delay</span><span class="o">:</span> <span class="o">-</span><span class="mf">.25</span><span class="n">s</span><span class="p">;</span>
@@ -360,17 +360,17 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的<co
 
 
 <p>当你设置了一个负值，你的动画会在超前执行你设置的那个值。设置<code>animation-delay</code>-.25秒就是这样：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-7.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-7.png" title="" /></p>
 <p>负值作为一个标识，告诉浏览器这是一个偏移而不是延时。是的，这有点奇怪，因为它给的属性名是<code>animation-delay</code>，我只是个传教者。还有更奇怪的呢，一旦你设置这个负值大于每一次动画迭代的时延，这是没问题的。只要保证有足够的迭代数，无论落在哪次迭代点动画就开始。如果你没有足够的迭代数来抵消那个负值，你的动画根本无法运行。</p>
 <h4>Hold My Keyframe Properties, Please!</h4>
 <p>如果你不设置动画循环，你会发现，一旦动画结束后，关键帧设置任何属性将被清除，元素返回到一个动画起止状态。这是因为<strong>关键帧应用于的属性是瞬时的</strong>。当关键帧是激活状态时，它们才存在，在以外任何时间，这些属性值都不能存在。如果你不想要这种行为，当它运行完毕，你的动画看起来像突然跳到开始位置或突然复位，让我们来看看这两种情况的区别，然后看看如何更改默认行为。</p>
 <h6>Waiting to Start</h6>
 <p>第一个用例是当你设置了<code>animation-delay</code>属性。例如，设置了5s：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-8.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-8.png" title="" /></p>
 <p>动画需等待5秒才开始执行，此时关键帧没有被执行。在等待时间中，第一个关键帧的所有属性都不会生效。</p>
 <h6>Animation is Done</h6>
 <p>第二个例子，当你的动画完成后。该例子是你设置循环3次的那个示例：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-9.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-9.png" title="" /></p>
 <p>3次迭代完成后，最后关键帧的所有属性都会消失。动画回到原始状态就像什么也没有发生过一样。</p>
 <h6>Meet animation-fill-mode</h6>
 <p>如果你想在等待延时过程中，想让第一侦生效，或当动画完成后，保留最后一侦，你可以设置<code>animation-fill-mode</code>属性。属性值如下：</p>
@@ -404,9 +404,9 @@ This is the ultimate solution. Your animation will apply the property values of 
 <h4>Reversing an Animation (or Alternating Directions)</h4>
 <p>现在，让我们看一下这个略微奇幻的属性，动画默认从0%到100%循序播放。你可以通过给<code>animation-direction</code><strong>设置normal</strong>, <strong>reverse</strong>, <strong>alternate</strong>,  <strong>alternate-reverse</strong>来 改变这个行为，  <strong>normal</strong> 和 <strong>reverse能够直接指出他们做什么</strong>，让我们来看一些比较有意思的属性值：<strong>alternate</strong> 和 <strong>alternate-reverse</strong>.</p>
 <p>当设置<code>animation-direction</code> 属性值为<strong>alternate-reverse</strong>，动画正常开始。在第二次迭代时，它反向运行，以后会正向，反向交替着运行：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-10.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-10.png" title="" /></p>
 <p>设置<code>animation-direction</code>属性值为 <strong>alternate</strong> 与上面十分相似，但有点细微的不同：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-11.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-11.png" title="" /></p>
 <p>动画开始于反向运行，然后正向，反向交替 运行。</p>
 <h4>At Easing, Soldier!</h4>
 <p>涉及到的最后一个有关联的动画属性是<code>animation-timing-function</code>. 它的功能是在开始和结束之间指定如何改变属性值。在 [Easing Functions in CSS3][]（未译） 的教程中有更多缓动函数的细节， 所以去那边详细学习吧。</p>
@@ -564,7 +564,7 @@ This is the ultimate solution. Your animation will apply the property values of 
 
 
 <p>两个云朵中定义的bobble关键帧有什么意思呢。唯一不同是一个动画在2秒中执行完那些关键帧，另一个是4秒：</p>
-<p><img alt="Animation Img" class="align-center" src="/img/140101-12.png" title="" /></p>
+<p><img alt="Animation Img" class="align-center" src="/img/131201-12.png" title="" /></p>
 <p>将<code>animation</code>和<code>keyframes</code>声明分离开来，可以做这上面的事。<code>animation</code>中的任何属性的改变都会影响到关键帧这一水平--就像这儿你看到的时延。刚才我解释的每个<code>animation</code>属性的设置，不用直接涉及关键帧部分，就会改变关键帧的行为。</p>
 <p>You have to admit, that is pretty cool.</p>
 <h3>Declaring Multiple Animations</h3>
@@ -677,8 +677,8 @@ This is the ultimate solution. Your animation will apply the property values of 
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/base64.html">
-                        base64
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -687,13 +687,13 @@ This is the ultimate solution. Your animation will apply the property values of 
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/javascript.html">
-                        javascript
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/event.html">
-                        event
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -702,8 +702,8 @@ This is the ultimate solution. Your animation will apply the property values of 
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/git.html">
-                        git
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
                     </a>
                 </li>
         </ul>

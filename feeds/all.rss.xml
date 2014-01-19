@@ -1,9 +1,475 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 12 Dec 2013 15:12:00 +0800</lastBuildDate><item><title>Animating Movement Smoothly Using CSS（译）</title><link>http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/</link><description>&lt;p&gt;thanks &lt;a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 30 Dec 2013 20:49:00 +0800</lastBuildDate><item><title>Looping a CSS Transition（译）</title><link>http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/looping_a_css_transition.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Transition的故事历经考验和磨难。从被无耻浏览器厂商所忽略而必须添加厂商前缀到目前被普遍接受，该旅程肯定是崎岖不平。尽管&lt;code&gt;transition&lt;/code&gt;属性在过去几年有了很大进步，但与它更帅更靓的前辈&lt;code&gt;animation&lt;/code&gt;相比，在实现某些东西方面并不容易。&lt;/p&gt;
+&lt;p&gt;我在&lt;a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/"&gt;CSS3: Animations vs. Transitions&lt;/a&gt;教程中完全描述transitions和animations的差异，在这里我将重申一个transition的重要局限。这个限制就是transitions没有一个属性指定让它循环。是的！在今天这个时代，transition&lt;strong&gt;被设计成&lt;/strong&gt;只执行一次。的确是个笑话。&lt;/p&gt;
+&lt;p&gt;幸运的是，这里有一个方法。在本教程里，我将通过一个小伎俩解决&lt;a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/"&gt; transitionend event &lt;/a&gt;如何使transitions支持循环。&lt;/p&gt;
+&lt;h2&gt;The Example&lt;/h2&gt;
+&lt;p&gt;为了证实我有点疯狂，下面的例子展示了一个永远循环的transition。鼠标移到圆形上看到transition开始运行...永远不会停止。&lt;/p&gt;
+&lt;iframe id="I1" scrolling="no" frameborder="0" style="width: 620px; height: 383px;" src="/demo/animation/looping_transition.html" name="I1" marginwidth="0" marginheight="0" border="0"&gt;&lt;/iframe&gt;
+
+&lt;p&gt;注意到圆形从小到大的来回振荡。学完本章，你将能创建类似的动画并理解它的运行原理。&lt;/p&gt;
+&lt;h2&gt;How to Make a Transition Loop&lt;/h2&gt;
+&lt;p&gt;在深入做这件事之前，让我们首先退一步理清我们将要做的是什么。为了做到这点，先引入性感的圆圈吧：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;接下来做的就是添加transition改变圆形的大小。圆形有一个初始大小。我们通称为它的初始状态&lt;strong&gt;stateOne&lt;/strong&gt;。要实现transition须让它变的更大些，该状态为&lt;strong&gt;stateTwo&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;到目前为止看起来非常简单，对吗？我开始于stateOne，现在我触发一个transition改变圆的大小，为stateTwo状态定义的值：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-3.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;由于我定义了transition，代替了它从stateOne突然转变到stateTwo状态，圆型会逐步变成大的尺寸。注意，如何触发transition使它的尺寸变到stateTwo状态是无关紧要的。有可能是元素的class值变化。有可能是鼠标移上指定一个不同的尺寸--就像刚刚这个例子。有可能是使用JavaScript代码直接修改它的大小。可以是各种方式写成这一点。怎样触发属性值的变化无关紧要。一旦定义了transition监听的属性发生了变化，transition将会执行。&lt;/p&gt;
+&lt;p&gt;现在，我提到所有关于transitions的东西你已经十分清楚，当作一个简单的回顾。让我们开始吧，因为这里要引入新东西。那就是让这个transition实现迭代。默认情况下，transition从stateOne过滤到stateTwo，其它什么都不会发生。有时，这取决于我的CSS设置，可能回到stateOne状态。我想要做的就是&lt;strong&gt;循环这个transition&lt;/strong&gt;永不让它停止。一旦让transition运行，我想让圆型按我定义的大小stateOne和stateTwo来回振荡...永远。当它到达stateTwo状态，我想让它返回stateOne状态。当到达stateOne状态，再让它返回stateTwo状态...那么，你将得到一段影片。&lt;/p&gt;
+&lt;p&gt;下图就是我描述的影片的运行轨迹：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-4.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;我们将如何做到这一点呢？当然不是最简单的！正如先前我提到的，问题在于CSS &lt;code&gt;transition&lt;/code&gt;属性不支持内建的属性支持循环。我们要自己把事情搞清楚。这真是有点无耻。我们要是等待trasition完成做点点什么。一旦transition完成，我们将强制改变transition监听的属性值。通过改变transition监听的属性值，你的transition又会重新运行...直到新的属性变化到指定值。&lt;/p&gt;
+&lt;p&gt;现在我们有个好的方法如何让transition实现循环，让我们开始实现它吧。判断一个transition结束通过监听&lt;code&gt;transitionend&lt;/code&gt;事件。在每次&lt;code&gt;transitionend&lt;/code&gt;事件处理器中，我们将通过一些JavaScript代码修改transition监听着的属性值。在stateOne结束的transition中，&lt;code&gt;transitionend&lt;/code&gt;事件将被触发。根据这一点，我们会通过JavaScript告知元素反向去stateTwo状态。当处于stateTwo状态，另一个&lt;code&gt;transitionend&lt;/code&gt;事件将被触发。这时，告知元素反向去stateOne状态。你可以想象，这将继续一段时间。&lt;/p&gt;
+&lt;p&gt;这里有一个图展示了上面的循环:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-5.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;最初transition可以被各种方式触发。它是怎样触发并不重要。重要的是后续的transition怎样被JavaScript触发的。&lt;/p&gt;
+&lt;p&gt;在接下来的几节中，让我们看看这个技巧吧。&lt;/p&gt;
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;好吧，我们最后动手实践说明前面的几个段落的内容并让它们运行。如果你不想动手实践而宁愿只是阅读和被的追随。跳过这个章节继续看下一个章节。如果你想积极跟随本教程并重新创建你在上面看到的例子，创建一个HTML文档把下面的HTML/CSS代码拷进去：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;content=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;en-us&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;http-equiv=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Content-Language&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;charset=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;content=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stuff, to, help, search, engines, not&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;keywords&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;content=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;What this page is about.&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;description&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;content=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;An Interesting Title Goes Here&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;title&amp;gt;&lt;/span&gt;An Interesting Title Goes Here&lt;span class="nt"&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+body {
+    background-color: #FFF;
+    margin: 30px;
+    margin-top: 10px;
+}
+#box {
+    width: 550px;
+    height: 350px;
+    border: 5px black solid;
+    overflow: hidden;
+    background-color: #F2F2F2;
+    margin: auto auto;
+    background-image: url(&amp;#39;http://www.kirupa.com/images/gray_background.png&amp;#39;);
+}
+#contentContainer {
+    position: relative;
+}
+#circleDiv {
+    background-color: #2693FF;
+    border-radius: 75px 75px 75px 75px;
+    height: 150px;
+    margin: 100px auto auto;
+    width: 150px;
+    transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+}
+.stateOne {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+.stateTwo {
+    opacity: .5;
+    transform: scale(1.9, 1.9);
+}
+p {
+    font-family: Cambria, Cochin, Georgia, Times, &amp;quot;Times New Roman&amp;quot;, serif;
+    font-size: medium;
+    color: #006699;
+}
+
+&lt;span class="nt"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;box&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;contentContainer&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;circleDiv&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stateOne&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+
+        &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.kirupa.com/html5/examples/js/prefixfree.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+// your code goes here
+&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在浏览器中预览该文档，你将看到类似刚前的例子。唯一不同的就是这个示例的动画不能迭代。事实上，它是静态的什么都做不了，我们很快就会解决这个问题，但首先，让我们来看看到底如何进行处理：&lt;/p&gt;
+&lt;p&gt;在代码里，圆型被定义成：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;circleDiv&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stateOne&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;有趣的细节是元素的&lt;code&gt;id&lt;/code&gt;是&lt;strong&gt;circleDiv&lt;/strong&gt;和&lt;code&gt;类&lt;/code&gt;名为&lt;strong&gt;stateOne&lt;/strong&gt;。一会儿你就会看到它们将出现在CSS和JavaScript代码里。首先看一下CSS...&lt;code&gt;#circleDiv&lt;/code&gt;定义的样式：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#circleDiv {&lt;/span&gt;
+    &lt;span class="n"&gt;background&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mf"&gt;2693FF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;border&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;radius&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;75&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt; &lt;span class="mi"&gt;75&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt; &lt;span class="mi"&gt;75&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt; &lt;span class="mi"&gt;75&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;height:&lt;/span&gt; &lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;margin:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt; &lt;span class="k"&gt;auto&lt;/span&gt; &lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;width:&lt;/span&gt; &lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;transition:&lt;/span&gt;&lt;span class="n"&gt;transform&lt;/span&gt; &lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;opacity&lt;/span&gt; &lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个样式是让方形的&lt;code&gt;div&lt;/code&gt;元素变成圆形。除些以外，也在这里定义了&lt;code&gt;transition&lt;/code&gt;。注意，这里定义的transition包括&lt;code&gt;transform&lt;/code&gt;和&lt;code&gt;opacity&lt;/code&gt;两个属性。&lt;/p&gt;
+&lt;p&gt;接下来看一下&lt;code&gt;stateOne&lt;/code&gt;和&lt;code&gt;stateTwo&lt;/code&gt;样式规则，它是扮演在两个状态触发转换以及保持transition运行的角色：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stateOne&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;opacity:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;transform:&lt;/span&gt; &lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stateTwo&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;opacity:&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;transform:&lt;/span&gt; &lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在上面两个规则中，&lt;code&gt;opacity&lt;/code&gt;和&lt;code&gt;transform&lt;/code&gt;两个属性均被设置成不同的值。如果从前面几行你还记得我们的&lt;code&gt;transition&lt;/code&gt;属性设置为应对变化&lt;code&gt;transform&lt;/code&gt;和&lt;code&gt;opacity&lt;/code&gt;。嗯…关键点正在此处!&lt;/p&gt;
+&lt;h2&gt;Triggering The Transition Initially&lt;/h2&gt;
+&lt;p&gt;第一件事是要我们的transition简单触发运行，这需要鼠标移上该元素。目前，正如果在HTML中看到的，元素有初始类stateOne的样式值。当我鼠标移上去后，想让它变为stateTwo样式的值。这些类名映射到选择器的样式规则，正如刚刚你看到的...&lt;code&gt;.stateOne&lt;/code&gt;和&lt;code&gt;.stateTwo&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;实现它的唯一方式就是写一些JavaScript。在&lt;code&gt;script&lt;/code&gt;标签内添加如下行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;theCircle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;#circleDiv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mouseover&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;setInitialClass&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nx"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;setInitialClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateTwo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这段代码应该相当简单。通过调用&lt;code&gt;querySelector&lt;/code&gt;变量&lt;code&gt;theCircle&lt;/code&gt;指向&lt;code&gt;#circleDiv&lt;/code&gt;元素。在这里我们设置一个&lt;code&gt;mouseover&lt;/code&gt;事件监听器&lt;code&gt;setInitailClass&lt;/code&gt;当鼠标移上去时触发。在&lt;code&gt;setInitialClass&lt;/code&gt;事件处理器内部，将元素的类stateOne改变为stateTwo。&lt;/p&gt;
+&lt;p&gt;再预览一下HTML文档。当你鼠标移到元素上时，你将看到transition被触发。它的触发原理就是当鼠标移上去后，元素的类值由stateOne改变为stateTwo。意思是，定义的&lt;code&gt;transition&lt;/code&gt;像鹰一样监视着元素的&lt;code&gt;opacity&lt;/code&gt;和&lt;code&gt;transform&lt;/code&gt;属性的变化。&lt;/p&gt;
+&lt;p&gt;当然，一旦transition完成后，什么都不会发生。至少这里你什么情况都没看到。因为&lt;code&gt;transitionend&lt;/code&gt;事件没有生效，所以这里表面上什么都没有发生。在下一章节，让我们看看有什么面临的麻烦事！&lt;/p&gt;
+&lt;h2&gt;Causing our Transition to Loop&lt;/h2&gt;
+&lt;p&gt;现在，经过.2秒动画之后，元素的&lt;code&gt;class&lt;/code&gt;属性值变为stateTwo并变大。我们要做的就是把元素类名变回stateOne，要做的就是监听&lt;code&gt;transitionend&lt;/code&gt;事件。修改一下代码，看下面高亮行部分的代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;theCircle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;#circleDiv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mouseover&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;setInitialClass&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;transitionend&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;webkitTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mozTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;msTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;oTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nx"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;setInitialClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateTwo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;propertyName&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;opacity&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateTwo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateOne&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateTwo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;刚添加的代码的大部分在&lt;a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/"&gt;transitionend事件教程&lt;/a&gt;有详细的描述。所以，我要跳过这部分比较容易的内容。相反，我想专注于&lt;code&gt;loopTransition&lt;/code&gt;事件处理器发生了什么---当一个&lt;code&gt;transitionend&lt;/code&gt;事件触发时该事件处理器被调用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;loopTransition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;propertyName&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;opacity&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateTwo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateOne&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;theCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;className&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;stateTwo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面高亮行的代码（if代码块）等价于下图展示意义：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-9.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;loopTransition&lt;/code&gt;每次被调用，代码将检测元素上的&lt;code&gt;class&lt;/code&gt;属性。如果元素当前的值为stateTwo，那么就将它的&lt;code&gt;class&lt;/code&gt;值设置为stateOne，以再次触发transition：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-10.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;如果当前元素的class为stateOne时loopTransition被调用，你应猜到设置class值为stateTwo，再次触发 transition：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131230-11.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;上述高亮行的代码目的就是保证transition永远追逐一个移动的靶子。换句话说，那5行代码的职责就是使transition循环。&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;好吧，本篇内容要比我预期的更多一些。不管怎么说，你的目标就是保证transition永远不会停下来。方法就是确定监听transitionend 事件，当事件触发时修改元素被监听的属性。具体怎么实现你已经学会了，接下来的教程，我将带来一些结合所有知识点，比较酷的你从未见的例子。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 30 Dec 2013 20:49:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-30:posts/2013/looping-a-css-transitionyi/</guid><category>animation</category></item><item><title>Get the Value of Animating CSS Properties（译）</title><link>http://stormhouse.github.io/posts/2013/get-the-value-of-animating-css-propertiesyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/get_the_value_of_css_properties_as_they_are_animating.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;在理想的世界里，JavaScript会默默的坐在餐桌的一边。CSS将安静的坐在另一边。HTML会依旧那么尴尬，但我们不会谈论它。无论怎样，在某种程度上，这种情况存在相当一段时间。人们建造的东西很长一段时间的范围内下降这完美的世界。&lt;/p&gt;
+&lt;p&gt;现在，web编程已经发生改变。JavaScript和CSS不再是小孩子了。不再像《辛普森一家》中的角色了，它们已经在一个世界里长大，JavaScript和CSS各自的职责已经越来越模糊了：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131228-1.jpg" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;[ the Simpsons family has aged really well over the years (credit: usps) ]&lt;/p&gt;
+&lt;p&gt;尤其是动画的到来使这种模糊变得更为显明。因为CSS3的animations和transitions的高性能，今天你看到越来越的纯粹使用CSS创建动画。你也能看到使用CSS和JavaScript结合创建动画。&lt;/p&gt;
+&lt;p&gt;在本教程，我将提到一个很小但又非常重要的使用JavaScript和CSS交叉创建动画。这一点就是你使用JavaScript分析哪些是CSS的可动画属性。你将和我一样兴奋想知道如何做到这一点。&lt;/p&gt;
+&lt;p&gt;Let's get started.&lt;/p&gt;
+&lt;h2&gt;The Example&lt;/h2&gt;
+&lt;p&gt;啥都没有变得无聊，有个示例变得更有感觉，所以我们看一个我提及的例子。将鼠标移到蓝色图片上：&lt;/p&gt;
+&lt;iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="/demo/animation/value_of_animated_properties.html" style="width: 373px; height: 475px; border: 1px solid rgb(204, 204, 204); float: center;" marginheight="0" marginwidth="0"&gt;Your browser does not support inline frames or is currently configured not to display inline frames.
+&lt;/iframe&gt;
+
+&lt;p&gt;注意到当移动图片上，图片向上滑动。当发生滑动时，你应该在图片下方看到迅速变化的一组数字。这个数值是与你看到的滑动动画过程中的元素CSS属性的top值是一致的。&lt;/p&gt;
+&lt;h2&gt;Let's Do This!&lt;/h2&gt;
+&lt;p&gt;当动画运行中，为了获得CSS属性的值，需要搞清两件事。第一个就是该时段的主角，JavaScript函数&lt;code&gt;getComputedStyle&lt;/code&gt;。该函数最新的，适应于任意CSS属性。第二件是，搞清何时使用&lt;code&gt;getComputedStyle&lt;/code&gt;是非常重要的-尤其是你持续检测一个特殊的属性值。这是第二个难题。&lt;/p&gt;
+&lt;p&gt;让我们更详细的看看这两个部分。&lt;/p&gt;
+&lt;h4&gt;Say Hello to getComputedStyle&lt;/h4&gt;
+&lt;p&gt;一般情况，你将通过下面这种方式获取指定的CSS属性值：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;myElement&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CSSPropertyName&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果你使用这种方式获取在动画过程中元素的属性值，你将会感到失望。这种方式只能获取定义在每个元素的style对象中的值。换句话说，只是一些显式定义在CSS中的属性值或通过JavaScript赋值的属性。&lt;/p&gt;
+&lt;p&gt;动画运行中的元素属性值分为两类。一种是普通CSS属性值，另一种是深藏在运行时浏览器内部的值。用浅显的方法如使用&lt;code&gt;style&lt;/code&gt;对象元素获取实际的值。你需要更深层次的方式，那就是通过&lt;code&gt;getComputedStyle&lt;/code&gt;函数。&lt;/p&gt;
+&lt;p&gt;该函数用法如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;myValue&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getComputedStyle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;myElement&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;CSSPropertyName&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;通过传入一个要计算的CSS属性的元素为参数，调用getComputedStyle函数。返回一个对象，指定元素的CSS属性名称。该函数返回你要查找元素的最终计算出的一个值。&lt;/p&gt;
+&lt;p&gt;为了让此更为具体，下面代码就是上面滑动例子中返回&lt;code&gt;top&lt;/code&gt;样式属性值的片段：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;textField&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;results&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;imageTopPosition&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getComputedStyle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;代码运行时，将获取&lt;code&gt;image&lt;/code&gt;元素的&lt;code&gt;top&lt;/code&gt;属性值-即使该属性也是在动画运行中。&lt;/p&gt;
+&lt;h4&gt;Knowing When to Check the Property Value&lt;/h4&gt;
+&lt;p&gt;现在你知道怎样获取在动画中的CSS属性值，一个小的难点就是搞清楚什么时候运行包含&lt;code&gt;getComputedStyle&lt;/code&gt;的代码。&lt;/p&gt;
+&lt;p&gt;更可能的是，你要在持续动画中的获取一些属性的值。你可以通过使用的&lt;a href="http://www.kirupa.com/html5/frame_rates_html_javascript.htm"&gt;setInterval&lt;/a&gt;或使用更棒&lt;a href="http://www.kirupa.com/html5/animating_with_requestAnimationFrame.htm"&gt;requestAnimationFrame&lt;/a&gt;来完成。因为我们要在它们运行时，处理的动画和控制它们，&lt;code&gt;requestAnimationFrame&lt;/code&gt;是专为此事极佳的设计。&lt;/p&gt;
+&lt;p&gt;然而我不会在这里很详细的介绍这个函数，你从我的requestAnimationFrame教程中，一定可以得到关于它的内容。在这个例子里我要讨论的是怎么用这个函数。&lt;/p&gt;
+&lt;p&gt;看一下下面的代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;requestAnimationFrame&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;requestAnimationFrame&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;
+                            &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;mozRequestAnimationFrame&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;
+                            &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;webkitRequestAnimationFrame&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;
+                            &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;msRequestAnimationFrame&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="nx"&gt;requestAnimationFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;updateValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;updateValue&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;imageTopPosition&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;getComputedStyle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;image&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;top&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;textField&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;textContent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;imageTopPosition&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="nx"&gt;requestAnimationFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;updateValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;注意到&lt;code&gt;updateValue&lt;/code&gt;函数中包括了帮助获取CSS任意属性的调用&lt;code&gt;getComputedStyle&lt;/code&gt;代码...该用例下，是&lt;code&gt;top&lt;/code&gt;。因为&lt;code&gt;requestAnimationFrame&lt;/code&gt;函数是同步浏览器的刷新率，在代码调用中更新每一帧的结果。这正是我们所想要的。&lt;/p&gt;
+&lt;p&gt;This Works Everywhere!&lt;/p&gt;
+&lt;p&gt;你可能在任意涉及轮循获取一个CSS属性值时使用&lt;code&gt;getComputedStyle&lt;/code&gt;。它不仅限于animations和transitions。Don't let the animation-heavy focus of this article keep you from enjoying the breadth of happiness getComputedStyle brings to the table。&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;以后的动画将是由结合最的CSS和JavaScript来实现。我无法说我已经看到了未来是什么样子或你使用什么技巧和技术将获取成功。在这里，一切只代表现在，虽然知道如何使用JavaScript取得动画属性的值，我很肯定你会在即将到来的几个星期，几个月，甚至几年使用一大堆技术！&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sat, 28 Dec 2013 21:11:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-28:posts/2013/get-the-value-of-animating-css-propertiesyi/</guid><category>animation</category></item><item><title>The TransitionEnd Event（译）</title><link>http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/the_transitionend_event.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;虽然 transition在CSS中着实占据一席之地，但它又与JavaScript有一定水平的协作。在与JavaScript协作时的事件领域展示了它自身。&lt;/p&gt;
+&lt;p&gt;你已知道transition有三个状态：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131226-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;起始状态、过渡状态和终止状态。在这里，我将告诉你检测这三个状态的存在。不幸的是，这不可能做到的。你将必须接受这里只有一种状态存在，它是终止状态。这个事件被亲切的称之为&lt;code&gt;transitionend&lt;/code&gt;，本章是关于这部分的内容。&lt;/p&gt;
+&lt;h2&gt;Meet the transitionend Event&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Transitionend&lt;/code&gt;事件原理很简单。该事件在transition一次过渡完成后被触发。让我给出CSS代码如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#blueCircle {&lt;/span&gt;
+    &lt;span class="nl"&gt;transition:&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;opacity:&lt;/span&gt; &lt;span class="mf"&gt;.3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#blueCircle:hover {&lt;/span&gt;
+    &lt;span class="nl"&gt;transform:&lt;/span&gt; &lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nl"&gt;opacity:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;CSS代码中，定义了一个transition，它应用在&lt;strong&gt;blueCircle&lt;/strong&gt; 元素上，在半秒内影响到它所有的属性。当你鼠标移到blueCircle 上，设置的&lt;code&gt;transform&lt;/code&gt;属性会使元素比例变大到300%，&lt;code&gt;opacity&lt;/code&gt;变为1。当你移上去后，你能想象到它发生什么变化，0.5秒后元素会变的更大和变得更加清晰。十分简单的例子。&lt;/p&gt;
+&lt;p&gt;来看看如何检测transition到达终止状态吧。为了检测何时到达终止状态，将监听&lt;strong&gt;blueCircle&lt;/strong&gt; 的&lt;code&gt;transitionend&lt;/code&gt;事件何时触发。监听部分代码如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;blueCircle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;#blueCircle&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;blueCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;transitionend&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;blueCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;webkitTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;blueCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;mozTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;blueCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;msTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;blueCircle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;oTransitionEnd&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;除了不考虑厂商前缀，事件监听和事件处理器两部分的代码都非常简单。当&lt;code&gt;transitionend&lt;/code&gt;事件被监测时，&lt;code&gt;detectTheEnd&lt;/code&gt;事件处理器将被调用。&lt;/p&gt;
+&lt;h2&gt;The transitionend Event Handler&lt;/h2&gt;
+&lt;p&gt;这个事件处理器内部什么都没做。&lt;code&gt;Transitionend&lt;/code&gt;事件不仅是在transition完成后触发一次。而是在每个CSS属性的&lt;strong&gt;每次&lt;/strong&gt;transition后都会触发。在我们的这个例子里，&lt;code&gt;transitionend&lt;/code&gt;事件将被触发两次-一次是&lt;code&gt;opacity&lt;/code&gt;属性，另一次是&lt;code&gt;transform&lt;/code&gt;属性改变后。&lt;/p&gt;
+&lt;p&gt;因为事件被触发两次，意味着事件处理器也被调用两次。有可能的是，你不想让事件处理器调用两次-至少是在同一时延内的同一transition内。你不能阻止事件处理器调用两次。你能做什么呢，不过，在事件处理器中的代码可以保证你想的调用次数。
+One way to ensure that is by checking the event argument's propertyName value for the CSS property the event is representing. Here is how that would look like when applied to our particular situation:==一种方法可保证，检测事件所代表的定义在事件参数&lt;code&gt;propertyName&lt;/code&gt;的值。下面代码就是针对我们这个例子的参数检测：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;propertyName&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;opacity&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// do something interesting&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;尽管&lt;code&gt;detectTheEnd&lt;/code&gt;事件处理器将被调用两次，我关注的代码在&lt;code&gt;if&lt;/code&gt;语句为真时只调用一次。当作为&lt;code&gt;transitioned&lt;/code&gt;事件被&lt;code&gt;opacity&lt;/code&gt;属性触发的结果，它的事件处理器只执行一次。&lt;/p&gt;
+&lt;h2&gt;Dealing With Multiple Transitions&lt;/h2&gt;
+&lt;p&gt;对于单一的transition影响多个属性（就像上面我们提到的例子），在事件处理器内，处理比较简单。你不能用&lt;code&gt;propertyName&lt;/code&gt;来检测任意其它属性如&lt;code&gt;transform&lt;/code&gt;。原因是，对于&lt;code&gt;opacity&lt;/code&gt;和&lt;code&gt;transform&lt;/code&gt;属性在经过.5秒后，两个&lt;code&gt;transitionend&lt;/code&gt;事件几乎立即会触发。没有任何一点能打断代码的执行。&lt;/p&gt;
+&lt;p&gt;如果你有不同时延的transitions影响着不同的CSS属性，这没机会打断代码的执行。在这个用例里，&lt;code&gt;transitionend&lt;/code&gt;事件将在&lt;strong&gt;不同的时间&lt;/strong&gt;被触发，你可依赖CSS属性，处理不同的事件。&lt;/p&gt;
+&lt;p&gt;下面的代码就是处理刚才这种情形，两个transition结束于不同的时间点：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#blueCircle {&lt;/span&gt;
+    &lt;span class="nl"&gt;transition:&lt;/span&gt; &lt;span class="n"&gt;opacity&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;transform&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;opacity:&lt;/span&gt; &lt;span class="mf"&gt;.3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#blueCircle:hover {&lt;/span&gt;
+    &lt;span class="nl"&gt;transform:&lt;/span&gt; &lt;span class="n"&gt;scale&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="nl"&gt;opacity:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在这个例子里，&lt;code&gt;transitionend&lt;/code&gt;事件将在.5秒后触发一次和1秒后又触发一次。如果你想根据每个事件的&lt;code&gt;transitionend&lt;/code&gt;单独影响每个实例，扩展刚才展示的代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;detectTheEnd&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;propertyName&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;opacity&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// do something interesting&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;propertyName&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;transform&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// do something interesting&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;特意检测&lt;code&gt;propertyName&lt;/code&gt;属性，根据哪个&lt;code&gt;transitioned&lt;/code&gt;事件，保证正确的代码被执行。&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;乍一看，发现一个transition 什么时候结束貌似不那么重要。因为大多数第一眼，无法看到全部。一般情况，你不用关心transition何时结束。二般情况，知道transition何时结束极其重要的。尤其是在使用transition创建一个循环的动画时特别重要。在随后的文章里，我将着重介绍transitionend事件，能让你创建看似简单又很难做的相当相当有趣的动画。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 26 Dec 2013 20:32:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-26:posts/2013/the-transitionend-eventyi/</guid><category>animation</category></item><item><title>The CSS Animation Events（译）</title><link>http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/css_animation_events.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;当你的CSS animations运行时，它不仅是纯粹的视觉变化。在背后，它们在运行过程的某个关键点触发事件。在本节简短的内容中，你将学习这些事件以及如何在JavaScript中监听它们。&lt;/p&gt;
+&lt;p&gt;Let's get started.&lt;/p&gt;
+&lt;h2&gt;Meet the Animation Events&lt;/h2&gt;
+&lt;p&gt;当一个animation运行时，三个被触发的相关动画事件为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;animationstart&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;animationend&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;animationiteration&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据这些事件的名称可知它们分别表示的含义！&lt;code&gt;animationstart&lt;/code&gt;事件在一个animation起始时触发，&lt;code&gt;animationend&lt;/code&gt;事件在animation终止时触发，&lt;code&gt;animationiterration&lt;/code&gt;事件在除一第一次迭代外的每一次迭代开始触发。&lt;/p&gt;
+&lt;p&gt;看下示意图，下图表示一个迭代为3次的简单animation：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131218-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;值得注意的一件事，不是说所有这三个事件都会被触发。唯一一个总是被触发的事件是&lt;code&gt;animationstart&lt;/code&gt;。&lt;code&gt;animationiteration&lt;/code&gt;事件会在&lt;strong&gt;第二次迭代&lt;/strong&gt;开始时被触发-animation设置的迭代至少大于一次。如果animation只运行一次，&lt;code&gt;animationiteration&lt;/code&gt;事件将永不被触发。&lt;code&gt;animationend&lt;/code&gt;事件在动画结束时的某个点触发（仅一次）。如果动画迭代次数无限次，这就没有结束...如果没有结束，&lt;code&gt;animationend&lt;/code&gt;事件将不会被触发。&lt;/p&gt;
+&lt;h2&gt;What the Code Looks Like&lt;/h2&gt;
+&lt;p&gt;现在你将学习关于这些事件初始内容，让我们看看在JavaScript中的这些事件：&lt;/p&gt;
+&lt;p&gt;看下代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;element&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;#blah&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;animationstart&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;animationiteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;animationend&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;所有三个事件都被监听，你看到二部分代码。第一部分是给这些事件添加监听：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;element&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#blah&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animationstart&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animationiteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animationend&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;第二部分是定义这些事件被触发时，需执行的处理器：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;看到了吧，如此简单！现在代码中丢失一个重要的东西，它就是能确保事件被所有浏览器运行的浏览器厂商前缀：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;element&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;querySelector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;#blah&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;animationstart&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mozAnimationIteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;webkitAnimationIteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;msAnimationIteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;animationiteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mozAnimationIteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;webkitAnimationIteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;msAnimationIteration&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;animationend&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;mozAnimationEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;webkitAnimationEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;msAnimationEnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;end&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;说一下我的代码中保留厂商前缀的部分。有幸的是，最新版本的主流浏览器不用使用前缀都能支持animations，这只针对比较旧的版本。幸运的是，在不久的将来厂商前缀都可被忽略的。&lt;/p&gt;
+&lt;h2&gt;The Event Object&lt;/h2&gt;
+&lt;p&gt;Animation事件将一些额外的数据当作它们的参数。这些事件参数在事件处理器里被捕获，正是你看到的&lt;code&gt;e&lt;/code&gt;变量，例如，在&lt;code&gt;start&lt;/code&gt;中：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// react to the animationstart event&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在这个事件参数里可找到两个有趣的属性：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;animationName&lt;/li&gt;
+&lt;li&gt;elapsedTime&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;animationName&lt;/code&gt;属性，正像你猜到的，返回这个特殊事件被触发的animation名称。&lt;code&gt;elapsedTime&lt;/code&gt;属性是animation动画实际开始运行到该函数（事件处理器）被触发时所经过的时间（秒）。当然，对于&lt;code&gt;animationstart&lt;/code&gt;事件，它的值是0，因为动画才刚刚开始。&lt;/p&gt;
+&lt;h2&gt;The Usefulness of These Events&lt;/h2&gt;
+&lt;p&gt;关于这一点，你已经知道所有的animation事件和怎样使用它们，找出一些在实际中使用它们的理由！这听有点困难。你在什么情况下想在start，iteration和end状态时做出反应呢？示例之外解释了这些事件的工作原理或想对动画做一些人为的控制，我找不到更好的理由，在实际中使用它们。如果你有一些好的使用场景，随意的贴到论坛中让我知道。&lt;/p&gt;
+&lt;p&gt;我唯一使用的animation触发事件是在关键帧处触发的事件。使用这个事件，可以在页面中同步不同部分，并作为新的animation关键帧。可以展示动画的进度。可以在有趣的关键帧暂停。这将有一些比较酷或特别的事件去做。唉，此类事件并不怎么存在。你会发现第三种使用它的理由来添充这里的空白，但当我尝试使用它们时，会太复杂和有太多的怪癖。&lt;/p&gt;
+&lt;p&gt;总之，三个事件不怎么实用。其中任意一个也不怎么有用。像《黑道家族》中的人物沮丧地说，当面对一些它们不会做任何事情，“你要做吗！”&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Wed, 18 Dec 2013 11:30:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-18:posts/2013/the-css-animation-eventsyi/</guid><category>animation</category></item><item><title>Animating Movement Smoothly Using CSS（译）</title><link>http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/animating_movement_smoothly_using_css.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;使动画有趣的很大一部分就是让物体在屏幕上四处游走。适当的使用它们，为你的内容添加更多色彩，突显一些UI元素、提供一些动画交互等等。这是相当酷滴。&lt;/p&gt;
 &lt;p&gt;看下面这个比较疯狂的动画：&lt;/p&gt;
-&lt;iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/aniamtion/random_moving_blue_circles.html" style="width: 623px; height: 375px;" marginheight="0" marginwidth="0"&gt;Your browser does not support inline frames or is currently configured not to display inline frames.
+&lt;iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/animation/random_moving_blue_circles.html" style="width: 623px; height: 375px;" marginheight="0" marginwidth="0"&gt;Your browser does not support inline frames or is currently configured not to display inline frames.
 &lt;/iframe&gt;
 
 &lt;p&gt;也可看一下更加微妙的动画，比如下面例子，当鼠标移到方框上时发生的变化：&lt;/p&gt;
@@ -103,7 +569,7 @@ The snippet of code you will need looks approximately as follows:&lt;/p&gt;
 &lt;h2&gt;God Bless Transforms&lt;/h2&gt;
 &lt;p&gt;总之transforms有很高的性能，因为它不会影响到其它元素（no re-layout，没有重新布局）。任何操纵都适合该属性，浏览器不会重绘整个窗口。它只重绘屏幕上的一部分---移动的内容。这是独立的部分不管GPU有没有参与进来。使用transform的&lt;code&gt;translate3d&lt;/code&gt; ，部分重绘仍旧有效，因为它仍就是transform属性。使用这个特殊的transform，你也得益于GPU处理的性能。&lt;/p&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 12 Dec 2013 15:12:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-12:posts/2013/animating-movement-smoothly-using-cssyi/</guid><category>animation</category></item><item><title>Easing Functions in CSS3（译）</title><link>http://stormhouse.github.io/posts/2013/easing-functions-in-css3yi/</link><description>&lt;p&gt;thanks [kirupa][24] &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 12 Dec 2013 15:12:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-12:posts/2013/animating-movement-smoothly-using-cssyi/</guid><category>animation</category></item><item><title>Easing Functions in CSS3（译）</title><link>http://stormhouse.github.io/posts/2013/easing-functions-in-css3yi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/easing_functions_css3.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;当你创建一个animation或transition的动画，动画运行过程中属性发生的变化与在终止状态时发生的变化同等重要。比如，属性值随时间线性变化：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131208-1.png" title="" /&gt;&lt;/p&gt;
@@ -319,7 +785,7 @@ The snippet of code you will need looks approximately as follows:&lt;/p&gt;
 &lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sun, 08 Dec 2013 16:27:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-08:posts/2013/easing-functions-in-css3yi/</guid><category>animation</category></item><item><title>CSS3: Animations vs. Transitions（译）</title><link>http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;在CSS中，视觉变化上这里有两种技术竞相你的注意： Animations &amp;amp;Transitions. 在本文中，让我们来了解它们之间的异同点，这样你就能知道在什么时候使用哪一个。&lt;/p&gt;
-&lt;p&gt;本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， &lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/"&gt;Creating a Simple CSS Animation&lt;/a&gt; 和&lt;a href="http://stormhouse.github.io/posts/2014/all-about-css-transitionsyi/"&gt;Looking at CSS3 Transitions&lt;/a&gt;  这两篇教程帮助你开始。&lt;/p&gt;
+&lt;p&gt;本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， &lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/"&gt;Creating a Simple CSS Animation&lt;/a&gt; 和&lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/"&gt;Looking at CSS3 Transitions&lt;/a&gt;  这两篇教程帮助你开始。&lt;/p&gt;
 &lt;h2&gt;Similarities&lt;/h2&gt;
 &lt;p&gt;宏观上，animations和transitions极其相似。它们都可以实现：&lt;/p&gt;
 &lt;ul&gt;
@@ -453,7 +919,7 @@ For example, let's say you have something like the following:==例如，假设�
 &lt;/ul&gt;
 &lt;p&gt;Now, with enough effort and JavaScript tomfoolery, you can neutralize any deficiences I list in deciding whether to use a transition or an animation. My recommendations are based on the common cases where you take a transition or animation mostly at face value. Herculean efforts to change their default behavior is admirable but often unnecessary.&lt;/p&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 05 Dec 2013 20:58:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-05:posts/2013/css3-animations-vs-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Transitions（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 05 Dec 2013 20:58:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-05:posts/2013/css3-animations-vs-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Transitions（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_transitions.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;CSS中，当你改变一个属性的值，页面立即发生变化。示例，使元素CSS &lt;code&gt;hover&lt;/code&gt;状态时，改变&lt;code&gt;transform&lt;/code&gt;属性&lt;strong&gt;tranlate3d&lt;/strong&gt;函数一个不同的参数值。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#box img {&lt;/span&gt;
@@ -711,18 +1177,18 @@ body {
 
 &lt;p&gt;你定义了三个分隔开的transitions，每个trasition都是0.5秒的时延和使用ease-out缓动函数。这应该很简单吧。&lt;/p&gt;
 &lt;h2&gt;The transitionEnd Event&lt;/h2&gt;
-&lt;p&gt;最后一件事（确实是最后了）我们将提到&lt;code&gt;transitionEnd&lt;/code&gt;事件。当一个transition 运行完成后，这些元素将会触发&lt;code&gt;transitionEnd&lt;/code&gt;事件。在这个事件里可以执行很多酷的事件，但是我不想在这里解释它。反而，在 &lt;a href="http://www.kirupa.com/html5/the_transitionend_event.htm"&gt;transitionEnd Event&lt;/a&gt; （未译） 的教程中会涉及更多的酷的内容细节。&lt;/p&gt;
+&lt;p&gt;最后一件事（确实是最后了）我们将提到&lt;code&gt;transitionEnd&lt;/code&gt;事件。当一个transition 运行完成后，这些元素将会触发&lt;code&gt;transitionEnd&lt;/code&gt;事件。在这个事件里可以执行很多酷的事件，但是我不想在这里解释它。反而，在 &lt;a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/"&gt;transitionEnd Event&lt;/a&gt; （未译） 的教程中会涉及更多的酷的内容细节。&lt;/p&gt;
 &lt;p&gt;是不是所有的这些都有趣？一个是让我们如此简单的使用transitions。为我使用它们你不用改变你现有的行为。大部分时间，你将在动画运行或用户交互时使用代码来控制这些CSS属性。transition简单的在普通的改变中插入让你的动画属性发生改变。难怪外星人感到惊讶。&lt;/p&gt;
 &lt;p&gt;不管怎样，这里你仅是看到了关于transitions的浅显的内容。下的一些文章还你挖掘更深的层次：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/"&gt;CSS3: Animations vs. Transitions&lt;/a&gt; （译）&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/the_transitionend_event.htm"&gt;The transitionEnd Event&lt;/a&gt; （未译）&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/looping_a_css_transition.htm"&gt;Looping a CSS Transition&lt;/a&gt; （未译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/"&gt;The transitionEnd Event&lt;/a&gt; （未译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/"&gt;Looping a CSS Transition&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/"&gt;Animating Movement Smoothly using CSS&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.kirupa.com/html5/animating_many_elements_using_transitions.htm"&gt;Animating Many Elements Using Transitions&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 02 Dec 2013 11:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-02:posts/2013/all-about-css-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 02 Dec 2013 11:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-02:posts/2013/all-about-css-transitionsyi/</guid><category>animation</category></item><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;在HTML中动画实现的三种的方式之一是众所周知&lt;strong&gt;CSS animations&lt;/strong&gt;。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。&lt;/p&gt;
 &lt;p&gt;首先让我们看一个例子，让下面的云彩缓慢的上下飘动：&lt;/p&gt;
@@ -772,7 +1238,7 @@ body {
 
 
 &lt;p&gt;如果预览上面代码，和刚才那个例子对比，这是一个不令人兴奋的版本。你所看到的是单一的、静止不动的云朵：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-1.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;让我们来继续添加&lt;code&gt;animation&lt;/code&gt;属性来改变这无趣的状态吧。添加CSS animation只有两步，第一步设置&lt;code&gt;animation&lt;/code&gt;属性，第二步精确的定义动画的关键帧。&lt;/p&gt;
 &lt;p&gt;在&lt;code&gt;#bigcloud&lt;/code&gt;上添加以下高亮行的属性：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#bigcloud {&lt;/span&gt;
@@ -936,7 +1402,7 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的&lt
 &lt;p&gt;在此章节中，我不太愿意使用&lt;code&gt;from&lt;/code&gt;/&lt;code&gt;to&lt;/code&gt;关键字。使用该关键字，就被固定死了，对以后的扩展更不通用。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;animation&lt;/code&gt;上的属性持续时间是描述整个动画的时间，除非你设置动画运行的总时间， 该值用来标识随时间进行的精确百分比（关键帧）。那么，动画就正常结束。&lt;/p&gt;
 &lt;p&gt;下图的百分比是映射2秒动画时间单位上的具体时间值：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-2.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;这部分对我来说是复杂。一旦你理解&lt;code&gt;duration&lt;/code&gt;是怎样映射的划分的关键帧，你将在理解动画这块儿跨越的一个重要障碍。&lt;/p&gt;
 &lt;p&gt;无论如何，我想我们已经看到一个简单动画原理的足够细节。你学会了怎样使用&lt;code&gt;animation&lt;/code&gt;声明一个动画，和添加&lt;code&gt;@keyframes&lt;/code&gt;规则。 我们也花了一些时间来了解它们组合 一起的产生效果。&lt;/p&gt;
 &lt;p&gt;不过，还没有做完。还有涉及更多更详细，休息一下，然后看看这个&lt;a href="http://theoatmeal.com/quiz/facebook_addict"&gt;How Addicted To Facebook You Are quiz&lt;/a&gt;。在看到你的结果后轻轻地抽泣了几分钟，你会在一个的完美状态，以了解更多关于CSS animation！&lt;/p&gt;
@@ -957,7 +1423,7 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的&lt
 &lt;p&gt;Onwards!&lt;/p&gt;
 &lt;h4&gt;Pausing and Resuming an Animation&lt;/h4&gt;
 &lt;p&gt;默认，你的动画开始第一次时，&lt;code&gt;animation&lt;/code&gt;属性就被激活。在我们简单的例子中，意味着页面被加载时激活。首先，我们简单想象它被设置成2秒无限循环的动画：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-3.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-3.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;每个黄色矩形表示动画的一次迭代。如果你把动画并排的每次迭代中，你就会得到看起来像我上面所示的那样。&lt;/p&gt;
 &lt;p&gt;一旦动画开始，在它结束之前永远不会停止。如果你的动画设置为循环，终止状态完成后，它会从起止状态继续执行。它是每次迭代表示为一个单独黄色矩形的循环。我们目前bobble动画是就是这样的。&lt;/p&gt;
 &lt;p&gt;有时候，你可能 不想要上面那种行为。如果你希望你的动画暂停，不让动画初始状态属性被激活，你可以用动画&lt;code&gt;animation-play-state&lt;/code&gt;属性。这个属性允许你在播放运行时的&lt;strong&gt;暂停&lt;/strong&gt;或&lt;strong&gt;播放&lt;/strong&gt;的切换。&lt;/p&gt;
@@ -967,9 +1433,9 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的&lt
 
 
 &lt;p&gt;当动画暂停时，它保留动画运行最后时刻的计算值：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-4.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-4.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;它停在那儿几乎不动，你可以通过设置它的&lt;code&gt;animation-play-state&lt;/code&gt;属性值为&lt;strong&gt;running&lt;/strong&gt;.来恢复运行。在恢复运行之前，它不会突然从起止状态重新运行：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-5.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-5.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;就像你预期的一样，动画从当前状态平滑的运行，就像媒体播放器的播放和暂停功能一样。&lt;/p&gt;
 &lt;h4&gt;Delaying and Offsetting the Animation&lt;/h4&gt;
 &lt;p&gt;如果你希望你的动画不是立即播放，而是经过一段时间后播放，你应当使用&lt;code&gt;animation-delay&lt;/code&gt;属性。此属性允许你经过指定的时间秒数后，动画才开始运行：&lt;/p&gt;
@@ -978,7 +1444,7 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的&lt
 
 
 &lt;p&gt;延迟不是等5秒之后0%关键帧被触发。它是第一次迭代的0%关键帧被触发：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-6.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-6.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;一旦你的动画开始运行时，延迟值就没有用武之地了。以后每一次迭代的动画（如果有的话）一个接一个无间隔的运行。&lt;/p&gt;
 &lt;p&gt;现在你可以给这个属性赋其他的值，你可以给&lt;code&gt;animation-delay&lt;/code&gt;设置负值。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;animation&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;.25&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -986,17 +1452,17 @@ Let's look at our @keyframes rule to learn more:==让我们来看看我们的&lt
 
 
 &lt;p&gt;当你设置了一个负值，你的动画会在超前执行你设置的那个值。设置&lt;code&gt;animation-delay&lt;/code&gt;-.25秒就是这样：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-7.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-7.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;负值作为一个标识，告诉浏览器这是一个偏移而不是延时。是的，这有点奇怪，因为它给的属性名是&lt;code&gt;animation-delay&lt;/code&gt;，我只是个传教者。还有更奇怪的呢，一旦你设置这个负值大于每一次动画迭代的时延，这是没问题的。只要保证有足够的迭代数，无论落在哪次迭代点动画就开始。如果你没有足够的迭代数来抵消那个负值，你的动画根本无法运行。&lt;/p&gt;
 &lt;h4&gt;Hold My Keyframe Properties, Please!&lt;/h4&gt;
 &lt;p&gt;如果你不设置动画循环，你会发现，一旦动画结束后，关键帧设置任何属性将被清除，元素返回到一个动画起止状态。这是因为&lt;strong&gt;关键帧应用于的属性是瞬时的&lt;/strong&gt;。当关键帧是激活状态时，它们才存在，在以外任何时间，这些属性值都不能存在。如果你不想要这种行为，当它运行完毕，你的动画看起来像突然跳到开始位置或突然复位，让我们来看看这两种情况的区别，然后看看如何更改默认行为。&lt;/p&gt;
 &lt;h6&gt;Waiting to Start&lt;/h6&gt;
 &lt;p&gt;第一个用例是当你设置了&lt;code&gt;animation-delay&lt;/code&gt;属性。例如，设置了5s：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-8.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-8.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;动画需等待5秒才开始执行，此时关键帧没有被执行。在等待时间中，第一个关键帧的所有属性都不会生效。&lt;/p&gt;
 &lt;h6&gt;Animation is Done&lt;/h6&gt;
 &lt;p&gt;第二个例子，当你的动画完成后。该例子是你设置循环3次的那个示例：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-9.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-9.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;3次迭代完成后，最后关键帧的所有属性都会消失。动画回到原始状态就像什么也没有发生过一样。&lt;/p&gt;
 &lt;h6&gt;Meet animation-fill-mode&lt;/h6&gt;
 &lt;p&gt;如果你想在等待延时过程中，想让第一侦生效，或当动画完成后，保留最后一侦，你可以设置&lt;code&gt;animation-fill-mode&lt;/code&gt;属性。属性值如下：&lt;/p&gt;
@@ -1030,9 +1496,9 @@ This is the ultimate solution. Your animation will apply the property values of 
 &lt;h4&gt;Reversing an Animation (or Alternating Directions)&lt;/h4&gt;
 &lt;p&gt;现在，让我们看一下这个略微奇幻的属性，动画默认从0%到100%循序播放。你可以通过给&lt;code&gt;animation-direction&lt;/code&gt;&lt;strong&gt;设置normal&lt;/strong&gt;, &lt;strong&gt;reverse&lt;/strong&gt;, &lt;strong&gt;alternate&lt;/strong&gt;,  &lt;strong&gt;alternate-reverse&lt;/strong&gt;来 改变这个行为，  &lt;strong&gt;normal&lt;/strong&gt; 和 &lt;strong&gt;reverse能够直接指出他们做什么&lt;/strong&gt;，让我们来看一些比较有意思的属性值：&lt;strong&gt;alternate&lt;/strong&gt; 和 &lt;strong&gt;alternate-reverse&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;当设置&lt;code&gt;animation-direction&lt;/code&gt; 属性值为&lt;strong&gt;alternate-reverse&lt;/strong&gt;，动画正常开始。在第二次迭代时，它反向运行，以后会正向，反向交替着运行：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-10.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-10.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;设置&lt;code&gt;animation-direction&lt;/code&gt;属性值为 &lt;strong&gt;alternate&lt;/strong&gt; 与上面十分相似，但有点细微的不同：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-11.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-11.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;动画开始于反向运行，然后正向，反向交替 运行。&lt;/p&gt;
 &lt;h4&gt;At Easing, Soldier!&lt;/h4&gt;
 &lt;p&gt;涉及到的最后一个有关联的动画属性是&lt;code&gt;animation-timing-function&lt;/code&gt;. 它的功能是在开始和结束之间指定如何改变属性值。在 [Easing Functions in CSS3][]（未译） 的教程中有更多缓动函数的细节， 所以去那边详细学习吧。&lt;/p&gt;
@@ -1190,7 +1656,7 @@ This is the ultimate solution. Your animation will apply the property values of 
 
 
 &lt;p&gt;两个云朵中定义的bobble关键帧有什么意思呢。唯一不同是一个动画在2秒中执行完那些关键帧，另一个是4秒：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140101-12.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131201-12.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;将&lt;code&gt;animation&lt;/code&gt;和&lt;code&gt;keyframes&lt;/code&gt;声明分离开来，可以做这上面的事。&lt;code&gt;animation&lt;/code&gt;中的任何属性的改变都会影响到关键帧这一水平--就像这儿你看到的时延。刚才我解释的每个&lt;code&gt;animation&lt;/code&gt;属性的设置，不用直接涉及关键帧部分，就会改变关键帧的行为。&lt;/p&gt;
 &lt;p&gt;You have to admit, that is pretty cool.&lt;/p&gt;
 &lt;h3&gt;Declaring Multiple Animations&lt;/h3&gt;
@@ -1290,10 +1756,10 @@ This is the ultimate solution. Your animation will apply the property values of 
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/"&gt;CSS3: Animations vs. Transitions&lt;/a&gt; （译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/easing-functions-in-css3yi/"&gt;Easing Functions in CSS3&lt;/a&gt; （译）&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/"&gt;Animating Movement Smoothly Using CSS&lt;/a&gt; （译）&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/css_animation_events.htm"&gt;The CSS Animation Events&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/the_transitionend_event.htm"&gt;The transitionEnd Event&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/get_the_value_of_css_properties_as_they_are_animating.htm"&gt;Get the Value of CSS Properties As They Are Animating&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/looping_a_css_transition.htm"&gt;Looping a CSS Transition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/"&gt;The CSS Animation Events&lt;/a&gt;（译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/"&gt;The transitionEnd Event&lt;/a&gt;（译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/get-the-value-of-animating-css-propertiesyi/"&gt;Get the Value of CSS Properties As They Are Animating&lt;/a&gt;（译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/"&gt;Looping a CSS Transition&lt;/a&gt;（译）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Examples Using CSS Animations and Transition&lt;/h3&gt;
 &lt;ul&gt;
