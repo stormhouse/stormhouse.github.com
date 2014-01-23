@@ -84,3 +84,13 @@ img.align-center {
     margin: 15px auto;
     display: block;
 }
+
+.callout {
+    border-style: solid;
+    border-width: 0px 0px 0px 5px;
+    border-color: #999;
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #000000;
+    margin: 0;
+    padding-left: 10px;
+}

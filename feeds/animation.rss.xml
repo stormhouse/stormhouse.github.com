@@ -1,5 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/animation.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 30 Dec 2013 20:49:00 +0800</lastBuildDate><item><title>Looping a CSS Transition（译）</title><link>http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/looping_a_css_transition.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/animation.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 05 Jan 2014 21:30:00 +0800</lastBuildDate><item><title>Slide Image on Hover using CSS3（译）</title><link>http://stormhouse.github.io/posts/2014/slide-image-on-hover-using-css3yi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/the_transitionend_event.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;我经常提到的非常酷的一个例子就是当你鼠标移到图片上发生滑动的动画。如果你不清楚我在说什么，鼠标移到下面例子中的方框上：&lt;/p&gt;
+&lt;iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="/demo/animation/sliding_image_temp.html" style="width: 373px; height: 373px; border: 1px solid rgb(204, 204, 204); float: center;" marginheight="0" marginwidth="0"&gt;Your browser does not support inline frames or is currently configured not to display inline frames.&lt;/iframe&gt;
+
+&lt;p&gt;每个方框由一个高的图片组成。当你鼠标移到每个图片上，图片会向下滑动展现出它的另一部分。当鼠标移开时，返回原来的状态。所做的全部这些均是由CSS3的transitions来实现的。&lt;/p&gt;
+&lt;p&gt;在本教程中，我将告诉你怎样实现这种效果并理解它的工作原理。&lt;/p&gt;
+&lt;h2&gt;How This Effect Works&lt;/h2&gt;
+&lt;p&gt;在深入实现其细节之前，让我们先看一下用简单语言描述它的原理。一会儿你将看，一切是如此简单。&lt;/p&gt;
+&lt;p&gt;首先，你得有这样一个图片：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140105-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;这个图片默认展示了两个部分。我们要做的是在最初的时候，只显示图像的上半部分认。鼠标移上去后，显示下半部分。&lt;/p&gt;
+&lt;p&gt;我们实现这个目的的方法是，用一个是该图片高度一半的容器包裹它：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140105-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;注意，容器可以将图片划分为两个不同的部分。在HTML里，将一个图片放到一个小于它的容器里，实际你是看不到图片全部的。确保容器内的部分图像清晰可见，你要修剪需要的内容:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140105-3.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;当你修剪这个图片，另一半的图片仍在那儿。因为它在父容器的边界之外，只是隐藏的部分。&lt;/p&gt;
+&lt;p&gt;在这里，我们要做的就是添加一个transition，在当你鼠标移上去后可使图片发生移位：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140105-4.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;我知道我画的这些看起来像一个宽的刷子，但是很容易理解transitions的工作方式。这相当简单只是指定哪些属性发生变化和要发生transition的属性。&lt;/p&gt;
+&lt;p&gt;最后一件事是确定当鼠标移开时，图片返回到它开始的状态。&lt;/p&gt;
+&lt;h2&gt;Creating this Effect&lt;/h2&gt;
+&lt;p&gt;好吧，现在你已经对怎样创建这个特效有了个大致的了解，让我们开始从零创建它吧。只要你创建一个&lt;a href="http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm"&gt;a new HTML5 flavored HTML page&lt;/a&gt;保证开始实现它。&lt;/p&gt;
+&lt;h4&gt;Adding the Image&lt;/h4&gt;
+&lt;p&gt;最明显的一步，首先添加图片：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/140105-5.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;继续保存上面的图片到你的HTML文件同一目录中。如果你想，也可以放到HTML文件目录下的images目录下，但一定要在HTML文件代码里指定好该目录，I am romantic like that.&lt;/p&gt;
+&lt;p&gt;一旦你添加了图片，html标记看起来如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;smiley.png&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;height&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;300&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;150&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这极其简单。注意一点就是图片的height是300像素，width是150像素。现在预览一下文档，你会看到该图片。&lt;/p&gt;
+&lt;h4&gt;Wrapping Your Image in a Container&lt;/h4&gt;
+&lt;p&gt;接下来的步就是开始剪裁图像片的一半。第一步，要添加一个包裹它的容器。这个父容器仅是使用一个经典的div元素：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;pictureContainer&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;images/smiley.png&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;height=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;300&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;width=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;150&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;注意div元素 包裹着img元素，这个div有一个class属性值pictrueContainer。记住这个值，一会就该麻烦这它了。&lt;/p&gt;
+&lt;h4&gt;Clipping the Image&lt;/h4&gt;
+&lt;p&gt;剪裁任何类型的内容需要两个条件。第一点，要剪裁内容的外容器需要指定一个固定的大小。第二点，你要设置外容器的overflow属性告知浏览器父容器需要修剪。&lt;/p&gt;
+&lt;p&gt;父容器div，已经有一个class的值prictrueContainer。让我们给它添加一些样式吧：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pictureContainer&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;height:&lt;/span&gt; &lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;width:&lt;/span&gt; &lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;overflow:&lt;/span&gt; &lt;span class="n"&gt;hidden&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;将上面的样式添加到代码中去。注意，只是早先提到尺寸的像素，父容器的150*150像素大小。&lt;code&gt;overflow&lt;/code&gt;属性设值为&lt;code&gt;hidden&lt;/code&gt;隐藏所有超出该容器150像素大小的内容。&lt;/p&gt;
+&lt;p&gt;现在预览一下页面，你将看到展示图片的一半。耶，继续！&lt;/p&gt;
+&lt;h4&gt;Creating the Transition&lt;/h4&gt;
+&lt;p&gt;最后一步就是定义transition确保当鼠标移上后图片发生滑动效果。让我们先忽略transition的定义，先看看图片的开始和结束位置。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pictureContainer&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;position:&lt;/span&gt; &lt;span class="n"&gt;relative&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;top:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pictureContainer&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;hover&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;top:&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;注意，上面我通过hover&lt;a href="http://www.kirupa.com/html5/styling_links_in_css.htm"&gt;伪类&lt;/a&gt;创建的样式规则目的就是当鼠标移上图片上的效果。&lt;code&gt;top&lt;/code&gt;属性值开始为&lt;code&gt;0px&lt;/code&gt;，鼠标移上后变为&lt;code&gt;150px&lt;/code&gt;。为了使&lt;code&gt;top&lt;/code&gt;属性生效，我需要为元素设置&lt;code&gt;position&lt;/code&gt;属性值为&lt;code&gt;relative&lt;/code&gt;。通过设置position值为relative，默认的HTML元素布局将被我指定的精确定义布局所覆盖。&lt;/p&gt;
+&lt;p&gt;如果现在预览一下页面，当鼠标移上图片会看到图片突然从一半转变为另一半。这正是我们想要的...哦，还不是！&lt;/p&gt;
+&lt;p&gt;我们想要是让图片平稳而有动画的滑动。那将需要&lt;a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/"&gt;指定transition&lt;/a&gt; - 仅一行代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pictureContainer&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;position:&lt;/span&gt; &lt;span class="n"&gt;relative&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nl"&gt;top:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="nl"&gt;transition:&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="mf"&gt;.2&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;ease&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="cm"&gt;/* one line*/&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pictureContainer&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;hover&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nl"&gt;top:&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="n"&gt;px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;我定义的这一行代码规定了&lt;code&gt;top&lt;/code&gt;属性，当该属性值发生变化时产生动画。除了监听该属性，还指定了动画的时延为.2秒以及使用&lt;code&gt;ease-in-out&lt;/code&gt;缓动函数。&lt;/p&gt;
+&lt;h6&gt;Where Them Vendor Prefixes At (feat. Nicki Minaj and FloRida)&lt;/h6&gt;
+&lt;p&gt;注意，当我声明transition时并没有指定各种浏览器的厂商前缀。反而，我计划使用&lt;a href="http://www.kirupa.com/html5/avoid_using_vendor_prefixes.htm"&gt;-prefix-free library&lt;/a&gt;库来为我处理那些。如果你不使用三方库处理它，那就随你只是添加&lt;code&gt;-ms&lt;/code&gt;，&lt;code&gt;-o&lt;/code&gt;，&lt;code&gt;-moz&lt;/code&gt;和&lt;code&gt;-webkit&lt;/code&gt;它们的副本吧。&lt;/p&gt;
+&lt;p&gt;如果你现在再预览一下页面，鼠标移上图片。如果使用的是比较流行的支持CSS3 transitions浏览器，你将看到比较漂亮的动画，图片从一半滑动到另一半。如果你看不到动画，对比我最后的代码版本仔细检查你的代码。&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;这不是很简单吗？其实不是。虽然你添加的CSS标记相当少，但为了如何修剪元素内容你需深入理解CSS，为设置垂直布局需设置你自己的布局，最终设置transition。在这些话题到来之前，我提供了相关教程的链接，去随时阅读其中更多的细节。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sun, 05 Jan 2014 21:30:00 +0800</pubDate><guid>tag:stormhouse.github.io,2014-01-05:posts/2014/slide-image-on-hover-using-css3yi/</guid><category>animation</category></item><item><title>Looping a CSS Transition（译）</title><link>http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/looping_a_css_transition.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;Transition的故事历经考验和磨难。从被无耻浏览器厂商所忽略而必须添加厂商前缀到目前被普遍接受，该旅程肯定是崎岖不平。尽管&lt;code&gt;transition&lt;/code&gt;属性在过去几年有了很大进步，但与它更帅更靓的前辈&lt;code&gt;animation&lt;/code&gt;相比，在实现某些东西方面并不容易。&lt;/p&gt;
 &lt;p&gt;我在&lt;a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/"&gt;CSS3: Animations vs. Transitions&lt;/a&gt;教程中完全描述transitions和animations的差异，在这里我将重申一个transition的重要局限。这个限制就是transitions没有一个属性指定让它循环。是的！在今天这个时代，transition&lt;strong&gt;被设计成&lt;/strong&gt;只执行一次。的确是个笑话。&lt;/p&gt;
@@ -1763,17 +1852,17 @@ This is the ultimate solution. Your animation will apply the property values of 
 &lt;/ul&gt;
 &lt;h3&gt;Examples Using CSS Animations and Transition&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;Slide Image on Hover using CSS3&lt;/li&gt;
-&lt;li&gt;Sliding Background Effect on Link Hover&lt;/li&gt;
-&lt;li&gt;Animating Many Elements Using a Transition&lt;/li&gt;
-&lt;li&gt;Creating a Sweet Content Slider&lt;/li&gt;
-&lt;li&gt;Move Element to Click Position&lt;/li&gt;
-&lt;li&gt;Simple Text Fade and Scale Animation&lt;/li&gt;
-&lt;li&gt;Getting Jittery on Hover&lt;/li&gt;
-&lt;li&gt;The &lt;blink&gt; Tag Shall Live On&lt;/li&gt;
-&lt;li&gt;Rounded Image Links with a Sweet Hover Effect&lt;/li&gt;
-&lt;li&gt;Slide and Bounce an Image on Hover&lt;/li&gt;
-&lt;li&gt;Creating the iOS Icon Jiggle / Wobble Effect&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2014/slide-image-on-hover-using-css3yi/"&gt;Slide Image on Hover using CSS3&lt;/a&gt;（译）&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/sliding_background_effect_on_link_hover.htm"&gt;Sliding Background Effect on Link Hover&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/animating_many_elements_using_transitions.htm"&gt;Animating Many Elements Using a Transition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/creating_a_sweet_content_slider.htm"&gt;Creating a Sweet Content Slider&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/snippets/move_element_to_click_position.htm"&gt;Move Element to Click Position&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/simple_text_fade_and_scale_animation.htm"&gt;Simple Text Fade and Scale Animation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/snippets/getting_jittery_on_hover_using_only_css.htm"&gt;Getting Jittery on Hover&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/the_blink_tag_shall_live_on.htm"&gt;The &lt;blink&gt; Tag Shall Live On&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/rounded_image_links_with_a_sweet_hover_effect.htm"&gt;Rounded Image Links with a Sweet Hover Effect&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/snippets/slide_bounce_image_on_hover.htm"&gt;Slide and Bounce an Image on Hover&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.kirupa.com/html5/creating_the_ios_icon_jiggle_wobble_effect_in_css.htm"&gt;Creating the iOS Icon Jiggle / Wobble Effect&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;Animating in Code&lt;/h3&gt;
 &lt;ul&gt;
