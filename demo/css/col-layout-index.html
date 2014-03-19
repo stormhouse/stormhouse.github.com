@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>列布局</title>
+  <link type="text/css" rel="stylesheet" href="common.css"></link>
+  <style type="text/css">
+      .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+      .clearfix{*+height:1%;}
+
+      .container {
+          background: url("column.png") repeat-y;
+          width: 960px;
+          margin: 0 auto;
+      }
+      .left {
+          float: left;
+          width: 220px;
+      }
+      .content {
+          float: left;
+          width: 480px;
+      }
+      .right {
+          float:left;
+          width: 220px;
+      }
+
+
+
+      .container2 {
+          width: 960px;
+          margin: 0 auto;
+      }
+      .rightWrap {
+          width: 100%;
+          float: left;
+          background: green;
+          overflow: hidden;
+          position: relative;
+      }
+
+      .contentWrap {
+          float: left;
+          background: orange;
+          width: 100%;
+          position: relative;
+          right: 320px;/*此值等于rightSidebar的宽度*/
+      }
+
+      .leftWrap{
+          width: 100%;
+          background: lime;
+          float:left;
+          position: relative;
+          right: 420px;/*此值等于Content的宽度*/
+      }
+      #left2 {
+          float: left;
+          width: 220px;
+          overflow: hidden;
+          position: relative;
+          left: 740px;
+      }
+      #content2 {
+          float: left;
+          width: 420px;
+          overflow: hidden;
+          position:relative;
+          left: 740px;
+      }
+      #right2 {
+          float: left;
+          overflow: hidden;
+          width: 320px;
+          background: #333;
+          position: relative;
+          left: 740px;
+      }
+
+
+
+      #container3-3 {
+          float: left;
+          width: 960px;
+          background: green;/**/
+          overflow: hidden;
+          position: relative;
+      }
+
+      #container3-2 {
+          float: left;
+          width: 100%;
+          background: yellow;
+          position: relative;
+          right: 30%; /*大小等于col3的宽度*/
+      }
+
+      #container3-1 {
+          float: left;
+          width: 100%;
+          background: orange;
+          position: relative;
+          right: 40%;/*大小等于col2的宽度*/
+      }
+
+      #col1 {
+          float:left;
+          width:26%;/*增加了2%的padding，所以宽度减少4%*/
+          position: relative;
+          left: 72%;/*距左边呀增加2%就成72%*/
+          overflow: hidden;
+      }
+      #col2 {
+          float:left;
+          width:36%;/*增加了2%的padding，所以宽度减少4%*/
+          position: relative;
+          left: 76%;/*距左边有三个padding为2%,所以距离变成76%*/
+          overflow: hidden;
+      }
+      #col3 {
+          float:left;
+          width:26%;/*增加了2%的padding，所以宽度减少4%*/
+          position: relative;
+          left: 80%;/*距左边5个padding为2%，所以距离变成80%*/
+          overflow: hidden;
+      }
+
+
+  </style>
+</head>
+
+<body>
+<a href="http://www.w3cplus.com/css/creaet-equal-height-columns">src</a>
+<a href="http://www.cnblogs.com/jununx/p/3336553.html">【HTML+CSS布局】两栏布局，三栏布局，等高布局，流式布局</a>
+<br><br>
+<h4>背景图片</h4>
+<div class="container clearfix">
+    <div class="left">1<br>111</div>
+    <div class="content">2</div>
+    <div class="right">3</div>
+</div>
+
+
+<h4>给容器div使用单独的背景色（固定布局）</h4>
+<div class="container2">
+    <div class="rightWrap">
+        <div class="contentWrap">
+            <div class="leftWrap">
+                <div class="aside column leftSidebar" id="left2">1</div>
+                <div id="content2" class="column section">2</div>
+                <div class="aside rightSidebat column" id="right2">3<br>343<br></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<h4>给容器div使用单独的背景色（流体布局）</h4>
+<div style="width: 960px; left: 0; margin: 0 auto;">
+    <div id="container3-3">
+        <div id="container3-2">
+            <div id="container3-1">
+                <div id="col1">Column 1</div>
+                <div id="col2">Column 2</div>
+                <div id="col3">Column 3</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
