@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*最简单的模块
+ */
+(function(){
+
+})();
+/* 模块中的全局变量
+ JavaScript有一个特性叫做隐式全局变量，不管一个变量有没有用过，JavaScript解释器反向遍历作用域链来查找整个变量的var声明，如果没有找到var，解释器则假定该变量是全局变量，如果该变量用于了赋值操作的话，之前如果不存在的话，解释器则会自动创建它
+ */
+var m1 = (function(my){
+//    var my = my || {}
+    my.add = function(a, b){console.log(a+b)}
+    return my
+})(m1 || {});
+m1.add(1,2)
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

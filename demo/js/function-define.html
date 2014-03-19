@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cn-cuckoo.com/main/wp-content/uploads/2009/12/named-function-expressions-demystified.html">命名函数表达式探秘</a><br>
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script>
+    if($.browser.msie){
+        console.log = alert
+    }
+</script>
+<script id="code">
+/*区分
+ */
+//声明式
+function foo(){
+    console.log('foo...')
+}
+//表达式
+var bar = function(){
+    console.log('bar...')
+}
+//表达式
+new function fun(){
+    console.log('no name...')
+}
+//表达式
+//(function foo1(){}); // 表达式：包含在分组操作符内
+
+try{
+//    (var x = 5); //分组操作符只能包含表达式，不能包含语句（这里的var就是语句）
+}catch(ex){}    //SyntaxError（因为“var x = 5”是一个语句，而不是表达式——对表达式求值必须返回值，但对语句求值则未必返回值。——译者注）
+
+try{
+//    { "x": 5 }; //{和}会被作为块来解析
+}catch(ex){}    //SyntaxError（“'x':5”只是构建对象字面量的语法，但该语法不能出现在外部的语句块中。——译者注）
+({ "x": 5 }); // 分组操作符会导致解析器强制将{和}作为对象字面量来解析
+
+/*js没有块作用域
+条件语句中应该用表达式
+ */
+//反例
+//if(true){
+//    function fun(){return 'first'}
+//}else{
+//    function fun(){return 'second'}
+//}
+//正例
+var fun1;
+if(true){
+    fun1 = function(){return 'first'}
+}else{
+    fun1 = function(){return 'second'}
+}
+/*命名函数表达式
+ */
+var f = function fun2(){
+    console.log(typeof fun2)
+    return typeof fun2; //fun2是在内部作用域内有效
+};
+// foo在外部用于是不可见的
+console.log(typeof fun2)    //undefined
+f();
+
+/*命名函数表达式---清晰的调用栈
+*/
+function foo(){
+    return bar();
+}
+var bar = (function(){
+    if (window.addEventListener) {
+        return function bar(){
+            return baz();
+        };
+    }
+    else if (window.attachEvent) {
+        return function bar() {
+            return baz();
+        };
+    }
+})();
+function baz(){
+    debugger;
+}
+foo();
+
+/*JScript中的bug
+ */
+//1. 函数表达式的标识符渗透到外部（enclosing）作用域中
+var f = function g(){};
+console.log('JScript中bug：'+typeof g); // "function"
+//2. 将命名函数表达式同时当作函数声明和函数表达式
+console.log(typeof g); // "function"
+var f = function g(){};
+//3. 命名函数表达式会创建两个截然不同的函数对象！
+var f = function g(){};
+//console.log(f === g); // false
+f.expando = 'foo';
+//console.log(g.expando); // undefined
+//4. 仅仅顺序解析函数声明而忽略条件语句块
+var f = function g() {
+    return 1;
+};
+if (false) {
+    f = function g(){
+        return 2;
+    };
+}
+//console.log(g()); // 2
+(function(){
+    var f = function g(){
+        return [
+            arguments.callee == f,
+            arguments.callee == g
+        ];
+    };
+    console.log(f()); // [true, false]
+//    console.log(g()); // [false, true]
+})()
+/*JScript内存管理
+ */
+//命名函数表达式会导致产生多余的函数对象，而该对象与返回的函数对象不是一回事。
+// 所以这个多余的g函数就死在了返回函数的闭包中了，因此内存问题就出现了。
+// 这是因为if语句内部的函数与g是在同一个作用域中被声明的。这种情况下 ，除非我们显式断开对g函数的引用，否则它一直占着内存不放。
+(function(){
+    var f = (function(){
+        if (true) {
+            return function g(){};
+        }
+        return function g(){};
+    })();
+})();
+//解决:
+(function(){
+    var f = (function(){
+        var f, g;
+        if (true) {
+            f = function g(){};
+        }
+        else {
+            f = function g(){};
+        }
+        // 废掉g，这样它就不会再引用多余的函数了
+        g = null;
+        return f;
+    })();
+})()
+(function f(){})(); // <== NFE
+alert(1); // 由于前面的表达式破坏了整个程序，因此这一行永远不会执行
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

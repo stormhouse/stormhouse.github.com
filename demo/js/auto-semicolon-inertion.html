@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://typeof.net/s/jsmech/03.html">JavaScript 原理，其三</a><br>
+<a target="_blank" href="http://bonsaiden.github.io/JavaScript-Garden/zh/#core.semicolon">JavaScript 秘密花园---自动分号插入</a><br>
+<a target="_blank" href="http://www.zhihu.com/question/20298345">JavaScript 语句后应该加分号么？</a><br>
+<a target="_blank" href="http://www.blueidea.com/tech/web/2009/7261.asp">浅谈javascript的分号</a><br>
+<a target="_blank" href="http://justjavac.com/javascript/2013/04/22/automatic-semicolon-insertion-in-javascript.html"><strong>JavaScript 中的自动分号插入（ASI）</strong></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*ECMAScript中的解释
+ 在 ECMAScript 中对分号自动插入规则也有相应的解释：空语句，变量语句，表达式语句，do-while 语句，continue 语句，break 语句，return 语句，以及 throw 语句，这些确定的ECMAScript语句必须以分号结束。这些分号可以总是明确地出现在源代码文本中。为方便起见，在特定的情况下，源代码文本中的这些分号可以被省略。也就是说这些语句的结尾是不需要硬性的输入分号结尾，javascript会自动插入语句结束处。
+ */
+/*在不该插入分号的位置插入了分号
+ */
+function add(a, b){
+    return  //自动添加分号
+    (a+b)
+}
+//function add(a, b){
+//    return(
+//        a+b
+//    )
+//}
+console.log(add(2, 3))  //undefined
+
+/*在该插入分号的位置没有插入分号
+解决办法：只要在 [  (  +  - 之前加分号
+ */
+var a = 1   //没插入分号
+(function(){})()
+
+var b =2    //没插入分号
+[1,2,3].forEach(function(e){
+    console.log(e)
+})
+
+var c =3    //没插入分号
+++c
+
+var f = function(){}    //没插入分号
+[1,2,3].forEach(function(e){
+    console.log(e)
+})
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.zhangxinxu.com/wordpress/?p=1173">（不）扩展内置原型((Not) Augmenting Built-in Prototypes)</a><br>
+<a target="_blank" href="http://www.cnblogs.com/rubylouvre/archive/2011/12/24/2299860.html">奇技淫巧之Object.keys</a><br>
+<a target="_blank" href=""></a><br>
+<a target="_blank" href=""></a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*扩展原则
+ 1. 可以预期将来的ECMAScript版本或是JavaScript实现将一直将此功能当作内置方法来实现。例如，你可以添加ECMAScript 5中描述的方法，一直到各个浏览器都迎头赶上。这种情况下，你只是提前定义了有用的方法。
+ 2. 如果您检查您的自定义属性或方法已不存在——也许已经在代码的其他地方实现或已经是你支持的浏览器JavaScript引擎部分。
+ 3. 你清楚地文档记录并和团队交流了变化。
+ */
+
+/*Object.keys
+
+ */
+var obj = {
+    a:1,
+    b:2,
+    c:3
+}
+//一种实现
+function keys(obj){
+    var a = [], i = 0;
+    for(a[i++] in obj);
+    return a ;
+}
+console.log(keys(obj))
+//另一种实现
+function keys(obj){
+    var a = [];
+    for(a[a.length] in obj);
+    return a ;
+}
+console.log(keys(obj))
+
+//司徒正美的实现
+var DONT_ENUM =  "propertyIsEnumerable,isPrototypeOf,hasOwnProperty,toLocaleString,toString,valueOf,constructor".split(","), hasOwn = ({}).hasOwnProperty;
+for (var i in { toString: 1}){
+    DONT_ENUM = false;
+}
+Object.keys = Object.keys || function(obj){//ecma262v5 15.2.3.14
+    var result = [];
+    for(var key in obj ) if(hasOwn.call(obj,key)){
+        result.push(key)
+    }
+    if(DONT_ENUM && obj){
+        for(var i = 0 ;key = DONT_ENUM[i++]; ){
+            if(hasOwn.call(obj,key)){
+                result.push(key);
+            }
+        }
+    }
+    return result;
+};
+console.log(Object.keys(obj))
+
+
+
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

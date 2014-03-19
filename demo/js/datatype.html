@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2012/02/06/2330609.html">面向对象编程之ECMAScript实现（推荐）</a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*动态弱类型语言
+ 一个对象要属于一个实实在在的类型。
+ 标准规范里定义了9种数据类型，但只有6种是在ECMAScript程序里可以直接访问的,它们是：Undefined、Null、Boolean、String、Number、Object。
+ 另外3种类型只能在实现级别访问（ECMAScript对象是不能使用这些类型的）并用于规范来解释一些操作行为、保存中间值。这3种类型是：Reference、List和Completion。因此，Reference是用来解释delete、typeof、this这样的操作符，并且包含一个基对象和一个属性名称；List描述的是参数列表的行为（在new表达式和函数调用的时候）；Completion是用来解释行为break、continue、return和throw语句的。
+ */
+/*原始值类型
+ 6中用于ECMAScript程序的数据类型，前5种是原始值类型，包括Undefined、Null、Boolean、String、Number、Object。
+ 这些值是在底层上直接实现的，他们不是object，所以没有原型，没有构造函数。
+ 尽管262-3的标准是定义null的类型是Null，262-5已经将标准修改为null的类型是object了
+ */
+var a = undefined;
+var b = null;
+var c = true;
+var d = 'test';
+var e = 10;
+console.log(typeof(a));
+console.log(typeof(b)); //object
+console.log(typeof(c));
+console.log(typeof(d));
+console.log(typeof(e));
+
+console.log(null == undefined)  //true, undefined值派生自null值
+
+/*Object类型
+ 描述 ECMAScript对象的唯一一个数据类型
+ Object is an unordered collection of key-value pairs.
+ */
+var obj = {};
+
+/**动态性
+ 在程序执行的时候我们可以任意地添加，修改或删除对象的属性。
+ */
+obj.name = 'obj';
+console.log(obj.name);
+delete obj.name;
+
+/**Object.freeze(o)
+ */
+var objFrozen = {x: 10};
+
+// 冻结对象
+Object.freeze(objFrozen);
+console.log(Object.isFrozen(objFrozen)); // true
+
+// 不能修改
+objFrozen.x = 100;
+
+// 不能扩展
+objFrozen.y = 200;
+
+// 不能删除
+delete objFrozen.x;
+console.log(objFrozen); // {x: 10}
+
+/**Object.preventExtensions(o) & Object.defineProperty(o)
+ */
+var foo = {x : 10};
+
+Object.defineProperty(foo, "y", {
+    value: 20,
+    writable: false, // 只读
+    configurable: false // 不可配置
+});
+
+// 不能修改
+foo.y = 200;
+
+// 不能删除
+delete foo.y; // false
+
+// 防治扩展
+Object.preventExtensions(foo);
+console.log(Object.isExtensible(foo)); // false
+
+// 不能添加新属性
+foo.z = 30;
+console.log(foo); //{x: 10, y: 20}
+
+/*内置对象、原生对象及宿主对象
+ */
+/**Boolean，String和Number对象
+ 原生的特殊包装类，这些对象的创建，是通过相应的内置构造器创建，并且包含原生值作为其内部属性，这些对象可以转换省原始值，反之亦然。
+ Function, Array, RegExp, Math, Date
+ */
+var c = new Boolean(true);
+var d = new String('test');
+var e = new Number(10);
+console.log(typeof(c));
+console.log(typeof(d));
+console.log(typeof(e));
+
+// 转换成原始值
+// 使用不带new关键字的函数
+с = c.valueOf();
+d = String(d);
+e = Number(e);
+console.log(typeof(c)); //object
+console.log(typeof(d)); //string
+console.log(typeof(e)); //number
+
+// 重新转换成对象
+с = Object(c);
+d = Object(d);
+e = Object(e);
+
+/**关联数组
+ 任何对象的内部属性都可以存储为键-值”对
+ JavaScript对象（经常是用对象初始化器{}来创建）被称为哈希表哈希表?
+ */
+var a = {x: 10};
+a['y'] = 20;
+a.z = 30;
+
+var b = new Number(1);
+b.x = 10;
+b.y = 20;
+b['z'] = 30;
+
+var c = new Function('');
+c.x = 10;
+c.y = 20;
+c['z'] = 30;
+// 等等，任意对象的子类型"subtype"
+
+//由于在ECMAScript中对象可以是空的，所以"hash"的概念在这里也是不正确的：
+Object.prototype.x = 10;
+
+var a = {}; // 创建空"hash"
+
+console.log(a["x"]); // 10, 但不为空
+console.log(a.toString); // function
+
+a["y"] = 20; // 添加新的键值对到 "hash"
+console.log(a["y"]); // 20
+
+Object.prototype.y = 20; // 添加原型属性
+
+delete a["y"]; // 删除
+console.log(a["y"]); // 但这里key和value依然有值 – 20
+
+
+//ES5标准可以让我们创建没原型的对象（使用Object.create(null)方法实现）对，从这个角度来说，这样的对象可以称之为哈希表：
+var aHashTable = Object.create(null);
+console.log(aHashTable.toString); // 未定义
+
+
+//即用点表示法a.b和a["b"]表示法
+
+
+/*对象转换
+ 将对象转化成原始值可以用valueOf方法，
+ 如果不用new关键字就是将对象转化成原始值，就相当于隐式的valueOf方法调用
+ */
+var a = new Number(1);
+var primitiveA = Number(a); // 隐式"valueOf"调用
+var alsoPrimitiveA = a.valueOf(); // 显式调用
+
+console.log([
+    typeof a, // "object"
+    typeof primitiveA, // "number"
+    typeof alsoPrimitiveA // "number"
+]);
+
+//可以这样
+var a = new Number(1);
+var b = new Number(2);
+console.log(a + b); // 3
+// 甚至
+var c = {
+    x: 10,
+    y: 20,
+    valueOf: function () {
+        return this.x + this.y;
+    }
+};
+var d = {
+    x: 30,
+    y: 40,
+    // 和c的valueOf功能一样
+    valueOf: c.valueOf
+};
+console.log(c + d); // 100
+
+//valueOf的默认值会根据根据对象的类型改变（如果不被覆盖的话），对某些对象，他返回的是this——例如：Object.prototype.valueOf()
+// 还有计算型的值：Date.prototype.valueOf()返回的是日期时间
+var a = {};
+console.log(a.valueOf() === a); // true, "valueOf"返回this
+
+var d = new Date();
+console.log(d.valueOf()); // time
+console.log(d.valueOf() === d.getTime()); // true
+
+
+//此外,对象还有一个更原始的代表性——字符串展示。 这个toString方法是可靠的，它在某些操作上是自动使用的：
+var a = {
+    valueOf: function () {
+        return 100;
+    },
+    toString: function () {
+        return '__test';
+    }
+};
+
+// 这个操作里，toString方法自动调用
+console.log(a); // "__test"
+
+// 但是这里，调用的却是valueOf()方法
+console.log(a + 10); // 110
+
+// 但，一旦valueOf删除以后
+// toString又可以自动调用了
+delete a.valueOf;
+console.log(a + 10); // "_test10"
+
+/**ToObject
+ Object.prototype上定义的toString方法具有特殊意义，它返回的我们下面将要讨论的内部[[Class]]属性值。
+ 和转化成原始值（ToPrimitive）相比，将值转化成对象类型也有一个转化规范（ToObject）。
+ 一个显式方法是使用内置的Object构造函数作为function来调用ToObject（有些类似通过new关键字也可以）：
+ */
+var n = Object(1); // [object Number]
+var s = Object('test'); // [object String]
+
+// 一些类似，使用new操作符也可以
+var b = new Object(true); // [object Boolean]
+
+// 应用参数new Object的话创建的是简单对象
+var o = new Object(); // [object Object]
+
+// 如果参数是一个现有的对象
+// 那创建的结果就是简单返回该对象
+var a = [];
+console.log(a === new Object(a)); // true
+console.log(a === Object(a)); // true
+
+
+//关于调用内置构造函数，使用还是不适用new操作符没有通用规则，取决于构造函数。 例如Array或Function当使用new操作符的构造函数或者不使用new操作符的简单函数使用产生相同的结果的：
+var a = Array(1, 2, 3); // [object Array]
+var b = new Array(1, 2, 3); // [object Array]
+var c = [1, 2, 3]; // [object Array]
+
+var d = Function(''); // [object Function]
+var e = new Function(''); // [object Function]
+
+
+//有些操作符使用的时候，也有一些显示和隐式转化：
+var a = 1;
+var b = 2;
+
+// 隐式
+var c = a + b; // 3, number
+var d = a + b + '5' // "35", string
+
+// 显式
+var e = '10'; // "10", string
+var f = +e; // 10, number
+var g = parseInt(e, 10); // 10, number
+
+/*对象的属性特性
+ 所有的属性（property） 都可以有很多特性（attributes）。
+    1. {ReadOnly}——忽略向属性赋值的写操作尝，但只读属性可以由宿主环境行为改变——也就是说不是“恒定值” ;
+    2. {DontEnum}——属性不能被for..in循环枚举
+    3. {DontDelete}——糊了delete操作符的行为被忽略（即删不掉）;
+    4. {Internal}——内部属性，没有名字（仅在实现层面使用），ECMAScript里无法访问这样的属性。
+ 注意，在ES5里{ReadOnly}，{DontEnum}和{DontDelete}被重新命名为[[Writable]]，[[Enumerable]]和[[Configurable]]，可以手工通过Object.defineProperty或类似的方法来管理这些属性。
+ */
+var foo = {};
+
+Object.defineProperty(foo, "x", {
+    value: 10,
+    writable: true, // 即{ReadOnly} = false
+    enumerable: false, // 即{DontEnum} = true
+    configurable: true // 即{DontDelete} = false
+});
+
+console.log(foo.x); // 10
+
+// 通过descriptor获取特性集attributes
+var desc = Object.getOwnPropertyDescriptor(foo, "x");
+
+console.log(desc.enumerable); // false
+console.log(desc.writable); // true
+
+/*内部属性和方法
+ 对象也可以有内部属性（实现层面的一部分），并且ECMAScript程序无法直接访问（但是下面我们将看到，一些实现允许访问一些这样的属性）。 这些属性通过嵌套的中括号[[ ]]进行访问。我们来看其中的一些，这些属性的描述可以到规范里查阅到。
+
+ 每个对象都应该实现如下内部属性和方法：
+
+     1. [[Prototype]]——对象的原型（将在下面详细介绍）
+     2. [[Class]]——字符串对象的一种表示（例如，Object Array ，Function Object，Function等）;用来区分对象
+     3. [[Get]]——获得属性值的方法
+     4. [[Put]]——设置属性值的方法
+     5. [[CanPut]]——检查属性是否可写
+     6. [[HasProperty]]——检查对象是否已经拥有该属性
+     7. [[Delete]]——从对象删除该属性
+     8. [[DefaultValue]]返回对象对于的原始值（调用valueOf方法，某些对象可能会抛出TypeError异常）。
+ 通过Object.prototype.toString()方法可以间接得到内部属性[[Class]]的值，该方法应该返回下列字符串： "[object " + [[Class]] + "]" 。例如：
+ */
+var getClass = Object.prototype.toString;
+
+getClass.call({}); // [object Object]
+getClass.call([]); // [object Array]
+getClass.call(new Number(1)); // [object Number]
+
+//这个功能通常是用来检查对象用的，但规范上说宿主对象的[[Class]]可以为任意值，包括内置对象的[[Class]]属性的值，所以理论上来看是不能100%来保证准确的。例如，document.childNodes.item(...)方法的[[Class]]属性，在IE里返回"String"，但其它实现里返回的确实"Function"。
+// in IE - "String", in other - "Function"
+console.log(getClass.call(document.childNodes.item));
+
+
+
+var _;
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html">深入理解JavaScript系列（12）：变量对象（Variable Object）</a><br>
+<a target="_blank" href=""></a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*变量对象
+ 变量与执行上下文相关，那么它自己应该知道它的数据存储在哪里和如何访问。这种机制被称作 变量对象(variable object).
+ 变量对象 (缩写为VO)就是与执行上下文相关的对象(译者注：这个“对象”的意思就是指某个东西)，它存储下列内容：
+    1. 变量 (var, VariableDeclaration);
+    2. 函数声明 (FunctionDeclaration, 缩写为FD);
+    3. 函数的形参
+ 正如我们之前所说, VO就是执行上下文的属性(property)：
+ */
+var a = 10;
+
+function test(x) {
+    var b = 20;
+};
+
+test(30);
+
+//对应的VO是：
+// Variable object of the global context
+VO(globalContext) = {
+    a: 10,
+    test:
+};
+
+// Variable object of the "test" function context
+VO(test functionContext) = {
+    x: 30,
+    b: 20
+};
+/*函数的__parent__（SpiderMonkey和Rhino）
+
+ */
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+    var global = this;
+    var a = 10;
+
+    function foo() {}
+
+    alert(foo.__parent__); // global
+
+    var VO = foo.__parent__;
+
+    alert(VO.a); // 10
+    alert(VO === global); // true
+
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

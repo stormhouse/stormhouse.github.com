@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+
+<a href="http://www.gbtags.com/gb/share/2453.htm">source</a><br>
+<a href="http://michalbe.blogspot.com/2013/03/javascript-less-known-parts-bitwise.html">JavaScript: The less known parts. Bitwise Operators.</a><br>
+<a href="http://typeof.net/m/on-some-js-misunderstandings-1.html">JavaScript 常见误解，其一</a><br>
+<a href="http://typeof.net/s/jsmech/03.html">JavaScript 原理，其三</a><br>
+
+<hr/>
+
+
+
+<script type="text/javascript" src="../lib/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script id="code">
+/*JavaScript 里所有数值都是浮点，因此位运算很慢？
+ */
+
+/*toString()转换二进制
+详细
+*/
+var num = 3
+console.log(num.toString(2))  //ok
+console.log(3..toString(2))   //3.0.toString()
+
+/*一些位操作
+*/
+// variables
+var a = 5;
+var b = 13;
+
+// a | b - OR 
+// if in any of the given numbers corresponding bit is '1', then the result is '1'
+console.log(a|b); // 13
+
+// a & b - AND
+// if in both of the given numbers corresponding bit is '1', then the result is '1'
+console.log(a&b); // 5 
+
+// a ^ b - XOR
+// if in one of the given numbers (not both) corresponding bit is '1', then the result is '1'
+console.log(a^b); // 8
+
+// ~a - NOT
+// inverts all the bits
+console.log(~a); // -6
+
+// a >> b - RIGHT SHIFT
+// shift binary representation of 'a' for 'b' bits to the right, discarding bits shifted off
+console.log(a>>b); // 0
+
+// a << b - LEFT SHIFT
+// shift binary representation of 'a' for 'b' bits to the right, shifting in zeros from the right
+console.log(a<<b); // 40960
+
+// a >>> b - ZERO FILLED RIGHT SHIFT
+// shift binary representation of 'a' for 'b' bits to the right, discarding bits shifted off, and shifting in zeros from the left.
+console.log(a>>>b); // 0
+
+/*一些实例
+ */
+//用位运算符“|”来代替Math.floor()
+var data = 2.2352524535;
+var result = data | 0;
+console.log(result)
+
+//两个“~”非运算符来也与Math.floor()有同样的效果
+var data = 2.2352524535;
+var result = ~~data;
+console.log(result)
+
+//RGB颜色值为十六进制的形式
+// variables
+var color = {r: 186, g: 218, b: 85};
+
+// RGB to HEX
+var rgb2hex = function(r, g, b) {
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).substr(1);
+}
+
+console.log(rgb2hex(color.r, color.g, color.b));
+
+//找出两个数中的最大值或最小值
+// variables
+var a = 9285;
+var b = 3569;
+
+// a ^ ((a ^ b) & -(a < b)) - which one, a or b, is bigger?
+console.log(a ^ ((a ^ b) & -(a < b)));
+
+// b ^ ((a ^ b) & -(a < b)) - which one, a or b, is smaller?
+console.log(b ^ ((a ^ b) & -(a < b)));
+
+
+//两个变量交换
+// variables
+var a = 10;
+var b = 99;
+
+// a^=b, b^=a, a^=b - swap variables using XOR operation, 
+// details: http://en.wikipedia.org/wiki/XOR_swap_algorithm
+a^=b, b^=a, a^=b;
+console.log('a=' + a);
+console.log('b=' + b);
+
+
+
+
+</script>
+
+<script src="../lib/js2html.js"></script>
+<script>
+SyntaxHighlighter.all()
+</script>
+</body>
+</html>

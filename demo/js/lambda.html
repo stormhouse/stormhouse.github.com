@@ -11,157 +11,21 @@
   </style>
 </head>
 <body>
-<h3>?严格模式与非严格模式</h3>
-<h3>?作用域链</h3>
-<hr/>
-
-<ul>
-  <li>声明式</li>
-  <li>表达式</li>
-</ul>
-<hr/>
-<h3>lambda用途</h3>
-<ul>
-  <li>赋值给变量，当返回值返回</li>
-  <li>闭包</li>
-</ul>
-<hr/>
-<h3>递归</h3>
-<a href="caller.html">function.caller</a>
-<a href="#">arguments.callee</a>
-<hr/>
-<h3>闭包</h3>
-<p>当某个函数第一次被调用时，会创建一个执行环境(execution context)及相应的作用域链，并把作用域链赋值给一个特殊的内部属性([[Scope]])。然后，使用this，arguments和其他命名参数的值来初始化函数的活动对象(activation object)。在作用域链中，外部函数的活动对象始终处于第二位，外部函数的外部函数活动对象处于第三位... ...直到作为作用域链终点的全局执行环境。</p>
-<p>作用域链本质上是一个指向变量对象的指针列表，它只引用但不实际包含变量对象</p>
-<p>匿名函数外部的函数返回后，其执行环境的作用域会被销毁，但它的活动对象仍会留在内存中，直到匿名函数被销毁后，活动对象才会被销毁。</p>
-<h3>闭包与变量</h3>
-<ul id="test-ul">
-  <li>0</li>
-  <li>1</li>
-  <li>2</li>
-  <li>3</li>
-  <li>4</li>
-</ul>
-<pre class="brush: js">
-var ulEl = document.getElementById('test-ul');
-var liEls = ulEl.children;
-for(var i=0; i&lt;liEls.length; i++){
-  liEls[i].onclick = function(event){
-    console.log(i)
-  }
-};
-</pre>
-<a href="ruanyifeng-closure.html">深入</a>
-<h3>this</h3>
-<p>this对象是运行时基于函数的执行环境绑定的。全局环境下是window或global</p>
-<pre class="brush: js">
-var name = 'The Window';
-var obj = {
-  name: 'My Object',
-  getName: function(){
-    return function(){
-      return this.name;
-    }
-  }
-}
-alert(obj.getName()())//结果：
-</pre>
-<input type="button" value="执行" onclick="alert('The Window')" />
-<pre class="brush: js">
-var name = 'The Window';
-var obj = {
-  name: 'My Object',
-  getName: function(){
-    var self = this;
-    return function(){
-      return self.name;
-    }
-  }
-}
-alert(obj.getName()())//结果：
-</pre>
-
-<h3>内存泄漏</h3>
-<p>IE9之前的版本，如果闭包的作用域中保存着一个HTML元素，该元素就无法销毁</p>
-<pre class="brush: js">
-function assignHandler(){
-  var element = document.getElementById('someElement');
-  element.onclick = function(){
-    alert(element.id);
-  };
-}
-</pre>
-<p>应修改为:</p>
-<pre class="brush: js">
-function assignHandler(){
-  var element = document.getElementById('someElement');
-  var id = element.id;
-  element.onclick = function(){
-    alert(id);
-  };
-  element = null;
-}
-</pre>
-<hr/>
-<h3>模仿块级作用域</h3>
-<hr/>
-<h3>私有变量</h3>
-<p>函数的参数，局部变量及函数内部定义的其它函数</p>
-<p>@@@@@特权方法(privileged method)：能访问函数内部的私有变量和私有函数的方法</p>
+<a target="_blank" href=""></a><br>
 
 
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*注意
+ 任何函数表达式都是匿名函数
+ 递归时要用arguments.callee来调用自身
+ */
+</script>
 <script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
 <script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
 <script>
-  var ulEl = document.getElementById('test-ul');
-  var liEls = ulEl.children;
-  console.log(liEls)
-  for(var i=0; i<liEls.length; i++){
-    liEls[i].onclick = function(event){
-      console.log(i)
-    }
-  }
-
-  var name = 'The Window';
-  var obj = {
-    name: 'My Object',
-    getName: function(){
-      return function(){
-        console.log(this.name);
-      }
-    }
-  }
-  obj.getName()()//结果：
-
-
-  var name = 'The Window';
-  var obj = {
-    name: 'My Object',
-    getName: function(){
-      var self = this
-      return function(){
-        console.log(self.name);
-      }
-    }
-  }
-  obj.getName()()//结果：
-
-  function assignHandler(){
-    var element = document.getElementById('someElement');
-    element.onclick = function(){
-      alert(element.id);
-    };
-  }
-  function assignHandler(){
-    var element = document.getElementById('someElement');
-    var id = element.id;
-    element.onclick = function(){
-      alert(id);
-    };
-    element = null;
-  }
-
-
   SyntaxHighlighter.all()
 </script>
 </body>

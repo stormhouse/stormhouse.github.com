@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/justinw/archive/2010/05/04/1727295.html">[JavaScript]ECMA-262-3 深入解析.第三章.this</a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+
+    var foo = {
+        bar: function () {
+            console.log(this);
+        }
+    };
+
+    foo.bar(); // Reference, OK => foo
+    (foo.bar)(); // Reference, OK => foo
+
+    (foo.bar = foo.bar)(); // global?
+    (false || foo.bar)(); // global?
+    (foo.bar, foo.bar)(); // global?
+
+    (function () {
+        alert(this); // null => global
+    })();
+    var foo = {x: 10};
+
+    var bar = {
+        x: 20,
+        test: function () {
+
+            alert(this === bar); // true
+            alert(this.x); // 20
+
+            this = foo; // 错误，任何时候不能改变this的值
+
+            alert(this.x); // 如果不出错的话，应该是10，而不是20
+
+        }
+
+    };
+
+    // 在进入上下文的时候
+    // this被当成bar对象
+    // determined as "bar" object; why so - will
+    // be discussed below in detail
+
+    bar.test(); // true, 20
+
+    foo.test = bar.test;
+
+    // 不过，这里this依然不会是foo
+    // 尽管调用的是相同的function
+
+    foo.test(); // false, 10
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

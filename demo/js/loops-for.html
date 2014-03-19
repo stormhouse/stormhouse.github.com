@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*HTMLCollections的length访问---性能问题
+ */
+var els = document.querySelector('a');
+//集合的麻烦在于它们实时查询基本文档（HTML页面）。
+// 意味着每次你访问任何集合的长度，你要实时查询DOM，而DOM操作一般都是比较昂贵的。
+for(var i= 0; i<els.length; i++){
+    //do sth.
+}
+for(var i= 0, maxLength=els.length; i<maxLength; i++){
+    //do sth.
+}
+/*for与for-in
+1. for适用于数组
+2. for-in适用于对象
+3. for-in查找其原型属性（如自身属性用hasOwnProperty）
+ */
+// 对象
+var man = {
+    hands: 2,
+    legs: 2,
+    heads: 1
+};
+if (typeof Object.prototype.clone === "undefined") {
+    Object.prototype.clone = function () {};
+}
+for (var i in man) {
+    console.log(i, ":", man[i]);
+}
+for (var i in man) {
+    if (man.hasOwnProperty(i)) {
+        console.log(i, ":", man[i]);
+    }
+}
+for (var i in man) {
+    if (Object.prototype.hasOwnProperty.call(man, i)) { // 过滤
+        console.log(i, ":", man[i]);
+    }
+}
+//避免了长属性查找对象的所有方法，使用局部变量“缓存”它
+var i, hasOwn = Object.prototype.hasOwnProperty;
+for (i in man) {
+    if (hasOwn.call(man, i)) { // 过滤
+        console.log(i, ":", man[i]);
+    }
+}
+// 警告： 通不过JSLint检测
+var i, hasOwn = Object.prototype.hasOwnProperty;
+for (i in man) if (hasOwn.call(man, i)) { // 过滤
+    console.log(i, ":", man[i]);
+}
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

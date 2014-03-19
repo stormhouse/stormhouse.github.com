@@ -28,12 +28,21 @@
 </div>
 
 <hr/><br><br>
-Thanks<a href="http://kevinleung.com/about-me/">Kevin</a>
-<p>拿<a href="http://stoicloofah.github.io/chronoline.js/">chronoline.js</a>代码修改的，自己写的一部分是用svg中的path，使用C指令绘制小水滴，及其动画效果；移动区域不同，动画的速度不同</p>
-<p>学习到的东西</p>
+Thanks <a href="http://kevinleung.com/about-me/">Kevin</a>
+<p>拿<a href="http://stoicloofah.github.io/chronoline.js/">chronoline.js</a>代码修改的。自己写的一部分是用svg中的path，使用C指令绘制小水滴，及其动画效果；移动区域不同，动画的速度不同</p>
+<h4>功能介绍：</h4>
 <ul>
-  <li>学习了svg的path（<a href="http://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A">贝塞尔曲线</a>）</li>
-  <li>学习requestAnimateFrame函数，可实现效果平滑，省资源的动画</li>
+    <li>展示某一月份周期测试任务每次测例的状态</li>
+    <li>根据鼠标悬停在两侧移动区域不同位置，改变时间轴的移动的速度</li>
+    <li>上一月份，下一月份的点击按钮（调用后台ajax）</li>
+    <li>点击倒置的水滴，动画效果及回调事件</li>
+</ul>
+
+
+<h4>知识点：</h4>
+<ul>
+  <li>svg的path指令（<a href="http://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A">贝塞尔曲线</a>）</li>
+  <li>requestAnimateFrame函数，可实现效果平滑的动画</li>
   <li><a href="http://raphaeljs.com/">raphaeljs</a>简单的使用</li>
 </ul>
 
@@ -51,7 +60,7 @@ Thanks<a href="http://kevinleung.com/about-me/">Kevin</a>
       allShow:1,
       showSize:32,
       showRadio: true,
-      url:'timeline-data.json',
+      url:'timeline-data-more.json',
 //      currentId: '6619',
       clickFun:function(id){}
     });

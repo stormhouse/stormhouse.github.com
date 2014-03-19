@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*正常的函数调用
+执行上下文总是global，若无显示返回值，则为undefined
+ */
+function add(a, b){
+    console.log(this)
+    this.id = this.id || 'add'
+    return a+b
+}
+//执行上下文总是global
+(function(){
+    var result = add(3, 5)
+    console.log(typeof result)
+})()
+
+/*call & apply调用
+执行上下文总是global
+ */
+var obj = {id: 'obj'}
+var r1 = add.apply(obj, [3, 5])
+var r2 = add.call(obj, 3, 5)
+
+/*new调用
+构造函数调用，返回一个新对象，this指向这个对象
+ */
+;(function(){
+    var r3 = new add(3, 5)
+    console.log(typeof r3)
+    console.log(r3)
+})()
+
+/*方法调用
+函数是在一个执行上下文中
+方法是一个对象(域)的属性，this指向该对象
+ */
+var o2 = {id: 'o2'}
+o2.add = add
+var r3 = o2.add(2, 3)
+var r4 = o2['add'](2, 3)
+console.log(r3)
+console.log(r4)
+/*有返回值
+ */
+function A(){
+    this.x = 123;
+    return [1, 2, 3]
+}
+console.log(A());
+console.log(new A());   //[1,2,3]
+
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

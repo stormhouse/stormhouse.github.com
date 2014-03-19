@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.zhangxinxu.com/wordpress/?p=1162">解释JavaScript的“预解析(置顶解析)”</a><br>
+<a target="_blank" href="http://code.tutsplus.com/tutorials/quick-tip-javascript-hoisting-explained--net-15092">Quick Tip: JavaScript Hoisting Explained</a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*var关键字
+通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的; 无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的
+ */
+var g1 = 'g1';
+g2 = 'g2';
+(function(){g3='g3'})();
+delete g1
+delete g2
+delete g3
+console.log(typeof g1)
+console.log(typeof g2)
+console.log(typeof g3)
+/*定义
+ JavaScript中，你可以在函数的任何位置声明多个var语句，并且它们就好像是在函数顶部声明一样发挥作用，这种行为称为 hoisting（悬置/置顶解析/预解析）
+ 不像java，c一样，js没有块级作用域。js是有函数作用域，即变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是有定义的。JavaScript 的作用域为词法作用域，所谓词法作用域是说，其作用域为在定义时(词法分析时)就确定下来的，而并非在执行时确定作用域链是关于作用域的链，通常实现为一个链表，链表的每个项都是一个对象，在全局作用域中，该链//中有且只有一个对象，即全局对象。对应的，在一个函数中，作用域链上会有两个对象，第一个(首先被访问到的)为调用对象，第二个为全局对象。函数中var变量定义在语法分析时被扫描，然后在函数开始执行时，首先在执行上下文中将var变量全部定义，而不是执行到var语句的时候才定义。
+ */
+myname = "global"; // 全局变量
+(function(){
+    console.log(myname); // "undefined"
+    var myname = "local";
+    console.log(myname); // "local"
+})();
+//等价于
+//(function(){
+//    var myname;
+//    console.log(myname); // "undefined"
+//    myname = "local";
+//    console.log(myname); // "local"
+//})();
+
+/*同样适用于函数
+ */
+(function(){
+    new fun();
+    function fun(){
+        console.log('fun called...')
+    }
+})();
+
+/*js没有块作用域(if,for,{})
+ */
+(function(){
+    if(f()){
+        function f(){return true}
+        console.log('if...')
+    }
+})();
+/*return也阻止不了hoisting
+ */
+var g = 'global';
+(function(){
+    g = 'inners';
+    return;
+    function g() {
+    }
+})();
+console.log(g)
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

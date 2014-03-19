@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2012/02/06/2330609.html">构造函数</a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*定义
+ Constructor is a function that creates and initializes the newly created object.
+ 构造函数是一个函数，用来创建并初始化新创建的对象。
+
+ 对象创建（内存分配）是由构造函数的内部方法[[Construct]]负责的。该内部方法的行为是定义好的，所有的构造函数都是使用该方法来为新对象分配内存的。
+ 而初始化是通过新建对象上下上调用该函数来管理的，这是由构造函数的内部方法[[Call]]来负责任的。
+ 注意，用户代码只能在初始化阶段访问，虽然在初始化阶段我们可以返回不同的对象（忽略第一阶段创建的tihs对象）：
+ */
+function A() {
+    // 更新新创建的对象
+    this.x = 10;
+    // 但返回的是不同的对象
+    return [1, 2, 3];
+}
+
+var a = new A();
+console.log(a.x, a); undefined, [1, 2, 3]
+/**
+ 函数是一个原生对象，包含[[Construct]] ]和[[Call]] ]属性以及显示的prototype原型属性——未来对象的原型（注：NativeObject是对于native object原生对象的约定，在下面的伪代码中使用）。
+ */
+F = new NativeObject();
+
+F.[[Class]] = "Function"
+
+.... // 其它属性
+
+F.[[Call]] = <reference to function> // function自身
+
+F.[[Construct]] = internalConstructor // 普通的内部构造函数
+
+.... // 其它属性
+
+// F构造函数创建的对象原型
+__objectPrototype = {};
+__objectPrototype.constructor = F // {DontEnum}
+F.prototype = __objectPrototype
+
+/**
+ [[Call]] ]是除[[Class]]属性（这里等同于"Function" ）之外区分对象的主要方式，因此，对象的内部[[Call]]属性作为函数调用。 这样的对象用typeof运算操作符的话返回的是"function"。然而它主要是和原生对象有关，有些情况的实现在用typeof获取值的是不一样的，例如：window.alert (...)在IE中的效果：
+ */
+// IE浏览器中 - "Object", "object", 其它浏览器 - "Function", "function"
+console.log(Object.prototype.toString.call(window.alert));
+console.log(typeof window.alert); // "Object"
+
+/**
+ 内部方法[[Construct]]是通过使用带new运算符的构造函数来激活的，正如我们所说的这个方法是负责内存分配和对象创建的。如果没有参数，调用构造函数的括号也可以省略：
+ */
+function A(x) { // constructor А
+    this.x = x || 10;
+}
+
+// 不传参数的话，括号也可以省略
+var a = new A; // or new A();
+console.log(a.x); // 10
+
+// 显式传入参数x
+var b = new A(20);
+console.log(b.x); // 20
+
+/*对象创建算法
+ 内部方法[[Construct]] 的行为可以描述成如下：
+ */
+//
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

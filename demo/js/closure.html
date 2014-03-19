@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<ul>
+<li target="_blank" href="#">a1</li>
+<li target="_blank" href="#">a2</li>
+<li target="_blank" href="#">a3</li>
+</ul>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2011/12/31/2289423.html">立即调用的函数表达式</a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*一个题目
+创建一个符合“add(2)(3)(4)(5)”格式的函数
+ */
+function add(n) {
+    var t = 0;
+    function _(num){
+        t+=num;
+        return _
+    }
+    _(n)
+    _.toString = function(){return t}
+    return _
+}
+var result = add(2)(3)(4)(5);
+console.log(result);
+/*一个计数器
+每个函数在运行时，创建一个执行上下文
+ */
+var getCounter = function(){
+    var count = 0;
+    return function(){
+        console.log(++count)
+    }
+}
+var c1 = getCounter();
+c1();
+c1();
+var c2 = getCounter();
+c2();
+c2();
+c2();
+
+var foo = function(){console.log('foo...')}();
+(function(){console.log('...')})();
+
+/*立即执行匿名函数->闭包
+ */
+var liEl = document.querySelector('ul').querySelectorAll('li');
+//for(var i=0, length=liEl.length; i<length; i++){
+//    liEl[i].addEventListener('click', function(e){
+//        alert(i)
+//    }, false)
+//}
+
+//for(var i=0, length=liEl.length; i<length; i++){
+//    (function(index){
+//        liEl[i].addEventListener('click', function(e){
+//            alert(index)
+//        }, false)
+//    })(i);
+//}
+
+//for(var i=0, length=liEl.length; i<length; i++){
+//    liEl[i].addEventListener('click', (function(index){
+//        return function(e){
+//            alert(index)
+//        }
+//    })(i), false)
+//}
+
+
+
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

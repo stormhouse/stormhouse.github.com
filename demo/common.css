@@ -7,6 +7,7 @@ html{
 hr{
     height:1px;border:none;border-top:1px dashed #0066CC;
 }
+p{margin: 5px}
 
 /*清除浮动*/
 .fix{zoom: 1;}
@@ -24,4 +25,17 @@ hr{
 .center-content{
     width: 960px;
     margin: 0 auto;
+}
+
+/*目录*/
+.list-container{
+    opacity: .5;
+    border:solid 1px #ccc;
+    background:#eee;
+    position:fixed;
+    top: 0;
+    right: 0;
+    padding:4px 10px;
+    height: 500px;
+    overflow: auto;
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.12">15.12 The JSON Object</a><br>
+<a target="_blank" href="http://json.org/">Introducing JSON</a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*常见的错误
+把对象字面量误认为JSON对象
+ */
+//称obj为JSON对象（实为对象字面量－Object Literals）
+var obj = {
+    name: 's',
+    passwd: 'p'
+};
+
+/*有JSON对象吗？
+有。2011年的ECMA262-5新规范增加了JSON对象
+The JSON object is a single object that contains two functions, parse and stringify, that are used to parse and construct JSON texts.
+ */
+//它是一个单例对象，就包含两个方法
+console.log(JSON.stringify(obj));
+var jsonStr = '{"name": "s", "job": "coder"}';
+console.log(JSON.parse(jsonStr))
+
+/*JSON是一种数据（交换）格式
+Introducing JSON
+ */
+
+/*总结
+ */
+//这是对象字面量
+var person = { name: 'storm', job: 'coder'}
+
+//这是JSON格式字符串
+var person = "{ name: 'storm', job: 'coder'}"
+
+//这才是JSON对象
+window.JSON     //or global.JSON
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

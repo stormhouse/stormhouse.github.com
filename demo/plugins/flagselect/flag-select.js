@@ -232,7 +232,7 @@
     var opts = data.options;
     $.ajax({
       url: opts.url,
-      type: 'POST',
+      type: 'GET',
       dataType: 'json',
       async: false,
       contentType:'application/x-www-form-urlencoded;charset="utf-8"',

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2011/12/31/2289423.html">立即调用的函数表达式</a><br>
+<a target="_blank" href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">Immediately-Invoked Function Expression (IIFE)</a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*简单例子
+ */
+//表达式，可以执行
+var foo = function(){console.log('foo...')}();
+
+//函数声明（不是表达式），执行报错
+//function(){console.log('...')}();
+//function bar(){console.log('...')}();
+
+//在后面传入一个表达式“(1)”，不会报错，只是分组操作
+function bar(){console.log('...')}(1);
+
+//等价于
+//function bar(){console.log('...')}
+//(1)
+
+/*立即调用
+解决上面的例子，只是将函数声明部分用括号包起来（变成一个表达式）即可。
+ */
+(function(){console.log('1..')}());
+(function(){console.log('2..')})(); //@@@@@
+
+//由于括弧()和JS的&&，异或，逗号等操作符是在函数表达式和函数声明上消除歧义的
+//所以一旦解析器知道其中一个已经是表达式了，其它的也都默认为表达式了
+var i = function () { console.log('3...') } ();
+true && function () { console.log('4...') } ();
+0, function () { console.log('5...') } ();
+
+// 如果你不在意返回值，或者不怕难以阅读
+// 你甚至可以在function前面加一元操作符号
+!function () { console.log('6...') } ();
+~function () { console.log('7...') } ();
+-function () { console.log('8...') } ();
++function () { console.log('9...') } ();
+
+// 还有一个情况，使用new关键字,也可以用，但我不确定它的效率
+// http://twitter.com/kuvos/status/18209252090847232
+new function () { console.log('10...') }
+new function () { console.log('11...') } () // 如果需要传递参数，只需要加上括弧()
+
+/*立即调用---自调用（执行）
+ */
+// 这是一个自执行的函数，函数内部执行自身，递归
+function foo() { foo(); }
+
+// 这是一个自执行的匿名函数，因为没有标示名称必须使用arguments.callee属性来执行自己
+var foo = function () { arguments.callee(); };
+
+// 这可能也是一个自执行的匿名函数，仅仅是foo标示名称引用它自身，如果你将foo改变成其它的，你将得到一个used-to-self-execute匿名函数
+var foo = function () { foo(); };
+
+// 有些人叫这个是自执行的匿名函数（即便它不是），因为它没有调用自身，它只是立即执行而已。
+(function () { /* code */ } ());
+
+// 为函数表达式添加一个标示名称，可以方便Debug，但一定命名了，这个函数就不再是匿名的了
+(function foo() { /* code */ } ());
+
+// 立即调用的函数表达式（IIFE）也可以自执行，不过可能不常用罢了
+//(function () { arguments.callee(); } ());
+//(function foo() { foo(); } ());
+
+// 另外，下面的代码在黑莓5里执行会出错，因为在一个命名的函数表达式里，他的名称是undefined
+// 呵呵，奇怪
+//(function foo() { foo(); } ());
+
+/*立即调用与Module模式
+ */
+// 创建一个立即调用的匿名函数表达式
+// return一个变量，其中这个变量里包含你要暴露的东西
+// 返回的这个变量将赋值给counter，而不是外面声明的function自身
+var counter = (function () {
+    var i = 0;
+    return {
+        get: function () {
+            return i;
+        },
+        set: function (val) {
+            i = val;
+        },
+        increment: function () {
+            return ++i;
+        }
+    };
+} ());
+
+// counter是一个带有多个属性的对象，上面的代码对于属性的体现其实是方法
+console.log(counter.get()); // 0
+counter.set(3);
+console.log(counter.increment()); // 4
+console.log(counter.increment()); // 5
+
+console.log(counter.i); // undefined 因为i不是返回对象的属性
+console.log(i); // 引用错误: i 没有定义（因为i只存在于闭包）
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2012/01/13/2308101.html">执行上下文（Execution Contexts）</a><br>
+<a target="_blank" href=""></a><br>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*EC
+ 每次当控制器转到ECMAScript可执行代码的时候，即会进入到一个执行上下文。
+ 活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在EC类型进入和退出上下文的时候被修改（推入或弹出）。
+ */
+//每次进入function (即使function被递归调用或作为构造函数) 的时候或者内置的eval函数工作的时候，这个堆栈都会被压入。
+ECStack = [];
+
+/*函数
+
+ */
+//初始化时
+ECStack = [
+    globalContext
+];
+//执行下面
+(function  foo(bar) {
+    if (bar) {
+        return;
+    }
+    foo(true);
+})();
+//函数后
+// 第一次foo的激活调用
+ECStack = [
+    <foo> functionContext
+    globalContext
+];
+
+// foo的递归激活调用
+ECStack = [
+    <foo> functionContext – recursively
+    <foo> functionContext
+    globalContext
+];
+//每次return的时候，都会退出当前执行上下文的，相应地ECStack就会弹出，栈指针会自动移动位置，这是一个典型的堆栈实现方式。
+//一个抛出的异常如果没被截获的话也有可能从一个或多个执行上下文退出。相关代码执行完以后，ECStack只会包含全局上下文(global context)，一直到整个应用程序结束。
+
+/*eval
+eval 代码有点儿意思。它有一个概念： 调用上下文(calling context)
+例如，eval函数调用的时候产生的上下文。eval(变量或函数声明)活动会影响调用上下文(calling context)。
+ */
+eval('var x = 10');
+(function foo() {
+    eval('var y = 20');
+})();
+alert(x); // 10
+alert(y); // "y" 提示没有声明
+
+
+//ECStack的变化
+ECStack = [
+    globalContext
+];
+
+// eval('var x = 10');
+ECStack.push(
+        evalContext,
+        callingContext: globalContext
+);
+
+// eval exited context
+ECStack.pop();
+
+// foo funciton call
+ECStack.push(<foo> functionContext);
+
+// eval('var y = 20');
+ECStack.push(
+        evalContext,
+        callingContext: <foo> functionContext
+);
+
+// return from eval
+ECStack.pop();
+
+// return from foo
+ECStack.pop();
+
+/*
+ 在版本号1.7以上的SpiderMonkey(内置于Firefox,Thunderbird)的实现中，可以把调用上下文作为第二个参数传递给eval。
+ 那么，如果这个上下文存在，就有可能影响“私有”(有人喜欢这样叫它)变量。
+ */
+function foo() {
+    var x = 1;
+    return function () { alert(x); };
+};
+
+var bar = foo();
+
+bar(); // 1
+
+eval('x = 2', bar); // 传入上下文，影响了内部的var x 变量
+
+bar(); // 2
+
+
+
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

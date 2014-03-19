@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href="http://www.cnblogs.com/TomXu/archive/2012/02/03/2330295.html">面向对象编程之概论</a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*常见编程范式
+ ECMAScript支持包括结构化、面向对象、函数式、命令式等多种编程方式，某些情况下还支持面向方面编程
+ ECMAScript中面向对象编程的定义:
+*/
+//ECMAScript是基于原型实现的面向对象编程语言
+
+/*面向对象的实现方式
+类特性（表态类&动态类），原型
+ */
+/**基于静态类
+ 强类型（转型）。类与实例两个概念。
+ 类为他们的实例定义了严格不变的结构（属性）和严格不变的行为（方法）。
+ 层次继承
+ 关键概念：
+    1. 创建一个对象之前，必须声明类，首先有必要界定其类
+    2. 因此，该对象将由抽象成自身“象形和相似性”（结构和行为）的类里创建
+    3. 方法是通过了严格的，直接的，一成不变的继承链来处理
+    4. 子类包含了继承链中所有的属性（即使其中的某些属性是子类不需要的）;
+    5. 创建类实例，类不能（因为静态模型）来改变其实例的特征（属性或方法）;
+    6. 实例（因为严格的静态模型）除了有该实例所对应类里声明的行为和属性以外，是不能额外的行为或属性的。
+ */
+/**基于原型
+ 基本概念是动态可变对象。
+ 基于原型委托实现继承：任何对象都可以被用来作为另一个对象的原型对象，因为对象可以很容易地在运行时改变它的原型动态。
+ 关键概念：
+     1. 基本概念是对象
+     2. 对象是完全动态可变的（理论上完全可以从一个类型转化到另一个类型）
+     3. 对象没有描述自己的结构和行为的严格类，对象不需要类
+     4. 对象没有类类但可以可以有原型，他们如果不能响应消息的话可以委托给原型
+     5. 在运行时随时可以改变对象的原型;
+     6. 在基于委托的模型中，改变原型的特点，将影响到与该原型相关的所有对象;
+     7. 在concatenative原型模型中，原型是从其他对象克隆的原始副本，并进一步成为完全独立的副本原件，原型特性的变换不会影响从它克隆的对象
+     8. 如果不能响应消息，它的调用者可以采取额外的措施（例如，改变调度）
+     9. 对象的失败可以不由它们的层次和所属哪个类来决定，而是由当前特性来决定
+ 能力检测：
+ */
+// 在基于静态来的模型里
+if (object instanceof SomeClass) {
+    // 一些行为是运行的
+}
+
+// 在动态实现里
+// 对象在此时是什么类型并不重要
+// 因为突变、类型、特性可以自由重复的转变。
+// 重要的对象是否可以响应test消息
+if (isFunction(object.test)) // ECMAScript
+
+if object.respond_to?(:test) // Ruby
+
+if hasattr(object, 'test'): // Python
+
+/**基于动态类
+ 可以彻底改变对象（或类）的特性（在类上添加方法/属性，而这些变化会影响已经存在的对象），但是，它不能的动态改变一个对象的类。
+ */
+
+/*OOP实现的其它特性
+ */
+/**多态
+
+ */
+function test() {
+    alert([this.a, this.b]);
+}
+
+test.call({a: 10, b: 20}); // 10, 20
+test.call({a: 100, b: 200}); // 100, 200
+
+var a = 1;
+var b = 2;
+
+test(); // 1, 2
+
+//不过，也有例外：Date.prototype.getTime()方法，根据标准这个值总是应该有一个日期对象，否则就会抛出异常。
+console.log(Date.prototype.getTime.call(new Date())); // time
+console.log(Date.prototype.getTime.call(new String(''))); // TypeError
+
+/**封装
+ 封装主要目的：封装是一个抽象的增加，而不是选拔个直接往你的类里写入一些东西的隐藏“恶意黑客”。
+ 一个很大的错误：为了隐藏使用隐藏。
+ 一些OOP实现便捷的“糖” -众所周知的修饰符：private,protected和public（或者称为对象的访问级别或访问修饰符）。
+ */
+
+/**多重继承
+ */
+
+
+/**接口
+ */
+/**AOP
+ */
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>
