@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href=""></a><br>
+
+
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+
+/*惰性载入函数
+函数第一次调用，用新函数覆盖旧函数
+  1. 要执行的适当代码只有当实际调用函数时才进行。推迟计算
+  2. 第一次相比会慢一些，后续调用会很快。避免了多重判断分支
+ */
+var ie = false;
+function createXHR1(){
+    if(ie === true){
+        console.log('111')
+        return ActiveXObject()
+    }else{
+        console.log('222')
+        return new XMLHttpRequest()
+    }
+}
+createXHR();
+createXHR()
+
+function createXHR2(){
+    if(ie === true){
+        console.log('111----')
+        createXHR2 = function(){
+            return ActiveXObject()
+        }
+    }else{
+        console.log('222----')
+        createXHR2 = function(){
+            return new XMLHttpRequest()
+        }
+    }
+    return createXHR2()
+}
+createXHR2();
+createXHR2();
+createXHR2();
+
+/*实际的createXHR
+ */
+function createXHR(){
+    if (typeof XMLHttpRequest != "undefined"){
+        createXHR = function(){
+            return new XMLHttpRequest();
+        };
+    } else if (typeof ActiveXObject != "undefined"){
+        createXHR = function(){
+            if (typeof arguments.callee.activeXString != "string"){
+                var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0",
+                    "MSXML2.XMLHttp"];
+
+                for (var i=0,len=versions.length; i < len; i++){
+                    try {
+                        var xhr = new ActiveXObject(versions[i]);
+                        arguments.callee.activeXString = versions[i];
+                        return xhr;
+                    } catch (ex){
+                        //skip
+                    }
+                }
+            }
+
+            return new ActiveXObject(arguments.callee.activeXString);
+        };
+    } else {
+        createXHR = function(){
+            throw new Error("No XHR object available.");
+        };
+    }
+
+    return createXHR();
+}
+var xhr1 = createXHR();
+var xhr2 = createXHR();
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>

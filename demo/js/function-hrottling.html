@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+  </style>
+</head>
+<body>
+<a target="_blank" href=""></a><br>
+
+<div id="d1" style="background: #bcbcbc; width: 50%;height: 100px"></div>
+
+<script src="../lib/jquery-1.7.2.js"></script>
+<script id="code">
+/*节流
+思想：某些代码不可以在没有间断的情况连续重复执行。
+第一次调用函数，创建一个定时器。当第二次调用该函数时，清除第一次的，并重新设置一个。如果前一个定时器已经执行过了，则忽略。
+如果100ms内，process调用一20次，而performProcessing只调用一次
+ */
+var processor = {
+    timeoutId: null,
+    //实际执行的函数
+    performProcessing: function(){},
+
+    process: function(){
+        clearTimeout(this.timeoutId)
+        var self = this
+        this.timeoutId = setTimeout(function(){
+            self.performProcessing()
+        }, 100)
+    }
+}
+/*简版
+ */
+function throttle(method, context){
+    clearTimeout(method.tId)
+    method.tId = setTimeout(function(){
+        method.call(context)
+    }, 200)
+}
+/*用例－window.resize
+ */
+//window.onresize = function(){
+//
+//    var d = document.querySelector('#d1')
+//    d.style.height = d.offsetWidth/2+'px';
+//    console.log(111)
+//}
+function resize(){
+    var d = document.querySelector('#d1')
+    d.style.height = d.offsetWidth/2+'px';
+    console.log(111)
+}
+window.onresize = function(){
+    throttle(resize, window)
+}
+</script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shCore-3.0.83.js"></script>
+<script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
+<script src="../lib/js2html.js"></script>
+<script>
+  SyntaxHighlighter.all()
+</script>
+</body>
+</html>
