@@ -61,13 +61,13 @@ baz | baz  | baz
 ## text style
 
 ```
-> Aaron Swartz
+>Aaron Swartz
 
-** Bold **
+**Bold**
 
-* Italics *
+*Italics*
 
-~ deletion line
+~deletion line
 
 ------
 
@@ -79,13 +79,13 @@ list
 
 ```
 
-> Aaron Swartz
+>Aaron Swartz
 
-** Bold **
+**Bold**
 
-* Italics *
+*Italics*
 
-~ deletion line
+~deletion line
 
 ------
 
