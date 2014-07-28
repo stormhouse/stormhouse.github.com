@@ -72,3 +72,15 @@ list
 
 ```
 
+> Aaron Swartz
+
+** Bold **
+* Italics *
+~ deletion line
+
+------
+list
+
+* item1
+* item2
+* item3
