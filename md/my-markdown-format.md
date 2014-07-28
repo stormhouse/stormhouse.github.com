@@ -9,10 +9,12 @@ h1 -> h6
 
 ```
 <http://github.com/stormhouse>
+
 [stormhouse github]: http://github.com/stormhouse
 ```
 
 <http://github.com/stormhouse>
+
 [stormhouse github]: http://github.com/stormhouse
 
 ## code
@@ -34,12 +36,14 @@ function add(a, b){
 
 ## table
 
-    dog | bird | cat
-    ----|------|----
-    foo | foo  | foo
-    bar | bar  | bar
-    baz | baz  | baz
-    
+```
+dog | bird | cat
+----|------|----
+foo | foo  | foo
+bar | bar  | bar
+baz | baz  | baz
+```
+
 dog | bird | cat
 ----|------|----
 foo | foo  | foo
@@ -60,10 +64,13 @@ baz | baz  | baz
 > Aaron Swartz
 
 ** Bold **
+
 * Italics *
+
 ~ deletion line
 
 ------
+
 list
 
 * item1
@@ -75,10 +82,13 @@ list
 > Aaron Swartz
 
 ** Bold **
+
 * Italics *
+
 ~ deletion line
 
 ------
+
 list
 
 * item1
