@@ -1,9 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-
-<body>
-test jinshan disk
-</body>
-</html>
+<!DOCTYPE html>  
+<html>  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  
+<script src="./purl.js"></script>  
+<script src="./sha1.js"></script>  
+<script src="./kuaipan.js"></script>  
+  
+<script>  
+function doRequest(method, uri)  
+{  
+    if (method == "GET"){ // 如果是GET，直接在浏览器里面点击链接完成。  
+            document.write( method + "<hr>"   
+                + "<a href='" + uri + "'>" + uri + "</a>"  + "<hr>");  
+    }  
+                  
+    if (method == "POST"){// 如果是POST，生成一个表单，让用户提交。  
+        document.write("<form method='POST' enctype='multipart/form-data' action=" + uri + ">"  
+        + "<input type='file' name='file_content1'/>"   
+        + "<input type='file' name='file_content2'/>"  // 从测试情况看：有多个文件，金山选择了最后一个part作为文件内容。  
+        + "<input type='submit' value='post' />"  
+        + "</form>"  
+        );  
+    }  
+    // TODO: 更酷的方式，是实现JS跨域请求。  
+}  
+  
+// 申请应用时候的key和secret  
+var oauth_consumer_key = 'XXXXXXXXXXXXXXX';  
+var consumer_secret = '???????????????';  
+  
+// 临时token和secret  
+var temp_oauth_token = 'XXXXXXXXXXXXXXXXXXXXXX';  
+var temp_oauth_token_secret = '??????????????????????????';  
+// 以及，校验码  
+var oauth_verifier = 'YYYYYYYYYYYY';  
+  
+// 认证交互后得到的token和secret  
+var oauth_token = 'XXXXXXXXXXXXXXXXXXX';  
+var oauth_token_secret = '?????????????????????????????????';  
+  
+</script>  
+  
+<body>  
+<a href="javascript:requestToken(oauth_consumer_key, consumer_secret, 'http://www.a.com/kuaipan/api.html');">requestToken</a><br>  
+<a href="javascript:authorise(temp_oauth_token);">authorise</a><br>  
+<a href="javascript:accessToken(oauth_consumer_key, consumer_secret, temp_oauth_token, temp_oauth_token_secret, oauth_verifier);">accessToken</a><br>  
+<a href="javascript:account_info(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret);">account_info</a><br>  
+<a href="javascript:metadata(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/Desert.jpg');">metadata</a><br>  
+<a href="javascript:shares(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/Desert.jpg', 'ShareName', '123456');">shares</a><br>  
+<a href="javascript:create_folder(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/beaty2');">create_folder</a><br>  
+<a href="javascript:Delete(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/beaty/sample.jpg', false);">Delete</a><br>  
+<a href="javascript:move(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/Desert.jpg', 'images/Desert2.jpg');">move</a><br>  
+<a href="javascript:copy(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/Desert.jpg', 'images/beaty/sample.jpg');">copy</a><br>  
+<a href="javascript:upload_locate(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret);">upload_locate</a><br>  
+<a href="javascript:upload_file(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, 'http://p3.dfs.kuaipan.cn/cdlnode', false, true, '/hello.txt');">upload_file</a><br>  
+<a href="javascript:download_file(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/Desert2.jpg');">download_file</a><br>  
+<a href="javascript:thumbnail(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/Desert2.jpg', 40, 30);">thumbnail</a><br>  
+<a href="javascript:documentView(oauth_consumer_key, consumer_secret, oauth_token, oauth_token_secret, false, 'images/test.txt', 'txt', 'normal', 1);">documentView</a><br>  
+</body>  
+</html> 
