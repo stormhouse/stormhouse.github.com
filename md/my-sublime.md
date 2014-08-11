@@ -32,8 +32,15 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 #### [Java​Script & Node​JS Snippets][0]
 #### [SublimeText-Nodejs][1]
 
-**配置**
+**配置build**
 
+```
+{
+  "cmd": ["${NODE_PATH}/node", "$file", "$file_base_name"],
+  "working_dir": "${project_path:${folder}}",
+  "selector": "*.js"
+}
+```
 
 
 [0]:https://sublime.wbond.net/packages/JavaScript%20%26%20NodeJS%20Snippets
