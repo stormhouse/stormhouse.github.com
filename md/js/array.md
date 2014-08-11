@@ -55,7 +55,14 @@ A JavaScript array is actually a specialized type of JavaScript object, with the
         return curVal%2 == 0
     })  //[ 2, 4 ]
 
+## 复制数组
 
+    //slice
+    a = [1,2,3,4,5]
+    b = a.slice()
+    //concat
+    c = a.concat()
+    //for
 
 
 
