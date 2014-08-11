@@ -27,7 +27,14 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 "enable_highlight": true,
 ```
 
+## Node相关
+
+#### [Java​Script & Node​JS Snippets][0]
+#### [SublimeText-Nodejs][1]
+
+**配置**
 
 
 
-[1]: http://blog.guorunmin.cn/blog/2014/03/12/sublime-text-2-xia-de-markdownxie-zuo/
+[0]:https://sublime.wbond.net/packages/JavaScript%20%26%20NodeJS%20Snippets
+[1]:https://github.com/tanepiper/SublimeText-Nodejs/tree/sublime-text-3
