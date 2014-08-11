@@ -57,6 +57,11 @@ A JavaScript array is actually a specialized type of JavaScript object, with the
 
 ## 复制数组
 
+- slice     - (string|array).slice([start], [end])，返回生成一个新数组，不会改变原数组
+- splice    - array.splice([index], [delCount], els...)，对原数组插入,删除操作
+- substring - string.substring([start], [end])
+- substr    - string.substr([start], [count])
+
     //slice
     a = [1,2,3,4,5]
     b = a.slice()
