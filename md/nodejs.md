@@ -10,5 +10,9 @@
     })
     //fs.writeFile(filename, [encoding], [callback(err)])
     
+    //追加内容
+    //fs.appendFile(filename, data, [options], callback)
+    
+    
     
     
