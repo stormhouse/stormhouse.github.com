@@ -44,6 +44,8 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 ```
 #### C
 
+** SublimeClang **
+
 ```
 {
   "cmd": ["gcc", "${file}", "-o", "${file_path}/${file_base_name}"],
