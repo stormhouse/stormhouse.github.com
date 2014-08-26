@@ -27,18 +27,37 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 "enable_highlight": true,
 ```
 
-## Node相关
+## 配置build
 
-#### [Java​Script & Node​JS Snippets][0]
-#### [SublimeText-Nodejs][1]
+#### Node相关
 
-**配置build**
+**[Java​Script & Node​JS Snippets][0]**
+
+**[SublimeText-Nodejs][1]**
 
 ```
 {
   "cmd": ["${NODE_PATH}/node", "$file", "$file_base_name"],
   "working_dir": "${project_path:${folder}}",
   "selector": "*.js"
+}
+```
+#### C
+
+```
+{
+  "cmd": ["gcc", "${file}", "-o", "${file_path}/${file_base_name}"],
+  "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+  "working_dir": "${file_path}",
+  "selector": "source.c",
+
+  "variants":
+  [
+    {
+      "name": "Run",
+      "cmd": ["bash", "-c", "gcc '${file}' -o '${file_path}/${file_base_name}' &&     '${file_path}/${file_base_name}'"]
+    }
+  ]
 }
 ```
 
