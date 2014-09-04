@@ -28,6 +28,7 @@
 <div id="thing-raf"></div>
 <div id="thing-st"></div>
 <input id="stop" value="Stop" type="button"/>
+<input id="start" value="Start" type="button"/>
 
 
 <script src="easing.js"></script>
@@ -52,24 +53,28 @@
     if(isAnim)
       requestAnimationFrame(moveThing);
   }
-  moveThing();
+//  moveThing();
 
   var theThing2 = document.querySelector("#thing-st");
-  var currentPos2 = 0;
   function moveThingSetTimeout(){
-    currentPos2 += 5;
-    theThing2.style.left = currentPos2 + "px";
-    if (Math.abs(currentPos2) >= 900) {
-      currentPos2 = 0;
+      currentPos += 5;
+    theThing2.style.left = currentPos + "px";
+    if (Math.abs(currentPos) >= 900) {
+        currentPos = 0;
     }
     console.log('setTimeout')
     if(isAnim)
       setTimeout(moveThingSetTimeout, 1000/60);
   }
-  moveThingSetTimeout();
+//  moveThingSetTimeout();
 
   document.querySelector('#stop').onclick = function(){
     isAnim = false;
+  }
+  document.querySelector('#start').onclick = function(){
+    isAnim = true;
+    moveThing();
+    moveThingSetTimeout();
   }
 </script>
 </body>

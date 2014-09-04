@@ -6352,7 +6352,12 @@
         }
         var a = el.attrs,
             node = el.node,
-            fontSize = node.firstChild ? toInt(R._g.doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
+            fontSize;
+        try{
+        fontSize= node.firstChild ? toInt(R._g.doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
+      }catch(ex){
+          fontSize = 10
+        }
 
         if (params[has]("text")) {
             a.text = params.text;

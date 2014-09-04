@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        body{
+            margin: 0;
+        }
+        .text{
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<span id="edit-div" contenteditable="true" style="min-width: 200px;display: inline-block;height: 30px;" class="text">aa</span>
+<div id="edit-div1" contenteditable="true" style="min-width: 200px;display: inline-block;height: 30px;"></div>
+<div id="mymap" style="width: 100%; height: 100%">
+
+</div>
+
+<script src="../lib/raphael-2.1.1.js"></script>
+<script src="../lib/raphael.inline_text_editing.js"></script>
+<script>
+
+    document.querySelector('#edit-div').addEventListener('blur', function(){
+        console.log('blur')
+    })
+
+    function Node(x,y){
+        var url = 'http://www.w3.org/2000/svg';
+        var g = document.createElementNS(url, 'g');
+        g.setAttribute('x', x)
+        g.setAttribute('y', y)
+        g.setAttribute('width', 200)
+        g.setAttribute('height', 80)
+
+        var t = document.createElementNS(url, 'text');
+        t.textContent = '中心主题'
+        g.appendChild(t)
+
+        return g;
+
+    }
+
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg')
+    var attrs = {
+        height: '100%',
+        version: 1.1,
+        width: '100%',
+        xmlns: "http://www.w3.org/2000/svg"
+    }
+    for(var key in attrs){
+        svg.setAttribute(key, attrs[key])
+    }
+    document.querySelector('#mymap').appendChild(svg)
+
+    svg.appendChild(Node(100, 200))
+
+
+    //-----------------------------------------------------------------
+    var colorBorder = '#6D6D6D',
+        colorFill = '#96C8FF',
+        widthDefault = 80,
+        heightDefault = 40,
+        offsetW = 40,
+        offsetH = 20,
+        radius = 10;
+
+    var paper = Raphael("mymap", '100%', '100%')
+
+    var data = {},
+            win = window,
+            doc = document,
+            bodyW = doc.body.clientWidth,
+            bodyH = doc.body.clientHeight;
+
+
+
+
+    var root = paper.rect((bodyW-widthDefault)/2, (bodyH-heightDefault)/2, widthDefault, heightDefault, radius)
+    root.attr({stroke: colorBorder, "stroke-width": 2, fill: colorFill})
+
+    var rootText = paper.text((bodyW-widthDefault)/2+offsetW, (bodyH-heightDefault)/2, "中aaappppaaaaaaa心aa主题").transform(['T', 0, 0, 'R', 0, 'S', 1, 1]);;
+    rootText.attr('class', 'text')
+    rootText.node.setAttribute("class","text");
+    paper.inlineTextEditing(rootText);
+
+
+
+    root.dblclick(function(){
+        console.log(arguments)
+    })
+    rootText.dblclick(function(){
+        // Retrieve created <input type=text> field
+        var input = this.inlineTextEditing.startEditing();
+
+        input.addEventListener("blur", function(e){
+            // Stop inline editing after blur on the text field
+            rootText[0].textContent = (input.value)
+            rootText.inlineTextEditing.stopEditing();
+            root.attr('width', rootText[0].clientWidth>widthDefault ? rootText[0].clientWidth: widthDefault)
+
+        }, true);
+    })
+
+    root.mousedown(function(){
+        root.attr({cursor: "move"});
+    })
+    root.mouseup(function(){
+        root.attr({cursor: "default"});
+    })
+    rootText.mousedown(function(){
+        rootText.attr({cursor: "move"});
+    })
+    rootText.mouseup(function(){
+        rootText.attr({cursor: "default"});
+    })
+</script>
+</body>
+</html>

@@ -83,8 +83,9 @@
             theThing.style.borderRadius = .5 * circleSize + "px";
             theThing.style.opacity = .1 + Math.random() * .5;
 
-            setTranslate3DTransform(theThing);
+//            setTranslate3DTransform(theThing);
         }
+        kickOffTransition()
         setTimeout(kickOffTransition, 100);
     }
     setInitialProperties();
@@ -108,6 +109,7 @@
     function updatePosition(e) {
         var theThing = e.currentTarget;
 
+        console.log(e.propertyName.indexOf("transform"))
         if (e.propertyName.indexOf("transform") != -1) {
             setTranslate3DTransform(theThing);
             setTransitionDuration(theThing);

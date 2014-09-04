@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<script src="../lib/underscore-1.5.2.js"></script>
+<script src="../lib/jquery-1.7.2.js"></script>
+<script src="../lib/backbone-1.1.2.js"></script>
+
+<script>
+
+    var AppRouter = Backbone.Router.extend({
+        routes : {
+            '' : 'main',
+            'topic' : 'renderList',
+            'topic/:id' : 'renderDetail',
+            '*error' : 'renderError'
+        },
+        main : function() {
+            console.log('应用入口方法');
+        },
+        renderList : function() {
+            console.log('渲染列表方法');
+        },
+        renderDetail : function(id) {
+            console.log('渲染详情方法, id为: ' + id);
+        },
+        renderError : function(error) {
+            console.log('URL错误, 错误信息: ' + error);
+        }
+    });
+    var router = new AppRouter();
+
+    router.route('topic/:pageno/:pagesize/=/:id-:value', 'page', function(pageno, pagesize, id, value){
+        console.log(pageno+':'+pagesize+'-'+id+':'+value);
+        console.log('ddd')
+    });
+    router.route('topic/:pageno/:pagesize', 'page', function(pageno, pagesize, id, value){
+        console.log(arguments);
+        console.log(pageno+':'+pagesize+'-'+id+':'+value);
+        console.log('ddd')
+    });
+    Backbone.history.start();
+
+
+
+
+</script>
+
+</body>
+</html>

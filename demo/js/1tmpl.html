@@ -23,6 +23,13 @@
 <script type="text/javascript" src="../lib/syntaxhighlighter/shBrushJScript-3.0.83.js"></script>
 <script src="../lib/js2html.js"></script>
 <script>
+    function sleep(s){
+        var date = new Date()
+        while(new Date().getTime() < (date.getTime()+s*1000)){}
+
+    }
+    sleep(8)
+    console.log(111)
   SyntaxHighlighter.all()
 </script>
 </body>
