@@ -1,4 +1,4 @@
-## 安装Package Control
+## Package Control
 
 ``` Control + ` ```打开控制台，输入：
 
@@ -8,10 +8,11 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 
 重起，Preferences -> Package Settings -> Package Control
 
-## 安装markdown preview
+## Plugins
+#### markdown preview
 
 `cmd+shift+p` -> `install Pakage` -> `markdown preview`
-#### 使用markdown preview
+使用markdown preview
 
 `cmd+shift+p` -> `Preview in Browser`
 
@@ -27,9 +28,9 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 "enable_highlight": true,
 ```
 
-## 配置build
+## html5
 
-#### Node相关
+## Node
 
 **[Java​Script & Node​JS Snippets][0]**
 
@@ -42,7 +43,7 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
   "selector": "*.js"
 }
 ```
-#### C
+## C
 
 ** SublimeClang **
 
