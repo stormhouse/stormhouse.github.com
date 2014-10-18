@@ -28,13 +28,12 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
 "enable_highlight": true,
 ```
 
-## html5
+##Front-End
 
-## Node
-
-**[Java​Script & Node​JS Snippets][0]**
-
-**[SublimeText-Nodejs][1]**
+-- Alignment
+-- Emmet 
+-- **[Java​Script & Node​JS Snippets][0]**
+-- **[SublimeText-Nodejs][1]**
 
 ```
 {
@@ -43,6 +42,8 @@ import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed
   "selector": "*.js"
 }
 ```
+
+
 ## C
 
 ** SublimeClang **
