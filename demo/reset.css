@@ -73,3 +73,7 @@ table, tr, td {
 	border-collapse: collapse;
 	border-spacing: 0
 }
+
+body, button, input, select, textarea {
+	font: 14px/1.5 'Microsoft YaHei', tahoma, arial, \5b8b\4f53
+}
