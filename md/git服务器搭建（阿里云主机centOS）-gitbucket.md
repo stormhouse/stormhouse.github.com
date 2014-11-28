@@ -85,10 +85,11 @@ $ git rename github github2
 $ git clone http://your-ip:8080/gitbucket/git/your-groupv/repo-test.git
 # pull
 $ git pull
-$ git fetch origin
+$ git fetch origin/github master/branch
 # push
-$ git push origin master /[branch]
-$ git push origin --all --tags
+$ git push origin/github master/branch
+# 分支 标签
+$ git push origin --all / --tags
 ```
 #### 本地
 ```
