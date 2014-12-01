@@ -74,12 +74,14 @@ $ git clone http://your-ip:8080/gitbucket/git/your-groupv/repo-test.git
 $ git remote -v
 # 添加远程库
 $ git remote add github git@github.com:stormhouse/test.git
-# 删除远程库
+# 删除远程库url
 $ git remote remove github
 # 修改远程库
 $ git remote set-url origin git@github.com:stormhouse/test.git
 # 重命名
 $ git rename github github2
+# 删除远程分支
+$ git push origin :develop
 
 # 克隆
 $ git clone http://your-ip:8080/gitbucket/git/your-groupv/repo-test.git
