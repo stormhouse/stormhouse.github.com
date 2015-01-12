@@ -1,0 +1,46 @@
+/*
+http://stackoverflow.com/questions/16193161/hover-not-working-with-nth-child
+*/
+*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		font-family: "Microsoft YaHei",Arial,sans-serif;
+	}
+	a{
+		color: #333;
+	}
+	a:visited {
+		text-decoration: none;
+	}
+	a:link {
+		text-decoration: none;
+	}
+	table{
+		margin: 0 auto;
+		border-left: 1px solid #e8e8e8;
+		border-top: 1px solid #e8e8e8;
+	}
+	table tr:hover td{
+		background-color: #fffae5 !important;
+	}
+	table td, th{
+		border-bottom: 1px solid #e8e8e8;
+		border-right: 1px solid #e8e8e8;
+		padding: 10px;
+	}
+	
+	table tr:nth-child(odd) td{
+		background-color: #f5f5f5;
+	}
+	.page{
+		margin: 20px auto;
+	}
+	.page a{
+		padding: 5px;
+		border: 1px solid #e8e8e8;
+	}
+	.page a:hover{
+		background-color: #fffae5 !important;
+	}
