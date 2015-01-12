@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <!--<link rel="stylesheet" type="text/css" href="" />-->
+  <title></title>
+</head>
+<body>
+
+<div id="sidebar">ggggg</div>
+<script src="../assets/sea-modules/seajs/1.2.1/sea-debug.js"></script>
+<script src="../../js/log.js"></script>
+<script>
+  seajs.config({
+    alias:{
+      '$':'jquery/1.7.2/jquery.js',
+      '_':'underscore/1.4.2/underscore.js',
+      'underscore':'underscore/1.4.2/underscore.js',
+      'backbone':'backbone/0.9.2/backbone.js'
+    }
+  })
+  seajs.use(['$', 'backbone', 'underscore'], function ($, Backbone, _) {
+    var object = {};
+    _.extend(object, Backbone.Events);
+    object.on("alert", function(msg, arg2) {
+      log("Triggered " + msg +': '+ arg2);
+    });
+    object.trigger("alert", "an event", 'second arg');
+
+
+    var Sidebar = Backbone.Model.extend({
+      promptColor: function() {
+        var cssColor = prompt("Please enter a CSS color:");
+        this.set({color: cssColor});
+      }
+    });
+    window.sidebar = new Sidebar;
+    //Model Event
+    sidebar.on('change:color', function(model, color) {
+      $('#sidebar').css({background: color});
+    });
+    sidebar.set({color: 'white'});
+    sidebar.promptColor();
+
+
+  });
+</script>
+
+</body>
+</html>

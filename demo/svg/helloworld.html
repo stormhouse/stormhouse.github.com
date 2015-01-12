@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body>
+
+<script src="../lib/raphael-2.1.0.js"></script>
+
+<script>
+  // Creates canvas 320 × 200 at 10, 50
+  var paper = Raphael(10, 50, 320, 200);
+
+  // Creates circle at x = 50, y = 40, with radius 10
+  var circle = paper.circle(50, 40, 10);
+  // Sets the fill attribute of the circle to red (#f00)
+  circle.attr("fill", "#f00");
+
+  // Sets the stroke attribute of the circle to white
+  circle.attr("stroke", "#fff");
+
+//  paper.path('M24.132,7.971c-2.203-2.205-5.916-2.098-8.25,0.235L15.5,8.588l-0.382-0.382c-2.334-2.333-6.047-2.44-8.25-0.235c-2.204,2.203-2.098,5.916,0.235,8.249l8.396,8.396l8.396-8.396C26.229,13.887,26.336,10.174,24.132,7.971z').attr({fill: "#000", stroke: "none"});
+  var c = paper.path("");
+  // draw a diagonal line:
+  // move to 10,10, line to 90,90
+</script>
+</body>
+</html>

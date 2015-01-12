@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <style type="text/css">
+    #canvas_container {
+      width: 500px;
+      border: 1px solid #aaa;
+    }
+  </style>
+</head>
+<body>
+<div id="canvas_container"></div>
+
+<svg width="800px" height="600px" viewBox="0 0 360000 240000">
+  <defs>
+    <symbol id="symbolRect" overflow="visible">
+      <rect x="-3000" y="-3000" width="6000" height="6000" fill="rgb(240,65,25)" fill-opacity="0.8" stroke="black" stroke-width="300" />
+    </symbol>
+    <symbol id="symbolCirc" overflow="visible">
+      <circle cx="0" cy="0" r="3000" fill="rgb(12,166,107)" fill-opacity="0.8" stroke="black" stroke-width="300" />
+    </symbol>
+    <symbol id="airplane" overflow="visible">
+      <path stroke="blue" stroke-width="100" fill="lightgray" d="M-4000,0 a1000,300 0 0,1 1000,-300 H-1000 L1500,-3000 h400 L0,-300 h2000 L3000,-1500 h500 L2500,-50 V100 L3500,1500 h-500 L2000,300 h-2000 L1900,3000 h-400 L-1000,300 H-3000 a1000,300 0 0,1 -1000,-300" />
+    </symbol>
+  </defs>
+
+  <g id="AnimationPaths">
+    <!--<path id="Zuerich_Geneva" stroke="orange" stroke-width="2000" fill="none" d="M682500,53500 C632500,53500 549500,80000 499500,181000" />-->
+    <use id="AirplaneZurichGeneva" xlink:href="#airplane">
+      <animateMotion id="animMotionZurGen" dur="10s;" repeatCount="indefinite" rotate="auto-reverse">
+        <mpath xlink:href="#Zuerich_Geneva"/>
+      </animateMotion>
+      <animateTransform id="animTransZurGen" attributeName="transform" type="scale" keyTimes="0;0.2;0.8;1" values="1.5;4;4;1.5" dur="10s" additive="replace" fill="freeze" repeatCount="indefinite"/>
+    </use>
+  </g>
+  <!--<path fill="#e00000" stroke="#e00000" d="M60.96509369851019,41.00012184647303L56.68743165396371,48.530168820605816L65.3474746475261,48.469709332921155Z" fill-opacity="1" stroke-opacity="1" stroke-width="1" style="cursor: pointer;"></path>-->
+
+  <!--<path fill="#e00000" stroke="#e00000" d="M258.9650936985102,41.00012184647303L254.6874316539637,48.530168820605816L263.3474746475261,48.469709332921155Z" fill-opacity="1" stroke-opacity="1" stroke-width="1" style="cursor: pointer;"></path>-->
+
+
+  <!--&lt;!&ndash; A triangle with absolute coordinates &ndash;&gt;-->
+  <!--<path d = "M 200 50 L 300 150 L 200 150 L 200 50" stroke = "red" stroke-width = "3" fill = "none"/>-->
+  <!--&lt;!&ndash; A triangle with relative coordinates &ndash;&gt;-->
+  <!--<path d = "M 500 50 l 100 100 l -100 0 l 0 -100" stroke = "green" stroke-width = "3" fill = "none"/>-->
+  <!--&lt;!&ndash; Practical use of relative moves &ndash;&gt;-->
+  <!--<path d = "M 700 50 l 100 100 m 0 -100 l 100 100 m 0 -100 l 100 100" stroke = "blue" stroke-width = "3"/>-->
+</svg>
+<script src="../lib/raphael-2.1.0.js"></script>
+<script>
+  var paper = new Raphael(document.getElementById('canvas_container'), 500, 500);
+  var r1 = paper.rect(10, 10, 100, 80);
+  r2 = r1.clone();
+
+  //以(10,10)为基点，x轴缩放1.5倍，y轴缩放0.8
+  r2.scale(1.5, 0.8, 10, 10);
+  r2.attr({
+    'stroke': 'red'
+  });
+  r1.animate({"transform": "s", "dur": "2s"}, 2000);
+//  r1.animate({"transform": "scale","keyTimes":"0;0.2;0.8;1",
+//  "values":"1.5;4;4;1.5", "dur":"3s","additive":"replace", "fill":"freeze", "repeatCount":"indefinite"}, 2000, 'bounce', function () {
+//      /* callback after original animation finishes */
+////      this.animate({
+////        "transform": "r -90",
+////        "stroke": "#3b4449",
+////        'stroke-width': "10"
+////      }, 1000);
+//    });
+
+//  基本形状
+//  var circle = paper.circle(100, 100, 80);
+//  for(var i = 0; i < 5; i+=1) {
+//    var multiplier = i*5;
+//    paper.circle(250 + (2*multiplier), 100 + multiplier, 50 - multiplier);
+//  }
+//  var rectangle = paper.rect(200, 200, 250, 100);
+//  var ellipse = paper.ellipse(200, 400, 100, 50);
+
+//  Path
+//  var tetronimo1 = paper.path("M100.031 36.96c2.7573,-0.2907 3.7856,2.2815 4.9179,5.0193l-4.9686 10.0386 -5.0193 -10.0893c0.8788,-1.859 2.3127,-4.6779 5.07,-4.9686z");
+//  var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+//  tetronimo.attr({
+//    "gradient": "90-#526c7a-#64a0c1",
+//    "stroke": "#3b4449",
+//    "stroke-width": "10",
+//    "stroke-linejoin": "round",
+//    "transform": "r -90"
+//  });
+////  动画
+//  tetronimo.animate({"transform": "r 360", 'stroke-width': 1}, 2000, 'bounce', function () {
+//    /* callback after original animation finishes */
+//    this.animate({
+//      "transform": "r -90",
+//      "stroke": "#3b4449",
+//      'stroke-width': "10"
+//    }, 1000);
+//  });
+//
+//  tetronimo.attr(
+//      {
+//        stroke: 'none',
+//        fill: 'blue'
+//      });
+//
+//  tetronimo.animate({ path: "M 250 250 l 0 -50 l -50 0 l 0 -50 l -100 0 l 0 50 l 50 0 l 0 50 z"},
+//      5000, 'elastic');
+
+
+</script>
+</body>
+</html>

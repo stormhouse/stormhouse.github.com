@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+</head>
+<body>
+<div style="width: 15px;height: 15px; border: 1px solid #000000"></div>
+<button value="click"></button>
+<script src="../../lib/jquery-1.7.2.js"></script>
+<script>
+  $('div').animate({
+    width: 600
+  },5000, '', function(){console.log('finished width')});
+  $('div').animate({
+    height: 60
+  },5000, '', function(){console.log('finished height')});
+
+
+
+
+  $('button').click(function(){
+    console.log($('div').queue())
+  })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body>
+
+<svg width="640" height="480" version="1.1">
+  <rect x="50" y="50" width="100" height="50">
+    <animate attributeType="XML" attributeName="x"
+             from="50" to="300" dur="3s" begin="3s"
+             restart="always" repeatCount="3">
+    </animate>
+  </rect>
+
+  <circle cx="100" cy="200" r="30" style="fill:none;stroke-width:3;stroke:black">
+    <animate attributeType="XML" attributeName="r"
+             from="0" to="30" dur="3s"
+             restart="always" repeatCount="3">
+    </animate>
+  </circle>
+
+  <circle cx="100" cy="300" r="30" style="fill:none;stroke-width:3;stroke:black">
+    <animate attributeType="CSS" attributeName="fill"
+             from="#000000" to="#FF0000" dur="10s"
+             restart="always">
+    </animate>
+  </circle>
+</svg>
+
+</body>
+</html>

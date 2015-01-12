@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body onload="setupGears();">
+<div style="text-align: center;"> <!-- Center everything. -->
+    <div style=" margin-bottom: 8px;">
+        <button id="startButton" type="button" onclick="startAnim();">
+            Start Animation
+        </button>
+    </div>
+    <svg id="svgElement" width="800px" height="800px" viewBox="0 0 800 800"> <!-- Give the svg element a name so that we can easily access it via JavaScript. -->
+        <rect x="0" y="0" width="100%" height="100%" rx="16" ry="16"
+              style="fill: none; stroke: black; stroke-dasharray: 10 5;" />
+        <g id="coordinateFrame" transform="translate(400, 400)"> <!-- Create a Cartesian coordinate system (with the y-axis flipped) for the animated gears. That is, place the origin at the center of the 800 x 800 SVG viewport: -->
+            <!-- Gear <g> elements will be appended here via JavaScript. -->
+        </g>
+    </svg>
+</div>
+
+<script>
+/* -- GLOBALS -------------------------------------------------------------------------------------------- */
+
+var constants = new Object(); // Used to store global constants, see setConstants().
+var gear = []; // An array that will contain the gears to be animated (plus additional information, such as gear position).
+var timer; // Contains the setInterval() object, used to stop the animation.
+
+/* -- HELPER FUNCTIONS ----------------------------------------------------------------------------------- */
+
+function setConstants()
+    /*
+     Create a single global variable that contains all required constants.
+     */
+{
+    constants.gearCrossBarColor = "white"; // The color of the vertical and horizontal lines on the circular gears.
+    constants.gearFontSize = 10; // Font size of the text displayed on the gears.
+    constants.driveGearIndex = 0; // The array index for the drive gear, which is the largest gear (labeled "#0"). All the other smaller gears are idler gears.
+    constants.driveGearAngularLimit = 360; // The total number of degrees to rotate the central drive gear, at which point the animation stops.
+    constants.delay = 10; // The delay between animation stills, in milliseconds. This affects animation smoothness.
+    constants.driveGearSpeed = 0.3; // The amount, in degrees, to rotate the central drive gear every "delay" milliseconds (this speed value, of course, affects the speed of all the idler gears).
+}
+
+function svgSupported()
+    /*
+     Returns true if the browser supports HTML5 with inline SVG, false otherwise. Assumes that the root SVG
+     element has an ID value of "svgElement".
+     */
+{
+    return (svgElement.namespaceURI == "http://www.w3.org/2000/svg");
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function getRandomColor()
+    /*
+     Returns and RBG color value string, as in "rgb(120, 70, 255)". Stay away from overly dark and light
+     colors. That is, we avoid RGB values below 60 (i.e., too dark) and RGB values above 230 (i.e., too light).
+
+     Note that Math.floor( Math.random() * 171 ) generates a random integer between 0 and 170. Thus, adding
+     60 to this range gives you a random integer between 60 and 230.
+     */
+{
+    var randomColor1 = Math.floor( Math.random() * 171 ) + 60; // Generates a random integer between 60 and 230.
+    var randomColor2 = Math.floor( Math.random() * 171 ) + 60;
+    var randomColor3 = Math.floor( Math.random() * 171 ) + 60;
+
+    return ( "rgb(" + randomColor1 + ", " + randomColor2  + ", " + randomColor3  + ")" );
+}
+
+/* -- ANIMATION SETUP FUNCTIONS -------------------------------------------------------------------------- */
+
+function initializeGearsArray()
+    /*
+     Assumes that this function is called after the page loads.
+     */
+{
+    gears =
+            [
+                {r: 200,	x: 0,		y: 0,		clockwise:	+1},
+                {r: 75,		x: 275,		y: 0,		clockwise:	-1},
+                {r: 37.5,	x: 275,		y: 112.5,	clockwise:	+1},
+                {r: 125,	x: 275,		y: 275,		clockwise:	-1},
+                {r: 37.5,	x: 112.5,	y: 275,		clockwise:	+1},
+                {r: 75,		x: 0,		y: 275,		clockwise:	-1},
+                {r: 37.5,	x: -112.5,	y: 275,		clockwise:	+1},
+                {r: 125,	x: -275,	y: 275,		clockwise:	-1},
+                {r: 37.5,	x: -275,	y: 112.5,	clockwise:	+1},
+                {r: 75,		x: -275,	y: 0,		clockwise:	-1},
+                {r: 37.5,	x: -275,	y: -112.5,	clockwise:	+1},
+                {r: 125,	x: -275,	y: -275,	clockwise:	-1},
+                {r: 37.5,	x: -112.5,	y: -275,	clockwise:	+1},
+                {r: 75,		x: 0,		y: -275,	clockwise:	-1},
+                {r: 37.5,	x: 112.5,	y: -275,	clockwise:	+1},
+                {r: 125,	x: 275,		y: -275,	clockwise:	-1},
+                {r: 37.5,	x: 275,		y: -112.5,	clockwise:	+1}
+            ]; // Define the radius of each gear, its center, and its normal direction of rotation.
+
+    for (var i = 0; i < gears.length; i++)
+    {
+        gears[i].index = i; // A gear object should know what gear it is.
+        gears[i].name = "gear" + i; // The ID name used for each gear <g> group.
+        gears[i].currentAngle = 0; // All gears start out with 0 degrees of initial rotation.
+        gears[i].color = getRandomColor(); // A gear's color.
+        gears[i].circleName = "gearCircle" + i; // This information is needed so that we can reset the gear colors when the Reset button is pressed.
+        gears[i].transform = "matrix(1 0 0 1 0 0)";
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function appendGearGElement(gear)
+{
+    var gearGElement; // Each gear <g> element will contain all the graphics required for a gear, and said <g> element will be named "gear0", "gear1", "gear2", etc.
+
+    gearGElement = document.createElementNS("http://www.w3.org/2000/svg", "g"); // Create a generic SVG <g> element.
+    gearGElement.id = gear.name; // This is a gear object that will be animated.
+    coordinateFrame.appendChild(gearGElement); // Append the gear object to the coordinate frame element.
+    return (gearGElement); // Return the <g> element object so that other gear graphic elements can be attached to it later on.
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function appendGearCircleElement(gear, appendElement)
+{
+    var gearCircleElement; // The basic shape of a gear is a colored circle.
+
+    gearCircleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    gearCircleElement.id = gear.circleName;
+    gearCircleElement.cx.baseVal.value = gear.x;
+    gearCircleElement.cy.baseVal.value = gear.y;
+    gearCircleElement.r.baseVal.value = gear.r;
+    gearCircleElement.style.fill = gear.color;
+    appendElement.appendChild(gearCircleElement); // Append this gear circle to its containing <g> element.
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function appendGearCrossbarElements(gear, appendElement)
+{
+    var gearLineElement; // Represents a horizontal or vertical line on the gear surface.
+
+    gearLineElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    gearLineElement.id = "gearHLine" + gear.index;
+    gearLineElement.x1.baseVal.value = gear.x - gear.r;
+    gearLineElement.y1.baseVal.value = gear.y;
+    gearLineElement.x2.baseVal.value = gear.x + gear.r;
+    gearLineElement.y2.baseVal.value = gear.y;
+    gearLineElement.style.stroke = "white";
+    appendElement.appendChild(gearLineElement);
+
+    gearLineElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    gearLineElement.id = "gearVLine" + gear.index;
+    gearLineElement.x1.baseVal.value = gear.x;
+    gearLineElement.y1.baseVal.value = gear.y - gear.r;
+    gearLineElement.x2.baseVal.value = gear.x;
+    gearLineElement.y2.baseVal.value = gear.y + gear.r;
+    gearLineElement.style.stroke = constants.gearCrossBarColor;
+    appendElement.appendChild(gearLineElement);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function appendGearTextElements(gear, appendElement)
+{
+    /*
+     For comparison purposes, this function uses DOM L2 scripting.
+     */
+    var gearTextElement;
+
+    gearTextElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    gearTextElement.id = "gearNumberText" + gear.index;
+    gearTextElement.setAttribute("x", gear.x);
+    gearTextElement.setAttribute("y", gear.y);
+    gearTextElement.setAttribute("transform", "translate(3, -3)"); // Offset the text from the center of the circle.
+    gearTextElement.textContent = "#" + gear.index;
+    gearTextElement.setAttribute("font-size", constants.gearFontSize);
+    appendElement.appendChild(gearTextElement);
+
+    gearTextElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    gearTextElement.id = "gearRadiusText" + gear.index;
+    gearTextElement.setAttribute("x", gear.x);
+    gearTextElement.setAttribute("y", gear.y);
+    gearTextElement.setAttribute("transform", "translate(3, 10)");
+    gearTextElement.textContent = "r = " + gear.r;
+    gearTextElement.setAttribute("font-size", constants.gearFontSize);
+    appendElement.appendChild(gearTextElement);
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function createGearElements()
+{
+    var gearGElement;
+
+    for (var i = 0; i < gears.length; i++)
+    {
+        gearGElement = appendGearGElement(gears[i]); // Create a named <g> element and append it to the "coordinateFrame" element.
+        appendGearCircleElement(gears[i], gearGElement); // Create a named <circle> element, representing part of a gear, and attach it to the "gearGElement" group.
+        appendGearCrossbarElements(gears[i], gearGElement); // Now add the crossbars to a gear <g> group.
+        appendGearTextElements(gears[i], gearGElement); // And finally print some useful info onto the surface of the gear.
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function loadGearsArray()
+{
+    var transformObject = svgElement.createSVGTransform(); // Create a generic SVG transform object so as to gain access to its methods and properties, such as setRotate().;
+
+    for (var i = 0; i < gears.length; i++)
+    {
+        gears[i].obj = document.getElementById(gears[i].name); // Acquire the gear object (i.e., the <g> element) associated with the given gear element ID name. This gear object will be incrementally rotated at a given center point.
+        gears[i].obj.transform.baseVal.appendItem(transformObject); // Append a transform object to a gear, now the gear object has inherited all the transform object's goodness such as access to the method setRotate().
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+function setupGears()
+{
+    if ( !svgSupported() ) // Bail if the browser doesn't support HTML5 with inline SVG.
+    {
+        alert("Inline SVG in HTML5 is not supported. This document requires a browser that supports HTML5 and inline SVG.");
+        return;
+    }
+    setConstants(); // Add all required constant values to the global "constants".
+    initializeGearsArray(); // Add basic gear information, such as gear location and size.
+    createGearElements(); // Creates gear related elements and inserts them into the DOM.
+    loadGearsArray(); // This must be called after createGearElements(). These gear <g> elements will be incrementally rotated when animated.
+}
+
+/* -- ANIMATION FUNCTIONS -------------------------------------------------------------------------------- */
+
+function startAnim()
+{
+    if ( !startButton.startButtonClicked ) // Don't allow multiple instance of the function specified by setInterval to be invoked by the browser. Note that button.startButtonClicked will be undefined on first use, which is effectively the same as false.
+    {
+        /* Only do the following once per animation: */
+        timer = setInterval(doAnim, constants.delay); // Call the doAnim() function every "delay" milliseconds until "timer" is cleared.
+        startButton.startButtonClicked = true; // A custom property is attached to the button object to track whether the button has been clicked or not.
+    }
+}
+
+function doAnim()
+    /*
+     This function is called by setInterval() every "delay" milliseconds.
+     */
+{
+    if (gears[constants.driveGearIndex].currentAngle > constants.driveGearAngularLimit) // Stop the animation after the drive gear rotates driveGearAngularLimit number of degrees.
+    {
+        clearInterval(timer); // Instruct the browser to stop calling the function indicated by setInterval();
+        startButton.startButtonClicked = false; // Let the user run the animation again if they choose.
+        gears[constants.driveGearIndex].currentAngle = 0; // Set the drive gear up for another spin if the user clicks the Start Animation button.
+        return; // We have completed our animation, time to quit.
+    }
+
+    for (var i = 0; i < gears.length; i++)
+    {
+        gears[i].obj.transform.baseVal.getItem(0).setRotate(gears[i].currentAngle, gears[i].x, gears[i].y); // Rotate the i'th gear about the gear's center point.
+        // gears[i].obj.setAttribute("transform", "rotate(" + gears[i].currentAngle + ", " + gears[i].x + ", " + gears[i].y + ")"); // More cross-browser friendly, slightly less performant. Note that you don't technically need to append a transform object to each gear object, in loadGearsArray(), when using this line.
+        gears[i].currentAngle += (gears[i].clockwise * constants.driveGearSpeed * (gears[constants.driveGearIndex].r/gears[i].r)); // Calculate the appropriate rotational speed of the gear based on it's radius.
+
+        if ( gears[i].currentAngle >= (constants.driveGearAngularLimit + 360) ) // Don't let "currentAngle" get crazy big.
+            gears[i].currentAngle -= 360; // Keeps "currentAngle" between 0 and a non-crazy value.
+    }
+}
+</script>
+
+</body>
+
+</html>

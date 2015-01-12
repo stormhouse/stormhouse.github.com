@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <style type="text/css">
+
+    @-webkit-keyframes pulse {
+      0% {
+        -webkit-transform: scale(1);
+      }
+      50% {
+        -webkit-transform: scale(1.1);
+      }
+      100% {
+        -webkit-transform: scale(1);
+      }
+    }
+    @-moz-keyframes pulse {
+      0% {
+        -moz-transform: scale(1);
+      }
+      50% {
+        -moz-transform: scale(1.1);
+      }
+      100% {
+        -moz-transform: scale(1);
+      }
+    }
+    @-o-keyframes pulse {
+      0% {
+        -o-transform: scale(1);
+      }
+      50% {
+        -o-transform: scale(1.1);
+      }
+      100% {
+        -o-transform: scale(1);
+      }
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .pulse {
+      -webkit-animation-name: pulse;
+      -moz-animation-name: pulse;
+      -o-animation-name: pulse;
+      animation-name: pulse;
+    }
+
+    .wraper {
+      position: relative;
+      border: 1px solid orange;
+    }
+
+    .str0 {
+      stroke: black;
+      stroke-width: 0.2
+    }
+
+    .fil0 {
+      fill: none
+    }
+
+
+
+  </style>
+</head>
+<body onload="draw();">
+<a href="http://lblovesnow-163-com.iteye.com/blog/1447918">http://lblovesnow-163-com.iteye.com/blog/1447918</a>
+
+<!--<canvas id="test" width="200px" height="200px" class="wraper"></canvas>-->
+
+
+<svg width="800px" height="600px">
+
+  <!--<rect x="100" y="100" width="300" height="100" style="fill:rgb(0,0,255);stroke-width:1; stroke:rgb(0,0,0)" transform="skewX(30)">-->
+  <!--&lt;!&ndash;<animateTransform attributeName="transform" attributeType="XML"&ndash;&gt;-->
+                    <!--&lt;!&ndash;type="rotate" from="0" to="90" dur="5s"&ndash;&gt;-->
+                    <!--&lt;!&ndash;additive="replace" fill="freeze"/>&ndash;&gt;-->
+  <!--<animateTransform attributeName="transform" attributeType="XML"-->
+                    <!--type="scale" from="1" to="2" dur="5s"-->
+                    <!--additive="replace" fill="freeze" additive="sum" />-->
+  <!--</rect>-->
+
+  <path class="fil0 str0 pulse" stroke="blue" stroke-width="100" fill="lightgray"
+        d="M89.6762 199.841c-52.1899,-37.9192 -68.8732,-116.17 -3.6358,-114.947 75.4801,-3.058 52.922,76.4161 3.6358,114.947z" transform="matrix(1.2, 0, 0, 1.2, -30, -30)" duration="2s">
+
+    <!--<animateTransform id="animTransZurGen" attributeName="transform" type="scale" keyTimes="0;0.4;0.6;1"-->
+                      <!--values="1;1.2;1.2;1" dur="1.5s" additive="replace" fill="freeze" repeatCount="indefinite"/>-->
+    <animateTransform id="animTransZurGen2" attributeName="transform" type="translate" keyTimes="0;0.4;0.6;1"
+                      values="-10,-10 ;10 10;-10 10;11 10" dur="1.5s" additive="" fill="freeze" repeatCount="indefinite"/>
+  </path>
+  <!--<path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>-->
+  <!--<path d="M70 10 C 70 20, 120 20, 120 10" stroke="black" fill="transparent"/>-->
+  <!--<path d="M130 10 C 120 20, 180 20, 170 10" stroke="black" fill="transparent"/>-->
+  <!--<path d="M10 60 C 20 80, 40 80, 50 60" stroke="black" fill="transparent"/>-->
+  <!--<path d="M70 60 C 70 80, 110 80, 110 60" stroke="black" fill="transparent"/>-->
+  <!--<path d="M130 60 C 120 80, 180 80, 170 60" stroke="black" fill="transparent"/>-->
+  <!--<path d="M10 110 C 20 140, 40 140, 50 110" stroke="black" fill="transparent"/>-->
+  <!--<path d="M70 110 C 70 140, 110 140, 110 110" stroke="black" fill="transparent"/>-->
+  <!--<path d="M130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent"/>-->
+
+  <!--<path d="M10 80 C 40 10, 65 10, 95 80 S 95 150, 10 80" stroke="black" fill="transparent"/>-->
+
+</svg>
+<script type="text/javascript">
+  //  function draw(){
+  //    var can = document.getElementById('test');
+  //    if(can.getContext){
+  //      var cxt = can.getContext('2d');
+  //
+  //      //绘制起始点、控制点、终点
+  //      cxt.beginPath();
+  //      cxt.moveTo(20,170);
+  //      cxt.lineTo(130,40);
+  //      cxt.lineTo(180,150);
+  //      cxt.stroke();
+  //
+  //      cxt.strokeStyle = "rgba(255,0,0,1)";
+  //
+  //      //绘制2次贝塞尔曲线
+  //      cxt.beginPath();
+  //      cxt.moveTo(20,170);
+  //      cxt.quadraticCurveTo(130,40,180,150);
+  //      cxt.stroke();
+  //
+  //    }
+  //
+  //  }
+</script>
+</body>
+</html>

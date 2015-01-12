@@ -1,0 +1,23 @@
+{
+  "taskid": "123",
+  "HLocation": "453-3223-123",
+  "HLocationname": "China-Beijing-175cmm",
+  "HOperator": "China Mobile",
+  "HType": "2G",
+  "HSim1": "GPRS",
+  "HSim2": "GPRS",
+  "VLocation": "453-3223-123",
+  "VLocationname": "China-Beijing-175cmm",
+  "VOperator": "China Mobile",
+  "VType": "2G",
+  "VSim1": "GPRS",
+  "VSim2": "GPRS",
+  "OLocation": "453-3223-123",
+  "OLocationname": "China-BeijingItems.json-175cmm",
+  "OOperator": "China Mobile",
+  "OType": "2G",
+  "OSim1": "GPRS",
+  "VSim2": "GPRS",
+  "retrytimes": "3",
+  "testtimes": "5"
+}

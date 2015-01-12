@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+#cock {
+	background-image: url('bg.png');
+	height: 230px;
+	margin: 40px auto 0;
+	overflow: visible;
+	position: relative;
+	width: 416px;
+}
+#head,#face,#plumage1,#plumage2,#plumage3,#plumage4,#wing,#foot,#link{
+	background-image: url('sheet.png');
+	background-repeat: no-repeat;
+	position: absolute;
+	cursor: pointer;
+}
+#face {
+	background-position: 0 -457px;
+	height: 44px;
+	left: 105px;
+	top: 104px;
+	width: 40px;
+}
+#head {
+	background-position: 0 -501px;
+	height: 102px;
+	left: 109px;
+	top: 50px;
+	width: 57px;
+}
+#plumage1{
+	background-position: 0 -37px;
+	height: 110px;
+	left: 136px;
+	top: 21px;
+	width: 44px;
+}
+#plumage2{
+	background-position: 0 -252px;
+	height: 119px;
+	left: 159px;
+	top: 7px;
+	width: 42px;
+}
+#plumage3{
+	background-position: 0 -147px;
+	height: 105px;
+	left: 188px;
+	top: 20px;
+	width: 42px;
+}
+#plumage4{
+	background-position: 0 -371px;
+	height: 86px;
+	left: 216px;
+	top: 48px;
+	width: 42px;
+}
+#foot{
+	background-position: 0 0;
+	height: 37px;
+	left: 155px;
+	top: 176px;
+	width: 88px;
+}
+#wing{
+	background-position: 0 -646px;
+	height: 79px;
+	left: 169px;
+	top: 118px;
+	width: 81px;
+}

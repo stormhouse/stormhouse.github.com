@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body>
+
+<svg width="640" height="480" version="1.1">
+  <g transform="translate(150,150)">
+    <path d="M0,0 L70,70 L150,270" style="fill:none;stroke:black;stroke-width:2"/>
+    <text x="0" y="0" font-size="37" visibility="hidden"
+          stroke="black" stroke-width="2">
+      AnimateMotion Effect
+      <set attributeName="visibility"
+           attributeType="CSS" to="visible"
+           begin="1s" dur="5s" fill="freeze"/>
+      <animateMotion path="M0,0 L70,70 L150,270"
+                     begin="1s" dur="5s" fill="freeze" rotate="roate"/> <!--roate-->
+    </text>
+  </g>
+</svg>
+</body>
+</html>

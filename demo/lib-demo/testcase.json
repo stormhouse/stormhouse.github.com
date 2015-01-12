@@ -1,0 +1,176 @@
+[
+  {
+    "id": 1,
+    "name": "Voice",
+    "tcs": [
+      {
+        "checked": "",
+        "id": 193,
+        "name": "Voice_V(MSa1)_V(MSb1)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "V",
+        "targetSim": "b1",
+        "testcasecode": "020103",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 194,
+        "name": "Voice_V(MSb1)_V(MSa1)",
+        "origin": "V",
+        "originSim": "b1",
+        "target": "V",
+        "targetSim": "a1",
+        "testcasecode": "020104",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 195,
+        "name": "Voice_V(MSa1)_V(MSa2)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "V",
+        "targetSim": "a2",
+        "testcasecode": "020105",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 196,
+        "name": "Voice_V(MSa1)_O(MSa2)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "O",
+        "targetSim": "a2",
+        "testcasecode": "020106",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 197,
+        "name": "Voice_O(MSa2)_V(MSa1)",
+        "origin": "O",
+        "originSim": "a2",
+        "target": "V",
+        "targetSim": "a1",
+        "testcasecode": "020107",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 198,
+        "name": "Voice_V(MSa1)_H(MSa2)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "H",
+        "targetSim": "a2",
+        "testcasecode": "020101",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 199,
+        "name": "Voice_H(MSa2)_V(MSa1)",
+        "origin": "H",
+        "originSim": "a2",
+        "target": "V",
+        "targetSim": "a1",
+        "testcasecode": "020102",
+        "thethird": "",
+        "thethirdSim": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "SMS",
+    "tcs": [
+      {
+        "checked": "",
+        "id": 182,
+        "name": "SMS_H(MSa2)_V(MSa1)",
+        "origin": "H",
+        "originSim": "a2",
+        "target": "V",
+        "targetSim": "a1",
+        "testcasecode": "020202",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 183,
+        "name": "SMS_V(MSa1)_H(MSa2)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "H",
+        "targetSim": "a2",
+        "testcasecode": "020201",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 184,
+        "name": "Msg-VMS(a1)-OMS(a2)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "O",
+        "targetSim": "a2",
+        "testcasecode": "020203",
+        "thethird": "",
+        "thethirdSim": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "GPRS",
+    "tcs": [
+      {
+        "checked": "",
+        "id": 185,
+        "name": "MMS2.x-HMS(a2)-VMS(a1)",
+        "origin": "H",
+        "originSim": "a2",
+        "target": "V",
+        "targetSim": "a1",
+        "testcasecode": "020302",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 186,
+        "name": "MMS2.x-VMS(a1)-HMS(a2)",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "H",
+        "targetSim": "a2",
+        "testcasecode": "020301",
+        "thethird": "",
+        "thethirdSim": ""
+      },
+      {
+        "checked": "",
+        "id": 187,
+        "name": "VMS(a1)browseHTTP",
+        "origin": "V",
+        "originSim": "a1",
+        "target": "",
+        "targetSim": "",
+        "testcasecode": "020303",
+        "thethird": "",
+        "thethirdSim": ""
+      }
+    ]
+  }
+]

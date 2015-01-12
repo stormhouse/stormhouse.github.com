@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>示例 5 - 两个摩擦轮</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body onload="init();"> <!-- init() sets up for the pending animation. -->
+<div align="center"> <!-- An inexpensive way to center everything. -->
+    <div style=" margin-bottom: 8px;">
+        <button id="startButton" type="button" onclick="startAnim();">
+            Start Animation
+        </button>
+    </div>
+    <svg id="svgElement" width="800px" height="800px" viewBox="0 0 800 800">
+        <!-- Give the svg element a name so that we can easily access it via JavaScript. -->
+        <rect x="0" y="0" width="100%" height="100%" rx="16" ry="16"
+              style="fill: none; stroke: black; stroke-dasharray: 10 5;"/>
+
+        <defs> <!-- Do not render the gear template, just define it. -->
+            <g id="gearTemplate">
+                <!-- Give this group of graphic elements a name so that it can be "called" from the <use> element. -->
+                <circle cx="0" cy="0" r="150" style="stroke: black;"/>
+                <line x1="0" y1="-150" x2="0" y2="150" style="stroke: white;"/>
+                <!-- From top to bottom, draw the vertical wheel "spoke". -->
+                <line x1="-150" y1="0" x2="0" y2="0" style="stroke: white;"/>
+                <!-- Draw left half of the horizontal "spoke". -->
+                <line x1="0" y1="0" x2="150" y2="0" style="stroke: darkGreen;"/>
+                <!-- Draw right half of the horizontal "spoke". -->
+            </g>
+        </defs>
+
+        <g transform="translate(400, 400)">
+            <!-- Create a Cartesian coordinate system (with the y-axis flipped) for the animated gears. That is, place the origin at the center of the 800 x 800 SVG viewport: -->
+            <use id="gear0" x="-150" y="0" xlink:href="#gearTemplate" style="fill: orange;" transform="matrix(1 0 0 1 0 0)"/>
+            <!-- Use the previously defined gear template and position it appropriately. -->
+            <use id="gear1" x="150" y="0" xlink:href="#gearTemplate" style="fill: mediumPurple;" transform="matrix(1 0 0 1 0 0)"/>
+            <!-- Same as the previous line but give this circle a different color. -->
+        </g>
+    </svg>
+</div>
+
+
+<script>
+    /* CONSTANTS */
+    var initialTheta = 0; // The initial rotation angle, in degrees.
+    var currentTheta = initialTheta; // The initial rotation angle to use when the animation starts.
+    var thetaDelta = 0.3; // The amount to rotate the gears every "delay" milliseconds, in degrees.
+    var delay = 10; // The delay between animation stills, in milliseconds. Affects animation smoothness.
+    var angularLimit = 360; // The maximum number of degrees to rotate the gears.
+
+    /*
+     Note that it will take the gears (angularLimit/thetaDelta)*delay milliseconds to rotate an angularLimit
+     number of degrees. For example, (90/0.3)*10 = 3000 ms (or 3 seconds) to rotate the gears 90 degrees.
+     */
+
+    /* GLOBALS */
+    var timer; // Contains the setInterval() object, used to stop the animation.
+
+    function init()
+        /*
+         Assumes that this function is called after the page loads.
+         */ {
+        var transformObject = svgElement.createSVGTransform(); // Create a generic SVG transform object so as to gain access to its methods and properties, such as setRotate().;
+
+        gear0.transform.baseVal.appendItem(transformObject); // Append the transform object to gear0, now the gear0 object has inherited all the transform object's goodness.
+        gear1.transform.baseVal.appendItem(transformObject); // Append the same generic transform object to gear1 - we just want gear1 to inherit all of it's goodness.
+    }
+
+    function startAnim() {
+        if (!startButton.startButtonClicked) // Don't allow multiple instance of the function specified by setInterval to be invoked by the browser. Note that button.startButtonClicked will be undefined on first use, which is effectively the same as false.
+        {
+            /* Only do the following once per animation: */
+            timer = setInterval(doAnim, delay); // Call the doAnim() function every "delay" milliseconds until "timer" is cleared.
+            startButton.startButtonClicked = true; // A custom property is attached to the button object to track whether the button has been clicked or not.
+        }
+    }
+
+    function doAnim()
+        /*
+         This function is called by setInterval() every "delay" milliseconds.
+         */ {
+        if (currentTheta > angularLimit) {
+            clearInterval(timer); // Instruct the browser to stop calling the function indicated by setInterval();
+            startButton.startButtonClicked = false; // Let the user run the animation again if they choose.
+            currentTheta = initialTheta; // If we let the user run the animation multiple times, be sure to set currentTheta back to an appropriate value.
+            return; // We have completed our animation, time to quit.
+        }
+
+        gear0.transform.baseVal.getItem(0).setRotate(currentTheta, -150, 0); // Rotate the 0th gear about the point (-150, 0).
+        gear1.transform.baseVal.getItem(0).setRotate(-currentTheta, 150, 0); // Rotate the 1st gear, note the minus sign on currentTheta, this rotates the gear in the opposite direction.
+        // gear0.setAttribute("transform", "rotate(" + currentTheta + ", -150, 0)"); // More cross-browser friendly, slightly less performant. Note that you don't technically need to append a transform object to each gear object, in init(), when using this line.
+        // gear1.setAttribute("transform", "rotate(" + -currentTheta + ", 150, 0)"); // More cross-browser friendly, slightly less performant. Note that you don't technically need to append a transform object to each gear object, in init(), when using this line.
+        currentTheta += thetaDelta; // Place this line here so that the gears are not over rotated on the last call to doAnim().
+    }
+</script>
+</body>
+</html>

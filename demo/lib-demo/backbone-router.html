@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--<link rel="stylesheet" type="text/css" href="" />-->
     <title></title>
-    <meta charset="utf-8"/>
 </head>
 <body>
+<a href="#" >#</a>
+<a href="#/post/123" >#post/123</a><br>
+<a href="#/post/456" >#post/456</a><br>
+<a href="#/download/123" >#download/123</a><br>
+<a href="#/download/456" >#download/456</a><br>
 
-<script src="../lib/underscore-1.5.2.js"></script>
-<script src="../lib/jquery-1.7.2.js"></script>
-<script src="../lib/backbone-1.1.2.js"></script>
-
+<script src="../assets/sea-modules/seajs/1.2.1/sea-debug.js"></script>
+<script src="../../js/log.js"></script>
 <script>
-
-    var AppRouter = Backbone.Router.extend({
-        routes : {
-            '' : 'main',
-            'topic' : 'renderList',
-            'topic/:id' : 'renderDetail',
-            '*error' : 'renderError'
-        },
-        main : function() {
-            console.log('应用入口方法');
-        },
-        renderList : function() {
-            console.log('渲染列表方法');
-        },
-        renderDetail : function(id) {
-            console.log('渲染详情方法, id为: ' + id);
-        },
-        renderError : function(error) {
-            console.log('URL错误, 错误信息: ' + error);
+    seajs.config({
+        alias:{
+            '$':'jquery/1.7.2/jquery.js',
+            'underscore': 'underscore/1.4.2/underscore.js',
+            'backbone': 'backbone/0.9.2/backbone.js'
         }
+    })
+    seajs.use(['$','backbone'],function($, Backbone){
+
+      var AppRouter = Backbone.Router.extend({
+        routes: {
+          "post/:id": "getPost",
+          "download/*path": "downloadFile",
+          ":route/:action": "loadView",
+          "*action": "defaultRoute"
+        },
+        getPost: function(id){ log('post: '+id); },
+        defaultRoute: function(){
+          log('default');
+        },
+        downloadFile: function(path){
+          log('download: '+path);
+        },
+        loadView: function(route, action){
+          log(route +' + '+ action);
+        }
+
+      });
+
+      var appRouter = new AppRouter();
+      Backbone.history.start();
+
+
     });
-    var router = new AppRouter();
-
-    router.route('topic/:pageno/:pagesize/=/:id-:value', 'page', function(pageno, pagesize, id, value){
-        console.log(pageno+':'+pagesize+'-'+id+':'+value);
-        console.log('ddd')
-    });
-    router.route('topic/:pageno/:pagesize', 'page', function(pageno, pagesize, id, value){
-        console.log(arguments);
-        console.log(pageno+':'+pagesize+'-'+id+':'+value);
-        console.log('ddd')
-    });
-    Backbone.history.start();
-
-
-
-
 </script>
 
 </body>

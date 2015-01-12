@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>示例 1 - 基本的声明性 (SMIL) 动画</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+http://msdn.microsoft.com/zh-cn/library/ie/gg193979(v=vs.85).aspx#example8
+<hr>
+
+<svg width="800px" height="800px" viewBox="0 0 800 800"
+     version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- Note that this is required in order to use xlink in the <use> element. -->
+
+    <!-- THIS EXAMPLE NOT SUPPORTED IN INTERNET EXPLORER 9 -->
+
+    <title>Simplest SVG Animation</title>
+    <desc>SVG declarative animation is used to rotate a square.</desc>
+
+    <g transform="translate(400, 400)">
+        <!-- Create a Cartesian coordinate system (with the y-axis flipped) for the animated square. That is, place the origin at the center of the 800 x 800 SVG viewport. -->
+
+        <!-- A 200 x 200 square with the upper left-hand corner at (-100, -100). This places the center of the square
+        at the origin (0, 0): -->
+        <!--<rect x="-100" y="-100" width="200" height="200" rx="5" ry="5"-->
+        <rect x="0" y="0" width="200" height="200" rx="5" ry="5"
+              style=" fill: orange; stroke: black; stroke-width: 3; stroke-dasharray: 10, 5;">
+            <animateTransform
+                    attributeType="xml"
+                    attributeName="transform" type="rotate"
+                    from="0" to="90"
+                    begin="0" dur="5s"
+                    fill="freeze"
+                    />
+        </rect>
+
+        <line x1="-400" y1="0" x2="400" y2="0" style="stroke: black;"/>
+        <!-- Represents the x-axis. -->
+
+        <line x1="0" y1="-400" x2="0" y2="400" style="stroke: black;"/>
+        <!-- Represents the y-axis (although up is negative and down is positive). -->
+
+    </g>
+</svg>
+</body>
+</html>

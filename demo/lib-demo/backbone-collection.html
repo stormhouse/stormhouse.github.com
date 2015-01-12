@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--<link rel="stylesheet" type="text/css" href="" />-->
+    <title></title>
+</head>
+<body>
+
+<script src="../../js/jquery-1.7.2.js"></script>
+<script src="../../js/underscore-1.4.4.js"></script>
+<script src="../../js/backbone-0.9.2.js"></script>
+<script src="../../js/log.js"></script>
+<script>
+  var Testcase = Backbone.Model.extend({
+    defaults: {
+      testcasecode: ''
+    }
+  });
+
+  var TestcaseList = Backbone.Collection.extend({
+    model: Testcase
+  });
+
+  //Model 有Collection属性
+  var TestcaseGroup = Backbone.Model.extend({
+    defaults: {
+      id: '',
+      name: '',
+      tcs: new TestcaseList //Backbone.Collection
+    },
+    //添加解析方法
+    parse: function(response){
+      response.tcs = new TestcaseList(response.tcs);
+      return response;
+    }
+
+  });
+
+  var TestcaseGroupList = Backbone.Collection.extend({
+    url: function(){
+      return 'testcase.json';
+    },
+    model: TestcaseGroup
+//      initialize: function(){
+//        this.fetch();
+//        return this;
+//      }
+  });
+
+  testcaseGroupList =  new TestcaseGroupList;
+
+  var tcCode = '020303';
+  testcaseGroupList.fetch({
+    success: function(){
+
+      function findTcFromTcGroupList(tcGroupList, tcCode){
+        var result;
+        tcGroupList.each(function(group){
+          var tcs = group.get('tcs').models;
+          for(var ii=0; ii<tcs.length; ii++){
+            if(tcs[ii].get('testcasecode') === tcCode){
+              result = tcs[ii];
+              break;
+            }
+          }
+        });
+        return result;
+      }
+      var a = findTcFromTcGroupList(testcaseGroupList, tcCode);
+    }
+  });
+
+
+//  var Person = Backbone.Model.extend({
+//    name: 'storm'
+//  });
+//  var p = new Person();
+//  console.log(p.name);
+//  console.log(p.get('name'));
+
+  var Person = Backbone.Model.extend({
+    defaults: {
+      name: 'storm'
+    }
+  });
+  var PersonList =Backbone.Collection.extend({
+    model: Person
+  });
+  var p = new Person({
+    id: '123',
+    name: 'storm'
+  });
+  var p1 = new Person({
+    id: '222',
+    name: 'wenjun'
+  });
+  var p2 = new Person({
+    id: '333',
+    name: 'wenjun'
+  });
+  var list = new PersonList();
+  list.push(p)
+  list.push(p1)
+  list.push(p2)
+
+  console.log(list.where({id: '333'}));
+
+
+  /**
+   *
+   * @param array
+   * @param value
+   * @param checked
+   * @returns {*}
+   */
+  function check(array, value, checked){
+    if(!(array instanceof Array)) return [];
+
+    for(var i=0; i<array.length; i++){
+      if(array[i] === value)
+      break;
+    }
+    if(i == array.length){
+      if(checked)
+        array.push(value);
+    }else{
+      if(!checked)
+        array.splice(i, i+1);
+    }
+    return array;
+  }
+  var aa = ['111', '222', '333', '444'];
+
+  console.log(check('ff', '222', true));
+
+
+
+
+</script>
+
+</body>
+</html>

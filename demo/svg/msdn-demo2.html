@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>示例 2 - 基本 JavaScript 动画</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body onload="init(); doAnim();"> <!-- init() sets up the animation, doAnim() actually does the animation. -->
+<svg width="800px" height="800px" viewBox="0 0 800 800">
+    <g transform="translate(400, 400)">
+        <!-- Create a Cartesian coordinate system (with the y-axis flipped) for the animated square. That is, place the origin at the center of the 800 x 800 SVG viewport: -->
+
+        <!-- A 200 x 200 square with the upper left-hand corner at (-100, -100). This places the center of the square
+        at the origin (0, 0): -->
+        <rect id="mySquare" x="-100" y="-100" width="200" height="200" rx="5" ry="5"
+              style=" fill: orange; stroke: black; stroke-width: 3; stroke-dasharray: 10, 5;"/>
+
+        <!-- Represents the x-axis: -->
+        <line x1="-400" y1="0" x2="400" y2="0" style="stroke: black;"/>
+
+        <!-- Represents the y-axis (although up is negative and down is positive): -->
+        <line x1="0" y1="-400" x2="0" y2="400" style="stroke: black;"/>
+
+    </g>
+</svg>
+
+<script>
+    /* CONSTANTS */
+    var initialTheta = 0; // The initial rotation angle, in degrees.
+    var thetaDelta = 0.3; // The amount to rotate the square every "delay" milliseconds, in degrees.
+    var delay = 10; // The delay between animation stills, in milliseconds. Affects animation smoothness.
+    var angularLimit = 90; // The maximum number of degrees to rotate the square.
+
+    /*
+     Note that it will take the square (angularLimit/thetaDelta)*delay milliseconds to rotate an angularLimit
+     number of degrees. For example, (90/0.3)*10 = 3000 ms (or 3 seconds) to rotate the square 90 degrees.
+     */
+
+    /* GLOBALS */
+    var theSquare; // Will contain a reference to the square element, as well as other things.
+    var timer; // Contains the setInterval() object, used to stop the animation.
+
+    function init()
+        /*
+         Assumes that this function is called after the page loads.
+         */ {
+        theSquare = document.getElementById("mySquare"); // Set this custom property after the page loads.
+        theSquare.currentTheta = initialTheta; // The initial rotation angle to use when the animation starts, stored in
+        timer = setInterval(doAnim, delay); // Call the doAnim() function every "delay" milliseconds until "timer" is cleared.
+    }
+
+    function doAnim()
+        /*
+         This function is called by setInterval() every "delay" milliseconds.
+         */ {
+        if (theSquare.currentTheta > angularLimit) {
+            clearInterval(timer); // The square has rotated enough, instruct the browser to stop calling the doAnim() function.
+            return; // No point in continuing; stop now.
+        }
+
+        theSquare.setAttribute("transform", "rotate(" + theSquare.currentTheta + ")"); // Rotate the square by a small amount.
+        theSquare.currentTheta += thetaDelta;  // Increase the angle that the square will be rotated to, by a small amount.
+    }
+</script>
+</body>
+</html>

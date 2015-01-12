@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<body>
+<button onclick="fn()">click</button>
+<script src="../lib/underscore-1.5.1.js"></script>
+<script src="backbone-localstorage.js"></script>
+
+
+<script>
+
+
+  var s = new Store('pmo');
+  var ss = s.create({id: 'bb',name: 'storm'});
+  console.log(ss);
+
+  function fn(){
+    console.log(s.findAll());
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <style>
+    .switch {
+      height: 28px;
+      width: 77px;
+      border: 1px solid #979797;
+      border-radius: 20px;
+      margin-top: -5px;
+      box-shadow: inset 0 1px 3px #BABABA, inset 0 12px 3px 2px rgba(232, 232, 232, 0.5);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .switch::before {
+      content: "";
+      display: block;
+      height: 28px;
+      width: 0px;
+      position: absolute;
+      border-radius: 20px;
+      box-shadow: inset 0 1px 2px #0063B7, inset 0 12px 3px 2px rgba(0, 127, 234, 0.5);
+      background-color: #64B1F2;
+    }
+    .switch.on::before {
+      width: 77px;
+    }
+    .switch > .thumb {
+      display: block;
+      width: 26px;
+      height: 26px;
+      position: relative;
+      top: 0;
+      z-index: 3;
+      border: solid 1px #919191;
+      border-radius: 28px;
+      box-shadow: inset 0 2px 1px white, inset 0 -2px 1px white;
+      background-color: #CECECE;
+      background-image: linear-gradient(top, #CECECE, #FBFBFB);
+      transition: all 0.125s ease-in-out;
+      transform: translate3d(0,0,0);
+    }
+    .switch.on > .thumb {
+      -webkit-transform: translate3d(49px,0,0);
+      -o-transform: translateX(49px);
+      -moz-transform: translateX(49px);
+    }
+    .switch > .thumb::before {
+      content: "";
+      display: block;
+      height: 14px;
+      width: 2px;
+      background-color: white;
+      box-shadow: 0px -1px 1px #666;
+      border: none;
+      position: absolute;
+      top: 6px;
+      left: -24px;
+    }
+    .switch > .thumb::after {
+      content: "";
+      display: block;
+      height: 10px;
+      width: 10px;
+      border-radius: 10px;
+      border: solid 2px #777;
+      position: absolute;
+      right: -32px;
+      top: 6px;
+    }
+    .switch input[type=checkbox] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="switch">
+  <span class="thumb"></span>
+  <input type="checkbox" />
+</div>
+
+<script>
+  (function() {
+    var $$ = function(selector) {
+      return Array.prototype.slice.call(document.querySelectorAll(selector));
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var checkbox;
+//      if (switchControl.classList.contains("on")) {
+//        switchControl.lastElementChild.checked = true;
+//      }
+      $$(".switch").forEach(function(switchControl) {
+        switchControl.addEventListener("click", function toggleSwitch() {
+          checkbox = switchControl.lastElementChild;
+          checkbox.checked = !checkbox.checked;
+          switchControl.classList.toggle("on");
+        }, false);
+      });
+    }, false);
+  })();
+
+  var a = new Date()
+
+  console.log(a.getDate());
+  a.setDate(0);
+  console.log(a.getDate());
+  console.log(a.getDay());
+
+  var beginDate = new Date('2013', 4, 0);
+  console.log(beginDate)
+  console.log(beginDate.getDate())
+</script>
+</body>
+</html>

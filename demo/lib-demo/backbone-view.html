@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--<link rel="stylesheet" type="text/css" href="" />-->
+    <title></title>
+</head>
+<body>
+<h1>view的主要应用就是绑定事件，处理业务，渲染页面</h1>
+<div id="search_container"></div>
+
+<script type="text/template" id="search_template">
+
+  <% _.each(data, function(a){ %>
+    <span><%=a.name%></span>
+  <%})%>
+    <input type="text" id="search_input" />
+    <input type="button" id="search_button" value="Search" />
+</script>
+<script type="text/template" id="search_template_child">
+    <label>search_template_child</label>
+</script>
+
+
+</body>
+<script src="../../js/jquery-1.7.2.js"></script>
+<script src="../../js/underscore-1.3.3.js"></script>
+<script src="../../js/backbone-0.9.2.js"></script>
+<script src="../../js/log.js"></script>
+<script>
+
+//  var ChildView = Backbone.View.extend({
+//    initialize: function(){
+//      this.render()
+//    },
+//    render: function(){
+//      var template = _.template($("#search_template_child").html());
+//      $(this.el).html(template);
+//    }
+//  });
+
+  var SearchView = Backbone.View.extend({
+    initialize: function () {
+      this.render('username:');
+    },
+    render: function (search_label) {
+      //使用underscore这个库，来编译模板
+      var template = _.template($("#search_template").html(), {data: [{name: 'zhangshan'}, {name: 'lisi'}]});
+      //加载模板到对应的el属性中
+      $(this.el).html(template);
+//      var cv = new ChildView;
+//      this.$el.append(cv.el)
+    },
+    events: {
+      'click input[type=button]': 'doSearch'
+    },
+    doSearch: function () {
+      log('doSearch...');
+      this.render('the5fire' + $("#search_input").val());
+    },
+    destroy: function () {
+      log('destroy...');
+    },
+    template: 'ff',
+    template1: 'ff111'
+
+
+  });
+  var searchView = new SearchView({
+    el: $("#search_container")
+  });
+
+  console.log(searchView.template)
+  console.log(searchView.template1)
+</script>
+</html>

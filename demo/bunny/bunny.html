@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style>
+  #horse {
+    position: relative;
+    background: url(image/horse.jpg);
+    cursor: pointer;
+    height: 162px;
+    width: 469px;
+    margin-top: 35px;
+  }
+  #bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(image/bg.png) no-repeat;
+    width: 469px;
+    height: 162px;
+  }
+  #run {
+    position: absolute;
+    background-image: url(image/run.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 67px;
+    height: 54px;
+    top: 54px;
+    left: 201px;
+  }
+	</style>
+  </head>
+  <body>
+  <center>
+  	<div id="horse">
+    	<div id="run"></div>
+      <div id="bg"></div>
+    </div>
+</center>
+    <script>
+	  (function(){
+		  var a, e = c = 0, f = 1, stop = false;
+		  var horse = document.getElementById('horse');
+		  var run = document.getElementById('run');
+		  var runFn = function(){
+			var d = c % 67;
+			if(f < 63){
+			  f = f*1.05;
+			}else if(d>0 && d<4){
+			  f = 67;
+			  c = c-d;
+			}
+			c = (c+f) % 804;
+			horse.style.backgroundPosition = -c+"px 0";
+			if(e<67){
+			  e = e+f;
+			  run.style.backgroundPosition = horse.style.backgroundPosition;
+			}
+			a = window.setTimeout(runFn, 41);
+		  };
+		  
+		  horse.onmousedown = function(){
+			run.style.marginTop = '2px';
+		  };
+		  horse.onmouseup = horse.onmouseout = function(){
+			run.style.marginTop = '';
+		  };
+		  
+		  horse.onclick = function(){
+			if(!stop){
+			  runFn();
+			}else{
+			  window.clearTimeout(a);
+			  window.location = window.location;
+			}
+			stop = !stop;
+		  };
+	  })();
+    </script>
+  </body>
+</html>
