@@ -107,3 +107,9 @@ $ git checkout master #切换
 $ git merge develop   #合并develop到master
 $ git checkout -b dev master  #基于master创建dev分支，并切换dev分支
 ```
+
+## 常见错误
+```
+Error pulling origin: error: Your local changes to the following files would be overwritten by merge
+$ git clean -d -fx
+```
