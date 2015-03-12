@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/javascript.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 15 Nov 2013 17:41:00 +0800</lastBuildDate><item><title>How JavaScript timers work（转）</title><link>http://stormhouse.github.io/posts/2013/how-javascript-timers-workzhuan/</link><description>&lt;p&gt;&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;原文地址&lt;/a&gt;&lt;br /&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/javascript.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 15 Nov 2013 17:41:00 +0800</lastBuildDate><item><title>How JavaScript timers work（转）</title><link>http://stormhouse.github.io/posts/2013/how-javascript-timers-work/</link><description>&lt;p&gt;&lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;原文地址&lt;/a&gt;&lt;br /&gt;
 &lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;翻译原地址&lt;/a&gt;&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器:  &lt;/p&gt;
@@ -55,4 +55,4 @@
 
 &lt;p&gt;如果你认为在100毫秒后，会打针done，说明你没有看懂此篇文章。你一定会觉得在100毫秒后，die的值变成true，然后console会被执行，如果你这样想那你就错了。记住setTimeout的准则是&lt;strong&gt;尽快执行&lt;/strong&gt;，而&lt;strong&gt;不是立即执行&lt;/strong&gt;。只有当主事件循环结束是，有时间片供setTimeout去执行时，定时器才会被执行。&lt;br /&gt;
 &lt;a href="http://ejohn.org/blog/how-javascript-timers-work/"&gt;翻译原地址&lt;/a&gt;&lt;br /&gt;
-（完）&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 15 Nov 2013 17:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-15:posts/2013/how-javascript-timers-workzhuan/</guid><category>javascript</category><category>event</category></item></channel></rss>
+（完）&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 15 Nov 2013 17:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-15:posts/2013/how-javascript-timers-work/</guid><category>javascript</category><category>event</category></item></channel></rss>

@@ -50,6 +50,12 @@
                             <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
                         </li>
                         <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
                             <a href="http://stormhouse.github.io/category/git.html">git</a>
                         </li>
                         <li >
@@ -71,21 +77,58 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/">win7x64下git安装配置</a></h2>
-                <div class="summary"><h3>1. 安装</h3>
-<h6>1.1 cygwin安装</h6>
+                <h2><a href="http://stormhouse.github.io/posts/2014/git-command/">Git常备命令</a></h2>
+                <div class="summary"><hr />
+<h6>自省</h6>
+<hr />
+<div class="highlight"><pre>git --help
+git add --help
+</pre></div>
+
+
+<h4>基本操作</h4>
+<div class="highlight"><pre>git init
+git add .
+git add -e .
+git delete test.txt
+git commit -m &#39;fix sth.&#39;
+
+git status
+git log
+git reset
+git diff
+git checkout
+</pre></div>
+
+
+<h4>远程操作</h4>
+<div class="highlight"><pre>git clone https://github.com/stormhouse/pyStudy.git
+git pull
+git push -u origin master
+</pre></div>
+
+
+<p>查看 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2014/git-command/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2013/win7-install-git/">win7x64下git安装配置</a></h2>
+                <div class="summary"><h2>1. 安装</h2>
+<h4>1.1 cygwin安装</h4>
 <p><a href="http://www.cygwin.com/install.html">cygwin下载</a>
 <br>注意：添加make命令，在Select Packages一步，将Devel@Default改为Devel@Install</p>
-<h6>1.2 git for windows下载安装</h6>
+<h4>1.2 git for windows下载安装</h4>
 <p><a href="https://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git">下载</a></p>
-<h3>2. github配置</h3>
-<h6>2.1 github.com上注册用户</h6>
+<h2>2. github配置</h2>
+<h4>2.1 github.com上注册用户</h4>
 <p>用户名:stormhouse; 邮箱:stormhouse@yeah.net</p>
-<h6>2.2 初始配置</h6>
+<h4>2.2 初始配置</h4>
 <p>打开Git Bash，执行以下命令</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">name</span> <span class="s">&quot;stormhouse&quot;</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">email</span> <span class="n">stormhouse</span><span class="err">@</span><span class="n">yeah ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/win7x64xia-gitan-zhuang-pei-zhi/">more ...</a>
+<div class="highlight"><pre>git config --global user.name &quot;stormhouse&quot;
+git config --global user.email stormhouse@yeah ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/win7-install-git/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -106,7 +149,7 @@
                             class="icon-阮一峰-sign icon-large"></i>阮一峰
                     </a></li>
                     <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
-                            class="icon-rubylouvre-sign icon-large"></i>rubylouvre
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
                     </a></li>
                     <li class="list-group-item"><a href="http://nuysoft.com/"><i
                             class="icon-nuysoft-sign icon-large"></i>nuysoft
@@ -141,19 +184,9 @@
                         encoding
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/url.html">
-                        url
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/javascript.html">
-                        javascript
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/event.html">
-                        event
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -162,13 +195,43 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/git.html">
-                        git
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
                     <a href="http://stormhouse.github.io/tag/tomcat.html">
                         tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
                     </a>
                 </li>
         </ul>

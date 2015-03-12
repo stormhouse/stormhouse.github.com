@@ -50,6 +50,12 @@
                             <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
                         </li>
                         <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
                             <a href="http://stormhouse.github.io/category/git.html">git</a>
                         </li>
                         <li >
@@ -71,33 +77,66 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2014/slide-image-on-hover-using-css3yi/">Slide Image on Hover using CSS3（译）</a></h2>
-                <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/the_transitionend_event.htm">kirupa</a> </p>
+                <h2><a href="http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/">Animating Many Elements Using Transitions（译）</a></h2>
+                <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/animating_many_elements_using_transitions.htm">kirupa</a></p>
 <hr />
-<p>我经常提到的非常酷的一个例子就是当你鼠标移到图片上发生滑动的动画。如果你不清楚我在说什么，鼠标移到下面例子中的方框上：</p>
+<p>自从我学会了用代码使元素在屏幕上移动，我已尝试在一系列蓝色圆圈的元素上实现我的测试。我从没有试图隐藏自己的偏好以及对它的钦佩，（和[jealous smiley blocks][]一样）现在并没有什么不同。</p>
+<p>在这次改进中，你将看到下的效果是如何实现的：</p>
+<iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="../snippets/examples/random_moving_blue_circles.htm" style="width: 623px; height: 375px;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
+
+<p>你将要学到的这种效果十分酷，然而真正要学的不仅是如何创建这个例子。要学的内容远胜于此。</p>
+<p>通过此文，你将学习如何使用CSS transitions,<code>transitionEnd</code> 事件和一些JavaScrip内容等一大部分散落的知识使其运行。几乎你知道的关于transitions的内容都将在这里出现，所以撸起袖子，开始干吧。</p>
+<p>Onwards!</p>
+<h6>预读内容</h6>
+<p>这个例子不是针对初学者。还有如果你对CSS transitions了解太少，只是个门外汉的话。如果你想温习或第一次学习它们的话，请看下面教程：<a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">All About ...</a></p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2014/sliding-background-effect-on-link-hover/">Sliding Background Effect on Link Hover（译）</a></h2>
+                <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/sliding_background_effect_on_link_hover.htm">kirupa</a></p>
+<hr />
+<p>链接鼠标悬停状态类似于卡片盒子。你可以对它做无穷无尽有趣得事。通过学习本章你可以做一件是当鼠标悬停链接时让某背景色滑入视野。</p>
+<p>下面，你将看到我所说的例子：</p>
+<iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/animation/sliding_background_link_rollover.html" style="border-radius: 5px; width: 538px; height: 277px;" marginheight="0" marginwidth="0" class="centerImage">Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
+
+<p>当你将鼠标悬停到<strong>Jerry</strong>, <strong>George</strong>, <strong>Kramer</strong>, 和<strong>Elaine</strong>链接上，注意会发生什么。一个绿色的背景色滑入视野，同样当鼠标移开背景色滑出视野。相当棒，不是吗？在接下来的章节中，让我们看看如果在自然语言和CSS中实现它。</p>
+<p>Onwards!</p>
+<h2>Overview of How This Works</h2>
+<p>首先，在深入实现细节之前，让我们分步用自然语言描述它是如果工作的。露个底吧，简言之，和其它一些CSS背景技巧一样，你看到的效果无非是定位背景颜色 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2014/sliding-background-effect-on-link-hover/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://stormhouse.github.io/posts/2014/slide-image-on-hover-using-css3/">Slide Image on Hover using CSS3（译）</a></h2>
+                <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/slide_image_hover_using_css3.htm">kirupa</a> </p>
+<hr />
+<p>我经常提到的非常酷的一个例子就是当你鼠标悬停图片上发生滑动的动画。如果你不清楚我在说什么，鼠标悬停下面例子中的方框上：</p>
 <iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="/demo/animation/sliding_image_temp.html" style="width: 373px; height: 373px; border: 1px solid rgb(204, 204, 204); float: center;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
 
-<p>每个方框由一个高的图片组成。当你鼠标移到每个图片上，图片会向下滑动展现出它的另一部分。当鼠标移开时，返回原来的状态。所做的全部这些均是由CSS3的transitions来实现的。</p>
+<p>每个方框由一个高的图片组成。当你鼠标悬停每个图片上，图片会向下滑动展现出它的另一部分。当鼠标移开时，返回原来的状态。所做的全部这些均是由CSS3的transitions来实现的。</p>
 <p>在本教程中，我将告诉你怎样实现这种效果并理解它的工作原理。</p>
 <h2>How This Effect Works</h2>
 <p>在深入实现其细节之前，让我们先看一下用简单语言描述它的原理。一会儿你将看，一切是如此简单。</p>
 <p>首先，你得有这样一个图片：</p>
 <p><img alt="Animation Img" class="align-center" src="/img/140105-1.png" title="" /></p>
-<p>这个图片默认展示了两个部分。我们要做的是在最初的时候，只显示图像的上半部分认。鼠标移上去后，显示下半部分。</p>
+<p>这个图片默认展示了两个部分。我们要做的是在最初的时候，只显示图像的上半部分认。鼠标悬停上去后，显示下半部分。</p>
 <p>我们实现这个目的的方法是，用一个是该图片高度一半的容器包裹它：</p>
 <p><img alt="Animation Img" class="align-center" src="/img/140105-2.png" title="" /></p>
 <p>注意，容器可以将图片划分为两个不同的部分。在HTML里，将一个图片放到一个小于它的容器里 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2014/slide-image-on-hover-using-css3yi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2014/slide-image-on-hover-using-css3/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/">Looping a CSS Transition（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/looping-a-css-transition/">Looping a CSS Transition（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/looping_a_css_transition.htm">kirupa</a> </p>
 <hr />
 <p>Transition的故事历经考验和磨难。从被无耻浏览器厂商所忽略而必须添加厂商前缀到目前被普遍接受，该旅程肯定是崎岖不平。尽管<code>transition</code>属性在过去几年有了很大进步，但与它更帅更靓的前辈<code>animation</code>相比，在实现某些东西方面并不容易。</p>
-<p>我在<a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/">CSS3: Animations vs. Transitions</a>教程中完全描述transitions和animations的差异，在这里我将重申一个transition的重要局限。这个限制就是transitions没有一个属性指定让它循环。是的！在今天这个时代，transition<strong>被设计成</strong>只执行一次。的确是个笑话。</p>
-<p>幸运的是，这里有一个方法。在本教程里，我将通过一个小伎俩解决<a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/"> transitionend event </a>如何使transitions支持循环。</p>
+<p>我在<a href="http://stormhouse.github.io/posts/2013/animations-vs-transitions/">CSS3: Animations vs. Transitions</a>教程中完全描述transitions和animations的差异，在这里我将重申一个transition的重要局限。这个限制就是transitions没有一个属性指定让它循环。是的！在今天这个时代，transition<strong>被设计成</strong>只执行一次。的确是个笑话。</p>
+<p>幸运的是，这里有一个方法。在本教程里，我将通过一个小伎俩解决<a href="http://stormhouse.github.io/posts/2013/the-transitionend-event/"> transitionend event </a>如何使transitions支持循环。</p>
 <h2>The Example</h2>
 <p>为了证实我有点疯狂，下面的例子展示了一个永远循环的transition。鼠标移到圆形上看到transition开始运行...永远不会停止。</p>
 <iframe id="I1" scrolling="no" frameborder="0" style="width: 620px; height: 383px;" src="/demo/animation/looping_transition.html" name="I1" marginwidth="0" marginheight="0" border="0"></iframe>
@@ -105,12 +144,12 @@
 <p>注意到圆形从小到大的来回振荡。学完本章，你将能创建类似的动画并理解它的运行原理。</p>
 <h2>How to Make a Transition Loop</h2>
 <p>在深入做这件事之前，让我们首先退一步理清我们将要做的是什么 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/looping-a-css-transitionyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/looping-a-css-transition/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/get-the-value-of-animating-css-propertiesyi/">Get the Value of Animating CSS Properties（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/get-the-value-of-animating-css-properties/">Get the Value of Animating CSS Properties（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/get_the_value_of_css_properties_as_they_are_animating.htm">kirupa</a> </p>
 <hr />
 <p>在理想的世界里，JavaScript会默默的坐在餐桌的一边。CSS将安静的坐在另一边。HTML会依旧那么尴尬，但我们不会谈论它。无论怎样，在某种程度上，这种情况存在相当一段时间。人们建造的东西很长一段时间的范围内下降这完美的世界。</p>
@@ -123,12 +162,12 @@
 <h2>The Example</h2>
 <p>啥都没有变得无聊，有个示例变得更有感觉，所以我们看一个我提及的例子。将鼠标移到蓝色图片上：</p>
 <iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="/demo/animation/value_of_animated_properties.html" style="width: 373px; height: 475px; border: 1px solid rgb(204, 204, 204); float: center;" marginheight="0" marginwidth="0">Your ...</iframe>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/get-the-value-of-animating-css-propertiesyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/get-the-value-of-animating-css-properties/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/">The TransitionEnd Event（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/the-transitionend-event/">The TransitionEnd Event（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/the_transitionend_event.htm">kirupa</a> </p>
 <hr />
 <p>虽然 transition在CSS中着实占据一席之地，但它又与JavaScript有一定水平的协作。在与JavaScript协作时的事件领域展示了它自身。</p>
@@ -137,24 +176,24 @@
 <p>起始状态、过渡状态和终止状态。在这里，我将告诉你检测这三个状态的存在。不幸的是，这不可能做到的。你将必须接受这里只有一种状态存在，它是终止状态。这个事件被亲切的称之为<code>transitionend</code>，本章是关于这部分的内容。</p>
 <h2>Meet the transitionend Event</h2>
 <p><code>Transitionend</code>事件原理很简单。该事件在transition一次过渡完成后被触发。让我给出CSS代码如下：</p>
-<div class="highlight"><pre><span class="cp">#blueCircle {</span>
-    <span class="nl">transition:</span> <span class="n">all</span> <span class="mf">.5</span><span class="n">s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
-    <span class="nl">opacity:</span> <span class="mf">.3</span><span class="p">;</span>
+<div class="highlight"><pre><span class="nf">#blueCircle</span> <span class="p">{</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="o">:</span> <span class="o">.</span><span class="m">3</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="cp">#blueCircle:hover {</span>
-    <span class="nl">transform:</span> <span class="n">scale</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-    <span class="nl">opacity:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nf">#blueCircle</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="n">transform</span><span class="o">:</span> <span class="n">scale</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+    <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>CSS代码中，定义了一个transition，它应用在<strong>blueCircle</strong> 元素上，在半秒内影响到它所有的属性。当你鼠标移到blueCircle 上 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/the-transitionend-eventyi/">more ...</a>
+<p>CSS代码中，定义了一个transition，它应用在<strong>blueCircle</strong> 元素上，在半秒内影响到它所有的属性。当你鼠标移到blueCircle 上，设置的 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/the-transitionend-event/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/">The CSS Animation Events（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/the-css-animation-events/">The CSS Animation Events（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/css_animation_events.htm">kirupa</a> </p>
 <hr />
 <p>当你的CSS animations运行时，它不仅是纯粹的视觉变化。在背后，它们在运行过程的某个关键点触发事件。在本节简短的内容中，你将学习这些事件以及如何在JavaScript中监听它们。</p>
@@ -170,12 +209,12 @@
 <p>看下示意图，下图表示一个迭代为3次的简单animation：</p>
 <p><img alt="Animation Img" class="align-center" src="/img/131218-1.png" title="" /></p>
 <p>值得注意的一件事，不是说所有这三个事件都会被触发。唯一一个总是被触发的事件是<code>animationstart</code>。<code>animationiteration</code>事件会在<strong>第二次迭代</strong>开始时被触发-animation设置的迭代至少大于一次。如果animation只运行一次，<code>animationiteration</code>事件将永不被触发。<code>animationend</code>事件在动画结束时的某个点触发（仅一次）。如果动画迭代次数无限次，这就没有结束...如果没有结束，<code>animationend</code>事件将不会被触发 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/the-css-animation-eventsyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/the-css-animation-events/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/">Animating Movement Smoothly Using CSS（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-css/">Animating Movement Smoothly Using CSS（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/animating_movement_smoothly_using_css.htm">kirupa</a> </p>
 <hr />
 <p>使动画有趣的很大一部分就是让物体在屏幕上四处游走。适当的使用它们，为你的内容添加更多色彩，突显一些UI元素、提供一些动画交互等等。这是相当酷滴。</p>
@@ -188,12 +227,12 @@
 </iframe>
 
 <p>在上面的两个例子中，动画效果完成使用CSS完成的。CSS中的Animations和Transitions很容易能让元素从静止状态变成运动状态。尽管是那么容易，这也需要你保证一些东西确保动画平滑的运行。本节内容帮助你如何创建它们 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-cssyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-css/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/easing-functions-in-css3yi/">Easing Functions in CSS3（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/easing-functions-in-css3/">Easing Functions in CSS3（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/easing_functions_css3.htm">kirupa</a> </p>
 <hr />
 <p>当你创建一个animation或transition的动画，动画运行过程中属性发生的变化与在终止状态时发生的变化同等重要。比如，属性值随时间线性变化：</p>
@@ -206,16 +245,16 @@
 <p>Onwards!</p>
 <h2>Making Sense of Easing Functions</h2>
 <p>在前面小节中，谈到缓动函数时，两种不同颜色图表展示属性如何变化。其中一个颜色的线性缓动函数没做太多的东西。另一个颜色的非线性缓动函数，在你的动画运行后，速率减慢。在本节中，让我们转换下视角，关注于缓动函数而不去关注实际属性值的变化和时延。在该部分里，你将看到一些可爱的图表包括lines, labels ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/easing-functions-in-css3yi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/easing-functions-in-css3/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/">CSS3: Animations vs. Transitions（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/animations-vs-transitions/">CSS3: Animations vs. Transitions（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm">kirupa</a> </p>
 <hr />
 <p>在CSS中，视觉变化上这里有两种技术竞相你的注意： Animations &amp;Transitions. 在本文中，让我们来了解它们之间的异同点，这样你就能知道在什么时候使用哪一个。</p>
-<p>本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， <a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/">Creating a Simple CSS Animation</a> 和<a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/">Looking at CSS3 Transitions</a>  这两篇教程帮助你开始。</p>
+<p>本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， <a href="http://stormhouse.github.io/posts/2013/all-about-css-animations/">Creating a Simple CSS Animation</a> 和<a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">Looking at CSS3 Transitions</a>  这两篇教程帮助你开始。</p>
 <h2>Similarities</h2>
 <p>宏观上，animations和transitions极其相似。它们都可以实现：</p>
 <ul>
@@ -230,33 +269,33 @@
 <p>Animations 和 transitions会在以下方面会有不同：当你如何触发它们运行时、它们是否容易循环、定义一个transition是多么复杂、怎么在正确场合的使用它们和与JavaScript友好的结合。来更详细的探讨这些话题吧。</p>
 <h4>Triggering</h4>
 <p>正如刚看到的animations和animations最大的一个不同就是你怎样触发它们运行 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/css3-animations-vs-transitionsyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/animations-vs-transitions/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/">All About CSS Transitions（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">All About CSS Transitions（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/all_about_css_transitions.htm">kirupa</a> </p>
 <hr />
 <p>CSS中，当你改变一个属性的值，页面立即发生变化。示例，使元素CSS <code>hover</code>状态时，改变<code>transform</code>属性<strong>tranlate3d</strong>函数一个不同的参数值。</p>
-<div class="highlight"><pre><span class="cp">#box img {</span>
-    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">350</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<div class="highlight"><pre><span class="nf">#box</span> <span class="nt">img</span> <span class="p">{</span>
+    <span class="n">transform</span><span class="o">:</span> <span class="n">translate3d</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">-350px</span><span class="o">,</span> <span class="m">0</span><span class="p">);</span>
 <span class="p">}</span>
-<span class="cp">#box img:hover {</span>
-    <span class="nl">transform:</span> <span class="n">translate3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="n">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="nl">cursor:</span> <span class="n">pointer</span><span class="p">;</span>
+<span class="nf">#box</span> <span class="nt">img</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="n">transform</span><span class="o">:</span> <span class="n">translate3d</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0px</span><span class="o">,</span> <span class="m">0</span><span class="p">);</span>
+    <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>该值是将图片垂直向上平移350像素。看看这个实例，在下面例子中将鼠标悬停到<a href="http://www.w3.org/html/logo/">HTML标志</a>上：</p>
-<iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/animation/no_transition_hover_example.html" style="width: 416px; height: 375px;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not ...</iframe>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/">more ...</a>
+<iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/animation/no_transition_hover_example.html" style="width: 416px; height: 375px;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not to display ...</iframe>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/">All About CSS Animations（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013//">All About CSS Animations（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/all_about_css_animations.htm">kirupa</a> </p>
 <hr />
 <p>在HTML中动画实现的三种的方式之一是众所周知<strong>CSS animations</strong>。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。</p>
@@ -267,14 +306,14 @@
 <p>在本篇中，你将学习所有CSS animations，不仅仅是让云朵移动，还有其它更酷更有用的事情。你将会学习通过<code>animation</code>属性怎样定义一个CSS动画，怎么添加关键帧，以及如果调整各种动画相关的属性，这才是你所想要的。</p>
 <p>Onwards!</p>
 <hr />
-<h3>Creating a Simple Animation</h3>
+<h2>Creating a Simple Animation</h2>
 <p>学习动画最简单的的方式，就是亲自动手实验， 然后再学习它的工作机制。那么来创建一个HTML文档，写HTML和CSS代码吧 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013//">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/">Introduction to Animation in HTML（译）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-html/">Introduction to Animation in HTML（译）</a></h2>
                 <div class="summary"><p>thanks <a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm">kirupa</a> </p>
 <hr />
 <p>也许你们认为动画是电影和计算机中的近代产物，实际上人类在很久很久以前就开始鼓捣它并作为沟通的方式了：</p>
@@ -285,29 +324,29 @@
 <p>动画已不仅仅是壁画中的事物了，而主要在游戏、intros、卡通，横幅广告领域。 它已经根深蒂固于我们用户体验中，它可让你的应用操作简单；可以使你的内容更加漂亮；可以使你的作品更加生动有趣。谁不希望这样啊？</p>
 <p>至此你有足够的背景认识。不用去关心它的历史或被信服动画为什么这么有用。可能你已经认识到动画的重要性。如果你想知道如何来实现这些动画，那么你来对地方了。本篇入门教程以及后面的文章，你将学习html中的动画。短期内，你将成为动画的高手， 或至少在屏幕上完成一个动画。</p>
 <p>Onwards!</p>
-<h3>What Is An Animation?</h3>
+<h2>What Is An Animation?</h2>
 <p>在我们继续进行之前，确定从哪开始学以及怎样创建动画，退一步讲，就是弄清动画是什么 ...</p>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/">more ...</a>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-html/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://stormhouse.github.io/posts/2013/animationzhuan/">Animation（转）</a></h2>
+                <h2><a href="http://stormhouse.github.io/posts/2013/animation/">Animation（转）</a></h2>
                 <div class="summary"><hr />
 <p>Animation翻译系列文章</p>
 <hr />
 <p>Tutorials, videos, and <a href="http://www.kirupa.com/book/animation_in_html_css_and_javascript.htm">even a book</a> to help you learn how to create great animations in HTML, CSS, and JavaScript.</p>
 <hr />
-<h3>The Basics</h3>
+<h2>The Basics</h2>
 <ul>
-<li><a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-htmlyi/">Introduction to Animation in HTML</a> （译）</li>
+<li><a href="http://stormhouse.github.io/posts/2013/introduction-to-animation-in-html/">Introduction to Animation in HTML</a> （译）</li>
 <li><a href="http://www.youtube.com/watch?v=9dwGgUe578k">Dealing with Vendor Prefixes in CSS and JavaScript</a><a href="http://pan.baidu.com/s/1eQqVXoY"> （墙内云盘分享）</a></li>
 </ul>
-<h3>CSS Animations and Transitions</h3>
+<h2>CSS Animations and Transitions</h2>
 <ul>
-<li><a href="http://stormhouse.github.io/posts/2013/all-about-css-animationsyi/">All About CSS Animations</a>（译）</li>
-<li><a href="http://stormhouse.github.io/posts/2013/all-about-css-transitionsyi/">All About CSS ...</a></li></ul>
-                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/animationzhuan/">more ...</a>
+<li><a href="http://stormhouse.github.io/posts/2013/all-about-css-animations/">All About CSS Animations</a>（译）</li>
+<li><a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">All About CSS ...</a></li></ul>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2013/animation/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -328,7 +367,7 @@
                             class="icon-阮一峰-sign icon-large"></i>阮一峰
                     </a></li>
                     <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
-                            class="icon-rubylouvre-sign icon-large"></i>rubylouvre
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
                     </a></li>
                     <li class="list-group-item"><a href="http://nuysoft.com/"><i
                             class="icon-nuysoft-sign icon-large"></i>nuysoft
@@ -363,19 +402,9 @@
                         encoding
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/url.html">
-                        url
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/javascript.html">
-                        javascript
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/event.html">
-                        event
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -384,13 +413,43 @@
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/git.html">
-                        git
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
                     <a href="http://stormhouse.github.io/tag/tomcat.html">
                         tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
                     </a>
                 </li>
         </ul>

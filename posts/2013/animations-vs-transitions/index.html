@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>CSS3: Animations vs. Transitions（译）</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="CSS3: Animations vs. Transitions（译）"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/animations-vs-transitions/"/>
+            <meta property="og:description" content="thanks kirupa 在CSS中，视觉变化上这里有两种技术竞相你的注意： Animations &Transitions. 在本文中，让我们来了解它们之间的异同点，这样你就能知道在什么时候使用哪一个。 本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， Creating a Simple CSS Animation 和Looking at CSS3 Transitions 这两篇教程帮助你开始。 Similarities 宏观上，animations和transitions极其相似。它们都可以实现： 指定要监听CSS属性的变化 设置缓动函数改变属性从开始到结束值变化的速率。 指定animation或transition所需要运行的多长时间 以编程方式监听animation和transition规定事件，可以做自己想做的事。 CSS可视化的属性改变 不过，除了这些，你将看到animations 和 transitions的不同，并将它们的特点展现出来。让我们来更详细的看下各自的特点吧。 Differences Animations 和 transitions会在以下方面会有不同：当你如何触发它们运行时、它们是否容易循环、定义一个transition是多么复杂、怎么在正确场合的使用它们和与JavaScript友好的结合。来更详细的探讨这些话题吧。 Triggering 正如刚看到的animations和animations最大的一个不同就是你怎样触发它们运行 ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://stormhouse.github.io/posts/2013/animations-vs-transitions/"
+                       rel="bookmark"
+                       title="Permalink to CSS3: Animations vs. Transitions（译）">
+                        CSS3: Animations vs. Transitions（译）
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Thu 05 December 2013
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://stormhouse.github.io/tag/animation.html">animation</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>thanks <a href="http://www.kirupa.com/html5/css3_animations_vs_transitions.htm">kirupa</a> </p>
+<hr />
+<p>在CSS中，视觉变化上这里有两种技术竞相你的注意： Animations &amp;Transitions. 在本文中，让我们来了解它们之间的异同点，这样你就能知道在什么时候使用哪一个。</p>
+<p>本文大部分内容帮助你熟悉animations和transitions。如果你还没有亲自动手实践它们， <a href="http://stormhouse.github.io/posts/2013/all-about-css-animations/">Creating a Simple CSS Animation</a> 和<a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">Looking at CSS3 Transitions</a>  这两篇教程帮助你开始。</p>
+<h2>Similarities</h2>
+<p>宏观上，animations和transitions极其相似。它们都可以实现：</p>
+<ul>
+<li>指定要监听CSS属性的变化</li>
+<li>设置缓动函数改变属性从开始到结束值变化的速率。</li>
+<li>指定animation或transition所需要运行的多长时间</li>
+<li>以编程方式监听animation和transition规定事件，可以做自己想做的事。</li>
+<li>CSS可视化的属性改变</li>
+</ul>
+<p>不过，除了这些，你将看到animations 和 transitions的不同，并将它们的特点展现出来。让我们来更详细的看下各自的特点吧。</p>
+<h2>Differences</h2>
+<p>Animations 和 transitions会在以下方面会有不同：当你如何触发它们运行时、它们是否容易循环、定义一个transition是多么复杂、怎么在正确场合的使用它们和与JavaScript友好的结合。来更详细的探讨这些话题吧。</p>
+<h4>Triggering</h4>
+<p>正如刚看到的animations和animations最大的一个不同就是你怎样触发它们运行。</p>
+<p>transition被触发的唯一场景就是CSS属性发生变化。一个简单的场景就是：CSS属性中的 <code>:hover</code> 伪类发生改变：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131205-1.png" title="" /></p>
+<p>看这个可视化的例子，假设定义一个transition，当鼠标移上去你将看到圆形会变大。另一个触发transition运行的方式是使用JavaScript <a href="http://www.kirupa.com/html5/setting_css_styles_using_javascript.htm">programmatically add or remove CSS classes</a> 模拟CSS属性的变化。除了让属性值发生改变的方式，可以监听使用JavaScript改变inline的样式方式。</p>
+<p>另一方面，animations，不需要显式的触发。一旦你定义了animation，它将自动运行。</p>
+<h6>Note</h6>
+<p>Animations可以把<code>animation-play-state</code>属性设置为Paused——这将导致动画默认不动，除非将属性更改为运行。W3C正在考虑删除这个属性，所以到目前为止，就当<code>animation-play-state</code>这个属性不存在吧。</p>
+<h4>Looping</h4>
+<p>这个相当简单。在animations中通过设置 <code>animation-iteration-count</code> 属性来很简单的设置循环。可以设置固定数值来规定动画重复的次数：</p>
+<div class="highlight"><pre><span class="nt">animation-iteration-count</span><span class="o">:</span> <span class="nt">5</span><span class="o">;</span>
+</pre></div>
+
+
+<p>如果你想让动画永远的循环下去，也可以这样设置：</p>
+<div class="highlight"><pre><span class="nt">animation-iteration-count</span><span class="o">:</span> <span class="nt">infinite</span><span class="o">;</span>
+</pre></div>
+
+
+<p>另一方面，transitions没有一个属性可以指定它运行多少次。一旦触发，transition只运行一次。可以在<code>transitionEnd</code>事件中设置让它循环。与animations相比，这比较复杂。</p>
+<h4>Defining Intermediate Points / Keyframes</h4>
+<p>使用animation，可以通过在起始与终止状态之间定义关键帧，更多的控制CSS属性值：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131205-2.png" title="" /></p>
+<p>你可以设置你所想要的关键帧，当animation运行时，每个关键帧触发时，指定的属性变化都会表现出来。这允许你创建多种类型的动画，就像Flash一样，让HTML5更高效的创建更成熟的动画。</p>
+<p>使用transition，除了在动画的结束时，你没有太多的动画控制：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/131205-3.png" title="" /></p>
+<p>Transition只是简单的从初始状态运行到终止状态。你不能像animation一样指定任意中间状态，所以你如果想创建Teen Girl Squad 或一个复杂的动画，transition不是一个好的选择。</p>
+<h4>Specifying Properties Up-Front</h4>
+<p>接下来，定义一个transition，描述animations和transitions的适应场景。</p>
+<p>在一种场合，需要使用transitions。每个CSS属性都必须通过transition显式的标识。
+For example, let's say you have something like the following:==例如，假设你有类似下面的内容：</p>
+<div class="highlight"><pre><span class="nf">#mainContent</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#CC0000</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span><span class="k">background-color</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#mainContent</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#000000</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span><span class="m">500px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>鼠标移到上面，对 <code>background-color</code>和 <code>width</code>两个属性指定了不同值。transition只规定了<code>background-color</code> 。意味着，浏览器仅监听<code>background-color</code> 属性的变化。</p>
+<p>如果想让 <code>background-color</code> 和<code>width</code> 都受transition影响，我应该为<code>width</code>显式的添加另一个 <code>transition</code> 的条目：</p>
+<div class="highlight"><pre><span class="nf">#mainContent</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#CC0000</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span><span class="k">background-color</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">,</span> <span class="k">width</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span>
+<span class="p">}</span>
+<span class="nf">#mainContent</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#000000</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">500px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h6>What About transition: all?</h6>
+<p>当使用transition时，不必指定每一个你关注的属性。可以 简单使用<code>all</code> 属性值来代替： <code>transition: all .5s ease-in</code>。 我不推荐使用这个，因为一些性能的影响。浏览器会监听所有的属性，而不是你指定的那几个属性。除非你必须需要这样做，我建议为transition指定每个单独CSS属性。</p>
+<p>使用animations，不必在声明时做任何事，只要在每个关键帧处指定属性值：
+    keyframes imageSlide {
+        0% {
+            left: -150px;
+        }</p>
+<div class="highlight"><pre>    <span class="nt">20</span><span class="o">%</span> <span class="p">{</span>
+        <span class="k">left</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+        <span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nt">80</span><span class="o">%</span> <span class="p">{</span>
+        <span class="k">left</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
+        <span class="k">height</span><span class="o">:</span><span class="m">300px</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+        <span class="k">left</span><span class="o">:</span> <span class="m">600px</span><span class="p">;</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="m">#FFFFFF</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>在这个例子中，当关键帧触发时元素的 <code>height</code> 和<code>background-color</code> 会平缓的动画--即使在上一个关键帧处没有显式列出。</p>
+<h2>Interaction with JavaScript</h2>
+<p>在大多数情况下，使用transition和animation就已经足够了。你可以指定你想的开始值、结束值和任意中间状态值。你的动画只关注读取的这些值。当你想要预定义的效果，使用这些场景最好。有时候，你想通过一些额外的输入--如鼠标单击和一些计算的结果等来改变属性值。</p>
+<p>像这样的交互，在CSS中预定义的属性值会受一些限制。在这咱情况下，你可以选择使用JavaScript，如果完全使用JavaScript似乎有些极端。你应该使用混合的方式，在CSS声明中使用animation或transition，在其它方面使用JavaScript来操纵。</p>
+<p>当使用JavaScript来与animation与transition结合时，这没有冲突--你更应该使用transition。也可能使用animation与JavaScript结合...差不多就像挑战cinnamon challenge一样。使它们工作不是不可能，你更可能的是不去用它。出现这种原因的是transitions和animations工作原理的不同。</p>
+<p>animations它们已经做的很具体了。关键帧<code>@keyframes</code>规则清晰的阐述了动画运行时的路径。通过JavaScript尝试改变animation动画，需要一系列复杂的步骤，包括修改<code>@keyframes</code>关键帧。如果操纵过CSS内嵌的样式规则，你知道这是相当不直观的。</p>
+<p>与预定义好路径的animation形成鲜明对比的是transition。transition看起来并不是预定义这些东西。transition将是在监听一个属性发生变化时触发。完全通过使用CSS来改变这个属性：</p>
+<div class="highlight"><pre><span class="nf">#myElement</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#FFF</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="k">background-color</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#myElement</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Transition监听的CSS属性变化，可通过JavaScript的内联样式进行设置：</p>
+<div class="highlight"><pre>var myElement = document.querySelectr(&quot;#myElement&quot;);
+myElement.style.backgroundColor = &quot;333&quot;;
+</pre></div>
+
+
+<p>Transition不关心监听的属性值改变的方式。只要属性值发生变化，transition将被执行。意思是，对于交互的场合，它不关心预定义的起始点和终止点，通过使用transition声明你可以做许多transition相关的有意思的事。可以使用JavaScript来指定想要transition的属性值。</p>
+<p>看一个我写的简单例子simple example：</p>
+<iframe id="I1" scrolling="no" frameborder="0" style="width: 620px; height: 390px;" src="/demo/animation/move_to_click_position.html" name="I1" marginwidth="0" marginheight="0" border="0"></iframe>
+
+<p>单击灰色方框中的任意位置，使圆圈移动到该位置。Keep clicking around to see the circle keep moving。</p>
+<p>十分简单的动画原理。实际移动是transition处理的。元素想要移到的位置是由JavaScript设置的的 <code>top</code>和<code>left</code>。 因为transition监听着<code>top</code> 和<code>left</code> 两个属性的变化，它们的所有改变都会触发transition。最后的结果完全是你想要的。重要的是，你不必写任何关于移动处理的JavaScript代码。因为transition被声明在CSS中，浏览器进行深度优化，让它运行的更加平滑。</p>
+<p>Transition和JavaScript之间的友好结合完胜，但在写它们的时候就感觉不那么友好了。</p>
+<h2>Conclusion</h2>
+<p>情况就是这样--大致上看看transitions和animations很相似，但又十分不同。选择使用其中的哪一个，我给出一般的方法就像这样：</p>
+<ul>
+<li>If what I want requires the flexibility provided by having multiple keyframes and easy looping, then I go with an animation.==如果想让动画更多的灵活性，通过使用关键帧和简单的循环，那么我将使用animation。</li>
+<li>If I am looking for a simple from/to animation, I go with a transition.==如果想要一个简单从起始状态到终止状态的动画，选择transition。</li>
+<li>If I want to manipulate the property values that I wish to animate using JavaScript, I go with a transition.==如果想使用JavaScript来操纵动画的属性值，我将选择transition。</li>
+</ul>
+<p>Now, with enough effort and JavaScript tomfoolery, you can neutralize any deficiences I list in deciding whether to use a transition or an animation. My recommendations are based on the common cases where you take a transition or animation mostly at face value. Herculean efforts to change their default behavior is admirable but often unnecessary.</p>
+<hr />
+<p>翻译水平有限，敬请各位同学批评指正。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'animations-vs-transitions';
+            var disqus_url = 'http://stormhouse.github.io/posts/2013/animations-vs-transitions/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
+                    </a></li>
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>

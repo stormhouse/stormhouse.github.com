@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>How JavaScript timers work</title>
+    <title>How JavaScript timers work（转）</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,19 +12,21 @@
     <!-- Open Graph tags -->
 
             <meta property="og:type" content="article"/>
-            <meta property="og:title" content="How JavaScript timers work"/>
-            <meta property="og:url" content="/posts/2013/how-javascript-timers-work/"/>
-            <meta property="og:description" content="k"/>
+            <meta property="og:title" content="How JavaScript timers work（转）"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/how-javascript-timers-work/"/>
+            <meta property="og:description" content="原文地址 翻译原地址 了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器: var id = setTimeout(fn, delay); 用于起动一个定时器，经过给定的时间后调用特定的函数。该函数返回一个id，来取消这个定时器 var id = setInterval(fn, delay); 和setTimeout类似，间隔给定的时间来调用函数，直到被取消 clearInterval(id);, clearTimeout(id); 接收一个参数定时器函数id，用于取消定时器 为理解定时器内部如果工作，需要声明一个很重要的概念：定时器延时，并不可靠的。这是因为js在浏览器执行是单线程的，异步事件（如鼠标事件和定时器）只在当执行过程中有机会执行时（CPU空闲时）才执行。下图给了很好的解释。 （左侧为正常时序，右侧为定时器注册和发生顺序）。该图提供很多信息，帮助你完全理解javascript异步执行工作方式。这是一个一维图，垂直方向为时间轴，单位是毫秒。中间蓝色部分的表示一个个javascript代码执行块 ..."/>
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <link href="/theme/css/pygments.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
     <!-- JavaScript plugins (requires jQuery) -->
     <script src="http://code.jquery.com/jquery.js"></script>
 
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
 
 </head>
 <body>
@@ -37,19 +39,34 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="" class="navbar-brand">stormhouse</a>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                         <li >
-                            <a href="/category/git.html">git</a>
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
                         </li>
                         <li class="active">
-                            <a href="/category/python.html">python</a>
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -63,10 +80,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/posts/2013/how-javascript-timers-work/"
+                    <a href="http://stormhouse.github.io/posts/2013/how-javascript-timers-work/"
                        rel="bookmark"
-                       title="Permalink to How JavaScript timers work">
-                        How JavaScript timers work
+                       title="Permalink to How JavaScript timers work（转）">
+                        How JavaScript timers work（转）
                     </a>
                 </h1>
             </header>
@@ -76,18 +93,100 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>周五 15 十一月 2013
+        <i class="icon-calendar"></i>Fri 15 November 2013
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/python.html">python</a>
+	<a href="http://stormhouse.github.io/tag/javascript.html">javascript</a>
+        /
+	<a href="http://stormhouse.github.io/tag/event.html">event</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>k</p>
+                <p><a href="http://ejohn.org/blog/how-javascript-timers-work/">原文地址</a><br />
+<a href="http://ejohn.org/blog/how-javascript-timers-work/">翻译原地址</a></p>
+<hr />
+<p>了解javascript定时器底层的工作原理是十分重要的。一般它们表现的不那么直观，是因为它在单独的一个线程中，所以它的行为表现的不很直观，甚至有些怪异。 以下三种方式可以让我们去创建并操作定时器:  </p>
+<ul>
+<li><code>var id = setTimeout(fn, delay);</code> 用于起动一个定时器，经过给定的时间后调用特定的函数。该函数返回一个id，来取消这个定时器</li>
+<li><code>var id = setInterval(fn, delay);</code> 和setTimeout类似，间隔给定的时间来调用函数，直到被取消</li>
+<li><code>clearInterval(id);, clearTimeout(id);</code> 接收一个参数定时器函数id，用于取消定时器</li>
+</ul>
+<p>为理解定时器内部如果工作，需要声明一个很重要的概念：定时器延时，并不可靠的。这是因为js在浏览器执行是单线程的，异步事件（如鼠标事件和定时器）只在当执行过程中有机会执行时（CPU空闲时）才执行。下图给了很好的解释。</p>
+<hr />
+<p><img alt="Alt Timers" class="align-center" src="/img/Timers.png" title="timers" /></p>
+<p>（左侧为正常时序，右侧为定时器注册和发生顺序）。该图提供很多信息，帮助你完全理解javascript异步执行工作方式。这是一个一维图，垂直方向为时间轴，单位是毫秒。中间蓝色部分的表示一个个javascript代码执行块。例如，第一个js块执行了大约19毫秒...。  </p>
+<p>由于javascript在同一时间只能执行一段代码（原于它是单线程）所以这些代码块会阻塞其它异步事件的执行。意味着一个异步事件（如鼠标事件，定时器触发或ajax回调），它会被插入事件队列中排队等待执行（有一点很重要，在不同的浏览器中，这个队列模型是不同的，所以队列中的事件是如何触发的是不同的）  </p>
+<p>首先，在第一段js代码块中，两个定时器被初始化，一个10ms的setTimeout 和 一个10ms的setInterval。这个定时器启动实际上实在我们第一个js代码块完成之前，不过请注意，定时器所挂载的处理逻辑并没有立即被执行（由于线程模型是不能这样做的），而实际上，延时调用程序将会被插入队列，等待可调用时序时，被顺序执行。  </p>
+<p>其次，我们在第一个代码块中，我们触发了一次点击操作。这个异步事件相关的回调函数，和定时器一样，也不会立即被执行，同样进入队列等待执行。  </p>
+<p>当第一个Javascript代码块执行完成后，浏览器就会去问队列：接下来要执行什么？然而此时此刻，鼠标事件的句柄函数和定时器的延时调用函数都在等待。浏览器会在二者中选择一个（鼠标事件）立即执行。定时器的回调会等待下个时机，被按顺序调用。  </p>
+<p>注意图中，在鼠标事件的回掉执行时，interval延时回掉被执行了。但是需要注意的时，当interval再次被出发时（当一个定时器的延时处理在执行的时候），这时候程序的处理将会被丢弃。假设当有大块的代码正在执行时，你又有一堆的interval延时调用在排队，你希望结果很可能就是这个大块的js代码执行完毕后，interval的延时调用会一个接一个的被触发，而且在执行时没有延时时间，也就是会被连续的调用。可是相反，浏览器往往只是等待，直到没有更多的interval处理程序进行排队。  </p>
+<p>事实上，我们也可以看到，第三个interval回掉触发的时候，这个interval本身也在执行中。这就像我们展示了一个很重要的现象就是：interval 并不在乎当前谁正在执行，他们不分青红皂白地将排队，即使这意味着回调之间的时间将被牺牲。  </p>
+<p>最后，当第二个interval回掉执行完成后，我们能看到，对于js引擎来说，没有需要去执行的东东了。这就意味着，浏览器在等待新的异步事件发生了。到第50秒时，这个interval被再次触发，这时候没有东西在阻塞执行，因此他会被立即调用。  </p>
+<p>我们来用几行代码来更好的去分辨setInterval和setTimeout之间的区别:  </p>
+<div class="highlight"><pre><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="cm">/* Some long block of code... */</span> 
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> 
+<span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="cm">/* Some long block of code... */</span> 
+<span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+
+<p>这两段代码乍一看似乎差不多，但事实上相差很多。有一点值得注意的是，在这里面的setTimeout，两个回掉执行的时间间隔至少会是10毫秒；而setInterval将尝试每10秒去执行一次，<strong>不去考虑上一次回掉是否已经完成。</strong></p>
+<p>There’s a lot that we’ve learned here, let’s recap:</p>
+<ol>
+<li>Javascript是一个单线程执行的东东，迫使异步事件排队等待执行。</li>
+<li>setTimeout 与 setInterval执行代码的原理是完全不同的。</li>
+<li>当一个定时器执行被阻塞时，他会等待下一个可能执行的时机去执行，所以这个延时可能会比预先设定的时间要长。</li>
+<li>如果回调函数执行时间过长（长于定时器的延迟时间），“间隔定时器”有可能会一个接一个无间隔的执行</li>
+</ol>
+<hr />
+<p>补充的例子</p>
+<hr />
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">die</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> 
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nx">die</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> 
+<span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="nx">die</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>如果你认为在100毫秒后，会打针done，说明你没有看懂此篇文章。你一定会觉得在100毫秒后，die的值变成true，然后console会被执行，如果你这样想那你就错了。记住setTimeout的准则是<strong>尽快执行</strong>，而<strong>不是立即执行</strong>。只有当主事件循环结束是，有时间片供setTimeout去执行时，定时器才会被执行。<br />
+<a href="http://ejohn.org/blog/how-javascript-timers-work/">翻译原地址</a><br />
+（完）</p>
             </div>
             <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'how-javascript-timers-work';
+            var disqus_url = 'http://stormhouse.github.io/posts/2013/how-javascript-timers-work/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
         </article>
     </section>
 
@@ -97,29 +196,99 @@
     <section>
         <ul class="list-group list-group-flush">
                 <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
-                    <li class="list-group-item"><a href="#"><i
-                            class="icon-You can add links in your config file-sign icon-large"></i>You can add links in your config file
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
                     </a></li>
-                    <li class="list-group-item"><a href="#"><i
-                            class="icon-Another social link-sign icon-large"></i>Another social link
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
                     </a></li>
 
 
 
-            <li class="list-group-item"><a href="/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
-                    <a href="/tag/python.html">
+                    <a href="http://stormhouse.github.io/tag/python.html">
                         python
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="/tag/http.html">
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
                         http
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="/tag/git.html">
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
                         git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
                     </a>
                 </li>
         </ul>
@@ -129,9 +298,22 @@
 </div>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
 </body>
 </html>

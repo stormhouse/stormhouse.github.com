@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>python中的字符编码</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="python中的字符编码"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2013/character-encoding-python/"/>
+            <meta property="og:description" content="上篇字符编码对字符编码做了简单的介绍，除了演示几个简单的例子外，没有将字符编码与编程语言，看本文的标题相信就明白，这是与伟大的python结合一些实例（python版本为2.7.5）。 准备工作，去码表（GB2312, Unicode, UTF-8）查取编码的GB2312和Unicode字符集编码及按gb2312和utf-8编码方式保存的二进制。注意，要亲自查一下 哦～～ 编码 对应十六进制 GB2312字符集： b1e0 c2eb GB2312编码(同上): b1e0 c2eb Unicode字符集： 7f16 7801 UTF-16编码(同上): 7f16 7801 UTF-8编码: e7bc96 e7a081 字符串操作 话不多说，打开python解释器，输入： >>> s = '编码' >>> s ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://stormhouse.github.io/posts/2013/character-encoding-python/"
+                       rel="bookmark"
+                       title="Permalink to python中的字符编码">
+                        python中的字符编码
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Thu 21 November 2013
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://stormhouse.github.io/tag/encoding.html">encoding</a>
+        /
+	<a href="http://stormhouse.github.io/tag/python.html">python</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>上篇<a href="http://stormhouse.github.io/posts/2013/character-encoding/">字符编码</a>对字符编码做了简单的介绍，除了演示几个简单的例子外，没有将<code>字符编码</code>与<code>编程语言</code>，看本文的标题相信就明白，这是与伟大的python结合一些实例（python版本为2.7.5）。</p>
+<p>准备工作，去码表（<a href="http://ash.jp/code/cn/gb2312tbl.htm">GB2312</a>, <a href="http://www.tamasoft.co.jp/en/general-info/unicode.html">Unicode</a>, <a href="http://www.moransoft.com/chinesecode.html">UTF-8</a>）查取<code>编码</code>的GB2312和Unicode字符集编码及按gb2312和utf-8编码方式保存的二进制。注意，要亲自查一下 哦～～</p>
+<div class="highlight"><pre>编码                  对应十六进制
+GB2312字符集：        b1e0 c2eb
+GB2312编码(同上):     b1e0 c2eb
+Unicode字符集：       7f16 7801
+UTF-16编码(同上):     7f16 7801
+UTF-8编码:            e7bc96 e7a081
+</pre></div>
+
+
+<h2>字符串操作</h2>
+<p>话不多说，打开python解释器，输入：</p>
+<div class="highlight"><pre>&gt;&gt;&gt; s = &#39;编码&#39;
+&gt;&gt;&gt; s
+&#39;\xb1\xe0\xc2\xeb&#39;
+</pre></div>
+
+
+<p>将结果与码表查得的结果，对应着GB2312字符集。为什么呢？继续：</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span> <span class="c">#返回当前系统所使用的默认字符编码</span>
+<span class="s">&#39;ascii&#39;</span>
+</pre></div>
+
+
+<p>除一些IDE外，python是按操作系统默认字符编码来处理的。这里是ascii。</p>
+<p>python支持unicode：</p>
+<div class="highlight"><pre>&gt;&gt;&gt; u = u&#39;编码&#39; #unicode编码
+&gt;&gt;&gt; u
+u&#39;\u7f16\u7801&#39;
+</pre></div>
+
+
+<p>utf-8：</p>
+<div class="highlight"><pre>&gt;&gt;&gt; u = u&#39;编码&#39;
+&gt;&gt;&gt; u
+u&#39;\u7f16\u7801&#39;
+&gt;&gt;&gt; type(u)
+&lt;type &#39;unicode&#39;&gt;
+&gt;&gt;&gt; s = u.encode(&#39;utf-8&#39;)
+&gt;&gt;&gt; s
+&#39;\xe7\xbc\x96\xe7\xa0\x81&#39;
+&gt;&gt;&gt; type(s)
+&lt;type &#39;str&#39;&gt;
+&gt;&gt;&gt; u1 = s.decode(&#39;utf-8&#39;)
+&gt;&gt;&gt; u1
+u&#39;\u7f16\u7801&#39;
+</pre></div>
+
+
+<p>综上，可与查得的结果相同。</p>
+<p>python中的str，unicode对象：</p>
+<ul>
+<li>str: str对象其实就是"8-bit string" ，字节字符串，本质上类似java中的byte[]。decode</li>
+<li>unicode: unicode对象应该才是等同于java中的String对象，或本质上是java的char[]。encode</li>
+</ul>
+<p>unicode才是真正意义上的字符串：</p>
+<div class="highlight"><pre>&gt;&gt;&gt; s = &#39;编码&#39;
+&gt;&gt;&gt; len(s)
+4
+&gt;&gt;&gt; u = u&#39;编码&#39;
+&gt;&gt;&gt; len(u)
+2
+</pre></div>
+
+
+<p>详细请参见<a href="http://www.cnblogs.com/huxi/archive/2010/12/05/1897271.html">python的str，unicode对象的encode和decode方法</a></p>
+<h2>文件操作</h2>
+<h4>读文件</h4>
+<p>内置的open()方法打开文件时，read()读取的是str，读取后需要使用正确的编码格式进行decode()。</p>
+<p>如保存为ascii格式的文本文件encoding-ascii.txt，内容为'编码'。对该文本读取：</p>
+<div class="highlight"><pre>#coding=utf-8
+
+f = open(&#39;encoding-ascii.txt&#39;)
+s = f.read()
+f.close()
+
+print type(s) #&lt;type &#39;str&#39;&gt;
+print(s)      #编码
+
+u = s.decode(&#39;gb2312&#39;)
+print type(u) #&lt;type &#39;unicode&#39;&gt;
+print u       #编码
+</pre></div>
+
+
+<p>上面是正确的编码处理方式。假如读取保存为utf-8格式的文件encoding-utf8.txt会出现什么情况：</p>
+<div class="highlight"><pre>#coding=utf-8
+
+f = open(&#39;encoding-utf8.txt&#39;)
+s = f.read()
+f.close()
+
+print type(s) #&lt;type &#39;str&#39;&gt;
+print(s)      #锘跨紪鐮     (乱码)
+
+
+u = s.decode(&#39;gb2312&#39;) #报错。正确方式：s.decode(&#39;utf-8&#39;)
+# UnicodeDecodeError: &#39;gb2312&#39; codec can&#39;t decode bytes in position 4-5: llegal multibyte sequence
+print type(u) 
+print u
+</pre></div>
+
+
+<p>故正确处理方式为：<br />
+使用codecs模块中的open方法，可指定编码方式打开文件，该方法返回的是unicode（注意：内置open返回的是str）：</p>
+<div class="highlight"><pre><span class="c">#coding=utf-8</span>
+
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;encoding-utf8.txt&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="c">#&lt;type &#39;unicode&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="c">#u&#39;\u7f16\u7801&#39;</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;gb2312&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="c">#&lt;type &#39;str&#39;&gt;</span>
+<span class="k">print</span> <span class="n">s</span>       <span class="c">#编码</span>
+</pre></div>
+
+
+<h4>写文件</h4>
+<p>内置的write()写入时，如果参数是unicode，则需要使用你希望写入的编码进行encode()，如果是其他编码格式的str，则需要先用该str的编码进行decode()，转成unicode后再使用写入的编码进行encode()。如果直接将unicode作为参数传入write()方法，Python将先使用源代码文件声明的字符编码进行编码然后写入。</p>
+<div class="highlight"><pre>#coding=utf-8
+
+u = u&#39;编码&#39;
+f = open(&#39;test.txt&#39;, &#39;w&#39;)
+# 编码成UTF-8编码的str
+s = u.encode(&#39;gb2312&#39;)
+f.write(s)
+f.close()
+</pre></div>
+
+
+<p>查看test.txt文件，可得保存的格式为ascii。</p>
+<p>codecs模块写入时，如果参数是unicode，则使用open()时指定的编码进行编码后写入；如果是str，则先根据源代码文件声明的字符编码，解码成unicode后再进行前述操作。相对内置的open()来说，这个方法比较不容易在编码上出现问题。</p>
+<div class="highlight"><pre><span class="c">#coding=utf-8</span>
+
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="n">u</span> <span class="o">=</span> <span class="s">u&#39;编码&#39;</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test1.txt&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;gb2312&#39;</span><span class="p">)</span> <span class="c">#utf-8</span>
+<span class="c"># 写入unicode</span>
+<span class="n">f1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+
+<span class="c"># 写入str，自动进行解码编码操作(貌似没法自动转化TODO)</span>
+<span class="c"># GBK编码的str</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s">&#39;汉&#39;</span>
+<span class="k">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="c"># &#39;\xba\xba&#39;</span>
+<span class="c"># 这里会先将GBK编码的str解码为unicode再编码为UTF-8写入</span>
+<span class="n">f1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+<span class="n">f1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<h2>网络(HTTP)操作</h2>
+<p>[传送门][]</p>
+<h2>sys/locale模块关于编码相关的方法</h2>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">locale</span>
+
+<span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">(): </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">f</span><span class="p">())</span>
+
+<span class="c"># 返回当前系统所使用的默认字符编码</span>
+<span class="n">p</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">)</span>
+
+<span class="c"># 返回用于转换Unicode文件名至系统文件名所使用的编码</span>
+<span class="n">p</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">getfilesystemencoding</span><span class="p">)</span>
+
+<span class="c"># 获取默认的区域设置并返回元祖(语言, 编码)</span>
+<span class="n">p</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">getdefaultlocale</span><span class="p">)</span>
+
+<span class="c"># 返回用户设定的文本数据编码</span>
+<span class="c"># 文档提到this function only returns a guess</span>
+<span class="n">p</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">getpreferredencoding</span><span class="p">)</span>
+
+<span class="c"># \xba\xba是&#39;汉&#39;的GBK编码</span>
+<span class="c"># mbcs是不推荐使用的编码，这里仅作测试表明为什么不应该用</span>
+<span class="k">print</span> <span class="s">r&quot;&#39;\xba\xba&#39;.decode(&#39;mbcs&#39;):&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\xba\xba</span><span class="s">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;mbcs&#39;</span><span class="p">))</span>
+
+<span class="c">#在笔者的Windows上的结果(区域设置为中文(简体, 中国))</span>
+<span class="c">#sys.getdefaultencoding(): ascii</span>
+<span class="c">#sys.getfilesystemencoding(): mbcs</span>
+<span class="c">#locale.getdefaultlocale(): (&#39;zh_CN&#39;, &#39;cp936&#39;)</span>
+<span class="c">#locale.getpreferredencoding(): cp936</span>
+<span class="c">#&#39;\xba\xba&#39;.decode(&#39;mbcs&#39;): u&#39;\u6c49&#39;</span>
+</pre></div>
+
+
+<h2>总结</h2>
+<ul>
+<li>使用字符编码声明，并且同一工程中的所有源代码文件使用相同的字符编码声明。</li>
+<li>抛弃str，全部使用unicode。<code>u = u'编码'</code></li>
+<li>使用codecs.open()替代内置的open()。</li>
+<li>绝对需要<code>避免</code>使用的字符编码：MBCS/DBCS和UTF-16。</li>
+</ul>
+<p>这里说的MBCS不是指GBK什么的都不能用，而是不要使用Python里名为'MBCS'的编码，除非程序完全不移植。<br />
+Python中编码'MBCS'与'DBCS'是同义词，指当前Windows环境中MBCS指代的编码。Linux的Python实现中没有这种编码，所以一旦移植到Linux一定会出现异常！另外，只要设定的Windows系统区域不同，MBCS指代的编码也是不一样的。</p>
+<h4>MBCS</h4>
+<p>计算机世界里很快就有了其他语言，单字节的ASCII已无法满足需求。后来每个语言就制定了一套自己的编码，由于单字节能表示的字符太少，而且同时也需要与ASCII编码保持兼容，所以这些编码纷纷使用了多字节来表示字符，如GBxxx、BIGxxx等等，他们的规则是，如果第一个字节是\x80以下，则仍然表示ASCII字符；而如果是\x80以上，则跟下一个字节一起（共两个字节）表示一个字符，然后跳过下一个字节，继续往下判断。</p>
+<p>这里，IBM发明了一个叫Code Page的概念，将这些编码都收入囊中并分配页码，GBK是第936页，也就是CP936。所以，也可以使用CP936表示GBK。</p>
+<p>MBCS(Multi-Byte Character Set)是这些编码的统称。目前为止大家都是用了双字节，所以有时候也叫做DBCS(Double-Byte Character Set)。必须明确的是，MBCS并不是某一种特定的编码，Windows里根据你设定的区域不同，MBCS指代不同的编码，而Linux里无法使用MBCS作为编码。在Windows中你看不到MBCS这几个字符，因为微软为了更加洋气，使用了ANSI来吓唬人，记事本的另存为对话框里编码ANSI就是MBCS。同时，在简体中文Windows默认的区域设定里，指代GBK。</p>
+<h2>参拷</h2>
+<ul>
+<li><a href="http://www.cnblogs.com/huxi/archive/2010/12/05/1897271.html">Python字符编码详解</a></li>
+<li><a href="http://appofis.iteye.com/blog/443206">python的str，unicode对象的encode和decode方法</a></li>
+<li><a href="http://docs.python.org/2/library/codecs.html#standard-encodings">Standard Encodings</a></li>
+</ul>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'character-encoding-python';
+            var disqus_url = 'http://stormhouse.github.io/posts/2013/character-encoding-python/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
+                    </a></li>
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>

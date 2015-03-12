@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/grunt.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 17 Jul 2014 17:05:00 +0800</lastBuildDate><item><title>grunt init plugin</title><link>http://stormhouse.github.io/posts/2014/grunt-init-plugin/</link><description>&lt;hr /&gt;
+&lt;h4&gt;安装node&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# MAC
+brew install node
+node -v
+npm -v
+
+# WIN[下载][0]
+# 安装cli
+npm install -g grunt-cli
+npm install -g grunt
+npm install -g grunt-init   #编写插件用
+grunt --version
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;基本操作&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;grunt init
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;编写插件&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone git://github.com/gruntjs/grunt-init-gruntplugin.git ~/.grunt-init/gruntplugin
+grunt-init gruntplugin
+npm install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;h6&gt;&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;#npm配置代理
+npm config set proxy http://server:port
+npm config set https-proxy http://server:port
+# 需要认证
+npm config set proxy http://username:password@server:port
+npm config set https-proxy http://username:pawword@server:port
+# 查看
+npm config list
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 17 Jul 2014 17:05:00 +0800</pubDate><guid>tag:stormhouse.github.io,2014-07-17:posts/2014/grunt-init-plugin/</guid><category>node</category><category>grunt</category></item></channel></rss>

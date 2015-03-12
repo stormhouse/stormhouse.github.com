@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/encoding.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 25 Nov 2013 21:11:00 +0800</lastBuildDate><item><title>Base64编码</title><link>http://stormhouse.github.io/posts/2013/base64bian-ma/</link><description>&lt;p&gt;Base64编码是将任意二进制数据转换为可打印的ASCII字符。&lt;/p&gt;
-&lt;h3&gt;从8位到6位&lt;/h3&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/encoding.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 25 Nov 2013 21:11:00 +0800</lastBuildDate><item><title>Base64编码</title><link>http://stormhouse.github.io/posts/2013/base64/</link><description>&lt;p&gt;Base64编码是将任意二进制数据转换为可打印的ASCII字符。&lt;/p&gt;
+&lt;h2&gt;从8位到6位&lt;/h2&gt;
 &lt;p&gt;它是将一个8位字节序列拆散为6位，并为每个6位片段分配一个字符（2^6=64，推之Base64字符集为64个以内，实际65个字符）。Base64的码表为：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-base64-table.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;来个实例，下图以中文&lt;code&gt;编码&lt;/code&gt;两个字符（utf-8格式）为例：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-base64-1.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;可以在&lt;a href="http://www.base64encode.org/"&gt;Base64 Decode and Encode - Online&lt;/a&gt;上验证一下结果。&lt;/p&gt;
-&lt;h3&gt;补码&lt;/h3&gt;
+&lt;h2&gt;补码&lt;/h2&gt;
 &lt;p&gt;Base64编码是将二进制截成每6位一个单位，会有二进制序列不能正好平均分成6位块的情况，这时要在序列末尾填充零位，补够总位数是6*8的最小公倍数，任何完全填充的6位组由特殊的第65个符号&lt;code&gt;=&lt;/code&gt;表示。比如ASCII码的字符&lt;code&gt;a&lt;/code&gt;：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-base64-2.png" title="" /&gt;&lt;/p&gt;
-&lt;h3&gt;用途&lt;/h3&gt;
+&lt;h2&gt;用途&lt;/h2&gt;
 &lt;p&gt;Base64编码是对二进制序列为操作对象，那对于任意的二进制序列都可以编码，如文件。
 在网上搜集了一些Base64编码应用：&lt;/p&gt;
 &lt;ul&gt;
@@ -19,25 +19,25 @@
 &lt;li&gt;&lt;a href="http://stackoverflow.com/questions/4070693/what-is-the-purpose-of-base-64-encoding-and-why-it-used-in-http-basic-authentica"&gt;HTTP基本认证&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;文件入库：将文件的二进制流转换成文本存入数据库&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;实现&lt;/h3&gt;
+&lt;h2&gt;实现&lt;/h2&gt;
 &lt;p&gt;&lt;a href="http://stormhouse.github.com/demo/js/base64.html"&gt;JavaScript实现&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;在线工具&lt;/h3&gt;
+&lt;h2&gt;在线工具&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.base64encode.org/"&gt;Base64 Decode and Encode - Online &lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://webcodertools.com/imagetobase64converter"&gt;Convert any image into a base64 string&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 25 Nov 2013 21:11:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-25:posts/2013/base64bian-ma/</guid><category>encoding</category><category>base64</category></item><item><title>URL编码</title><link>http://stormhouse.github.io/posts/2013/urlbian-ma/</link><description>&lt;hr /&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 25 Nov 2013 21:11:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-25:posts/2013/base64/</guid><category>encoding</category><category>base64</category></item><item><title>URL编码</title><link>http://stormhouse.github.io/posts/2013/url-encoding/</link><description>&lt;hr /&gt;
 &lt;p&gt;URL(统一资源定位符, Uniform Resource Location)是URI(统一资源标识符, Uniform Resource Identifier)的一种，一般来讲，URL是Internet上用来描述信息资源的字符串，用于客户端访问www服务器或其它服务器的方式。来几个URL：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;ftp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//host/filepath/&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;// &lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;ftp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//表示通过文件传输协议FTP访问FTP服务器。  &lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;telnet&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//表示通过远程登录协议Telnet进行远程登录。  &lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;gopher&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//表示通过gopher协议访问Gopher服务器。&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;* ftp://host/filepath/
+* http:// 
+* ftp://表示通过文件传输协议FTP访问FTP服务器。  
+* telnet://表示通过远程登录协议Telnet进行远程登录。  
+* gopher://表示通过gopher协议访问Gopher服务器。
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;当然协议也可以自己扩展。&lt;/p&gt;
 &lt;p&gt;这个不扯太多，今天只讨论编码。&lt;/p&gt;
-&lt;h3&gt;URL中包括中文&lt;/h3&gt;
+&lt;h2&gt;URL中包括中文&lt;/h2&gt;
 &lt;p&gt;看代码，文件名&lt;code&gt;编码-test.html&lt;/code&gt;放到tomcat（全局web.xml配置listings设置成true）下webapp目录下中的encoding目录下&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
@@ -61,7 +61,7 @@
 &lt;p&gt;得出结论：在浏览器中输入带中文的URL，自动按utf-8编码转换（多了个%）；404，说明服务器端没有正确的编码方式来处理该URL，导致找不到该文件。即浏览器与服务器端（tomcat）不是同一种编码格式来处理URL。幸好以前研究过部分tomcat的源代码，啥也不说，上图：（tomcat-7.0.42版本，CoyoteAdapter.java文件814行）&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-http-url3.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;可以看到，tomcat默认是按US-ASCII编码方式来处理url，显然无法正确处理带中文的文件名。看其注释可知它是可配的，即在&lt;code&gt;${tomcat_home}/conf/server.xml&lt;/code&gt;中Connector节点添加 &lt;code&gt;URIEncoding="UTF-8"&lt;/code&gt;，重起tomcat，再次访问，一切如我所愿。&lt;/p&gt;
-&lt;h3&gt;form表单提交中的中文&lt;/h3&gt;
+&lt;h2&gt;form表单提交中的中文&lt;/h2&gt;
 &lt;p&gt;点击&lt;code&gt;编码-test.html&lt;/code&gt;页面中的&lt;code&gt;submit&lt;/code&gt;：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-http-url4.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;对于表单生成（GET）的URL查询字符中有中文，默认按操作系统的编码方式，试想这不乱套了吗，不同语言国家的浏览器访问同一页面，那么提交的数据会变的千奇百怪了吧。还好给表单加个配置&lt;code&gt;accept-charset&lt;/code&gt;：&lt;/p&gt;
@@ -74,72 +74,72 @@
 
 &lt;p&gt;刷新页面，再次点击，一切都美好&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-http-url5.png" title="" /&gt;&lt;/p&gt;
-&lt;h3&gt;Ajax的中文参数&lt;/h3&gt;
+&lt;h2&gt;Ajax的中文参数&lt;/h2&gt;
 &lt;p&gt;首先不去实验一些浏览器的差异性了，因为你不可能不用ajax库，而自己包装XHR对象来实现。细节都被jQuery处理了，如果想了解细节，看jQuery的ajax部分代码。这里就给出一个参数配置&lt;code&gt;contentType&lt;/code&gt;消息主体的内容类型后，添加该内容的字符集：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;jQuery&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;ajaxSubmit&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt; 
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;some url&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;post&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="n"&gt;dataType&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;json&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
-    &lt;span class="n"&gt;contentType&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;application/x-www-form-urlencoded; charset=utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;jQuery&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="nc"&gt;.ajaxSubmit&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="k"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;some url&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; 
+    &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;post&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; 
+    &lt;span class="n"&gt;dataType&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;json&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; 
+    &lt;span class="n"&gt;contentType&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;application/x-www-form-urlencoded; charset=utf-8&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; 
     &lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;successFun&lt;/span&gt; 
-&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;枯燥的定义&lt;/h3&gt;
+&lt;h2&gt;枯燥的定义&lt;/h2&gt;
 &lt;p&gt;不想看又不可不看的部分&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;URL只允许使用US-ASCII字符集中的可打印字符（0x20-0x7e范围内的字符）。并且，由于其在URL方案或HTTP协议内具有特殊含义的字符(= %等)，也不能使用，如：&lt;/p&gt;
-&lt;h6&gt;保留字符&lt;/h6&gt;
+&lt;h4&gt;保留字符&lt;/h4&gt;
 &lt;p&gt;URL可以划分成若干个组件，协议、主机、路径等。有一些字符（:/?#[]@）是用作分隔不同组件的。例如：冒号用于分隔协议和主机，/用于分隔主机和路径，?用于分隔路径和查询参数，等等。还有一些字符（!$&amp;amp;'()*+,;=）用于在每个组件中起到分隔作用的，如=用于表示查询参数中的键值对，&amp;amp;符号用于分隔查询多个键值对。当组件中的普通数据包含这些特殊字符时，需要对其进行编码。&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://www.ietf.org/rfc/rfc3986.txt"&gt;RFC3986&lt;/a&gt;中指定了以下字符为保留字符(如URL包括这些字符必须对其编码)：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;! * &amp;#39; ( ) ; : @ &amp;amp; = + $ , / ? # [ ]
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h6&gt;受限字符&lt;/h6&gt;
+&lt;h4&gt;受限字符&lt;/h4&gt;
 &lt;p&gt;还有一些字符，当他们直接放在Url中的时候，可能会引起解析程序的歧义。这些字符被视为不安全字符，原因有很多：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;空格：&lt;/span&gt;&lt;span class="n"&gt;URL&lt;/span&gt;&lt;span class="err"&gt;在传输的过程，或者用户在排版的过程，或者文本处理程序在处理&lt;/span&gt;&lt;span class="n"&gt;URL&lt;/span&gt;&lt;span class="err"&gt;的过程，都有可能引入无关紧要的空格，或者将那些有意义的空格给去掉。&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;引号以及&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;：引号和尖括号通常用于在普通文本中起到分隔&lt;/span&gt;&lt;span class="n"&gt;Url&lt;/span&gt;&lt;span class="err"&gt;的作用&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;#：通常用于表示书签或者锚点&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;：百分号本身用作对不安全字符进行编码时使用的特殊字符，因此本身需要编码&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="err"&gt;：某一些网关或者传输代理会篡改这些字符&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;* 空格：URL在传输的过程，或者用户在排版的过程，或者文本处理程序在处理URL的过程，都有可能引入无关紧要的空格，或者将那些有意义的空格给去掉。
+* 引号以及&amp;lt;&amp;gt;：引号和尖括号通常用于在普通文本中起到分隔Url的作用
+* #：通常用于表示书签或者锚点
+* %：百分号本身用作对不安全字符进行编码时使用的特殊字符，因此本身需要编码
+* {}|\^[]`~：某一些网关或者传输代理会篡改这些字符
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h6&gt;非ASCII字符集&lt;/h6&gt;
+&lt;h4&gt;非ASCII字符集&lt;/h4&gt;
 &lt;p&gt;中文、韩文......，统一utf-8编码格式。&lt;/p&gt;
-&lt;h3&gt;小结&lt;/h3&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
 &lt;p&gt;网络上传输的是二进制，URL编码，其实就是把字符映射成二进制的过程。RFC定义合法URL只能是可打印ASCII字符来表示，也包括一些表示特殊含义的保留字符和保留字符（文件名或路径中含有，则需转换成。如，=表示查询参数键值，需转换成%3D），这样才能保证服务端正确编码的解析。
 一些常见的URL编码字符：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;转换为&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;
-&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="err"&gt;转换为&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;
-&lt;span class="err"&gt;空格&lt;/span&gt; &lt;span class="err"&gt;转换为&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;
-&lt;span class="err"&gt;新行&lt;/span&gt; &lt;span class="err"&gt;转换为&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;
-&lt;span class="err"&gt;空字符&lt;/span&gt; &lt;span class="err"&gt;转换为&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mo"&gt;00&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;= 转换为 %3d
+% 转换为 %25
+空格 转换为 %20
+新行 转换为 %0a
+空字符 转换为 %00
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;详细参见&lt;a href="http://www.w3schools.com/tags/ref_urlencode.asp"&gt;HTML URL Encoding Reference&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;最后的js中的三个方法&lt;/h3&gt;
+&lt;h2&gt;最后的js中的三个方法&lt;/h2&gt;
 &lt;p&gt;escape(unescape)，encodeURI(decodeURI)，encodeURIComponent(decodeURIComponent)---都是用于将不安全不合法的URL字符转换为合法的URL字符表示，不同点如下：&lt;/p&gt;
-&lt;h6&gt;安全字符不同&lt;/h6&gt;
+&lt;h4&gt;安全字符不同&lt;/h4&gt;
 &lt;p&gt;不会对以下字符进行编码&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;escape&lt;/span&gt;&lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="mi"&gt;69&lt;/span&gt;&lt;span class="err"&gt;个）：*/@&lt;/span&gt;&lt;span class="o"&gt;+-&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;zA&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Z&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;encodeURI&lt;/span&gt;&lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="mi"&gt;82&lt;/span&gt;&lt;span class="err"&gt;个）：&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="err"&gt;#$&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;*+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;/:&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="o"&gt;=?&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;zA&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Z&lt;/span&gt;
-&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;encodeURIComponent&lt;/span&gt;&lt;span class="err"&gt;（&lt;/span&gt;&lt;span class="mi"&gt;71&lt;/span&gt;&lt;span class="err"&gt;个）：&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;*-&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;zA&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Z&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;* escape（69个）：*/@+-._0-9a-zA-Z
+* encodeURI（82个）：!#$&amp;amp;&amp;#39;()*+,/:;=?@-._~0-9a-zA-Z
+* encodeURIComponent（71个）：!&amp;#39;()*-._~0-9a-zA-Z
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h6&gt;兼容性不同&lt;/h6&gt;
+&lt;h4&gt;兼容性不同&lt;/h4&gt;
 &lt;p&gt;escape函数是从Javascript 1.0的时候就存在了，它返回的是unicode，其他两个函数是在Javascript 1.5才引入的。但是由于Javascript 1.5已经非常普及了，所以实际上使用encodeURI和encodeURIComponent并不会有什么兼容性问题。 &lt;/p&gt;
-&lt;h6&gt;对Unicode字符的编码方式不同&lt;/h6&gt;
+&lt;h4&gt;对Unicode字符的编码方式不同&lt;/h4&gt;
 &lt;p&gt;这三个函数对于ASCII字符的编码方式相同，均是使用百分号+两位十六进制字符来表示。但是对于Unicode字符，escape的编码方式是%uxxxx，其中的xxxx是用来表示unicode字符的4位十六进制字符。这种方式已经被W3C废弃了。但是在ECMA-262标准中仍然保留着escape的这种编码语法。encodeURI和encodeURIComponent则使用UTF-8对非ASCII字符进行编码，然后再进行百分号编码。这是RFC推荐的。&lt;/p&gt;
 &lt;p&gt;因此建议尽可能的使用encodeURI和encodeURIComponent这两个函数替代escape进行编码。&lt;/p&gt;
-&lt;h6&gt;适用场合不同&lt;/h6&gt;
+&lt;h4&gt;适用场合不同&lt;/h4&gt;
 &lt;p&gt;encodeURI被用作对一个完整的URI进行编码，而encodeURIComponent被用作对URI的一个组件进行编码。从上面提到的安全字符范围表格来看，我们会发现，encodeURIComponent编码的字符范围要比encodeURI的大。我们上面提到过，保留字符一般是用来分隔URI组件（一个URI可以被切割成多个组件，参考预备知识一节）或者子组件（如URI中查询参数的分隔符），如：号用于分隔scheme和主机，?号用于分隔主机和路径。由于encodeURI操纵的对象是一个完整的的URI，这些字符在URI中本来就有特殊用途，因此这些保留字符不会被encodeURI编码，否则意义就变了。
 组件内部有自己的数据表示格式，但是这些数据内部不能包含有分隔组件的保留字符，否则就会导致整个URI中组件的分隔混乱。因此对于单个组件使用encodeURIComponent，需要编码的字符就更多了。&lt;/p&gt;
-&lt;h6&gt;保留及受限字符&lt;/h6&gt;
+&lt;h4&gt;保留及受限字符&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;% 保留作为编码字符的转义标志&lt;/li&gt;
 &lt;li&gt;/ 保留作为路径组件中分隔路径段的定界符&lt;/li&gt;
@@ -162,139 +162,170 @@
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;参拷&lt;/h3&gt;
+&lt;h2&gt;参拷&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.ruanyifeng.com/blog/2010/02/url_encoding.html"&gt;关于URL编码&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://kb.cnblogs.com/page/133765/"&gt;URL编码与解码&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://product.china-pub.com/3683063"&gt;HTTP权威指南&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sat, 23 Nov 2013 20:53:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-23:posts/2013/urlbian-ma/</guid><category>encoding</category><category>python</category><category>http</category><category>url</category><category>tomcat</category></item><item><title>http中的字符编码</title><link>http://stormhouse.github.io/posts/2013/httpzhong-de-zi-fu-bian-ma/</link><description>&lt;p&gt;&lt;a href="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/"&gt;字符编码&lt;/a&gt;和&lt;a href="http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/"&gt;python中的字符编码&lt;/a&gt;两文对字符编码简单的介绍。现在开始讨论http中的编码问题，当完成&lt;code&gt;编码&lt;/code&gt;系列的文章后，开始完成一系统http的文章，本文还是需要一些http基本的知识。&lt;/p&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sat, 23 Nov 2013 20:53:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-23:posts/2013/url-encoding/</guid><category>encoding</category><category>python</category><category>http</category><category>url</category><category>tomcat</category></item><item><title>http中的字符编码</title><link>http://stormhouse.github.io/posts/2013/character-encoding-http/</link><description>&lt;p&gt;&lt;a href="http://stormhouse.github.io/posts/2013/character-encoding/"&gt;字符编码&lt;/a&gt;和&lt;a href="http://stormhouse.github.io/posts/2013/character-encoding-python/"&gt;python中的字符编码&lt;/a&gt;两文对字符编码简单的介绍。现在开始讨论http中的编码问题，当完成&lt;code&gt;编码&lt;/code&gt;系列的文章后，开始完成一系统http的文章，本文还是需要一些http基本的知识。&lt;/p&gt;
 &lt;p&gt;做为java出身的coder，今天还是用python语言来实现http的实例，java实现个东西太麻烦，Simple is better than complex.&lt;/p&gt;
-&lt;h3&gt;响应头中的&lt;code&gt;Content-Type&lt;/code&gt;&lt;/h3&gt;
+&lt;h2&gt;响应头中的&lt;code&gt;Content-Type&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;我们知道http响应报文，包括两部分实体首部（&lt;code&gt;响应头&lt;/code&gt;）和实体主体（&lt;code&gt;响应主体&lt;/code&gt;），响应头是对主体内容的描述，告知浏览器怎么处理主体内容（文本，图片等等）。上代码：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#coding=utf-8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#coding=utf-8&lt;/span&gt;
 
-&lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;BaseHTTPServer&lt;/span&gt; &lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BaseHTTPRequestHandler&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;BaseHTTPServer&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BaseHTTPRequestHandler&lt;/span&gt;
 
-&lt;span class="n"&gt;class&lt;/span&gt; &lt;span class="n"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BaseHTTPRequestHandler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;do_GET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_response&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_header&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;Content&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Type&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;plain&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end_headers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-        &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wfile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BaseHTTPRequestHandler&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;do_GET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_response&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_header&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;text/plain&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end_headers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wfile&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;hello web&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mf"&gt;127.0.0.1&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;serve_forever&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;serve_forever&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;不了解上面代码没关系，你只需要知道它是一个简单的web服务（只支持GET），只返回一个文本。运行后，打开浏览器访问&lt;code&gt;http://localhost:9000&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-http-ascii.png" title="http ascii" /&gt;&lt;/p&gt;
 &lt;p&gt;看到上面我们预料之中的结果，如加入中文后，会出现什么情况&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#将self.wfile.write(&amp;#39;hello web&amp;#39;)替换为下行内容&lt;/span&gt;
-&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wfile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="err"&gt;编码&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;#将self.wfile.write(&amp;#39;hello web&amp;#39;)替换为下行内容
+self.wfile.write(&amp;#39;hello web 编码&amp;#39;)
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;再次运行，访问浏览器&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Encoding Img" class="align-center" src="/img/encoding-http-zh.png" title="http ascii" /&gt;&lt;/p&gt;
 &lt;p&gt;乱码出现了。返回浏览器的主体是&lt;code&gt;hello web 编码&lt;/code&gt;，响应头是&lt;code&gt;Content-Type:text/plain&lt;/code&gt;。只说明返回的是文本，而没具体说明该用哪个字符集来解析该文本(浏览器默认操作系统字符集处理gbk)。若改&lt;code&gt;Content-Type:text/plain;charset=utf-8&lt;/code&gt;，再次查看结果，乱码消失了。&lt;code&gt;charset参数是告知浏览器如何把主体内容中的二进制转换为字符&lt;/code&gt;，同理可以推断出该程序会将文本按utf-8编码处理成二进制，在网络上传输。&lt;/p&gt;
-&lt;h3&gt;响应头中的&lt;code&gt;Content-Encoding&lt;/code&gt;&lt;/h3&gt;
+&lt;h2&gt;响应头中的&lt;code&gt;Content-Encoding&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;Content-Encoding常见的取值：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;gzip&lt;/span&gt;        &lt;span class="err"&gt;实体采用&lt;/span&gt;&lt;span class="n"&gt;GNU&lt;/span&gt; &lt;span class="n"&gt;zip&lt;/span&gt;&lt;span class="err"&gt;编码&lt;/span&gt;
-&lt;span class="n"&gt;compress&lt;/span&gt;    &lt;span class="err"&gt;采用&lt;/span&gt;&lt;span class="n"&gt;Unix&lt;/span&gt;&lt;span class="err"&gt;的文件压缩程序&lt;/span&gt;
-&lt;span class="n"&gt;deflate&lt;/span&gt;     &lt;span class="err"&gt;用&lt;/span&gt;&lt;span class="n"&gt;zlib&lt;/span&gt;&lt;span class="err"&gt;格式压缩&lt;/span&gt;
-&lt;span class="n"&gt;identity&lt;/span&gt;    &lt;span class="err"&gt;没有进行任何编码&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;gzip        实体采用GNU zip编码
+compress    采用Unix的文件压缩程序
+deflate     用zlib格式压缩
+identity    没有进行任何编码
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;上三种都是无损压缩算法，用于减少传输报文的大小写，不会导致信息损失。其中gzip效率是最高的。&lt;br /&gt;
 与之请求对应的&lt;code&gt;Accept-Encoding&lt;/code&gt;相对应。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="vi"&gt;#coding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#coding=utf-8&lt;/span&gt;
+&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="sd"&gt;http-encode-gzip.py 简单httpserver&lt;/span&gt;
+&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
 
-&lt;span class="nb"&gt;from&lt;/span&gt; &lt;span class="nx"&gt;BaseHTTPServer&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;BaseHTTPRequestHandler&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;BaseHTTPServer&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BaseHTTPRequestHandler&lt;/span&gt;
 
-&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;gzip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;cStringIO&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;urllib&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;gzip&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;cStringIO&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;urllib&lt;/span&gt;
 
-&lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;compressBuf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;zbuf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;cStringIO.StringIO&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="n"&gt;zfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;gzip.GzipFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;wb&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="n"&gt;fileobj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;zbuf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;compresslevel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="nx"&gt;zfile.write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="nx"&gt;zfile.close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;zbuf.getvalue&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# 添加gzip压缩&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;compressBuf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;zbuf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cStringIO&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;StringIO&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;zfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;gzip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GzipFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;wb&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="n"&gt;fileobj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;zbuf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;compresslevel&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;zfile&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buf&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;zfile&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;zbuf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getvalue&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
-&lt;span class="nb"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;BaseHTTPRequestHandler&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;do_GET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="bp"&gt;self.&lt;/span&gt;&lt;span class="nx"&gt;send_response&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="bp"&gt;self.&lt;/span&gt;&lt;span class="nx"&gt;send_header&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;text/html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="bp"&gt;self.&lt;/span&gt;&lt;span class="nx"&gt;send_header&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Content-Encoding&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;gzip&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="err"&gt;#若注释该行，客户端就会出错&lt;/span&gt;
-        &lt;span class="bp"&gt;self.&lt;/span&gt;&lt;span class="nx"&gt;end_headers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BaseHTTPRequestHandler&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;do_GET&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_response&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_header&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Content-Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;text/html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_header&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Content-Encoding&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;gzip&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c"&gt;#若注释该行，客户端就会出错&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end_headers&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
-        &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&amp;#39;&amp;lt;html&amp;gt;&lt;/span&gt;
-&lt;span class="s1"&gt;        &amp;lt;head&amp;gt;&lt;/span&gt;
-&lt;span class="s1"&gt;            &amp;lt;title&amp;gt;最简单的httpserver&amp;lt;/title&amp;gt;&lt;/span&gt;
-&lt;span class="s1"&gt;            &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;/&amp;gt;&lt;/span&gt;
-&lt;span class="s1"&gt;        &amp;lt;/head&amp;gt;&lt;/span&gt;
-&lt;span class="s1"&gt;        &amp;lt;body&amp;gt;就提供这一个页面&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+        &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&amp;#39;&amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;            &amp;lt;title&amp;gt;最简单的httpserver&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;            &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;/&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class="s"&gt;        &amp;lt;body&amp;gt;就提供这一个页面&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
 
-        &lt;span class="n"&gt;zbuf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;compressBuf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;content&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="nx"&gt;print&lt;/span&gt; &lt;span class="nx"&gt;zbuf&lt;/span&gt;
-        &lt;span class="bp"&gt;self.&lt;/span&gt;&lt;span class="nx"&gt;wfile.write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;zbuf&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="c"&gt;# 对返回客户端内容压缩&lt;/span&gt;
+        &lt;span class="n"&gt;zbuf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;compressBuf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 与self.send_header(&amp;#39;Content-Encoding&amp;#39;,&amp;#39;gzip&amp;#39;)对应&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;zbuf&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wfile&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;zbuf&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nx"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="nx"&gt;server.serve_forever&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HTTPServer&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;9000&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;MyRequestHandler&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;serve_forever&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;上述代码是将内容进行gzip压缩，返回到浏览器端，必须在响应头上加上&lt;code&gt;self.send_header('Content-Encoding','gzip')&lt;/code&gt;，若不加，浏览器按未压缩方式处理主体内容，就会出现乱码。&lt;/p&gt;
-&lt;h3&gt;总结&lt;/h3&gt;
-&lt;p&gt;这块仅是简单的介绍几个http消息头，详细介绍会单独在将来的http系列的文章里&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 22 Nov 2013 21:10:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-22:posts/2013/httpzhong-de-zi-fu-bian-ma/</guid><category>encoding</category><category>python</category><category>http</category></item><item><title>python中的字符编码</title><link>http://stormhouse.github.io/posts/2013/pythonzhong-de-zi-fu-bian-ma/</link><description>&lt;p&gt;上篇&lt;a href="http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/"&gt;字符编码&lt;/a&gt;对字符编码做了简单的介绍，除了演示几个简单的例子外，没有将&lt;code&gt;字符编码&lt;/code&gt;与&lt;code&gt;编程语言&lt;/code&gt;，看本文的标题相信就明白，这是与伟大的python结合一些实例（python版本为2.7.5）。&lt;/p&gt;
-&lt;p&gt;准备工作，去码表（&lt;a href="http://ash.jp/code/cn/gb2312tbl.htm"&gt;GB2312&lt;/a&gt;, &lt;a href="http://www.tamasoft.co.jp/en/general-info/unicode.html"&gt;Unicode&lt;/a&gt;, &lt;a href="http://www.moransoft.com/chinesecode.html"&gt;UTF-8&lt;/a&gt;）查取&lt;code&gt;编码&lt;/code&gt;的GB2312和Unicode字符集编码及按gb2312和utf-8编码方式保存的二进制。注意，要亲自查一下 哦～～&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;编码&lt;/span&gt;                  &lt;span class="err"&gt;对应十六进制&lt;/span&gt;
-&lt;span class="n"&gt;GB2312&lt;/span&gt;&lt;span class="err"&gt;字符集：&lt;/span&gt;        &lt;span class="n"&gt;b1e0&lt;/span&gt; &lt;span class="n"&gt;c2eb&lt;/span&gt;
-&lt;span class="n"&gt;GB2312&lt;/span&gt;&lt;span class="err"&gt;编码&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;同上&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;     &lt;span class="n"&gt;b1e0&lt;/span&gt; &lt;span class="n"&gt;c2eb&lt;/span&gt;
-&lt;span class="n"&gt;Unicode&lt;/span&gt;&lt;span class="err"&gt;字符集：&lt;/span&gt;       &lt;span class="mf"&gt;7f&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt; &lt;span class="mi"&gt;7801&lt;/span&gt;
-&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="err"&gt;编码&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;同上&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;     &lt;span class="mf"&gt;7f&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt; &lt;span class="mi"&gt;7801&lt;/span&gt;
-&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="err"&gt;编码&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;            &lt;span class="n"&gt;e7bc96&lt;/span&gt; &lt;span class="n"&gt;e7a081&lt;/span&gt;
+&lt;p&gt;上面的是服务端的gzip压缩，一个真正的web服务器必须根据浏览器请求的头是否包含类似&lt;code&gt;Accept-Encoding:gzip,deflate,sdch&lt;/code&gt;，来确定是否进行gzip压缩。&lt;/p&gt;
+&lt;p&gt;下面代码是模拟浏览器对服务器端字节gzip解压:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#coding=utf-8&lt;/span&gt;
+&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="sd"&gt;http-encode-gzip-client.py&lt;/span&gt;
+&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;zlib&lt;/span&gt;
+
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;http://127.0.0.1:9000&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;req&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# 对服务器端发来的字节流 gzip解压&lt;/span&gt;
+&lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;zlib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decompress&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;zlib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;MAX_WBITS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;# 编码处理==通过chardet模块，自动提取网页的编码&lt;/span&gt;
+&lt;span class="c"&gt;# http://www.cnblogs.com/CoolRandy/p/3251733.html&lt;/span&gt;
+&lt;span class="c"&gt;#infoencode = chardet.detect(text).get(&amp;#39;encoding&amp;#39;,&amp;#39;utf-8&amp;#39;)&lt;/span&gt;
+&lt;span class="c"&gt;#print text.decode(infoencode,&amp;#39;ignore&amp;#39;)&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;字符串操作&lt;/h3&gt;
+&lt;h2&gt;总结&lt;/h2&gt;
+&lt;p&gt;这块仅是简单的介绍几个http消息头，详细介绍会单独在将来的http系列的文章里&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Fri, 22 Nov 2013 21:10:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-22:posts/2013/character-encoding-http/</guid><category>encoding</category><category>python</category><category>http</category></item><item><title>python中的字符编码</title><link>http://stormhouse.github.io/posts/2013/character-encoding-python/</link><description>&lt;p&gt;上篇&lt;a href="http://stormhouse.github.io/posts/2013/character-encoding/"&gt;字符编码&lt;/a&gt;对字符编码做了简单的介绍，除了演示几个简单的例子外，没有将&lt;code&gt;字符编码&lt;/code&gt;与&lt;code&gt;编程语言&lt;/code&gt;，看本文的标题相信就明白，这是与伟大的python结合一些实例（python版本为2.7.5）。&lt;/p&gt;
+&lt;p&gt;准备工作，去码表（&lt;a href="http://ash.jp/code/cn/gb2312tbl.htm"&gt;GB2312&lt;/a&gt;, &lt;a href="http://www.tamasoft.co.jp/en/general-info/unicode.html"&gt;Unicode&lt;/a&gt;, &lt;a href="http://www.moransoft.com/chinesecode.html"&gt;UTF-8&lt;/a&gt;）查取&lt;code&gt;编码&lt;/code&gt;的GB2312和Unicode字符集编码及按gb2312和utf-8编码方式保存的二进制。注意，要亲自查一下 哦～～&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;编码                  对应十六进制
+GB2312字符集：        b1e0 c2eb
+GB2312编码(同上):     b1e0 c2eb
+Unicode字符集：       7f16 7801
+UTF-16编码(同上):     7f16 7801
+UTF-8编码:            e7bc96 e7a081
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;字符串操作&lt;/h2&gt;
 &lt;p&gt;话不多说，打开python解释器，输入：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;
-&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;xb1&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xe0&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xc2&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xeb&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; s = &amp;#39;编码&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; s
+&amp;#39;\xb1\xe0\xc2\xeb&amp;#39;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;将结果与码表查得的结果，对应着GB2312字符集。为什么呢？继续：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getdefaultencoding&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="err"&gt;#返回当前系统所使用的默认字符编码&lt;/span&gt;
-&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;ascii&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getdefaultencoding&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c"&gt;#返回当前系统所使用的默认字符编码&lt;/span&gt;
+&lt;span class="s"&gt;&amp;#39;ascii&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;除一些IDE外，python是按操作系统默认字符编码来处理的。这里是ascii。&lt;/p&gt;
 &lt;p&gt;python支持unicode：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="err"&gt;编码&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;
-&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;u7f16&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;u7801&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; u = u&amp;#39;编码&amp;#39; #unicode编码
+&amp;gt;&amp;gt;&amp;gt; u
+u&amp;#39;\u7f16\u7801&amp;#39;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;utf-8：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;
-&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;u7f16&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;u7801&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;
-&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;xe7&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xbc&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;x96&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xe7&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xa0&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;x81&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u1&lt;/span&gt;
-&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;u7f16&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;u7801&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; u = u&amp;#39;编码&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; u
+u&amp;#39;\u7f16\u7801&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; type(u)
+&amp;lt;type &amp;#39;unicode&amp;#39;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; s = u.encode(&amp;#39;utf-8&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt; s
+&amp;#39;\xe7\xbc\x96\xe7\xa0\x81&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; type(s)
+&amp;lt;type &amp;#39;str&amp;#39;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; u1 = s.decode(&amp;#39;utf-8&amp;#39;)
+&amp;gt;&amp;gt;&amp;gt; u1
+u&amp;#39;\u7f16\u7801&amp;#39;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -305,141 +336,141 @@
 &lt;li&gt;unicode: unicode对象应该才是等同于java中的String对象，或本质上是java的char[]。encode&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;unicode才是真正意义上的字符串：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="mi"&gt;4&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; s = &amp;#39;编码&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; len(s)
+4
+&amp;gt;&amp;gt;&amp;gt; u = u&amp;#39;编码&amp;#39;
+&amp;gt;&amp;gt;&amp;gt; len(u)
+2
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;详细请参见&lt;a href="http://www.cnblogs.com/huxi/archive/2010/12/05/1897271.html"&gt;python的str，unicode对象的encode和decode方法&lt;/a&gt;&lt;/p&gt;
-&lt;h3&gt;文件操作&lt;/h3&gt;
-&lt;h6&gt;读文件&lt;/h6&gt;
+&lt;h2&gt;文件操作&lt;/h2&gt;
+&lt;h4&gt;读文件&lt;/h4&gt;
 &lt;p&gt;内置的open()方法打开文件时，read()读取的是str，读取后需要使用正确的编码格式进行decode()。&lt;/p&gt;
 &lt;p&gt;如保存为ascii格式的文本文件encoding-ascii.txt，内容为'编码'。对该文本读取：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#coding=utf-8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;#coding=utf-8
 
-&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ascii&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+f = open(&amp;#39;encoding-ascii.txt&amp;#39;)
+s = f.read()
+f.close()
 
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      &lt;span class="err"&gt;#编码&lt;/span&gt;
+print type(s) #&amp;lt;type &amp;#39;str&amp;#39;&amp;gt;
+print(s)      #编码
 
-&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;gb2312&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;       &lt;span class="err"&gt;#编码&lt;/span&gt;
+u = s.decode(&amp;#39;gb2312&amp;#39;)
+print type(u) #&amp;lt;type &amp;#39;unicode&amp;#39;&amp;gt;
+print u       #编码
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;上面是正确的编码处理方式。假如读取保存为utf-8格式的文件encoding-utf8.txt会出现什么情况：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#coding=utf-8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;#coding=utf-8
 
-&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utf8&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+f = open(&amp;#39;encoding-utf8.txt&amp;#39;)
+s = f.read()
+f.close()
 
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      &lt;span class="err"&gt;#锘跨紪鐮&lt;/span&gt;     &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;乱码&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+print type(s) #&amp;lt;type &amp;#39;str&amp;#39;&amp;gt;
+print(s)      #锘跨紪鐮     (乱码)
 
 
-&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;gb2312&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#报错。正确方式：&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="cp"&gt;# UnicodeDecodeError: &amp;#39;gb2312&amp;#39; codec can&amp;#39;t decode bytes in position 4-5: llegal multibyte sequence&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;
+u = s.decode(&amp;#39;gb2312&amp;#39;) #报错。正确方式：s.decode(&amp;#39;utf-8&amp;#39;)
+# UnicodeDecodeError: &amp;#39;gb2312&amp;#39; codec can&amp;#39;t decode bytes in position 4-5: llegal multibyte sequence
+print type(u) 
+print u
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;故正确处理方式为：&lt;br /&gt;
 使用codecs模块中的open方法，可指定编码方式打开文件，该方法返回的是unicode（注意：内置open返回的是str）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#coding=utf-8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#coding=utf-8&lt;/span&gt;
 
-&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utf8&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;codecs&lt;/span&gt;
+&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;encoding-utf8.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;repr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;u7f16&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;u7801&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;#&amp;lt;type &amp;#39;unicode&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="nb"&gt;repr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;#u&amp;#39;\u7f16\u7801&amp;#39;&lt;/span&gt;
 
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;gb2312&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;       &lt;span class="err"&gt;#编码&lt;/span&gt;
+&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;gb2312&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;#&amp;lt;type &amp;#39;str&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;       &lt;span class="c"&gt;#编码&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h6&gt;写文件&lt;/h6&gt;
+&lt;h4&gt;写文件&lt;/h4&gt;
 &lt;p&gt;内置的write()写入时，如果参数是unicode，则需要使用你希望写入的编码进行encode()，如果是其他编码格式的str，则需要先用该str的编码进行decode()，转成unicode后再使用写入的编码进行encode()。如果直接将unicode作为参数传入write()方法，Python将先使用源代码文件声明的字符编码进行编码然后写入。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#coding=utf-8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;#coding=utf-8
 
-&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="cp"&gt;# 编码成UTF-8编码的str&lt;/span&gt;
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;gb2312&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+u = u&amp;#39;编码&amp;#39;
+f = open(&amp;#39;test.txt&amp;#39;, &amp;#39;w&amp;#39;)
+# 编码成UTF-8编码的str
+s = u.encode(&amp;#39;gb2312&amp;#39;)
+f.write(s)
+f.close()
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;查看test.txt文件，可得保存的格式为ascii。&lt;/p&gt;
 &lt;p&gt;codecs模块写入时，如果参数是unicode，则使用open()时指定的编码进行编码后写入；如果是str，则先根据源代码文件声明的字符编码，解码成unicode后再进行前述操作。相对内置的open()来说，这个方法比较不容易在编码上出现问题。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#coding=utf-8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#coding=utf-8&lt;/span&gt;
 
-&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;
-&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;编码&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;f1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;test1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;gb2312&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
-&lt;span class="cp"&gt;# 写入unicode&lt;/span&gt;
-&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;codecs&lt;/span&gt;
+&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;u&amp;#39;编码&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;f1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;test1.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;gb2312&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;#utf-8&lt;/span&gt;
+&lt;span class="c"&gt;# 写入unicode&lt;/span&gt;
+&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="cp"&gt;# 写入str，自动进行解码编码操作(貌似没法自动转化TODO)&lt;/span&gt;
-&lt;span class="cp"&gt;# GBK编码的str&lt;/span&gt;
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;汉&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;repr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;xba&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;xba&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="cp"&gt;# 这里会先将GBK编码的str解码为unicode再编码为UTF-8写入&lt;/span&gt;
-&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;utf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# 写入str，自动进行解码编码操作(貌似没法自动转化TODO)&lt;/span&gt;
+&lt;span class="c"&gt;# GBK编码的str&lt;/span&gt;
+&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;汉&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="nb"&gt;repr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# &amp;#39;\xba\xba&amp;#39;&lt;/span&gt;
+&lt;span class="c"&gt;# 这里会先将GBK编码的str解码为unicode再编码为UTF-8写入&lt;/span&gt;
+&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;f1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;网络(HTTP)操作&lt;/h3&gt;
+&lt;h2&gt;网络(HTTP)操作&lt;/h2&gt;
 &lt;p&gt;[传送门][]&lt;/p&gt;
-&lt;h3&gt;sys/locale模块关于编码相关的方法&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;sys&lt;/span&gt;
-&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;locale&lt;/span&gt;
+&lt;h2&gt;sys/locale模块关于编码相关的方法&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;locale&lt;/span&gt;
 
-&lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="nx"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;%s.%s(): %s&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;__module__&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;f&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;.&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;(): &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;__module__&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;返回当前系统所使用的默认字符编码&lt;/span&gt;
-&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getdefaultencoding&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# 返回当前系统所使用的默认字符编码&lt;/span&gt;
+&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getdefaultencoding&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;返回用于转换&lt;/span&gt;&lt;span class="nx"&gt;Unicode&lt;/span&gt;&lt;span class="err"&gt;文件名至系统文件名所使用的编码&lt;/span&gt;
-&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getfilesystemencoding&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# 返回用于转换Unicode文件名至系统文件名所使用的编码&lt;/span&gt;
+&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getfilesystemencoding&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;获取默认的区域设置并返回元祖&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;语言&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;编码&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;locale&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getdefaultlocale&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# 获取默认的区域设置并返回元祖(语言, 编码)&lt;/span&gt;
+&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;locale&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getdefaultlocale&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;返回用户设定的文本数据编码&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;文档提到&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;only&lt;/span&gt; &lt;span class="nx"&gt;returns&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="nx"&gt;guess&lt;/span&gt;
-&lt;span class="nx"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;locale&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getpreferredencoding&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# 返回用户设定的文本数据编码&lt;/span&gt;
+&lt;span class="c"&gt;# 文档提到this function only returns a guess&lt;/span&gt;
+&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;locale&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getpreferredencoding&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nx"&gt;xba&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="nx"&gt;xba&lt;/span&gt;&lt;span class="err"&gt;是&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;汉&amp;#39;&lt;/span&gt;&lt;span class="err"&gt;的&lt;/span&gt;&lt;span class="nx"&gt;GBK&lt;/span&gt;&lt;span class="err"&gt;编码&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;mbcs&lt;/span&gt;&lt;span class="err"&gt;是不推荐使用的编码，这里仅作测试表明为什么不应该用&lt;/span&gt;
-&lt;span class="nx"&gt;print&lt;/span&gt; &lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;#39;\xba\xba&amp;#39;.decode(&amp;#39;mbcs&amp;#39;):&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;repr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\xba\xba&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mbcs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="c"&gt;# \xba\xba是&amp;#39;汉&amp;#39;的GBK编码&lt;/span&gt;
+&lt;span class="c"&gt;# mbcs是不推荐使用的编码，这里仅作测试表明为什么不应该用&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;r&amp;quot;&amp;#39;\xba\xba&amp;#39;.decode(&amp;#39;mbcs&amp;#39;):&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;repr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\xba\xba&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;mbcs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
-&lt;span class="err"&gt;#在笔者的&lt;/span&gt;&lt;span class="nx"&gt;Windows&lt;/span&gt;&lt;span class="err"&gt;上的结果&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;区域设置为中文&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;简体&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;中国&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getdefaultencoding&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ascii&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;sys&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getfilesystemencoding&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;mbcs&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;locale&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getdefaultlocale&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;zh_CN&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;cp936&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;locale&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getpreferredencoding&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;cp936&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\xba\xba&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mbcs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\u6c49&amp;#39;&lt;/span&gt;
+&lt;span class="c"&gt;#在笔者的Windows上的结果(区域设置为中文(简体, 中国))&lt;/span&gt;
+&lt;span class="c"&gt;#sys.getdefaultencoding(): ascii&lt;/span&gt;
+&lt;span class="c"&gt;#sys.getfilesystemencoding(): mbcs&lt;/span&gt;
+&lt;span class="c"&gt;#locale.getdefaultlocale(): (&amp;#39;zh_CN&amp;#39;, &amp;#39;cp936&amp;#39;)&lt;/span&gt;
+&lt;span class="c"&gt;#locale.getpreferredencoding(): cp936&lt;/span&gt;
+&lt;span class="c"&gt;#&amp;#39;\xba\xba&amp;#39;.decode(&amp;#39;mbcs&amp;#39;): u&amp;#39;\u6c49&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;总结&lt;/h3&gt;
+&lt;h2&gt;总结&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;使用字符编码声明，并且同一工程中的所有源代码文件使用相同的字符编码声明。&lt;/li&gt;
 &lt;li&gt;抛弃str，全部使用unicode。&lt;code&gt;u = u'编码'&lt;/code&gt;&lt;/li&gt;
@@ -448,16 +479,16 @@
 &lt;/ul&gt;
 &lt;p&gt;这里说的MBCS不是指GBK什么的都不能用，而是不要使用Python里名为'MBCS'的编码，除非程序完全不移植。&lt;br /&gt;
 Python中编码'MBCS'与'DBCS'是同义词，指当前Windows环境中MBCS指代的编码。Linux的Python实现中没有这种编码，所以一旦移植到Linux一定会出现异常！另外，只要设定的Windows系统区域不同，MBCS指代的编码也是不一样的。&lt;/p&gt;
-&lt;h6&gt;MBCS&lt;/h6&gt;
+&lt;h4&gt;MBCS&lt;/h4&gt;
 &lt;p&gt;计算机世界里很快就有了其他语言，单字节的ASCII已无法满足需求。后来每个语言就制定了一套自己的编码，由于单字节能表示的字符太少，而且同时也需要与ASCII编码保持兼容，所以这些编码纷纷使用了多字节来表示字符，如GBxxx、BIGxxx等等，他们的规则是，如果第一个字节是\x80以下，则仍然表示ASCII字符；而如果是\x80以上，则跟下一个字节一起（共两个字节）表示一个字符，然后跳过下一个字节，继续往下判断。&lt;/p&gt;
 &lt;p&gt;这里，IBM发明了一个叫Code Page的概念，将这些编码都收入囊中并分配页码，GBK是第936页，也就是CP936。所以，也可以使用CP936表示GBK。&lt;/p&gt;
 &lt;p&gt;MBCS(Multi-Byte Character Set)是这些编码的统称。目前为止大家都是用了双字节，所以有时候也叫做DBCS(Double-Byte Character Set)。必须明确的是，MBCS并不是某一种特定的编码，Windows里根据你设定的区域不同，MBCS指代不同的编码，而Linux里无法使用MBCS作为编码。在Windows中你看不到MBCS这几个字符，因为微软为了更加洋气，使用了ANSI来吓唬人，记事本的另存为对话框里编码ANSI就是MBCS。同时，在简体中文Windows默认的区域设定里，指代GBK。&lt;/p&gt;
-&lt;h3&gt;参拷&lt;/h3&gt;
+&lt;h2&gt;参拷&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.cnblogs.com/huxi/archive/2010/12/05/1897271.html"&gt;Python字符编码详解&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://appofis.iteye.com/blog/443206"&gt;python的str，unicode对象的encode和decode方法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://docs.python.org/2/library/codecs.html#standard-encodings"&gt;Standard Encodings&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 21 Nov 2013 22:38:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-21:posts/2013/pythonzhong-de-zi-fu-bian-ma/</guid><category>encoding</category><category>python</category></item><item><title>字符编码</title><link>http://stormhouse.github.io/posts/2013/zi-fu-bian-ma/</link><description>&lt;hr /&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 21 Nov 2013 22:38:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-21:posts/2013/character-encoding-python/</guid><category>encoding</category><category>python</category></item><item><title>字符编码</title><link>http://stormhouse.github.io/posts/2013/character-encoding/</link><description>&lt;hr /&gt;
 &lt;p&gt;每个软件开发人员应该无条件掌握的知识！&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;字符编码是一个基础话题，不管你从事哪种语言的开发，还是前端、后端或网络开发，乱码问题一直困扰着像我这样的低水平的生手。接下来的内容是我参考了好多的文章，并整理的便于自己理解的脉络。&lt;br /&gt;
@@ -581,4 +612,4 @@ UTF-8这种编码是怎么回事呢？ &lt;/p&gt;
 &lt;li&gt;&lt;a href="http://blog.oasisfeng.com/2006/10/19/full-cjk-unicode-range/"&gt;完整的CJK Unicode范围（5.0版）&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.chi2ko.com/tool/CJK.htm"&gt;字体编辑用中日韩汉字Unicode编码表&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;(完)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Wed, 20 Nov 2013 21:31:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-20:posts/2013/zi-fu-bian-ma/</guid><category>encoding</category></item></channel></rss>
+&lt;p&gt;(完)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Wed, 20 Nov 2013 21:31:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-11-20:posts/2013/character-encoding/</guid><category>encoding</category></item></channel></rss>

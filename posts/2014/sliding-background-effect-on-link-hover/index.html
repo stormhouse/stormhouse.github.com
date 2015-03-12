@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Sliding Background Effect on Link Hover（译）</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="Sliding Background Effect on Link Hover（译）"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2014/sliding-background-effect-on-link-hover/"/>
+            <meta property="og:description" content="thanks kirupa 链接鼠标悬停状态类似于卡片盒子。你可以对它做无穷无尽有趣得事。通过学习本章你可以做一件是当鼠标悬停链接时让某背景色滑入视野。 下面，你将看到我所说的例子： Your browser does not support inline frames or is currently configured not to display inline frames. 当你将鼠标悬停到Jerry, George, Kramer, 和Elaine链接上，注意会发生什么。一个绿色的背景色滑入视野，同样当鼠标移开背景色滑出视野。相当棒，不是吗？在接下来的章节中，让我们看看如果在自然语言和CSS中实现它。 Onwards! Overview of How This Works 首先，在深入实现细节之前，让我们分步用自然语言描述它是如果工作的。露个底吧，简言之，和其它一些CSS背景技巧一样，你看到的效果无非是定位背景颜色 ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://stormhouse.github.io/posts/2014/sliding-background-effect-on-link-hover/"
+                       rel="bookmark"
+                       title="Permalink to Sliding Background Effect on Link Hover（译）">
+                        Sliding Background Effect on Link Hover（译）
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Wed 08 January 2014
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://stormhouse.github.io/tag/animation.html">animation</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>thanks <a href="http://www.kirupa.com/html5/sliding_background_effect_on_link_hover.htm">kirupa</a></p>
+<hr />
+<p>链接鼠标悬停状态类似于卡片盒子。你可以对它做无穷无尽有趣得事。通过学习本章你可以做一件是当鼠标悬停链接时让某背景色滑入视野。</p>
+<p>下面，你将看到我所说的例子：</p>
+<iframe id="I2" border="0" frameborder="0" name="I2" scrolling="no" src="/demo/animation/sliding_background_link_rollover.html" style="border-radius: 5px; width: 538px; height: 277px;" marginheight="0" marginwidth="0" class="centerImage">Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
+
+<p>当你将鼠标悬停到<strong>Jerry</strong>, <strong>George</strong>, <strong>Kramer</strong>, 和<strong>Elaine</strong>链接上，注意会发生什么。一个绿色的背景色滑入视野，同样当鼠标移开背景色滑出视野。相当棒，不是吗？在接下来的章节中，让我们看看如果在自然语言和CSS中实现它。</p>
+<p>Onwards!</p>
+<h2>Overview of How This Works</h2>
+<p>首先，在深入实现细节之前，让我们分步用自然语言描述它是如果工作的。露个底吧，简言之，和其它一些CSS背景技巧一样，你看到的效果无非是定位背景颜色。Allow me to elaborate.</p>
+<p>你开始创建一个链接，看起来如下：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-1.png" title="" /></p>
+<p>该链接相当简单，没有指定它的背景色。让我们添加背景色样式。先不管背景色的具体颜色。假设这背景色是完全透明的：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-2.png" title="" /></p>
+<p>现在该关心它的背景色了。背景的尺寸就是链接的边框。链接周围的任何内容都不受该背景色的影响，除非你增大链接的尺寸或做其它奇怪的事件。最重要的是，超出该边框部分的背景<strong>是不可见的</strong>。先将上面你看到的图记在脑海里，一会我给出详细的内容帮助你如何理解它的工作原理。</p>
+<p>回到刚才展示的，当鼠标悬停在元素，滑动效果的结果把隐藏部分内容带入当前视野。这种做法的方式就是让背景色大小比在元素滑动方向大两倍。如果想让背景向右方滑动，需要使背景宽度2倍于元素并重新定位为left：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-3.png" title="" /></p>
+<p>当链接在正常状态下，你看到的背景位于如上图展示的初始位置。当鼠标悬停在链接上，背景将会向右滑动一半的宽度:</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-4.png" title="" /></p>
+<p>至此，该效果原理已经搞清楚了。缺失的部分就是背景色本身，因为它目前还是透明的。在我们的例子中是通过使用<strong>渐变</strong>，创建的东西看起来像两种颜色的矩形并排组成的大矩形。</p>
+<p>当你想到渐变，你也许认为会是下面这种情形：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-5.png" title="" /></p>
+<p>如果那是你首先想到的渐变，那么它只是...用于辨别或其它东西的某种形式。不过没有关系 - 这不是你的错。不管怎么样，会有这种渐变，不让展示从一种颜色到另一种颜色中间的颜色。你可用覆盖的方式设置渐变点，看起来如下：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-6.png" title="" /></p>
+<p>这正是我们在滑动链接中指定的渐变效果。你看到的初始颜色是组成渐变的右半部分。鼠标悬停链接时看到的颜色组成渐变的左半部分：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-7.png" title="" /></p>
+<p>因你只能看到的是链接边框内的部分背景，在初始状态和悬停状态间滑动背景可以带来这种效果：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-8.png" title="" /></p>
+<p>现在，因为这部分仅是概述，有意模糊了一些细节。在下一章节，我们将清晰阐述怎样将它翻译成浏览器可理解的CSS代码。</p>
+<h2>How this Effect Really Works</h2>
+<p>这种效果原理是相当难理解的部分。一旦你对它有了认识，其余都相当容易。在本节中，我们将具体实现它们，理解它们的工作原理。</p>
+<p>首先，在电脑上运行这个例子。创建一个HTML文档，添加如下的HTML和CSS代码：</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;en-us&quot;</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Language&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;stuff, to, help, search, engines, not&quot;</span> <span class="na">name=</span><span class="s">&quot;keywords&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;What this page is about.&quot;</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;An Interesting Title Goes Here&quot;</span> <span class="na">name=</span><span class="s">&quot;title&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>An Interesting Title Goes Here<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&#39;http://fonts.googleapis.com/css?family=Roboto+Slab&#39;</span> <span class="na">rel=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type=</span><span class="s">&#39;text/css&#39;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+<span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#EFEFEF</span><span class="p">;</span>
+    <span class="k">padding-top</span><span class="o">:</span> <span class="m">0px</span><span class="p">;</span>
+    <span class="k">margin-top</span><span class="o">:</span> <span class="m">0px</span><span class="p">;</span>
+    <span class="k">padding-left</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+    <span class="k">padding-bottom</span><span class="o">:</span> <span class="m">25px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Roboto Slab&#39;</span><span class="o">,</span> <span class="k">serif</span><span class="p">;;</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">32px</span><span class="p">;</span>
+    <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#FF0066</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">li</span> <span class="p">{</span>
+    <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Roboto Slab&#39;</span><span class="o">,</span> <span class="k">serif</span><span class="p">;;</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#333</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">to</span> <span class="k">right</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="k">transparent</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="k">transparent</span><span class="p">);</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">100%</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">200%</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#006600</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#006600</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>best of wikipedia<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/Jerry_Seinfeld&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>
+    Jerry Seinfeld<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/George_Costanza&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>
+    George Costanza<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/Cosmo_Kramer&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>
+    Cosmo Kramer<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/Elaine_Benes&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>
+    Elaine Benes<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://www.kirupa.com/prefixfree.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>保存该文档并预览，你将看到与开始那个例子的副本。目前，尽管这些行的HTML和CSS是很重要的，但更重要的是理解它们的作用及产生的效果。</p>
+<p>我们跳过不太重要的部分，专注于真正重要的这两条样式：</p>
+<div class="highlight"><pre><span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Roboto Slab&#39;</span><span class="o">,</span> <span class="k">serif</span><span class="p">;;</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#333</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">to</span> <span class="k">right</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="k">transparent</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="k">transparent</span><span class="p">);</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">100%</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">200%</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#006600</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#006600</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>花一些时间看一下两条样式的内容。试着把它们映射到上一节的效果。一个有意思的事CSS属性的名称描述了它的作用，这将有助于理解它们的原理。</p>
+<p>一旦你准备，让我们开始深入学习这些CSS。</p>
+<h4>Setting up the Background Color</h4>
+<p>你可以想象，使背景色生效的地方。下面高亮的三行是设置背景色渐变的相当样式：</p>
+<div class="highlight"><pre><span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Roboto Slab&#39;</span><span class="o">,</span> <span class="k">serif</span><span class="p">;;</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#333</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">to</span> <span class="k">right</span><span class="o">,</span>  <span class="c">/*hl*/</span>
+                                      <span class="k">transparent</span><span class="o">,</span>
+                                      <span class="k">transparent</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span><span class="p">);</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">100%</span> <span class="m">0</span><span class="p">;</span> <span class="c">/*hl*/</span>
+    <span class="k">background</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">200%</span> <span class="m">100%</span><span class="p">;</span>  <span class="c">/*hl*/</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>让我们深入这三行的细节。</p>
+<h6>Specifying Our Gradient</h6>
+<p>首先要看的是定义在<code>background-image</code>属性的gradient：</p>
+<div class="highlight"><pre>background-image: linear-gradient(to right,
+                                  #CCFF33,
+                                  #CCFF33 50%,
+                                  transparent 50%,
+                                  transparent);
+</pre></div>
+
+
+<p>解释gradient工作的完整语法超出了本章的范围，但我们这里只看一点，<strong>to right</strong>值表示向右发生渐变。如果不指定它，渐变默认是垂直方向的渐变而不是我们想要的水平方向。</p>
+<p>接下来的4行是渐变点，分别是0%，50%，50%和100%。渐变第一部分是从0%开始到50%结束，颜色设置为#CCFF33。正是你看到的浅绿色。渐变的第二部分是从50%开始到100%结束，指定了透明颜色。</p>
+<p>如果你想看看这种渐变是什么样子，它看起来如下：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-9.png" title="" /></p>
+<h6>Adjusting Our Background Position (Yikes!)</h6>
+<p>下一行属性定义背景的位置：</p>
+<div class="highlight"><pre><span class="nt">background-position</span><span class="o">:</span> <span class="nt">100</span><span class="o">%</span> <span class="nt">0</span><span class="o">;</span>
+</pre></div>
+
+
+<p>在<code>background-position</code>属性中，指定了背景的偏移量为链接的宽度。总之，有意义的事情，这就是我正在做的。有时现实很残酷...especially if the <a href="http://dev.w3.org/csswg/css-backgrounds/#background-position">W3C spec for this situation</a> has anything to do with this.</p>
+<p>如果指定<code>background-position</code>值为百分比，会把这个值翻译成百分比乘以下面两个数的差值：</p>
+<ul>
+<li>可见背景的大小</li>
+<li>背景的实际大小</li>
+</ul>
+<p>因为背景的实际大小与可见背景大小是一样的，背景的宽度减去链接的大小等于0。最终的结果，是定位的值为100%乘以0。最终计算出来的水平属性值是0...但是我们指定的值是100%。</p>
+<p>在这100%这一点，能找到background的定位：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-10.png" title="" /></p>
+<p>如果这一切听起来有点奇怪，我也感同身受。这不是最终的样式，所以要对第二，三部分内容保持注意。</p>
+<h6>Note: Your Backgrounds Actually Tile/Repeat</h6>
+<p>进一步深入之前，我需要承认可视背景定位并不完全准确。默认背景实际上是重复的。在我们的代码中没有消除重复，这是故意让你看到实际的效果。如果考虑到重复，前面的示意图应该如下：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-11.png" title="" /></p>
+<p>记得，用户不会看到任何超出定义链接边框外的区域。我只是提供这些额外的信息帮助于理解其工作原理。用户真正能看到的仅仅是这样的:</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-12.png" title="" /></p>
+<p>我们仍然有一些更改，所以还没有完事。别担心，如果在这个阶段你的链接看起来可怕的事情。在此，不必担心你的链接多么糟糕。</p>
+<h6>Setting Our Background Size</h6>
+<p>最后一个背景相关的属性就是刚才设置背景的大小...为<code>background-size</code>的适合的命名：</p>
+<div class="highlight"><pre><span class="nt">background-size</span><span class="o">:</span> <span class="nt">200</span><span class="o">%</span> <span class="nt">100</span><span class="o">%;</span>
+</pre></div>
+
+
+<p>定义的第一个值是宽度大小，第二值是高度。因为我们想让水平方向上滑动，所以宽度设置为链接宽度的两倍100%。高度设置为原始值的100%，其它啥也不做。</p>
+<p>这些行CSS的最终效果，获得两倍于链接宽度的背景，需要对它设置渐变。这正是我们想要的：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-13.png" title="" /></p>
+<p>再次提一下第二部分中的<code>background-position</code>属性...</p>
+<p>如果你想知道如何将我们所要的背景的宽度加倍，这有个提示：归结于<code>background-position</code>属性。因为背景现在两倍于链接的宽度，回想我们前面谈过的计算公式。应指定<code>background-position</code>属性值为-100%（元素width-背景width）乘以指定的值100%（即(100%-200%)*100%=-100%）。计算出来的结果是-100%，这意味着整个背景是向左偏移了100%元素的宽度。</p>
+<p>两倍于链接的宽度正是我们所想要的。耶！</p>
+<h4>Background Color on Hover</h4>
+<p>在前面章节里，你学到了链接自然状态下时背景的颜色。在本节中，让我们看一下当鼠标悬停时背景的变化：</p>
+<p>鼠标悬停时的变化定义在伪类<code>a:hover</code>规则里：</p>
+<div class="highlight"><pre><span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#006600</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#006600</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">-100%</span> <span class="m">0%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><code>hover</code>伪类确保了悬停时的样式。你可以在我的<a href="http://www.kirupa.com/html5/styling_links_in_css.htm">Styling Links in CSS</a>教程里学到各式各样的状态。</p>
+<p>在本规则里，会影响背景位置的是声明<code>background-position</code>一行：</p>
+<div class="highlight"><pre><span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#006600</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#006600</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0%</span> <span class="m">0%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>当鼠标悬停链接上，背景会水平移位至0%。结果很简单。将背景右移到0%处：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140108-14.png" title="" /></p>
+<p>尽管我解释了所有列出的代码，你在浏览器预览的结果也也不如它背后的机理复杂。所有用户看到的就是背景第一部分从左侧滑入。当鼠标移开时，右半部分又返回，变为初始状态。</p>
+<h4>Meet the Transition</h4>
+<p>最后我们看一下刚才跳过的内容，那就是<code>li a</code>代码最后部分transition声明：</p>
+<div class="highlight"><pre><span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Roboto Slab&#39;</span><span class="o">,</span> <span class="k">serif</span><span class="p">;;</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+    <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#333</span> <span class="k">dotted</span><span class="p">;</span>
+    <span class="k">background-image</span><span class="o">:</span> <span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">to</span> <span class="k">right</span><span class="o">,</span>
+                                      <span class="k">transparent</span><span class="o">,</span>
+                                      <span class="k">transparent</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span> <span class="m">50%</span><span class="o">,</span>
+                                      <span class="m">#CCFF33</span><span class="p">);</span>
+    <span class="k">background-position</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">-</span><span class="k">size</span><span class="o">:</span> <span class="m">200%</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">.2s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>transition声明确定了鼠标悬停时发生滑动效果而不是没有一点动画的无聊闪动。值<strong>all</strong>确保了元素的任意属性从自然状态到hover状态变化时发生动画。意味着链接的前背景和边框颜色也被动画。也意味着改变<code>background-position</code>属性也会发生动画。</p>
+<p>看一下其它的值，动画将持续.2秒的时延并使用ease-in缓动函数。所有看来只有这一行产生了动画...事实上，这种极好的效果的确很棒的!</p>
+<h2>Further Reading</h2>
+<p>这种动画效果相当考验你的CSS功底。各种形式的专业知识、试验、错误和经验才是唯一有效的引导你做的更好。说的是，学习下面的链接将有助你:</p>
+<ul>
+<li><a href="http://dev.w3.org/csswg/css-backgrounds/">W3C Spec on CSS Backgrounds</a></li>
+<li><a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">All About CSS Transitions</a></li>
+<li><a href="http://stormhouse.github.io/posts/2013/easing-functions-in-css3/">Easing Functions (aka Timing Functions) in CSS3</a></li>
+<li><a href="http://www.kirupa.com/html5/avoid_using_vendor_prefixes.htm">Avoid Using Vendor Prefixes</a></li>
+</ul>
+<hr />
+<p>翻译水平有限，敬请各位同学批评指正。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sliding-background-effect-on-link-hover';
+            var disqus_url = 'http://stormhouse.github.io/posts/2014/sliding-background-effect-on-link-hover/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
+                    </a></li>
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>

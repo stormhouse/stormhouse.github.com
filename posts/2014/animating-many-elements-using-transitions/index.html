@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Animating Many Elements Using Transitions（译）</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph tags -->
+
+            <meta property="og:type" content="article"/>
+            <meta property="og:title" content="Animating Many Elements Using Transitions（译）"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/"/>
+            <meta property="og:description" content="thanks kirupa 自从我学会了用代码使元素在屏幕上移动，我已尝试在一系列蓝色圆圈的元素上实现我的测试。我从没有试图隐藏自己的偏好以及对它的钦佩，（和[jealous smiley blocks][]一样）现在并没有什么不同。 在这次改进中，你将看到下的效果是如何实现的： Your browser does not support inline frames or is currently configured not to display inline frames. 你将要学到的这种效果十分酷，然而真正要学的不仅是如何创建这个例子。要学的内容远胜于此。 通过此文，你将学习如何使用CSS transitions,transitionEnd 事件和一些JavaScrip内容等一大部分散落的知识使其运行。几乎你知道的关于transitions的内容都将在这里出现，所以撸起袖子，开始干吧。 Onwards! 预读内容 这个例子不是针对初学者。还有如果你对CSS transitions了解太少，只是个门外汉的话。如果你想温习或第一次学习它们的话，请看下面教程：All About ..."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://stormhouse.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="http://stormhouse.github.io/theme/css/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/style.css" type="text/css"/>
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+        <link href="http://stormhouse.github.io/feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
+              title="stormhouse RSS Feed"/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://stormhouse.github.io" class="navbar-brand">stormhouse</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://stormhouse.github.io/category/python.html">python</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/ios.html">ios</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/grunt.html">grunt</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/git.html">git</a>
+                        </li>
+                        <li >
+                            <a href="http://stormhouse.github.io/category/encoding.html">encoding</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://stormhouse.github.io/category/animation.html">animation</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://stormhouse.github.io/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/"
+                       rel="bookmark"
+                       title="Permalink to Animating Many Elements Using Transitions（译）">
+                        Animating Many Elements Using Transitions（译）
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Sat 11 January 2014
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://stormhouse.github.io/tag/animation.html">animation</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>thanks <a href="http://www.kirupa.com/html5/animating_many_elements_using_transitions.htm">kirupa</a></p>
+<hr />
+<p>自从我学会了用代码使元素在屏幕上移动，我已尝试在一系列蓝色圆圈的元素上实现我的测试。我从没有试图隐藏自己的偏好以及对它的钦佩，（和[jealous smiley blocks][]一样）现在并没有什么不同。</p>
+<p>在这次改进中，你将看到下的效果是如何实现的：</p>
+<iframe id="I1" border="0" frameborder="0" name="I1" scrolling="no" src="../snippets/examples/random_moving_blue_circles.htm" style="width: 623px; height: 375px;" marginheight="0" marginwidth="0">Your browser does not support inline frames or is currently configured not to display inline frames.</iframe>
+
+<p>你将要学到的这种效果十分酷，然而真正要学的不仅是如何创建这个例子。要学的内容远胜于此。</p>
+<p>通过此文，你将学习如何使用CSS transitions,<code>transitionEnd</code> 事件和一些JavaScrip内容等一大部分散落的知识使其运行。几乎你知道的关于transitions的内容都将在这里出现，所以撸起袖子，开始干吧。</p>
+<p>Onwards!</p>
+<h6>预读内容</h6>
+<p>这个例子不是针对初学者。还有如果你对CSS transitions了解太少，只是个门外汉的话。如果你想温习或第一次学习它们的话，请看下面教程：<a href="http://stormhouse.github.io/posts/2013/all-about-css-transitions/">All About CSS Transitions</a>, <a href="http://stormhouse.github.io/posts/2013/the-transitionend-event/">The TransitionEnd Event</a>, <a href="http://stormhouse.github.io/posts/2013/looping-a-css-transition/">Looping a Transition</a>, <a href="http://www.kirupa.com/html5/vendor_prefixes_javascript.htm">Vendor Prefixes in JavaScript</a> 和 <a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-css/">Animating Movement Smoothly Using CSS</a>。</p>
+<h2>概览</h2>
+<p>编码之前，让我们开始更抽象的分析怎样使圆圈随机的移动。</p>
+<p>简单起见，先从单个圆开始：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-1.png" title="" /></p>
+<p>圆圈开始于 Position A，目标位置是 Position B:</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-2.png" title="" /></p>
+<p>这次圆圈到达的目标位置相当简单。这种在屏幕位置的变换可能通过设置关于元素位置属性中的任意一个就可实现。因为我们想要这种变化是动画的，所以我们设置属性<code>transform</code>的translate3d函数。如果你好奇为什么使用这个属性，阅读一下前面的一篇<a href="http://stormhouse.github.io/posts/2013/animating-movement-smoothly-using-css/">教程</a></p>
+<p>使动画发生变化，而不会变的突兀，我们将使用CSS transition。为了让transition执行，需要指定被监听CSS 属性。Transition就需要这样设置。因为我们使用transform改变位置，这个位置属性就是将在transform里被指定的。不管何时transform属性发生变化，我们的trasition将被触发。不错吧。</p>
+<p>返回我们的示例。此处，在一个指定的时长内动画变化到 Position B:</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-3.png" title="" /></p>
+<p>一般情况，当transition运行完成。它就停在那里，直到它监听的属性再次发生改变。我们要做的就是使transition移动到新的位置，称之为Position C：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-4.png" title="" /></p>
+<p>到达Position C的方式与从Position A到Position B相同。属性<code>transform</code>的translate3d函数可用于指定新的位置。因为<code>transform</code>属性值被修改，transition被触发，圆圈就动画到新的位置，Position C。现在，你已经看到了一个操作蓝色圆圈变化的模式。圆圈将永不会停止。正当你认为它要停止休息一会，它又被设置一个新的位置，继续完成它的动画。</p>
+<p>好，太棒了。此时，你应该有一个对该示例更抽象的理解。让我们开始下面的内容继续挖掘更深入的知识。</p>
+<h4>Picking the Position</h4>
+<p>第一个门槛比较好实现，就是设置位置。位置是通过JavaScript随机设置的。一会你将看到，transition不关心position是使用CSS还是使用 JavaScript设置。只要<code>transform</code>属性值发生变化，transition将被触发，动画就会执行。</p>
+<h4>Looping</h4>
+<p>下一步就是循环。当圆圈到达目标位置，它不会停止。会选择一个新的位置，并开始它的动画。为了达到此效果，当transition 结束时，依靠触发<code>transitionEnd</code>事件：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-5.png" title="" /></p>
+<p>当该事件被触发，我们写一些代码简单设置圆圈新的、随机的位置。它的动画又会继续执行。通过使用transitionEnd事件作为开始下一次动画开始，我们创建一个永不停息的动画，让圆圈毫不费力的让它从一个位置到另一们位置。</p>
+<h4>Many Circles</h4>
+<p>最后一步也可能是最重要的一步...不安稳一步。至此，我们已经看到用一个圆圈实现这种效果。如果你想问我，像示例一样如何实现多个圆，又得怎么修改呢？什么也不用动，绝对的。是的，不管你是一个还是多个圆，我们实现这种效果不用改变。因为每个圆的属性都是在该元素的内部：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-6.png" title="" /></p>
+<p>每个圆知道它下一个目标，知道通过多少时长到达那里，知道它自身的动画方式等等。正如你将很快看到，甚至JavaScript有很容易跟踪每一个圆圈，并确保它个性化动画，但这些都独立的。你看，告诉你吧它们之间是相安无事的！</p>
+<h2>Deconstructing our Example</h2>
+<p>到现在为止，你可能对这些零散的内容有个抽象的理解。我并没有涵盖一些更小的细节，示例的一些细节是值得看的。现在我们开始对它进行抽丝播茧，研究每个标记和代码吧。</p>
+<p>示例的整个代码如下：</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;en-us&quot;</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Language&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;stuff, to, help, search, engines, not&quot;</span> <span class="na">name=</span><span class="s">&quot;keywords&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;What this page is about.&quot;</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;An Interesting Title Goes Here&quot;</span> <span class="na">name=</span><span class="s">&quot;title&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>An Interesting Title Goes Here<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+<span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#FFF</span><span class="p">;</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+    <span class="k">margin-top</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#box</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">550px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">350px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">5px</span> <span class="nb">black</span> <span class="k">solid</span><span class="p">;</span>
+    <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#F2F2F2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#contentContainer</span> <span class="p">{</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.thing</span> <span class="p">{</span>
+    <span class="n">transition</span><span class="o">-</span><span class="n">property</span><span class="o">:</span> <span class="n">transform</span><span class="p">;</span>
+    <span class="n">transition</span><span class="o">-</span><span class="n">timing</span><span class="o">-</span><span class="n">function</span><span class="o">:</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="m">#0066CC</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="o">:</span> <span class="o">.</span><span class="m">5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;box&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;contentContainer&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://www.kirupa.com/html5/examples/js/prefixfree.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="kd">var</span> <span class="nx">theThings</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;.thing&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">transitionDurations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;transitionDuration&quot;</span><span class="p">,</span> <span class="s2">&quot;msTransitionDuration&quot;</span><span class="p">,</span> <span class="s2">&quot;webkitTransitionDuration&quot;</span><span class="p">,</span> <span class="s2">&quot;mozTransitionDuration&quot;</span><span class="p">,</span> <span class="s2">&quot;oTransitionDuration&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">transitionDurationProperty</span> <span class="o">=</span> <span class="nx">getSupportedPropertyName</span><span class="p">(</span><span class="nx">transitionDurations</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">transforms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="s2">&quot;msTransform&quot;</span><span class="p">,</span> <span class="s2">&quot;webkitTransform&quot;</span><span class="p">,</span> <span class="s2">&quot;mozTransform&quot;</span><span class="p">,</span> <span class="s2">&quot;oTransform&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">transformProperty</span> <span class="o">=</span> <span class="nx">getSupportedPropertyName</span><span class="p">(</span><span class="nx">transforms</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">setInitialPosition</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">theThings</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="nx">theThings</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+        <span class="kd">var</span> <span class="nx">circleSize</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">150</span><span class="p">);</span>
+
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">borderRadius</span> <span class="o">=</span> <span class="p">.</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">opacity</span> <span class="o">=</span> <span class="p">.</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+
+        <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>  
+    <span class="p">}</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">kickOffTransition</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">setInitialPosition</span><span class="p">();</span>
+
+
+<span class="kd">function</span> <span class="nx">kickOffTransition</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">theThings</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="nx">theThings</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;transitionend&quot;</span><span class="p">,</span> <span class="nx">updatePosition</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;webkitTransitionEnd&quot;</span><span class="p">,</span> <span class="nx">updatePosition</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mozTransitionEnd&quot;</span><span class="p">,</span> <span class="nx">updatePosition</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;msTransitionEnd&quot;</span><span class="p">,</span> <span class="nx">updatePosition</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;oTransitionEnd&quot;</span><span class="p">,</span> <span class="nx">updatePosition</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+        <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>
+        <span class="nx">setTransitionDuration</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">updatePosition</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">propertyName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;transform&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>
+        <span class="nx">setTransitionDuration</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getRandomXPosition</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">650</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getRandomYPosition</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">400</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getRandomDuration</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(.</span><span class="mi">5</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;s&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getSupportedPropertyName</span><span class="p">(</span><span class="nx">properties</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">properties</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">properties</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">!=</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">properties</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">transformProperty</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;translate3d(&quot;</span> <span class="o">+</span> <span class="nx">getRandomXPosition</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">getRandomYPosition</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span> <span class="o">+</span> <span class="s2">&quot;, 0)&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setTransitionDuration</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">transitionDurationProperty</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">transitionDurationProperty</span><span class="p">]</span> <span class="o">=</span> <span class="nx">getRandomDuration</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>你将代码复制到新文档中，并在浏览器中预览，你将会看到与开头一样效果的动画。让我们通过各个主要代码，解析它是如何工作的。</p>
+<h4>Quick Look at the HTML</h4>
+<p>HTML相关的代码是圆圈的本身：</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;box&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;contentContainer&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;thing&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>圆圈仅仅是用一系列有css类名<code>thing</code>的<code>div</code>元素来表示的。这个类的的属性值是唯一相关的部分，其余事情是由CSS和JavaScript来完成的。</p>
+<h4>Meet the Transition</h4>
+<p>当每个圆圈的位置发生变化时，transition需要被触发。transition定义的最好的位置是，为所有圆圈定义的样式规则。该样式就是<code>.thing</code>类选择器：</p>
+<div class="highlight"><pre><span class="p">.</span><span class="nx">thing</span> <span class="p">{</span>
+    <span class="nx">transition</span><span class="o">-</span><span class="nx">property</span><span class="o">:</span> <span class="nx">transform</span><span class="p">;</span>
+    <span class="nx">transition</span><span class="o">-</span><span class="nx">timing</span><span class="o">-</span><span class="kd">function</span><span class="o">:</span> <span class="nx">ease</span><span class="o">-</span><span class="k">in</span><span class="o">-</span><span class="nx">out</span><span class="p">;</span>
+    <span class="nx">position</span><span class="o">:</span> <span class="nx">absolute</span><span class="p">;</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+    <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+    <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">50</span><span class="nx">px</span><span class="p">;</span>
+    <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">0066</span><span class="nx">CC</span><span class="p">;</span>
+    <span class="nx">opacity</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>我已经高亮显示与<code>transition</code>相关的属性，你可以看到，使用的是一般形式来定义我们的<code>transition</code>。transition的监听<code>transform</code>属性变化是，正如前面提到的，是需要指定translate3d函数。缓动函数设置了ease-in-out，没有设置时长，默认是0.</p>
+<p>现在，你可能会好奇，为什么我们不设置时长呢？现在这个问题有点棘手，放心，稍后我就会提到它。</p>
+<h4>Getting to the JavaScript</h4>
+<p>CSS代码相当。不太简单的呢---是JavaScript代码，其它一些复杂的功能都是由它来pugmr。为了帮助理解怎么回事，我首先会按顺序清晰的罗列所有的代码。</p>
+<p>JavaScript代码...</p>
+<ol>
+<li>得到所有DOM元素的对象</li>
+<li>根据使用的浏览器处理厂商前缀</li>
+<li>设置元素的初始位置，不会使它们都处于左上角</li>
+<li>添加<code>transitionEnd</code>事件函数，指定一个非0的时长，告诉每个圆的目标位置</li>
+<li>当每个圆<code>transitionEnd</code>触发时，更新它们的新位置，保持继续运行</li>
+</ol>
+<p>现在你看到这五个步骤的大纲。在接下来两节中，让我们来看看详细的内容。</p>
+<h4>Calling all Circles</h4>
+<p>在<code>script</code>标签中的代码，首先要做的就是通过定义<code>theThings</code>变量获取所有的元素引用：</p>
+<p><code>var theThings = document.querySelectorAll(".thing");</code></p>
+<p>这比较简单，因为每个元素都有一个<code>class</code>为thing类名的属性。稍微了解一点的话，你可以使用<a href="http://www.kirupa.com/html5/finding_elements_dom_using_querySelector.htm"> querySelectorAll </a>函数快速的从DOM中得到它。</p>
+<h4>Dealing with Vendor Prefixes</h4>
+<p>下一步的代码就是处理浏览器厂商的前缀：</p>
+<div class="highlight"><pre>var transitionDurations = [&quot;transitionDuration&quot;, &quot;msTransitionDuration&quot;, &quot;webkitTransitionDuration&quot;, &quot;mozTransitionDuration&quot;, &quot;oTransitionDuration&quot;];
+var transitionDurationProperty = getSupportedPropertyName(transitionDurations);
+
+var transforms = [&quot;transform&quot;, &quot;msTransform&quot;, &quot;webkitTransform&quot;, &quot;mozTransform&quot;, &quot;oTransform&quot;];
+var transformProperty = getSupportedPropertyName(transforms);
+</pre></div>
+
+
+<p>目前我们示例中使用的两个属性还不被所有主要浏览器厂商所支持。这两个属性就是<code>transitionDuration</code>和<code>transform</code>。我们使用<a href="http://www.kirupa.com/html5/avoid_using_vendor_prefixes.htm">-prefix-free-library</a>处理这些标记。在JavaScript里，需要它们处理我们动画
+。把它们赋值给两个变量<code>transitionDurationProperty</code>和<code>transformProperty</code>。</p>
+<p>我们的目标就是让<code>transitionDurationProperty</code>和<code>transformProperty</code>指向浏览器中存在的变量。例如，基于WebKit的浏览器<code>transformProperty</code>指定的的是<code>webkitTransform</code>。在IE9中，将是<code>msTransition</code>。你已经明白我说的是什么了吧。我仅是使用<code>transitionDurationProperty</code>和<code>transformProperty</code>两个变量。我不想每次都去检查每个属性是否可用，在我的代码里，我只用这两个属性（变量）。</p>
+<p>解决该问题的方法是基于我以前写的<a href="http://www.kirupa.com/html5/vendor_prefixes_javascript.htm"> Vendor Prefixes in JavaScript </a>教程。你只需知道这些代码执行完，<code>transitionDurationProperty</code>和<code>transformProperty</code>两个属性在现代浏览器中就可使用。</p>
+<h4>Setting the Initial Position and Look</h4>
+<p>接下来，我开始一些有趣的东西。当谈到每个圆的初始位置和调整它们的外观时，有3个有意思的事情：</p>
+<h6>Start at the Top-Left Corner</h6>
+<p>我们回到简短的CSS代码。看一下<code>.thing</code>选择器中的声明的样式：</p>
+<div class="highlight"><pre><span class="p">.</span><span class="nx">thing</span> <span class="p">{</span>
+    <span class="nx">transition</span><span class="o">-</span><span class="nx">property</span><span class="o">:</span> <span class="nx">transform</span><span class="p">;</span>
+    <span class="nx">transition</span><span class="o">-</span><span class="nx">timing</span><span class="o">-</span><span class="kd">function</span><span class="o">:</span> <span class="nx">ease</span><span class="o">-</span><span class="k">in</span><span class="o">-</span><span class="nx">out</span><span class="p">;</span>
+    <span class="nx">position</span><span class="o">:</span> <span class="nx">absolute</span><span class="p">;</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+    <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="nx">px</span><span class="p">;</span>
+    <span class="nx">border</span><span class="o">-</span><span class="nx">radius</span><span class="o">:</span> <span class="mi">50</span><span class="nx">px</span><span class="p">;</span>
+    <span class="nx">background</span><span class="o">-</span><span class="nx">color</span><span class="o">:</span> <span class="err">#</span><span class="mi">0066</span><span class="nx">CC</span><span class="p">;</span>
+    <span class="nx">opacity</span><span class="o">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>注意元素的<code>position</code>属性值为 <strong>absolute</strong>。究其原因，我没设置<code>left</code>,<code>top</code>,<code>right</code>或<code>bottom</code>属性，看似一个奇怪的决定。结果每个圆都不会在普通的文档流中，都挤在左上的一个角落：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-7.png" title="" /></p>
+<p>如果我不设置<code>position</code>为<strong>absolute</strong>，这些圆会从上到下按正常文档流排列：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-8.png" title="" /></p>
+<p>你可能认为这并不重要，因为页面加载后，我们会随机的设置圆的位置。没人会注意到它们的初始位置。确实如此，问题不在于人们可能不会看到1毫秒发生的变化。而在于一些圆不是从（0，0）位置开始。通过计算不会抵消它们的初始位置（这样造成的结果是，一些圆是基于它们各自的初始位置开始移动，导致这些圆不会出现视野内）。这个属性值就是解决该问题的优雅方式。</p>
+<p>规则<code>.thing</code>的属性<code>position</code>设置为<strong>absolute</strong>影响每个元素，这个简单的变化使每个圆的起点都是（0，0）,解决的它们的位置偏移问题。非常棒。</p>
+<h6>Making the Circles Look Unique</h6>
+<p>现在CSS代码应该并不多了，让我们返回JavaScript代码，发挥我们的想象。如果仅是使用HTML和CSS代码，它们是屏幕上显示什么样子：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-9.png" title="" /></p>
+<p>这看起来，显得千篇一律，十分单调。让我们来做点手脚，改变每个圆的外观看起来不是同一个样子。</p>
+<p>在JavaScript代码里，看一下<code>setInitialProperties</code>函数：</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">setInitialProperties</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">theThings</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="nx">theThings</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">circleSize</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">150</span><span class="p">);</span>
+
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">borderRadius</span> <span class="o">=</span> <span class="p">.</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">opacity</span> <span class="o">=</span> <span class="p">.</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+
+        <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>  
+    <span class="p">}</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">kickOffTransition</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">setInitialProperties</span><span class="p">();</span>
+</pre></div>
+
+
+<p>该函数的功能就是设置每个圆的行内属性，改变它的样式。重点是，这些代码都在<code>for</code>循环体中：</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">setInitialPosition</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">theThings</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">//highlight</span>
+        <span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="nx">theThings</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">circleSize</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">150</span><span class="p">);</span>
+
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">borderRadius</span> <span class="o">=</span> <span class="p">.</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">opacity</span> <span class="o">=</span> <span class="p">.</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+
+        <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>  
+    <span class="p">}</span>   <span class="c1">//highlight</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">kickOffTransition</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">setInitialPosition</span><span class="p">();</span>
+</pre></div>
+
+
+<p>这个循环通过<code>theThings</code>数组，遍历每个元素。通过前后的代码， <code>theThings</code>数组是HTML中所有圆的引用。</p>
+<p>对元素的集合不感兴趣。通过循环的第一行代码，我们想要处理的只是每一个元素：</p>
+<div class="highlight"><pre>var theThing = theThings[i];
+</pre></div>
+
+
+<p>它仅仅是一个标准的数组，所以没什么特别的东西。只知道<code>theThings</code>变量中包含一系统单一的圆。</p>
+<p>通过该变量，我们可以直接设置元素的样式：</p>
+<div class="highlight"><pre>var circleSize = Math.round(30 + Math.random() * 150);
+
+theThing.style.width = circleSize + &quot;px&quot;;
+theThing.style.height = circleSize + &quot;px&quot;;
+theThing.style.borderRadius = .5 * circleSize + &quot;px&quot;;
+theThing.style.opacity = .1 + Math.random() * .5;
+</pre></div>
+
+
+<p>这个样式设置元素的<code>width</code>,<code>height</code>,<code>borderRadius</code>和<code>opacity</code>。为了确保这些值的随机性，使用<a href="http://www.kirupa.com/html5/random_numbers_js.htm">Math.random()</a>函数。</p>
+<p>该代码执行后，你不用担心每个圆是一个德行了。你可以看到它们各式各样：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-10.png" title="" /></p>
+<p>你不认为这比先前的好看吗？</p>
+<h6>Positioning them Randomly</h6>
+<p>下一步就是要确定元素的位置。现在所的的圆都在父容器的左上位置。我想要做的就是随机的放置这些圆。</p>
+<p>继续看下将要跳出循环的那行代码，就是确定圆位置的<code>setTranslate3DTransform</code>函数：</p>
+<div class="highlight"><pre>setTranslate3DTransform(theThing);
+</pre></div>
+
+
+<p><code>setTranslate3DTransform</code>函数的参数是对圆的引用，代码如下：</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="cp">[</span><span class="nx">transformProperty</span><span class="cp">]</span> <span class="o">=</span> <span class="s2">&quot;translate3d(&quot;</span> <span class="o">+</span> <span class="nx">getRandomXPosition</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nx">getRandomYPosition</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span> <span class="o">+</span> <span class="s2">&quot;, 0)&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>该函数比较简单。在圆（<code>element</code>变量）上，通过<code>transform</code>属性<strong>translate3d</strong>值，设置不同的目标位置</p>
+<p><code>transform</code>的<strong>translate3d</strong>的一般设置如下：</p>
+<div class="highlight"><pre><span class="na">.blarg</span> <span class="err">{</span>
+    <span class="nl">transform:</span> <span class="nf">translate3d</span><span class="p">(</span><span class="mi">20</span><span class="no">px</span><span class="p">,</span> <span class="mi">40</span><span class="no">px</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="err">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>我们只是使用JavaScript来代替此声明。在<code>style</code>对象上直接设置<code>transform</code>属性（就像前面的<code>width</code>,<code>height</code>,<code>borderRadius</code>和<code>opacity</code>），通过一个字符串为参数给<code>transform</code>属性设置translate3d函数，由于使用<code>getRandomXPosition</code>和<code>getRandomYPosition</code>确保设置的每个位置从唯一性。废话真多，太难翻译。</p>
+<p>不管怎样，看下<code>setInitialProperties</code>函数。当<code>setTranslate3DTransform</code>执行完，第个圆都包含<code>width</code>, <code>height</code>,<code>border-radius</code>和<code>transform</code>行内样式属性。当循环执行结束，每个元素都是如此。</p>
+<p>最终结果就是产出了一系列不同外观，随机位置 元素：</p>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-11.png" title="" /></p>
+<p>上面，我们仅是完成了设置初始外观和位置的代码。我们想让改变这种样式，不用<code>setInitialProperties</code>函数，通过使用<code>setTimeout</code>延迟100毫秒调用<code>kickOffTransition</code>函数：</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">setInitialPosition</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">theThings</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="nx">theThings</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">circleSize</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">150</span><span class="p">);</span>
+
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">borderRadius</span> <span class="o">=</span> <span class="p">.</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">circleSize</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+        <span class="nx">theThing</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">opacity</span> <span class="o">=</span> <span class="p">.</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+
+        <span class="nx">setTranslate3DTransform</span><span class="p">(</span><span class="nx">theThing</span><span class="p">);</span>  
+    <span class="p">}</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">kickOffTransition</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span> <span class="c1">//highlight</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>原因是</p>
+<h4>Starting the Transition</h4>
+<p><img alt="Animation Img" class="align-center" src="/img/140111-12.png" title="" /></p>
+<hr />
+<p>翻译水平有限，敬请各位同学批评指正。</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+            var disqus_identifier = 'animating-many-elements-using-transitions';
+            var disqus_url = 'http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-large"></i>Social</h4></li>
+                    <li class="list-group-item"><a href="http://coolshell.cn/"><i
+                            class="icon-酷壳-sign icon-large"></i>酷壳
+                    </a></li>
+                    <li class="list-group-item"><a href="http://blog.zhaojie.me/"><i
+                            class="icon-老赵-sign icon-large"></i>老赵
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.ruanyifeng.com/about.html"><i
+                            class="icon-阮一峰-sign icon-large"></i>阮一峰
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.cnblogs.com/rubylouvre/"><i
+                            class="icon-司徒正美-sign icon-large"></i>司徒正美
+                    </a></li>
+                    <li class="list-group-item"><a href="http://nuysoft.com/"><i
+                            class="icon-nuysoft-sign icon-large"></i>nuysoft
+                    </a></li>
+                    <li class="list-group-item"><a href="http://jinlong.github.io/"><i
+                            class="icon-涂鸦码龙-sign icon-large"></i>涂鸦码龙
+                    </a></li>
+                    <li class="list-group-item"><a href="http://www.diguage.com/"><i
+                            class="icon-地瓜哥-sign icon-large"></i>地瓜哥
+                    </a></li>
+
+
+
+            <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/animation.html">
+                        animation
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
+                    </a>
+                </li>
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/git.html">
+                        git
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/base64.html">
+                        base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/event.html">
+                        event
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+        </ul>
+    </section>
+</aside>        </div>
+    </div>
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://stormhouse.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://stormhouse.github.io/theme/js/respond.min.js"></script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+</body>
+</html>
