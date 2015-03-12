@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 26 Feb 2015 20:41:00 +0800</lastBuildDate><item><title>不用storyboard开发ios8界面</title><link>http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/</link><description>&lt;p&gt;[参考][0]  &lt;/p&gt;
 &lt;p&gt;这里不讨论 使用xib storyboard和代码编写UI的孰优孰劣。详见&lt;a href="http://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code"&gt;iOS User Interfaces: Storyboards vs. NIBs vs. Custom Code&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;创建新项目&lt;/h2&gt;
-&lt;p&gt;创建新项目，选择Single View Application为模板。
-&lt;img alt="ios Img" class="align-center" src="/img/150226-1.png" title="" /&gt;
-&lt;img alt="ios Img" class="align-center" src="/img/150226-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;创建新项目，选择Single View Application为模板。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-1.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-2.png" title="" /&gt;&lt;/p&gt;
 &lt;h2&gt;删除storyboard&lt;/h2&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-3.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;plist删除key main&lt;/p&gt;
