@@ -1701,7 +1701,7 @@ myElement.style.backgroundColor = &amp;quot;333&amp;quot;;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/"&gt;Animating Many Elements Using Transitions&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</summary><category term="animation"></category></entry><entry><title>All About CSS Animations（译）</title><link href="http://stormhouse.github.io/posts/2013//" rel="alternate"></link><updated>2013-12-01T15:06:00+08:00</updated><author><name>stormhouse</name></author><id>tag:stormhouse.github.io,2013-12-01:posts/2013//</id><summary type="html">&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</summary><category term="animation"></category></entry><entry><title>All About CSS Animations（译）</title><link href="http://stormhouse.github.io/posts/2013/all-about-css-animations/" rel="alternate"></link><updated>2013-12-01T15:06:00+08:00</updated><author><name>stormhouse</name></author><id>tag:stormhouse.github.io,2013-12-01:posts/2013/all-about-css-animations/</id><summary type="html">&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;在HTML中动画实现的三种的方式之一是众所周知&lt;strong&gt;CSS animations&lt;/strong&gt;。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。&lt;/p&gt;
 &lt;p&gt;首先让我们看一个例子，让下面的云彩缓慢的上下飘动：&lt;/p&gt;

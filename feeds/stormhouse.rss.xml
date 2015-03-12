@@ -1701,7 +1701,7 @@ myElement.style.backgroundColor = &amp;quot;333&amp;quot;;
 &lt;li&gt;&lt;a href="http://stormhouse.github.io/posts/2014/animating-many-elements-using-transitions/"&gt;Animating Many Elements Using Transitions&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 02 Dec 2013 11:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-02:posts/2013/all-about-css-transitions/</guid><category>animation</category></item><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2013//</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Mon, 02 Dec 2013 11:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-02:posts/2013/all-about-css-transitions/</guid><category>animation</category></item><item><title>All About CSS Animations（译）</title><link>http://stormhouse.github.io/posts/2013/all-about-css-animations/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/all_about_css_animations.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;在HTML中动画实现的三种的方式之一是众所周知&lt;strong&gt;CSS animations&lt;/strong&gt;。CSS animations是非常简单的。你能通过控制动画CSS属性来影响元素。它可以让你做出很酷的事比如元素移动、元素淡入淡出、改变元素颜色。&lt;/p&gt;
 &lt;p&gt;首先让我们看一个例子，让下面的云彩缓慢的上下飘动：&lt;/p&gt;
@@ -2201,7 +2201,7 @@ This is the ultimate solution. Your animation will apply the property values of 
 &lt;li&gt;&lt;a href="http://www.kirupa.com/snippets/slide_bounce_image_on_hover.htm"&gt;Slide and Bounce an Image on Hover&lt;/a&gt; （未译）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
-&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sun, 01 Dec 2013 15:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-01:posts/2013//</guid><category>animation</category></item><item><title>Introduction to Animation in HTML（译）</title><link>http://stormhouse.github.io/posts/2013/introduction-to-animation-in-html/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;翻译水平有限，敬请各位同学批评指正。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Sun, 01 Dec 2013 15:06:00 +0800</pubDate><guid>tag:stormhouse.github.io,2013-12-01:posts/2013/all-about-css-animations/</guid><category>animation</category></item><item><title>Introduction to Animation in HTML（译）</title><link>http://stormhouse.github.io/posts/2013/introduction-to-animation-in-html/</link><description>&lt;p&gt;thanks &lt;a href="http://www.kirupa.com/html5/introduction_to_animation_html.htm"&gt;kirupa&lt;/a&gt; &lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;也许你们认为动画是电影和计算机中的近代产物，实际上人类在很久很久以前就开始鼓捣它并作为沟通的方式了：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Animation Img" class="align-center" src="/img/131129-1.png" title="" /&gt;&lt;/p&gt;
