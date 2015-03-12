@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/ios.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 26 Feb 2015 20:41:00 +0800</lastBuildDate><item><title>不用storyboard开发ios8界面</title><link>http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/</link><description>&lt;p&gt;[参考][0]  &lt;/p&gt;
-&lt;p&gt;这里不讨论 使用xib storyboard和代码编写UI的孰优孰劣。详见&lt;a href="http://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code"&gt;iOS User Interfaces: Storyboards vs. NIBs vs. Custom Code&lt;/a&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/ios.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 26 Feb 2015 20:41:00 +0800</lastBuildDate><item><title>不用storyboard开发ios8界面</title><link>http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/</link><description>&lt;p&gt;这里不讨论 使用xib storyboard和代码编写UI的孰优孰劣。详见&lt;a href="http://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code"&gt;iOS User Interfaces: Storyboards vs. NIBs vs. Custom Code&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;创建新项目&lt;/h2&gt;
 &lt;p&gt;创建新项目，选择Single View Application为模板。&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-1.png" title="" /&gt;&lt;/p&gt;
@@ -73,4 +72,5 @@
 
 
 &lt;h2&gt;预览&lt;/h2&gt;
-&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-7.png" title="" /&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 26 Feb 2015 20:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2015-02-26:posts/2015/develop-ios8-ui-without-storyboard/</guid><category>ios8</category><category>xcode6</category></item></channel></rss>
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-7.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/stormhouse/UIWithoutStoryboard/tree/v1.0"&gt;源代码&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 26 Feb 2015 20:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2015-02-26:posts/2015/develop-ios8-ui-without-storyboard/</guid><category>ios8</category><category>xcode6</category></item></channel></rss>
