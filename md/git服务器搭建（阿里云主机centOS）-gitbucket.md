@@ -67,31 +67,32 @@ $ ssh-keygen -C 'stormhouse@yeah.net' -t rsa
 $ git clone http://your-ip:8080/gitbucket/git/your-groupv/repo-test.git
 ```
 
-## git常用命令 
+## git常用命令
 #### 远程
 ```
-# 查看远程库url
-$ git remote -v
-# 添加远程库
-$ git remote add github git@github.com:stormhouse/test.git
-# 删除远程库url
-$ git remote remove github
-# 修改远程库
-$ git remote set-url origin git@github.com:stormhouse/test.git
-# 重命名
-$ git rename github github2
-# 删除远程分支
-$ git push origin :develop
+# 远程库
+$ git remote -v  # 查看远程库url
+$ git remote add github git@github.com:stormhouse/test.git  # 添加远程库
+$ git remote remove github  # 删除远程库url
+$ git remote set-url origin git@github.com:stormhouse/test.git  # 修改远程库
+$ git rename github github2  # 重命名
 
 # 克隆
 $ git clone http://your-ip:8080/gitbucket/git/your-groupv/repo-test.git
+
 # pull
 $ git pull
 $ git fetch origin/github master/branch
+
 # push
 $ git push origin/github master/branch
-# 分支 标签
+# push所有分支 及 标签
 $ git push origin --all / --tags
+
+# 远程分支操作
+$ git push origin :develop  # 删除远程分支
+$ git branch -a  # 查看远程分支
+$ git checkout -b develop origin/develop  # 检出远程分支
 ```
 #### 本地
 ```
@@ -105,4 +106,10 @@ $ git branch develop  #新建
 $ git checkout master #切换
 $ git merge develop   #合并develop到master
 $ git checkout -b dev master  #基于master创建dev分支，并切换dev分支
+```
+
+## 常见错误
+```
+Error pulling origin: error: Your local changes to the following files would be overwritten by merge
+$ git clean -d -fx
 ```
