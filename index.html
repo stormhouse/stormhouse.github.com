@@ -77,17 +77,45 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="http://stormhouse.github.io/posts/2015/snap-install/">轻量级布局框架-Snap安装</a></h2>
+                <div class="summary"><p><a href="https://github.com/Masonry/Snap">参考</a></p>
+<h3>介绍</h3>
+<p>Snap是一个轻量级布局框架，使用优雅的语法封装AutoLayout。Snap拥有自己的布局DSL，它提供一种链式操作描述你的NSLayoutConstraints，使你的布局代码变得简明易读。Snap同时支持IOS和OS X。</p>
+<p>Snap使用Swift的特性，例如函数重载，所以它不能在Objective-C中使用。正因如此，我们使用snp_做为前缀，而Masonry使用mas_，所心在你可以在同一项目中同时使用Masonry和Snap。</p>
+<p>基于Objective-C，移步<a href="https://github.com/Masonry/Masonry">Masonry</a></p>
+<h3>下载安装</h3>
+<p>基于<a href="http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/">不用storyboard开发ios8界面</a>中的<a href="https://github.com/stormhouse/UIWithoutStoryboard/tree/v1.0">代码</a></p>
+<h4>下载</h4>
+<p>在项目的根目录，使用git submobule命令</p>
+<div class="highlight"><pre><span class="nv">$ </span>git submodule add https://github.com/Masonry/Snap.git
+</pre></div>
+
+
+<h4>安装到项目中</h4>
+<p>Finder中打开Snap，用鼠标拖到项目中</p>
+<p><img alt="ios Img" class="align-center" src="/img/150301-1.png" title="" /></p>
+<h4>将Snappy.framework添加到项目中</h4>
+<p><img alt="ios Img" class="align-center" src="/img/150301-2.png" title="" /></p>
+<h3>简单示例（添加一个居中的按钮）</h3>
+<h4>不使用自适应布局</h4>
+<p>上篇RootViewController.swift示例代码为：</p>
+<div class="highlight"><pre>override func viewDidLoad ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2015/snap-install/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/">不用storyboard开发ios8界面</a></h2>
                 <div class="summary"><p>这里不讨论 使用xib storyboard和代码编写UI的孰优孰劣。详见<a href="http://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code">iOS User Interfaces: Storyboards vs. NIBs vs. Custom Code</a></p>
-<h2>创建新项目</h2>
+<h3>创建新项目</h3>
 <p>创建新项目，选择Single View Application为模板。</p>
 <p><img alt="ios Img" class="align-center" src="/img/150226-1.png" title="" /></p>
 <p><img alt="ios Img" class="align-center" src="/img/150226-2.png" title="" /></p>
-<h2>删除storyboard</h2>
+<h3>删除storyboard</h3>
 <p><img alt="ios Img" class="align-center" src="/img/150226-3.png" title="" /></p>
 <p>plist删除key main</p>
 <p><img alt="ios Img" class="align-center" src="/img/150226-4.png" title="" /></p>
-<h2>新建rootViewController类</h2>
+<h3>新建rootViewController类</h3>
 <p><img alt="ios Img" class="align-center" src="/img/150226-5.png" title="" /></p>
 <p><img alt="ios Img" class="align-center" src="/img/150226-6.png" title="" /></p>
 <p>代码：</p>
@@ -719,13 +747,18 @@ git config --global user.email stormhouse@yeah ...</pre></div>
 
             <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://stormhouse.github.io/tag/animation.html">
                         animation
                     </a>
                 </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://stormhouse.github.io/tag/python.html">
-                        python
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/encoding.html">
+                        encoding
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -733,9 +766,14 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                         http
                     </a>
                 </li>
-                <li class="list-group-item tag-2">
-                    <a href="http://stormhouse.github.io/tag/encoding.html">
-                        encoding
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/ios8.html">
+                        ios8
+                    </a>
+                </li>
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -744,18 +782,8 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/javascript.html">
-                        javascript
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/tomcat.html">
-                        tomcat
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/url.html">
-                        url
+                    <a href="http://stormhouse.github.io/tag/node.html">
+                        node
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -764,13 +792,8 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/node.html">
-                        node
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/ios8.html">
-                        ios8
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -779,8 +802,13 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/xcode6.html">
-                        xcode6
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
                     </a>
                 </li>
                 <li class="list-group-item tag-4">

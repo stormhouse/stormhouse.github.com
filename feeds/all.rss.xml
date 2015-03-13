@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 26 Feb 2015 20:41:00 +0800</lastBuildDate><item><title>不用storyboard开发ios8界面</title><link>http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/</link><description>&lt;p&gt;这里不讨论 使用xib storyboard和代码编写UI的孰优孰劣。详见&lt;a href="http://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code"&gt;iOS User Interfaces: Storyboards vs. NIBs vs. Custom Code&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;创建新项目&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 11 Mar 2015 15:30:00 +0800</lastBuildDate><item><title>轻量级布局框架-Snap安装</title><link>http://stormhouse.github.io/posts/2015/snap-install/</link><description>&lt;p&gt;&lt;a href="https://github.com/Masonry/Snap"&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;介绍&lt;/h3&gt;
+&lt;p&gt;Snap是一个轻量级布局框架，使用优雅的语法封装AutoLayout。Snap拥有自己的布局DSL，它提供一种链式操作描述你的NSLayoutConstraints，使你的布局代码变得简明易读。Snap同时支持IOS和OS X。&lt;/p&gt;
+&lt;p&gt;Snap使用Swift的特性，例如函数重载，所以它不能在Objective-C中使用。正因如此，我们使用snp_做为前缀，而Masonry使用mas_，所心在你可以在同一项目中同时使用Masonry和Snap。&lt;/p&gt;
+&lt;p&gt;基于Objective-C，移步&lt;a href="https://github.com/Masonry/Masonry"&gt;Masonry&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;下载安装&lt;/h3&gt;
+&lt;p&gt;基于&lt;a href="http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/"&gt;不用storyboard开发ios8界面&lt;/a&gt;中的&lt;a href="https://github.com/stormhouse/UIWithoutStoryboard/tree/v1.0"&gt;代码&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;下载&lt;/h4&gt;
+&lt;p&gt;在项目的根目录，使用git submobule命令&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git submodule add https://github.com/Masonry/Snap.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;安装到项目中&lt;/h4&gt;
+&lt;p&gt;Finder中打开Snap，用鼠标拖到项目中&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150301-1.png" title="" /&gt;&lt;/p&gt;
+&lt;h4&gt;将Snappy.framework添加到项目中&lt;/h4&gt;
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150301-2.png" title="" /&gt;&lt;/p&gt;
+&lt;h3&gt;简单示例（添加一个居中的按钮）&lt;/h3&gt;
+&lt;h4&gt;不使用自适应布局&lt;/h4&gt;
+&lt;p&gt;上篇RootViewController.swift示例代码为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;override func viewDidLoad() {
+    super.viewDidLoad()
+    button = UIButton.buttonWithType(.System) as? UIButton
+    button.frame = CGRect(x: 110, y: 70, width: 100, height: 44)
+    button.setTitle(&amp;quot;Press Me&amp;quot;, forState: .Normal)
+    button.setTitle(&amp;quot;I&amp;#39;m Pressed&amp;quot;, forState: .Highlighted)
+    button.addTarget(self, action: &amp;quot;buttonIsPressed:&amp;quot;, forControlEvents: .TouchDown)
+    button.addTarget(self, action: &amp;quot;buttonIsTapped:&amp;quot;, forControlEvents: .TouchUpInside)
+
+    self.view.addSubview(button)
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;按钮都的位置都是写死的，无法在各种屏下（横屏）自适应。&lt;/p&gt;
+&lt;h4&gt;添加约束条件&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;override func viewDidLoad() {
+    super.viewDidLoad()
+
+    button = UIButton.buttonWithType(.System) as? UIButton
+    self.view.addSubview(button)
+
+    button.backgroundColor = UIColor.greenColor()
+    button.setTitle(&amp;quot;Press Me&amp;quot;, forState: .Normal)
+    button.setTitle(&amp;quot;I&amp;#39;m Pressed&amp;quot;, forState: .Highlighted)
+    button.addTarget(self, action: &amp;quot;buttonIsPressed:&amp;quot;, forControlEvents: .TouchDown)
+    button.addTarget(self, action: &amp;quot;buttonIsTapped:&amp;quot;, forControlEvents: .TouchUpInside)
+//        button.frame = CGRect(x: 110, y: 70, width: 100, height: 44)
+
+    button.snp_makeConstraints { make in
+        make.center.equalTo(self.view).offset(CGPointMake(-5, 10))
+        return // this return is a fix for implicit returns in Swift and is only required for single line constraints
+    }
+
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;运行，不管在哪种屏下查看效果，呈现在面前的都是一个水平、垂直居中的按钮。
+&lt;a href="https://github.com/stormhouse/UIWithoutStoryboard/tree/v2.0"&gt;源代码&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Wed, 11 Mar 2015 15:30:00 +0800</pubDate><guid>tag:stormhouse.github.io,2015-03-11:posts/2015/snap-install/</guid><category>ios8</category><category>xcode6</category></item><item><title>不用storyboard开发ios8界面</title><link>http://stormhouse.github.io/posts/2015/develop-ios8-ui-without-storyboard/</link><description>&lt;p&gt;这里不讨论 使用xib storyboard和代码编写UI的孰优孰劣。详见&lt;a href="http://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code"&gt;iOS User Interfaces: Storyboards vs. NIBs vs. Custom Code&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;创建新项目&lt;/h3&gt;
 &lt;p&gt;创建新项目，选择Single View Application为模板。&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-1.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-2.png" title="" /&gt;&lt;/p&gt;
-&lt;h2&gt;删除storyboard&lt;/h2&gt;
+&lt;h3&gt;删除storyboard&lt;/h3&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-3.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;plist删除key main&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-4.png" title="" /&gt;&lt;/p&gt;
-&lt;h2&gt;新建rootViewController类&lt;/h2&gt;
+&lt;h3&gt;新建rootViewController类&lt;/h3&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-5.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-6.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;代码：&lt;/p&gt;
@@ -46,7 +106,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;修改AppDelegate.swift&lt;/h2&gt;
+&lt;h3&gt;修改AppDelegate.swift&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;UIKit&lt;/span&gt;
 
 &lt;span class="nd"&gt;@UIApplicationMain&lt;/span&gt;
@@ -71,7 +131,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;预览&lt;/h2&gt;
+&lt;h3&gt;预览&lt;/h3&gt;
 &lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150226-7.png" title="" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/stormhouse/UIWithoutStoryboard/tree/v1.0"&gt;源代码&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 26 Feb 2015 20:41:00 +0800</pubDate><guid>tag:stormhouse.github.io,2015-02-26:posts/2015/develop-ios8-ui-without-storyboard/</guid><category>ios8</category><category>xcode6</category></item><item><title>grunt init plugin</title><link>http://stormhouse.github.io/posts/2014/grunt-init-plugin/</link><description>&lt;hr /&gt;
 &lt;h4&gt;安装node&lt;/h4&gt;
