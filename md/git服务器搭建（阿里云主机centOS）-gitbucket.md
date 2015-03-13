@@ -113,6 +113,7 @@ tag
 $ git tag
 $ git tag -a v1.0 -m 'comment'
 $ git push --tags
+$ git push origin :refs/tags/v2.0  # 删除远程tagv2.0
 ```
 
 ## 常见错误
