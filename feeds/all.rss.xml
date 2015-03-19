@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 11 Mar 2015 15:30:00 +0800</lastBuildDate><item><title>轻量级布局框架-Snap安装</title><link>http://stormhouse.github.io/posts/2015/snap-install/</link><description>&lt;p&gt;&lt;a href="https://github.com/Masonry/Snap"&gt;参考&lt;/a&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>stormhouse</title><link>http://stormhouse.github.io/</link><description></description><atom:link href="http://stormhouse.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 19 Mar 2015 10:34:00 +0800</lastBuildDate><item><title>非侵入性Cocoa依赖管理工具-Carthage</title><link>http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/</link><description>&lt;h3&gt;前面&lt;/h3&gt;
+&lt;p&gt;仅支持ios8；而且必须有&lt;a href="https://github.com/Carthage/Carthage/issues/235"&gt;开发者账号&lt;/a&gt;，否则编译不通过。&lt;/p&gt;
+&lt;p&gt;最近想重新学习firefox-ios代码，好久没有更新它的代码，今天git pull 下来后，编译不成功，认真一看发现它使用了&lt;code&gt;Carthage&lt;/code&gt;，做为项目的依赖管理工具。&lt;/p&gt;
+&lt;h3&gt;介绍&lt;/h3&gt;
+&lt;p&gt;初学ios，一定也会像原来写java时用maven，写Node时用npm。ios项目是也会有类似工具。&lt;/p&gt;
+&lt;p&gt;Carthage是非侵入的依赖管理工具，它使用xcodebuild来编译框架，生成二进制文件，然后由用户来选择集成它们（拖拽到你的Xcode项目中）。目前依赖源为github。&lt;/p&gt;
+&lt;h3&gt;安装&lt;/h3&gt;
+&lt;h4&gt;pkg安装&lt;/h4&gt;
+&lt;p&gt;去&lt;a href="https://github.com/Carthage/Carthage/releases"&gt;release&lt;/a&gt;列表中下载最新版本pkg文件安装&lt;/p&gt;
+&lt;h4&gt;源码编译安装&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone https://github.com/Carthage/Carthage.git
+&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;Carthage
+&lt;span class="nv"&gt;$ &lt;/span&gt;make install
+&lt;span class="nv"&gt;$ &lt;/span&gt;carthage version
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;使用&lt;/h3&gt;
+&lt;h4&gt;创建Cartfile文件，添加依赖库&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;github &amp;quot;Masonry/Snap&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;&lt;code&gt;carthage checkout&lt;/code&gt; 拉取并编译依赖的库&lt;/h4&gt;
+&lt;h4&gt;将编译后的二进制 .framework 添加到项目中&lt;/h4&gt;
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150301-2.png" title="" /&gt;&lt;/p&gt;
+&lt;p&gt;完成该过程后&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建一些&lt;a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md"&gt;build artifacts&lt;/a&gt;，Cartfile.lock文件，列出依赖库的具体版本&lt;/li&gt;
+&lt;li&gt;将依赖库检出到 &lt;code&gt;Carthage/Checkouts&lt;/code&gt; 目录，二进制文件在 &lt;code&gt;Carthage/Build&lt;/code&gt;。添加&lt;code&gt;Carthage&lt;/code&gt;文件夹添加到.gitignore&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;命令&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;carthage help&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    archive           Archives a built framework into a zip that Carthage can use
+    bootstrap         Check out and build the project&amp;#39;s dependencies
+    build             Build the project&amp;#39;s dependencies
+    checkout          Check out the project&amp;#39;s dependencies
+    copy-frameworks   In a Run Script build phase, copies each framework specified by a SCRIPT_INPUT_FILE environment variable into the built app bundle
+    fetch             Clones or fetches a Git repository ahead of time
+    help              Display general or command-specific help
+    update            Update and rebuild the project&amp;#39;s dependencies
+    version           Display the current version of Carthage
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">stormhouse</dc:creator><pubDate>Thu, 19 Mar 2015 10:34:00 +0800</pubDate><guid>tag:stormhouse.github.io,2015-03-19:posts/2015/unintrusive-dependency-manager-carthage/</guid><category>ios8</category></item><item><title>轻量级布局框架-Snap安装</title><link>http://stormhouse.github.io/posts/2015/snap-install/</link><description>&lt;p&gt;&lt;a href="https://github.com/Masonry/Snap"&gt;参考&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;介绍&lt;/h3&gt;
 &lt;p&gt;Snap是一个轻量级布局框架，使用优雅的语法封装AutoLayout。Snap拥有自己的布局DSL，它提供一种链式操作描述你的NSLayoutConstraints，使你的布局代码变得简明易读。Snap同时支持IOS和OS X。&lt;/p&gt;
 &lt;p&gt;Snap使用Swift的特性，例如函数重载，所以它不能在Objective-C中使用。正因如此，我们使用snp_做为前缀，而Masonry使用mas_，所心在你可以在同一项目中同时使用Masonry和Snap。&lt;/p&gt;

@@ -77,6 +77,32 @@
     <div class="row">
         <div class="col-lg-9">
             <article>
+                <h2><a href="http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/">非侵入性Cocoa依赖管理工具-Carthage</a></h2>
+                <div class="summary"><h3>前面</h3>
+<p>仅支持ios8；而且必须有<a href="https://github.com/Carthage/Carthage/issues/235">开发者账号</a>，否则编译不通过。</p>
+<p>最近想重新学习firefox-ios代码，好久没有更新它的代码，今天git pull 下来后，编译不成功，认真一看发现它使用了<code>Carthage</code>，做为项目的依赖管理工具。</p>
+<h3>介绍</h3>
+<p>初学ios，一定也会像原来写java时用maven，写Node时用npm。ios项目是也会有类似工具。</p>
+<p>Carthage是非侵入的依赖管理工具，它使用xcodebuild来编译框架，生成二进制文件，然后由用户来选择集成它们（拖拽到你的Xcode项目中）。目前依赖源为github。</p>
+<h3>安装</h3>
+<h4>pkg安装</h4>
+<p>去<a href="https://github.com/Carthage/Carthage/releases">release</a>列表中下载最新版本pkg文件安装</p>
+<h4>源码编译安装</h4>
+<div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Carthage/Carthage.git
+<span class="nv">$ </span><span class="nb">cd </span>Carthage
+<span class="nv">$ </span>make install
+<span class="nv">$ </span>carthage version
+</pre></div>
+
+
+<h3>使用</h3>
+<h4>创建Cartfile文件，添加依赖库</h4>
+<div class="highlight"><pre>github &quot;Masonry ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://stormhouse.github.io/posts/2015/snap-install/">轻量级布局框架-Snap安装</a></h2>
                 <div class="summary"><p><a href="https://github.com/Masonry/Snap">参考</a></p>
 <h3>介绍</h3>
@@ -747,13 +773,18 @@ git config --global user.email stormhouse@yeah ...</pre></div>
 
             <li class="list-group-item"><a href="http://stormhouse.github.io/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://stormhouse.github.io/tag/python.html">
+                        python
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://stormhouse.github.io/tag/animation.html">
                         animation
                     </a>
                 </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://stormhouse.github.io/tag/python.html">
-                        python
+                <li class="list-group-item tag-2">
+                    <a href="http://stormhouse.github.io/tag/http.html">
+                        http
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
@@ -762,18 +793,8 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                     </a>
                 </li>
                 <li class="list-group-item tag-2">
-                    <a href="http://stormhouse.github.io/tag/http.html">
-                        http
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
                     <a href="http://stormhouse.github.io/tag/ios8.html">
                         ios8
-                    </a>
-                </li>
-                <li class="list-group-item tag-3">
-                    <a href="http://stormhouse.github.io/tag/xcode6.html">
-                        xcode6
                     </a>
                 </li>
                 <li class="list-group-item tag-3">
@@ -781,19 +802,9 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                         git
                     </a>
                 </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/url.html">
-                        url
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/tomcat.html">
-                        tomcat
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/grunt.html">
-                        grunt
+                <li class="list-group-item tag-3">
+                    <a href="http://stormhouse.github.io/tag/xcode6.html">
+                        xcode6
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -802,8 +813,8 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
-                    <a href="http://stormhouse.github.io/tag/javascript.html">
-                        javascript
+                    <a href="http://stormhouse.github.io/tag/url.html">
+                        url
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -812,8 +823,23 @@ git config --global user.email stormhouse@yeah ...</pre></div>
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/javascript.html">
+                        javascript
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/grunt.html">
+                        grunt
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
                     <a href="http://stormhouse.github.io/tag/base64.html">
                         base64
+                    </a>
+                </li>
+                <li class="list-group-item tag-4">
+                    <a href="http://stormhouse.github.io/tag/tomcat.html">
+                        tomcat
                     </a>
                 </li>
         </ul>
