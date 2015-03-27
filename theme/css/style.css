@@ -1,6 +1,13 @@
 body {
     padding-top: 70px;
 }
+p{
+    line-height: 1.8em;
+}
+li{
+    line-height: 1.8em;
+}
+
 
 #sidebar .list-group, #sidebar .list-group-item {
     background-color: transparent;
