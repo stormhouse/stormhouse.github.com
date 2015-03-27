@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>stormhouse</title><link href="http://stormhouse.github.io/" rel="alternate"></link><link href="http://stormhouse.github.io/feeds/stormhouse.atom.xml" rel="self"></link><id>http://stormhouse.github.io/</id><updated>2015-03-19T10:34:00+08:00</updated><entry><title>非侵入性Cocoa依赖管理工具-Carthage</title><link href="http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/" rel="alternate"></link><updated>2015-03-19T10:34:00+08:00</updated><author><name>stormhouse</name></author><id>tag:stormhouse.github.io,2015-03-19:posts/2015/unintrusive-dependency-manager-carthage/</id><summary type="html">&lt;h3&gt;前面&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>stormhouse</title><link href="http://stormhouse.github.io/" rel="alternate"></link><link href="http://stormhouse.github.io/feeds/stormhouse.atom.xml" rel="self"></link><id>http://stormhouse.github.io/</id><updated>2015-03-25T20:05:00+08:00</updated><entry><title>React Native – React.js Goes Mobile</title><link href="http://stormhouse.github.io/posts/2015/react-reactjs-goes-mobile/" rel="alternate"></link><updated>2015-03-25T20:05:00+08:00</updated><author><name>stormhouse</name></author><id>tag:stormhouse.github.io,2015-03-25:posts/2015/react-reactjs-goes-mobile/</id><summary type="html">&lt;p&gt;&lt;a href="http://moduscreate.com/react-native-react-js-goes-mobile/"&gt;原文&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;Hello World /&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果你深入涉足JavaScript开发领域，难免你会听过：React.js已经进入移动端。1月28号，Tom Occhino--Facebokk软件工程师、&lt;a href="https://www.youtube.com/watch?v=KVZ-P-ZI6W4"&gt;React.js Conf 2015&lt;/a&gt; 演讲嘉宾，把React Native 公布于众。对比Reac.js，React Native旨于在IOS和Android开发中提供组件式开发。&lt;/p&gt;
+&lt;p&gt;2011年，Facebook创建一个内部使用的UI库，最终命名为React.js。继收购Instagram，使用React.js构建web应用的Facebook工程师，向流行移动应用致意。2014年5月，Facebook以BSD协议开源了&lt;a href="https://github.com/facebook/react"&gt;React.js&lt;/a&gt;。发布至今，React.js已经迭代很多次，当前版本为v0.12.2(最新beta版v0.13.0)。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ios Img" class="align-center" src="/img/150325-1.png" title="" /&gt;&lt;/p&gt;
+&lt;h3&gt;Why React Anything?&lt;/h3&gt;
+&lt;p&gt;React.js/React Native(简言之-'React')是一个UI库，旨在解决Facebook开发者常见的案例。这些案例并不是Facebook独有的。现在该库的人气正在上升，因为有像&lt;a href="https://www.khanacademy.org/"&gt;可汗学院&lt;/a&gt;这样的组织分享的&lt;a href="http://joelburget.com/backbone-to-react/"&gt;design challenges&lt;/a&gt;。React比较流行的特性包括：Virtual DOM, (one-way) data flow 和 isomorphism。&lt;/p&gt;
+&lt;h4&gt;Virtual Dom&lt;/h4&gt;
+&lt;p&gt;"Virtual DOM"是指第一次加载到内存中的DOM，然后渲染为普通的DOM。在React.js里，通过任一普通的JS语法或JSX（JavaScript syntaX）来实现--一段基于XML结构的HTML，直接将传统的DOM元素直接写入JavaScript中。React使用一个diff算法，对比之前和现在（虚拟DOM）两种状态，创建一个DOM patch。这个patch仅包括真正需要的变化，再渲染到实现DOM中。因此，刷新速度远大于传统的DOM操作方法。想要更深入探讨这个话题，移步 &lt;a href="http://stackoverflow.com/questions/21109361/why-is-reacts-concept-of-virtual-dom-said-to-be-more-performant-than-dirty-mode"&gt;Stack Overflow&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;(One-Way) Data Flow&lt;/h4&gt;
+&lt;p&gt;相对于流行MVC框架的双向绑定，React使用单向绑定。数据从父级到子级的传送是由父级决定的。除了单向数据共享，每个组件保持一个维一的状态，该状态是由组件内的方法控制的。这种结构保证了程序内部间更少的依赖连接。因此，呈现给开发者一个简单的思维模型。&lt;/p&gt;
+&lt;h4&gt;Isomorphic&lt;/h4&gt;
+&lt;p&gt;React 是个典型的同构（isomorphic）JavaScript，意味着它可以同时在服务端和客户端渲染。服务端渲染JavaScript可以提高客户端性能和用户体验。另一个好处就是通过应用程序检索改进SEO。传统单页应用结合application variant，有助于Headless browsers搜索。使用这种variant增加了复杂性，有时也需支付额外费用。由于React代码在服务端渲染，客户端收到的完全可被索引，因此就省去了headless browser。&lt;/p&gt;
+&lt;h3&gt;React goes Mobile&lt;/h3&gt;
+&lt;p&gt;React.js已经进入了JS生态系统，毋庸置疑。React Mobile将继续升温。React Native运行JS的引擎作为独立的，后台进程，通过批处理和异步消息协议与本地主服务（Objective C或Android编写）通信。该协议是一个简单的插件加其它的JS资源。The chief differences between the React siblings are minor。JSX中的DOM元素被替换于对应的原生组件，css-flexbox被用来布局和定位。React Native使用和React.js相同的APIs，因此重点将从学习一个新的库转移到学习其APIs和核心语法。最后，当关闭JS引擎和本地主服务进程的连接，应用将有更高性能，并能处理比传统单页应用更优触摸事件。&lt;/p&gt;
+&lt;h3&gt;Ready for Prime Time?&lt;/h3&gt;
+&lt;p&gt;当你在下一个项目为它评估时，这里给出React的主要优势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;React并不激进。它的目标在于解决特定的问题，单向数据绑定结构可以提高性能，并能减少开发者的困惑。&lt;/li&gt;
+&lt;li&gt;JSX能让你使用类"HTML"语法格式，柔化了代码和标记。这点在React Native里尤为重要，它提高了原生组件代码的综合语义。&lt;/li&gt;
+&lt;li&gt;将原生和web两种开发平台的交叉，助于开发者的效率并能降低维护多个代码库的成本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;理念和语言方面的学习曲线。React不如流行的库如jQuery，也不完全像MVC/MVVM类型的框架如Angular JS或Ember.js&lt;/li&gt;
+&lt;li&gt;Deciding to use React will require buy-in from designers, product managers, content owners, and anyone else who touches markup. JSX不是HTML，不合理的标记也许会引起BUG，直接暴露给客户&lt;/li&gt;
+&lt;li&gt;React Native 通过JS捍卫CSS，一种的delivery机制，将内联CSS渲染到组件上。Cool - 但这违背另一种最佳实践，and potentially another source of defects from non-developer contributors.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Final Word&lt;/h3&gt;
+&lt;p&gt;React.js 和 React Native 就是一个有吸引力的豆荚里的两个豌豆。虽然它的实现细节违背最佳实践。但它们要实现一个明确的目标：高性能、方便使用的库、重视用户体验和代码的可维护性。React Native，就像React.js一样，是同构的--梦幻般的在移动端前行。React Native不久将开源，并支持Android平台。最重要的？ React Native 开发者就是React.js开发者。两个以前不同技术营造了一个通用的解决方案。尽管这并不完美，但这决对是JS生态圈最值得庆幸的事了。&lt;/p&gt;</summary><category term="react"></category></entry><entry><title>非侵入性Cocoa依赖管理工具-Carthage</title><link href="http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/" rel="alternate"></link><updated>2015-03-19T10:34:00+08:00</updated><author><name>stormhouse</name></author><id>tag:stormhouse.github.io,2015-03-19:posts/2015/unintrusive-dependency-manager-carthage/</id><summary type="html">&lt;h3&gt;前面&lt;/h3&gt;
 &lt;p&gt;仅支持ios8；而且必须有&lt;a href="https://github.com/Carthage/Carthage/issues/235"&gt;开发者账号&lt;/a&gt;，否则编译不通过。&lt;/p&gt;
 &lt;p&gt;最近想重新学习firefox-ios代码，好久没有更新它的代码，今天git pull 下来后，编译不成功，认真一看发现它使用了&lt;code&gt;Carthage&lt;/code&gt;，做为项目的依赖管理工具。&lt;/p&gt;
 &lt;h3&gt;介绍&lt;/h3&gt;

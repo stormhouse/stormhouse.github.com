@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>非侵入性Cocoa依赖管理工具-Carthage</title>
+    <title>React Native – React.js Goes Mobile</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,9 +12,9 @@
     <!-- Open Graph tags -->
 
             <meta property="og:type" content="article"/>
-            <meta property="og:title" content="非侵入性Cocoa依赖管理工具-Carthage"/>
-            <meta property="og:url" content="http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/"/>
-            <meta property="og:description" content="前面 仅支持ios8；而且必须有开发者账号，否则编译不通过。 最近想重新学习firefox-ios代码，好久没有更新它的代码，今天git pull 下来后，编译不成功，认真一看发现它使用了Carthage，做为项目的依赖管理工具。 介绍 初学ios，一定也会像原来写java时用maven，写Node时用npm。ios项目是也会有类似工具。 Carthage是非侵入的依赖管理工具，它使用xcodebuild来编译框架，生成二进制文件，然后由用户来选择集成它们（拖拽到你的Xcode项目中）。目前依赖源为github。 安装 pkg安装 去release列表中下载最新版本pkg文件安装 源码编译安装 $ git clone https://github.com/Carthage/Carthage.git $ cd Carthage $ make install $ carthage version 使用 创建Cartfile文件，添加依赖库 github "Masonry ..."/>
+            <meta property="og:title" content="React Native – React.js Goes Mobile"/>
+            <meta property="og:url" content="http://stormhouse.github.io/posts/2015/react-reactjs-goes-mobile/"/>
+            <meta property="og:description" content="原文 <Hello World /> 如果你深入涉足JavaScript开发领域，难免你会听过：React.js已经进入移动端。1月28号，Tom Occhino--Facebokk软件工程师、React.js Conf 2015 演讲嘉宾，把React Native 公布于众。对比Reac.js，React Native旨于在IOS和Android开发中提供组件式开发。 2011年，Facebook创建一个内部使用的UI库，最终命名为React.js。继收购Instagram，使用React.js构建web应用的Facebook工程师，向流行移动应用致意。2014年5月，Facebook以BSD协议开源了React.js。发布至今，React.js已经迭代很多次，当前版本为v0.12.2(最新beta版v0.13.0)。 Why React Anything? React.js/React Native ..."/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://stormhouse.github.io/theme/css/bootstrap.min.css" type="text/css"/>
@@ -43,7 +43,7 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
+                        <li class="active">
                             <a href="http://stormhouse.github.io/category/react.html">react</a>
                         </li>
                         <li >
@@ -52,7 +52,7 @@
                         <li >
                             <a href="http://stormhouse.github.io/category/javascript.html">javascript</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="http://stormhouse.github.io/category/ios.html">ios</a>
                         </li>
                         <li >
@@ -83,10 +83,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/"
+                    <a href="http://stormhouse.github.io/posts/2015/react-reactjs-goes-mobile/"
                        rel="bookmark"
-                       title="Permalink to 非侵入性Cocoa依赖管理工具-Carthage">
-                        非侵入性Cocoa依赖管理工具-Carthage
+                       title="Permalink to React Native – React.js Goes Mobile">
+                        React Native – React.js Goes Mobile
                     </a>
                 </h1>
             </header>
@@ -96,58 +96,48 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>Thu 19 March 2015
+        <i class="icon-calendar"></i>Wed 25 March 2015
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://stormhouse.github.io/tag/ios8.html">ios8</a>
+	<a href="http://stormhouse.github.io/tag/react.html">react</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <h3>前面</h3>
-<p>仅支持ios8；而且必须有<a href="https://github.com/Carthage/Carthage/issues/235">开发者账号</a>，否则编译不通过。</p>
-<p>最近想重新学习firefox-ios代码，好久没有更新它的代码，今天git pull 下来后，编译不成功，认真一看发现它使用了<code>Carthage</code>，做为项目的依赖管理工具。</p>
-<h3>介绍</h3>
-<p>初学ios，一定也会像原来写java时用maven，写Node时用npm。ios项目是也会有类似工具。</p>
-<p>Carthage是非侵入的依赖管理工具，它使用xcodebuild来编译框架，生成二进制文件，然后由用户来选择集成它们（拖拽到你的Xcode项目中）。目前依赖源为github。</p>
-<h3>安装</h3>
-<h4>pkg安装</h4>
-<p>去<a href="https://github.com/Carthage/Carthage/releases">release</a>列表中下载最新版本pkg文件安装</p>
-<h4>源码编译安装</h4>
-<div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Carthage/Carthage.git
-<span class="nv">$ </span><span class="nb">cd </span>Carthage
-<span class="nv">$ </span>make install
-<span class="nv">$ </span>carthage version
+                <p><a href="http://moduscreate.com/react-native-react-js-goes-mobile/">原文</a></p>
+<div class="highlight"><pre>&lt;Hello World /&gt;
 </pre></div>
 
 
-<h3>使用</h3>
-<h4>创建Cartfile文件，添加依赖库</h4>
-<div class="highlight"><pre>github &quot;Masonry/Snap&quot;
-</pre></div>
-
-
-<h4><code>carthage checkout</code> 拉取并编译依赖的库</h4>
-<h4>将编译后的二进制 .framework 添加到项目中</h4>
-<p><img alt="ios Img" class="align-center" src="/img/150301-2.png" title="" /></p>
-<p>完成该过程后</p>
+<p>如果你深入涉足JavaScript开发领域，难免你会听过：React.js已经进入移动端。1月28号，Tom Occhino--Facebokk软件工程师、<a href="https://www.youtube.com/watch?v=KVZ-P-ZI6W4">React.js Conf 2015</a> 演讲嘉宾，把React Native 公布于众。对比Reac.js，React Native旨于在IOS和Android开发中提供组件式开发。</p>
+<p>2011年，Facebook创建一个内部使用的UI库，最终命名为React.js。继收购Instagram，使用React.js构建web应用的Facebook工程师，向流行移动应用致意。2014年5月，Facebook以BSD协议开源了<a href="https://github.com/facebook/react">React.js</a>。发布至今，React.js已经迭代很多次，当前版本为v0.12.2(最新beta版v0.13.0)。</p>
+<p><img alt="ios Img" class="align-center" src="/img/150325-1.png" title="" /></p>
+<h3>Why React Anything?</h3>
+<p>React.js/React Native(简言之-'React')是一个UI库，旨在解决Facebook开发者常见的案例。这些案例并不是Facebook独有的。现在该库的人气正在上升，因为有像<a href="https://www.khanacademy.org/">可汗学院</a>这样的组织分享的<a href="http://joelburget.com/backbone-to-react/">design challenges</a>。React比较流行的特性包括：Virtual DOM, (one-way) data flow 和 isomorphism。</p>
+<h4>Virtual Dom</h4>
+<p>"Virtual DOM"是指第一次加载到内存中的DOM，然后渲染为普通的DOM。在React.js里，通过任一普通的JS语法或JSX（JavaScript syntaX）来实现--一段基于XML结构的HTML，直接将传统的DOM元素直接写入JavaScript中。React使用一个diff算法，对比之前和现在（虚拟DOM）两种状态，创建一个DOM patch。这个patch仅包括真正需要的变化，再渲染到实现DOM中。因此，刷新速度远大于传统的DOM操作方法。想要更深入探讨这个话题，移步 <a href="http://stackoverflow.com/questions/21109361/why-is-reacts-concept-of-virtual-dom-said-to-be-more-performant-than-dirty-mode">Stack Overflow</a></p>
+<h4>(One-Way) Data Flow</h4>
+<p>相对于流行MVC框架的双向绑定，React使用单向绑定。数据从父级到子级的传送是由父级决定的。除了单向数据共享，每个组件保持一个维一的状态，该状态是由组件内的方法控制的。这种结构保证了程序内部间更少的依赖连接。因此，呈现给开发者一个简单的思维模型。</p>
+<h4>Isomorphic</h4>
+<p>React 是个典型的同构（isomorphic）JavaScript，意味着它可以同时在服务端和客户端渲染。服务端渲染JavaScript可以提高客户端性能和用户体验。另一个好处就是通过应用程序检索改进SEO。传统单页应用结合application variant，有助于Headless browsers搜索。使用这种variant增加了复杂性，有时也需支付额外费用。由于React代码在服务端渲染，客户端收到的完全可被索引，因此就省去了headless browser。</p>
+<h3>React goes Mobile</h3>
+<p>React.js已经进入了JS生态系统，毋庸置疑。React Mobile将继续升温。React Native运行JS的引擎作为独立的，后台进程，通过批处理和异步消息协议与本地主服务（Objective C或Android编写）通信。该协议是一个简单的插件加其它的JS资源。The chief differences between the React siblings are minor。JSX中的DOM元素被替换于对应的原生组件，css-flexbox被用来布局和定位。React Native使用和React.js相同的APIs，因此重点将从学习一个新的库转移到学习其APIs和核心语法。最后，当关闭JS引擎和本地主服务进程的连接，应用将有更高性能，并能处理比传统单页应用更优触摸事件。</p>
+<h3>Ready for Prime Time?</h3>
+<p>当你在下一个项目为它评估时，这里给出React的主要优势：</p>
 <ul>
-<li>创建一些<a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md">build artifacts</a>，Cartfile.lock文件，列出依赖库的具体版本</li>
-<li>将依赖库检出到 <code>Carthage/Checkouts</code> 目录，二进制文件在 <code>Carthage/Build</code>。添加<code>Carthage</code>文件夹添加到.gitignore</li>
+<li>React并不激进。它的目标在于解决特定的问题，单向数据绑定结构可以提高性能，并能减少开发者的困惑。</li>
+<li>JSX能让你使用类"HTML"语法格式，柔化了代码和标记。这点在React Native里尤为重要，它提高了原生组件代码的综合语义。</li>
+<li>将原生和web两种开发平台的交叉，助于开发者的效率并能降低维护多个代码库的成本</li>
 </ul>
-<h3>命令</h3>
-<p><code>carthage help</code>:</p>
-<div class="highlight"><pre>    archive           Archives a built framework into a zip that Carthage can use
-    bootstrap         Check out and build the project&#39;s dependencies
-    build             Build the project&#39;s dependencies
-    checkout          Check out the project&#39;s dependencies
-    copy-frameworks   In a Run Script build phase, copies each framework specified by a SCRIPT_INPUT_FILE environment variable into the built app bundle
-    fetch             Clones or fetches a Git repository ahead of time
-    help              Display general or command-specific help
-    update            Update and rebuild the project&#39;s dependencies
-    version           Display the current version of Carthage
-</pre></div>
+<p>缺点：</p>
+<ul>
+<li>理念和语言方面的学习曲线。React不如流行的库如jQuery，也不完全像MVC/MVVM类型的框架如Angular JS或Ember.js</li>
+<li>Deciding to use React will require buy-in from designers, product managers, content owners, and anyone else who touches markup. JSX不是HTML，不合理的标记也许会引起BUG，直接暴露给客户</li>
+<li>React Native 通过JS捍卫CSS，一种的delivery机制，将内联CSS渲染到组件上。Cool - 但这违背另一种最佳实践，and potentially another source of defects from non-developer contributors.</li>
+</ul>
+<h3>Final Word</h3>
+<p>React.js 和 React Native 就是一个有吸引力的豆荚里的两个豌豆。虽然它的实现细节违背最佳实践。但它们要实现一个明确的目标：高性能、方便使用的库、重视用户体验和代码的可维护性。React Native，就像React.js一样，是同构的--梦幻般的在移动端前行。React Native不久将开源，并支持Android平台。最重要的？ React Native 开发者就是React.js开发者。两个以前不同技术营造了一个通用的解决方案。尽管这并不完美，但这决对是JS生态圈最值得庆幸的事了。</p>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -157,8 +147,8 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'stormhouse'; // required: replace example with your forum shortname
-            var disqus_identifier = 'unintrusive-dependency-manager-carthage';
-            var disqus_url = 'http://stormhouse.github.io/posts/2015/unintrusive-dependency-manager-carthage/';
+            var disqus_identifier = 'react-reactjs-goes-mobile';
+            var disqus_url = 'http://stormhouse.github.io/posts/2015/react-reactjs-goes-mobile/';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
