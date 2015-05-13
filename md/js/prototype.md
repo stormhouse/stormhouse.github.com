@@ -28,3 +28,6 @@ new Object()
 Object Instance 没有原型(构造自某个原型)，
 Constructor 有原型
 原型也是一个对象，构造器有一个原型A，通过该构造器创建的实例，复制A
+
+## 空的对象{}是所有对象根
+Object()构造器的原型是{}
