@@ -1,3 +1,10 @@
+```
+node debug test.js
+list(10)
+sb(9)
+bt
+```
+
 ## node debug test.js
 
 [Node.js Debugger][1]
