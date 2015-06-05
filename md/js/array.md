@@ -68,7 +68,12 @@ A JavaScript array is actually a specialized type of JavaScript object, with the
     //concat
     c = a.concat()
     //for
-
+```
+function swapArray(array, index1, index2) {
+    array[index1] = array.splice(index2, 1, array[index1])[0];
+    return array;
+};
+```
 
 
 
