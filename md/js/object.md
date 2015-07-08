@@ -31,3 +31,15 @@ Constructor 有原型
 
 ## 空的对象{}是所有对象根
 Object()构造器的原型是{}
+
+## in & hasOwnProperty & delete
+
+- 原型属性 & 实例属性
+- delete:  删除实例属性
+- Object.keys()
+
+## 属性
+
+- 
+
+##
