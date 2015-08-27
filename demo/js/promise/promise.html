@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link type="text/css" rel="stylesheet" href="../../common.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../../lib/syntaxhighlighter/shCoreDefault.css"/>
+
+  <style>
+        
+  </style>
+</head>
+<body>
+
+<script>
+
+function a(flag){
+    return new Promise(function(resolve, reject) {
+        console.log('a')
+        if(flag){
+            console.log('resolve')
+            resolve('resolve')
+        }else{
+            console.log('reject')
+            reject('reject')
+        }
+    })
+}
+function b(arg){
+    return new Promise(function(resolve, reject) {
+        console.log('b')
+        console.log(arg)
+      	resolve();
+    })
+}
+
+
+//执行！
+void function (){
+    a(true).then(b)
+}();
+    
+</script>
+</body>
+</html>

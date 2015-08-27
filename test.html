@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        @keyframes large {
+
+            0% {
+                transform: scale(1, 1);
+            }
+            8%{
+                transform: scale(1.1, 1.1);
+            }
+            16%{
+                transform: scale(1, 1);
+            }
+            24% {
+                transform: scale(1.1, 1.1);
+            }
+            30% {
+                transform: scale(1, 1);
+                transform: rotate(0deg) translate(0px, 0px) rotate(0deg);
+            }
+            /*60% {*/
+                /*transform: rotate(0deg) translate(10px, 50px) rotate(0deg);*/
+            /*}*/
+            100% {
+                transform: rotate(0deg) translate(0px, 100px) rotate(0deg);
+            }
+
+        }
+        @keyframes rot {
+            from {
+                transform: rotate(0deg)
+                translate(0px, 0px)
+                rotate(0deg);
+            }
+            to {
+                transform: rotate(0deg)
+                translate(0px, 100px)
+                rotate(0deg);
+            }
+        }
+
+        .smile {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 200px;
+            font-size: 100px;
+            animation: large 1s infinite ease;
+        }
+    </style>
+</head>
+<body>
+<div class="smile">☺</div>
+
+</body>
+</html>
