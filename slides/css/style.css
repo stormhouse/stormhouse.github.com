@@ -1,0 +1,115 @@
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+.aside-main{
+  width: calc(60% - 10px);
+  float: right;
+}
+.aside-minor{
+  width: 40%;
+  float: left;
+}
+.aside-half{
+  width: calc(50% - 10px)!important;
+}
+.aside-minor li{
+  line-height: 1.5em;
+}
+
+code[class*="language-"]{
+  position: relative;
+  left: -30px
+}
+
+a.link{
+  font-size: 14px;
+  text-shadow: 0 0 0;
+  text-decoration: underline;
+  margin-right: 126px;
+}
+
+.article a{
+  text-shadow: 0 0 0;
+  text-decoration: underline;
+}
+
+
+.step-summary{
+  text-align: center;
+}
+.desc-minor{
+  margin-top: 20px;
+}
+.desc-minor p{
+  font-size: 18px;
+}
+
+.mt-lizhan{
+  margin-top: 100px;
+}
+.text-right{
+  text-align: right;
+}
+.text-right a{
+  font-size: 14px;
+  text-shadow: 0 0 0;
+  text-decoration: underline;
+  margin-right: 126px;
+}
+.text-right span{
+  font-size: 14px;
+}
+
+.mt-node-modules{
+  margin-top: 26px;
+}
+
+.mt-structure{
+  margin-top: 100px;
+}
+
+
+
+
+
+.plus-minus-warpper{
+  display: inline-block;
+  overflow: hidden;
+}
+.plus-minus-warpper a,
+.plus-minus-warpper input{
+  padding: 0;
+  margin: 0;
+  float:left;
+  height: 26px;
+  border: 1px solid #ccc;
+  vertical-align: top;
+  line-height: 26px;
+  border-radius: 0;
+  text-shadow: 0 0 0;
+  text-align: center;
+}
+.plus-minus-warpper a{
+  width: 26px;
+  cursor: pointer;
+}
+.plus-minus-warpper input{
+  color: #232323;
+  width: 48px;
+  line-height: 26px;
+}
+.plus-minus-warpper input:hover{
+  border: 1px solid #969696;
+}
+.plus-minus-warpper .minus{
+  border-right: 0!important;
+}
+.plus-minus-warpper .plus{
+  border-left: 0!important;
+}
+
+
+.plus-minus-result{
+  font-size: 16px;
+}
