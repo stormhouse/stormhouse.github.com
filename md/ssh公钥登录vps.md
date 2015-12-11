@@ -7,8 +7,8 @@
 把公钥放到服务器上（~/.ssh/authorized_keys）, 自己保留好私钥
 在使用ssh登录时,ssh程序会发送私钥去和服务器上的公钥做匹配.如果匹配成功就自动登录了
 
+## 生成 -> 服务器
 ```
-// 生成
 ssh-keygen -t dsa
 // 拷贝公钥到服务器
 scp  ~/.ssh/id_dsa.pub root@remotehost:/
@@ -17,11 +17,18 @@ scp  ~/.ssh/id_dsa.pub root@remotehost:/
 cat id_dsa.pub >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 rm  id_dsa.pub
+```
+## 配置
+```
+vim /etc/ssh/sshd_config
 
-// 配置
-vim /etc/ssh/sshd_config  // PubkeyAuthentication yes  
+PubkeyAuthentication yes  
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM no
 
-// 关闭传统密码登陆
-vim /etc/ssh/sshd_config  // UserPAM no
-
+```
+## 重启
+```
+service sshd restart
 ```
