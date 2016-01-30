@@ -62,8 +62,68 @@ client.on('end', function() {
 
 ## 状态码
 
-#### 通用
+#### 常用
 
-#### 请求
+```
+	* 100 - 提供一些信息
+	* 200 - 请求成功
+	* 300 - 重定向
+	* 400 - 请求出现问题
+	* 500 - 服务器出现问题
 
-#### 响应
+100 - Continue
+200 - Ok
+201 - Created PUT请求
+206 - 请求某范围之内的文件，通常被用来进行下载管理，断点续传或者文件分块下载
+301 - Moved Permanently 永久移动
+302 - Found 临时移动（Moved Temporarily）重定向Location，客户端请求中恢复原来URL
+304 - Not Modified 通过使用If-Mofified-Since和If-None-Match确定客户端是否请求最新版本资源
+400 - Bad Request
+401 - 未经授权（Unauthorized）
+403 - 被禁止（Forbidden）
+404 - Not Found
+405 - Method Not Allowed 如PUT方法不被支持
+413 - Request Entity Too Large 请求主体过长
+414 - Request URI Too Long URL过长
+500 - Internal Server Error
+503 - Service Unavailable
+
+```
+
+#### 常用消息头：
+```
+Connection - 告诉通信的另一端，完成http传输后是否关闭TCP
+Content-Encoding - 消息主体编码形式，如gzip
+Content-Length - 主体字节长度
+Content-Type - 消息主体的内容，如text/html
+Transfer-Encoding - 
+```
+
+#### 请求消息头：
+````
+Accept - 告诉服务器客户端能接受哪些内容
+Accept-Encoing - 能接受哪些编码
+Authorization - 内置http身份验证
+Cookie - 
+Host - 
+If-Modified-Since - 
+If-None-Match - 
+Origin - 
+Referer - 
+User-Agent - 
+```
+
+#### 响应消息头：
+```
+Access-Control-Allow-Origin - 
+Cache-Control - 
+ETag - 
+Expires - 
+Location - 
+Pragma - 
+Server - 
+Set-Cookie - 
+WWW-Authenticate - 
+X-Frame-Options - 
+```
+
