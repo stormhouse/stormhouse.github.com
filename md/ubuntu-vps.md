@@ -1,3 +1,4 @@
+## ssh公钥登录vps
 公私钥"认证的方式来进行ssh登录
 客户端上创建一对公私钥
 
@@ -7,7 +8,7 @@
 把公钥放到服务器上（~/.ssh/authorized_keys）, 自己保留好私钥
 在使用ssh登录时,ssh程序会发送私钥去和服务器上的公钥做匹配.如果匹配成功就自动登录了
 
-## 生成 -> 服务器
+#### 生成 -> 服务器
 ```
 ssh-keygen -t dsa
 // 拷贝公钥到服务器
@@ -18,7 +19,7 @@ cat id_dsa.pub >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 rm  id_dsa.pub
 ```
-## 配置
+#### 配置
 ```
 vim /etc/ssh/sshd_config
 
@@ -28,7 +29,11 @@ ChallengeResponseAuthentication no
 UsePAM no
 
 ```
-## 重启
+#### 重启
 ```
 service sshd restart
 ```
+
+## ubuntu设置防火墙
+#### 安装
+#### 配置
