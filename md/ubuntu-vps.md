@@ -34,6 +34,15 @@ UsePAM no
 service sshd restart
 ```
 
-## ubuntu设置防火墙
+## ubuntu设置ufw
 #### 安装
+```
+apt-get install ufw 
+ufw enable  # 开启
+ufw default deny  # 开机自动开启
+```
 #### 配置
+```
+ufw allow 9999/tcp
+ufw deny 80/tcp
+```
