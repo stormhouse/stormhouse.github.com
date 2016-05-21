@@ -18,7 +18,7 @@
 - 熟练JavaScript编码，了解原型、作用域、闭包、面向对象、函数式等特性
 - 熟练使用jQuery、Backbone、Avalon JS、RequireJS、Vue.js库与框架
 - 熟练使用EasyUI，了解部分源码
-- 了解NodeJS、Python、Swift、Java、Arduino、Vim等语言或工具
+- 了解NodeJS、Python、Java、Vim等语言或工具
 
 ## 自我评价
 
